@@ -1,0 +1,63 @@
+nav {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    background-color: #fff;
+ 
+    height: 2rem;
+    flex-shrink: 0;
+    background: rgba(255, 255, 255, 0.00);
+    backdrop-filter: blur(2px);
+   
+}
+nav .nav-links{
+    color: #000;
+    font-family: Inter;
+    font-size: 1.4375rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+nav .nav-div{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; 
+    align-items: center;
+    
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+   
+    margin-left: 25px;
+}
+
+nav a:hover {
+    text-decoration: none;
+}
+nav .nav-logo{
+    max-height: 40px; /* Adjust the height as needed */
+    margin-right: 10px; /* Add some margin between the logo and links */
+    width: 13.5625rem;
+    height: 7.125rem;
+    flex-shrink: 0;
+    
+}
+nav a#signup-button {
+    padding: 5px 20px;
+  
+    flex-shrink: 0;
+    background: rgba(21, 90, 112, 1);
+    color: var(--White, #FFF);
+    text-align: center;
+
+    /* Button Text */
+    font-family: Open Sans;
+    font-size: 0.900rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1rem; /* 114.286% */
+    letter-spacing: 0.04688rem;
+    text-transform: uppercase;
+}

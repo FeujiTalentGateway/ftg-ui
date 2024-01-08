@@ -1,23 +1,56 @@
+
 <app-header></app-header>
+
 <div class="content-container">
   <div class="left-content">
-    <h1 class="welcome">Welcome Back !</h1>
-    <h1 class="name">Feuji Talent Gateway</h1>
-      <form>
-          <label for="username">Username</label><br>
-          <input type="text" id="username" name="username" placeholder="Enter your Username"required><br>
+    <!-- Project Name  -->
+    <div class="welcome">
+      <h2 class="welcome-back">Welcome Back !</h2>
+      <h1 class="project-name">Feuji Talent Gateway</h1>
+    </div>
+      <!-- Login Form  -->
+    <form (ngSubmit)="onLogin()" [formGroup]="userForm!">
+      <!-- UserName Field  -->
+      <label for="username">Username</label>
+      <input
+        id="username"
+        type="text"
+        class="inputs"
+        placeholder="Enter your Username"
+        formControlName="userName"
+      />
+      <div class="error-message" *ngIf="(userForm?.get('userName')?.hasError('required') && userForm?.get('userName')?.touched) ||
+       (formSubmitted && userForm?.get('userName')?.hasError('required') )">
+        Username is required.
+      </div>
+        <!-- Password Field  -->
+      <div class="password">
+        <label for="password">Password</label>
+        <a href="#" class="forgot-password">Forgot Password?</a>
+      </div>
+      <div class="password-container">
+        <input
+          id="password"
+          class="inputs"
+          [type]="isPasswordVisible ? 'text' : 'password'"
+          placeholder="Password"
+          formControlName="password"
+        />
+        <i class="fa-solid {{ isPasswordVisible ? 'fa-eye-slash' : 'fa-eye' }}" id="eye" (click)="ToggleEye()"></i>      </div>
+      <div class="error-message"  *ngIf="(userForm?.get('password')?.hasError('required') && userForm?.get('password')?.touched) ||
+       (formSubmitted && userForm?.get('password')?.hasError('required'))">
+        Password is required.
+      </div>
+        <!-- Submit Field  -->
 
-          <label for="password">Password</label><br>
-          <input type="password" id="password" name="password" placeholder="Password">
-          <a href="#" class="forgot-password">Forgot Password?</a><br>
-          <input type="submit" value="Login">
-      </form>
+      <input type="submit" class="submit" />
+      <p>Don't have an account? <a href="#">Register here</a></p>
+    </form>
   </div>
+    <!-- Picture of the Login Page  -->
   <div class="right-content">
-      <!-- Content for the right div goes here -->
-      <img src="assets/images/feuji-image.png" alt="">
+    <img src="assets/images/feuji-image.png" alt="select the correct path" />
   </div>
 </div>
 
-
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">

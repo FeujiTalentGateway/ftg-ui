@@ -37,7 +37,6 @@ export class AuthService {
       next: (response: any) => {
         console.log(response.message);
         if (response.message == 'Successfully logged in') {
-          console.log('successfully login');
           this.openSnackBar('Login successfully', 'Close');
           this.setJwtToken(response.token);
           const tokenPayload = this.decodedToken();
@@ -51,7 +50,7 @@ export class AuthService {
           this.openSnackBar('Invalid username or password', 'Close');
       },
       error: (error: any) => {
-        if (error.status == 403) {
+        if (error.status == 400) {
           this.openSnackBar('Invalid Username or Password', 'Close');
         } else {
           this.openSnackBar('Something went wrong', 'Close');

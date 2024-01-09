@@ -5,14 +5,14 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthRepositoryService {
-
   baseUrl: string = environment.apiUrl;
   constructor(private http: HttpClient) {
     this.baseUrl = environment.apiUrl;
   }
+  
   login(loginData: UserLoginModel): Observable<any> {
     console.log('Inside auth repo: login()');
     // Send a POST request to the login endpoint with login data

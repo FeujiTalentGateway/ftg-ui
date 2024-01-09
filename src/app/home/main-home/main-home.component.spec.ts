@@ -11,9 +11,8 @@ describe('MainHomeComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MainHomeComponent ]
-    })
-    .compileComponents();
+      declarations: [MainHomeComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

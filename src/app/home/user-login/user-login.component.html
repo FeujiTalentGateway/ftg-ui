@@ -1,4 +1,3 @@
-
 <app-header></app-header>
 
 <div class="content-container">
@@ -8,8 +7,8 @@
       <h2 class="welcome-back">Welcome Back !</h2>
       <h1 class="project-name">Feuji Talent Gateway</h1>
     </div>
-      <!-- Login Form  -->
-    <form (ngSubmit)="onLogin()" [formGroup]="userForm!">
+    <!-- Login Form  -->
+    <form (ngSubmit)="onLogin()" [formGroup]="userForm!" >
       <!-- UserName Field  -->
       <label for="username">Username</label>
       <input
@@ -19,11 +18,17 @@
         placeholder="Enter your Username"
         formControlName="userName"
       />
-      <div class="error-message" *ngIf="(userForm?.get('userName')?.hasError('required') && userForm?.get('userName')?.touched) ||
-       (formSubmitted && userForm?.get('userName')?.hasError('required') )">
+      <div
+        class="error-message"
+        *ngIf="
+          (userForm?.get('userName')?.hasError('required') &&
+            userForm?.get('userName')?.touched) ||
+          (formSubmitted && userForm?.get('userName')?.hasError('required'))
+        "
+      >
         Username is required.
       </div>
-        <!-- Password Field  -->
+      <!-- Password Field  -->
       <div class="password">
         <label for="password">Password</label>
         <a href="#" class="forgot-password">Forgot Password?</a>
@@ -36,21 +41,35 @@
           placeholder="Password"
           formControlName="password"
         />
-        <i class="fa-solid {{ isPasswordVisible ? 'fa-eye-slash' : 'fa-eye' }}" id="eye" (click)="ToggleEye()"></i>      </div>
-      <div class="error-message"  *ngIf="(userForm?.get('password')?.hasError('required') && userForm?.get('password')?.touched) ||
-       (formSubmitted && userForm?.get('password')?.hasError('required'))">
+        <i
+          class="fa-solid {{ isPasswordVisible ? 'fa-eye-slash' : 'fa-eye' }}"
+          id="eye"
+          (click)="ToggleEye()"
+        ></i>
+      </div>
+      <div
+        class="error-message"
+        *ngIf="
+          (userForm?.get('password')?.hasError('required') &&
+            userForm?.get('password')?.touched) ||
+          (formSubmitted && userForm?.get('password')?.hasError('required'))
+        "
+      >
         Password is required.
       </div>
-        <!-- Submit Field  -->
-
-      <input type="submit" class="submit" />
-      <p>Don't have an account? <a href="#">Register here</a></p>
+      <!-- Submit Field  -->
+      <button [disabled]="!userForm?.valid" class="submit-button" [ngClass]="{ 'submit-button': userForm && userForm.valid, 'submit-invalid': userForm && !userForm.valid }"
+      >Submit</button>
+      <p>Don't have an account? <a [routerLink]="['/register']">Register here</a></p>
     </form>
   </div>
-    <!-- Picture of the Login Page  -->
+  <!-- Picture of the Login Page  -->
   <div class="right-content">
     <img src="assets/images/feuji-image.png" alt="select the correct path" />
   </div>
 </div>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+/>

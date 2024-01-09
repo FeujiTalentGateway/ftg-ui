@@ -7,20 +7,22 @@ import { UserLoginModel } from '../models/user-login.model';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-
-
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   private userPayload: any;
   dialogRef: any;
   constructor(
     private authRepo: AuthRepositoryService,
-     private snackBar: MatSnackBar,
+    private snackBar: MatSnackBar,
     private route: Router,
-    private userDetails: UserdetailsService,
+    private userDetails: UserdetailsService
   ) {}
+
+    // Handle user registration based on form data
+    
+
   login(loginData: FormGroup) {
     localStorage.removeItem('Email-Token');
     // Create a new instance of LoginUser with the form data
@@ -46,7 +48,7 @@ export class AuthService {
           this.route.navigateByUrl('/home');
         }
         if (response.message == 'Invalid username or password')
-          this.openSnackBar('Invalid username or passwordy logged in', 'Close');
+          this.openSnackBar('Invalid username or password', 'Close');
       },
       error: (error: any) => {
         if (error.status == 403) {
@@ -59,7 +61,8 @@ export class AuthService {
   }
   setJwtToken(token: any) {
     localStorage.setItem('token', token);
-  }decodedToken() {
+  }
+  decodedToken() {
     const jwtHelper = new JwtHelperService();
     const jwtToken = localStorage.getItem('token') || '';
     try {
@@ -69,6 +72,14 @@ export class AuthService {
     }
     return this.userPayload;
   }
+  
+  // Check if the JWT token has expired
+  isTokenExpired() {
+    const jwtHelper = new JwtHelperService();
+    const jwtToken = localStorage.getItem('token')!;
+    return jwtHelper.isTokenExpired(jwtToken);
+  }
+
 
   openSnackBar(message: string, action: string) {
     this.snackBar.open(message, action, {
@@ -78,6 +89,4 @@ export class AuthService {
       horizontalPosition: 'center',
     });
   }
-
-
 }

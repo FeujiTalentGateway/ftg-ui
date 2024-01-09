@@ -1,6 +1,4 @@
-export class UserLoginModel{
-
-    userName?:string;
-    password?:string;
-   
+export class UserLoginModel {
+  userName?: string;
+  password?: string;
 }

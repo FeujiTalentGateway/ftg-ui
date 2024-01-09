@@ -2,15 +2,15 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserdetailsService {
   // BehaviorSubjects to store user-related data
-  private name$ = new BehaviorSubject<string>("");
-  private role$ = new BehaviorSubject<string>("");
-  private userName$ = new BehaviorSubject<string>("");
+  private name$ = new BehaviorSubject<string>('');
+  private role$ = new BehaviorSubject<string>('');
+  private userName$ = new BehaviorSubject<string>('');
 
-  constructor() { }
+  constructor() {}
 
   // Get the user's name from the stored data as an observable
   public getNameFromToken() {

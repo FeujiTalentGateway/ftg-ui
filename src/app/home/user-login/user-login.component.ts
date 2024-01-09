@@ -7,40 +7,30 @@ import { AuthService } from 'src/app/services/auth.service';
 @Component({
   selector: 'app-user-login',
   templateUrl: './user-login.component.html',
-  styleUrls: ['./user-login.component.css']
+  styleUrls: ['./user-login.component.css'],
 })
 export class UserLoginComponent implements OnInit {
-
-  constructor(private router: Router
-    ,private authService:AuthService) {
-
-  }
+  constructor(private router: Router, private authService: AuthService) {}
   username: string = '';
   password: string = '';
-  isPasswordVisible:boolean=false
-  formSubmitted:boolean=false
-
-  userLogin:UserLoginModel=new UserLoginModel()  //using UserLoginModel
+  isPasswordVisible: boolean = false;
+  formSubmitted: boolean = false;
 
   ngOnInit() {
     this.userForm = new FormGroup({
-      userName:new FormControl(null,Validators.required),
-      password:new FormControl(null,Validators.required)
-    })
+      userName: new FormControl(null, Validators.required),
+      password: new FormControl(null, Validators.required),
+    });
   }
 
-  ToggleEye(){
+  ToggleEye() {
     this.isPasswordVisible = !this.isPasswordVisible;
   }
-  userForm?:FormGroup
+  userForm?: FormGroup;
   onLogin() {
-    this.formSubmitted=true
-    if(this.userForm?.valid){
-      this.userLogin.userName = this.userForm.controls['userName'].value
-      this.userLogin.password = this.userForm.controls['password'].value
-      console.log(this.userLogin);
-      this.authService.login(this.userForm)
-      this.router.navigate(['home']);
+    this.formSubmitted = true;
+    if (this.userForm?.valid) {
+      this.authService.login(this.userForm);
     }
   }
 }

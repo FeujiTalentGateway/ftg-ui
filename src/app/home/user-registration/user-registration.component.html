@@ -16,6 +16,7 @@
         <a href="#" class="nav-link col-sm-2 navi">Contact</a>
         <div
           type="button"
+          [routerLink]="['/home/login']"
           class="btn btn-outline-primary btn-sm col-2 col-sm-2 login"
         >
           Login
@@ -256,7 +257,7 @@
         </div>
         <div class="login-link text-center">
           Already have an account?
-          <a routerLink="/home/login"><span> Login</span></a>
+          <a [routerLink]="['/home/login']"><span> Login</span></a>
         </div>
       </form>
     </div>

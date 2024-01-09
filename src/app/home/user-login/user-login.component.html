@@ -59,7 +59,7 @@
       <!-- Submit Field  -->
       <button [disabled]="!userForm?.valid" class="submit-button" [ngClass]="{ 'submit-button': userForm && userForm.valid, 'submit-invalid': userForm && !userForm.valid }"
       >Submit</button>
-      <p>Don't have an account? <a [routerLink]="['/register']">Register here</a></p>
+      <p>Don't have an account? <a [routerLink]="['/home/register']">Register here</a></p>
     </form>
   </div>
   <!-- Picture of the Login Page  -->

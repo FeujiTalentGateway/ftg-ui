@@ -6,12 +6,39 @@
   justify-content: center;
   align-items: center;
 }
+.project-name{
+color: #F3752E;
+font-family: 'Montserrat';
+font-size: 3rem;
+font-style: normal;
+font-weight: 800;
+line-height: normal;
+margin-bottom: 30px;
+}
+.submit-button{
+  background-color: rgba(243, 119, 48, 1);
+  opacity: 0.7;
+  color: white;
+  cursor: pointer;
+  text-align: center;
+  width: 50%;
+  margin-left:80px;
+  margin-top: 30px;
+  padding: 10px;
+  border: none;
+  border-radius: 20px;
+}
+.submit-button:hover{
+  background-color: rgba(243, 119, 48, 1);
+  color: white;
+}
 
 .left-content {
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
+  margin-left:70px;
   max-width: 100%;
 }
 
@@ -40,4 +67,9 @@ img {
   .fa-eye-slash {
     top: 18%;
   }
+  .get-started{
+    display: flex;
+    align-items: center;
+  }
+  
 }

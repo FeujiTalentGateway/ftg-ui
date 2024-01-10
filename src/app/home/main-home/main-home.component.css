@@ -1,4 +1,43 @@
-h1,
-h2 {
-  text-align: center;
+.content-container {
+  min-height: 70vh;
+  margin-top: 70px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.left-content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 100%;
+}
+
+.right-content {
+  width: 100%;
+  max-width: 100%;
+}
+
+img {
+  width: max(500px, 100%);
+}
+
+
+@media only screen and (min-width: 768px) {
+  .content-container {
+    flex-direction: row;
+  }
+  .left-content {
+    width: 60%;
+    /* max-width: 60%; */
+  }
+  .right-content {
+    width: 40%;
+  }
+  .fa-eye,
+  .fa-eye-slash {
+    top: 18%;
+  }
 }

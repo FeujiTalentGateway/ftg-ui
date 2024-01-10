@@ -6,9 +6,15 @@
   />
   <span class="auto-growth"></span>
   <div class="nav-div">
-    <a href="#" class="nav-links">Home</a>
-    <a href="#" class="nav-links">About</a>
-    <a href="#" class="nav-links">Contact</a>
-    <a [routerLink]="['/home/register']" id="signup-button" class="btn">Signup</a>
+    <a *ngIf="!isHomePage()" [routerLink]="['/home/home']" class="nav-links">Home</a>
+    <a *ngIf="!isAboutPage()" [routerLink]="['/home/about']" class="nav-links">About</a>
+    <a *ngIf="!isContactPage()" [routerLink]="['/home/contact']" class="nav-links">Contact</a>
+    <ng-container *ngIf="!isSignupPage(); else loginButton">
+      <a [routerLink]="['/home/register']" id="signup-button" class="btn">Signup</a>
+    </ng-container>
+    
+    <ng-template #loginButton>
+      <a [routerLink]="['/home/login']" id="login-button" class="btn">Login</a>
+    </ng-template>
   </div>
 </nav>

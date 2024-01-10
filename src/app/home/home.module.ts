@@ -6,6 +6,8 @@ import { UserRegistrationComponent } from './user-registration/user-registration
 import { UserLoginComponent } from './user-login/user-login.component';
 import { HeaderComponent } from './header/header.component';
 import { MainHomeComponent } from './main-home/main-home.component';
+import { AboutComponent } from './about/about.component';
+import { ContactComponent } from './contact/contact.component';
 
 
 
@@ -14,7 +16,9 @@ import { MainHomeComponent } from './main-home/main-home.component';
     UserRegistrationComponent,
     UserLoginComponent,
     HeaderComponent,
-    MainHomeComponent
+    MainHomeComponent,
+    AboutComponent,
+    ContactComponent
 
   ],
   imports: [

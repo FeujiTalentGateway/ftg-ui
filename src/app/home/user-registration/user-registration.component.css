@@ -1,35 +1,10 @@
-/* header*/
-.header-fileds{
-    padding-top: 1%;
-    padding-left: 1%;
-    padding-right: 1%;
+.container-fluid{
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* background-color: #414F57; */
 }
-
-.logo{
-    width: 70%;
-}
-
-.navi{
-    color: #576368;
-}
-
-.navi:hover {
-    color: #155A70; /* Change to the desired hover color */
-    transition: color 0.3s ease-in-out;
-}
-
-.login{
-    padding-top: 0.4%;
-    font-size: 84%;
-    font-weight: 500;
-    color:#155A70;
-    border-color: #155A70;
-}
-.login:hover{
-    background: #155A70;
-    color: white;
-}
-
 /* form */
 .register{
     height: 60%;
@@ -74,8 +49,10 @@
     margin-top: 6%;
 }
 .input-fields{
-    font-size: 0.6rem;
+    font-size: 0.9rem;
+    line-height: 1.5rem;
     border: 1px solid #155A70;
+    margin-bottom:0.7rem;
 }
 .input-label{
     font-size: 0.8rem;
@@ -132,6 +109,13 @@
 }
 .login-link{
     font-size: 80%;
+    
+}
+.login-link a span{
+    color: #155A70;
+}
+a{
+    text-decoration: none;
 }
 .disabled-button {
     cursor: not-allowed;

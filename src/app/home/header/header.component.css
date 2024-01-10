@@ -6,15 +6,24 @@ nav {
     background-color: #fff;
     background: rgba(255, 255, 255, 0.00);
     backdrop-filter: blur(2px);
-   padding: 20px 20px;
+    padding: 20px 20px;
 }
 .auto-growth{
     flex-grow: 1;
 }
+nav div a{
+    color: #576368;
+}
+nav div a:hover{
+    color: rgba(243, 119, 48, 1); 
+    transition: color 0.1s ease-in-out;
+}
 nav .nav-links{
     color: #000;
-    font-family: Inter;
+    /* font-family: Inter; */
     font-size: 1.350rem;
+    font-size: 120%;
+    font-weight: 700;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
@@ -28,18 +37,29 @@ nav .nav-div{
     align-items: center;   
 }
 
-nav #signup-button {
-    padding: 10px 20px;
-    background: rgba(21, 90, 112, 1);
-    color: var(--White, #FFF);
+nav #signup-button,#login-button {
+    padding: 5px 25px;
+    border-color: rgba(243, 119, 48, 1);
+    background-color: rgba(243, 119, 48, 1);
+    opacity: 0.8;
+    color:white;
     text-align: center;
     text-decoration: none;
-    font-family: Open Sans;
-    font-size: 0.900rem;
-    font-style: normal;
-    font-weight: 400;
+    font-size: 84%;
+    font-weight: 500;
     line-height: 1rem; 
     letter-spacing: 0.04688rem;
-    text-transform: uppercase;
     
+}
+nav #login-button:hover{
+
+    background: rgba(243, 119, 48, 1);
+    opacity: 2;
+    color: white; 
+}
+nav #signup-button:hover{
+
+    background: rgba(243, 119, 48, 1);
+    opacity: 2;
+    color: white; 
 }

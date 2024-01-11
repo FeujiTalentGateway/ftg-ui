@@ -1,0 +1,45 @@
+nav {
+    height: 67px;
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    background-color: #fff;
+    background: rgba(255, 255, 255, 0.00);
+    backdrop-filter: blur(2px);
+   padding: 20px 20px;
+}
+.auto-growth{
+    flex-grow: 1;
+}
+nav .nav-links{
+    color: #000;
+    font-family: Inter;
+    font-size: 1.350rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-decoration: none;
+}
+nav .nav-div{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; 
+    gap: 2rem;
+    align-items: center;   
+}
+
+nav #signup-button {
+    padding: 10px 20px;
+    background: rgba(21, 90, 112, 1);
+    color: var(--White, #FFF);
+    text-align: center;
+    text-decoration: none;
+    font-family: Open Sans;
+    font-size: 0.900rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1rem; 
+    letter-spacing: 0.04688rem;
+    text-transform: uppercase;
+    
+}

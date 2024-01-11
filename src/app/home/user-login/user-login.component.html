@@ -1,0 +1,101 @@
+<!-- <app-header></app-header> -->
+<div class="container-fluid d-flex flex-column vh-100">
+  <header class="row align-items-center header-fileds">
+    <div class="col-12 col-md-2">
+      <a class="navbar-brand" href="#">
+        <img
+          src="assets/images/feuji-logo.png"
+          class="img-fluid logo"
+          alt="feuji-logo"
+        />
+      </a>
+    </div>
+    <div class="col-12 col-md-6 offset-md-4">
+      <div class="row">
+        <a href="#" class="nav-link col-sm-2 offset-sm-3 navi">Home</a>
+        <a href="#" class="nav-link col-sm-2 navi">About</a>
+        <a href="#" class="nav-link col-sm-2 navi">Contact</a>
+        <div
+          type="button"
+          [routerLink]="['/home/register']"
+          class="btn btn-outline-primary btn-sm col-2 col-sm-2 signup"
+        >
+          Sign Up
+        </div>
+      </div>
+    </div>
+  </header>
+  <div class="content-container">
+    <div class="left-content">
+      <!-- Project Name  -->
+      <div class="welcome">
+        <h1 class="project-name">Feuji Talent Gateway</h1>
+        <h2 class="welcome-back">Welcome Back !</h2>
+      </div>
+      <!-- Login Form  -->
+      <form (ngSubmit)="onLogin()" [formGroup]="userForm!" >
+        <!-- UserName Field  -->
+        <label for="username">Username</label>
+        <input
+          id="username"
+          type="text"
+          class="inputs"
+          placeholder="Enter your Username"
+          formControlName="userName"
+        />
+        <div
+          class="error-message"
+          *ngIf="
+            (userForm?.get('userName')?.hasError('required') &&
+              userForm?.get('userName')?.touched) ||
+            (formSubmitted && userForm?.get('userName')?.hasError('required'))
+          "
+        >
+          Username is required.
+        </div>
+        <!-- Password Field  -->
+        <div class="password">
+          <label for="password">Password</label>
+          <a href="#" class="forgot-password">Forgot Password?</a>
+        </div>
+        <div class="password-container">
+          <input
+            id="password"
+            class="inputs"
+            [type]="isPasswordVisible ? 'text' : 'password'"
+            placeholder="Password"
+            formControlName="password"
+          />
+          <i
+            class="fa-solid {{ isPasswordVisible ? 'fa-eye-slash' : 'fa-eye' }}"
+            id="eye"
+            (click)="ToggleEye()"
+          ></i>
+        </div>
+        <div
+          class="error-message"
+          *ngIf="
+            (userForm?.get('password')?.hasError('required') &&
+              userForm?.get('password')?.touched) ||
+            (formSubmitted && userForm?.get('password')?.hasError('required'))
+          "
+        >
+          Password is required.
+        </div>
+        <!-- Submit Field  -->
+        <button [disabled]="!userForm?.valid" class="submit-button" [ngClass]="{ 'submit-button': userForm && userForm.valid, 'submit-invalid': userForm && !userForm.valid }"
+        >Submit</button>
+        <p>Don't have an account? <a [routerLink]="['/home/register']">Register here</a></p>
+      </form>
+    </div>
+    <!-- Picture of the Login Page  -->
+    <div class="col-sm-12 col-md-5 d-flex align-items-center justify-content-center">
+      <img class="img-fluid col-12 col-md-12" src="assets/images/feuji-image.png" alt="select the correct path" />
+    </div>
+  </div>
+</div>
+
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+/>

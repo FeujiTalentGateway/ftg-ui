@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid d-flex flex-column vh-100">
   <header class="row align-items-center header-fileds">
     <div class="col-12 col-md-2">
       <a class="navbar-brand" href="#">
@@ -24,8 +24,8 @@
       </div>
     </div>
   </header>
-  <div class="row">
-    <div class="col-sm-12 col-md-7 register data">
+  <div class="row d-flex align-items-center justify-content-center">
+    <div class="col-sm-12 col-md-7 justify-content-center data">
       <div class="row justify-content-center logo1">Feuji Talent Gateway</div>
       <div class="row justify-content-center logo2">Sign up!</div>
       <form
@@ -247,21 +247,30 @@
           </div>
         </div>
         <div class="col-2 col-md-4 offset-md-4">
-          <button
+          <!-- <button
             class="button reg-btn"
             type="submit"
             [class.disabled-button]="registerForm.invalid"
           >
             Register
-          </button>
+          </button> -->
+          <div
+          type="button"
+          [routerLink]="['/home/login']"
+          class="btn btn-primary btn-lg col-2 justify-content-center reg-btn" 
+          type="submit"
+          [class.disabled-button]="registerForm.invalid"
+        >
+          Register
+        </div>
         </div>
         <div class="login-link text-center">
           Already have an account?
-          <a [routerLink]="['/home/login']"><span> Login</span></a>
+          <a [routerLink]="['/home/login']"><span class="login-nav"> Login</span></a>
         </div>
       </form>
     </div>
-    <div class="col-sm-12 col-md-5">
+    <div class="col-sm-12 col-md-5 d-flex align-items-center justify-content-center">
       <img
         class="img-fluid col-12 col-md-12"
         src="../assets/images/register.png"

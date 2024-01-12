@@ -96,7 +96,7 @@ img {
 .fa-eye,
 .fa-eye-slash {
   position: absolute;
-  top: 10%;
+  top: 18%;
   right: 4%;
   cursor: pointer;
   color: lightgray;
@@ -125,6 +125,6 @@ img {
   }
   .fa-eye,
   .fa-eye-slash {
-    top: 18%;
+    top: 23%;
   }
 }

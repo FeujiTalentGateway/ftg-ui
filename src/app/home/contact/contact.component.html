@@ -1,0 +1,120 @@
+<app-header></app-header>
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+/>
+
+<div
+  class="container-fluid align-items-center justify-content-center container-class"
+>
+  <section
+    class="header-section w-100 border-0 mb-0 text-black text-center py-4"
+  >
+    <h1 class="global-color">Contact Feuji Talent Gateway</h1>
+  </section>
+
+  <section
+    class="get-in-touch-section w-100 border-0 mb-0 text-black text-center py-4"
+  >
+    <h2>Get in Touch</h2>
+    <p>
+      We appreciate your interest in Feuji Talent Gateway. Whether you have
+      questions, feedback, or just want to say hello, we'd love to hear from
+      you.
+    </p>
+  </section>
+
+  <div class="row justify-content-center align-items-stretch">
+    <div class="col-md-5 offset-md-1">
+      <div
+        class="card h-100 flex-column justify-content-center global-border-color global-background-color text-center"
+      >
+        <div class="card-body rounded-circle global-white-color card-class">
+          <h5 class="card-title" class="global-black-color card-title-class">
+            Contact Information
+          </h5>
+
+          <div class="icon-text-container">
+            <div class="icon-text-item">
+              <i class="fas fa-envelope icons"></i>
+              <p class="icons">
+                <a href="#" class="global-white-color">info.india@feuji.com</a>
+              </p>
+            </div>
+            <div class="icon-text-item">
+              <i class="fas fa-phone icons"></i>
+              <p class="icons">+91-40-42624114</p>
+            </div>
+            <div class="icon-text-item">
+              <i class="fas fa-map-marker-alt icons"></i>
+              <p class="icons">
+                Level 1, Unit 2A & 2B, Octave Block, Salarpuria Knowledge City,
+                Raidurg, Hyderabad-500081
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-5">
+      <div class="card h-100 align-items-center border-0 global-color">
+        <div class="card-body">
+          <h4 class="card-title text-center mb-4 global-color">Contact Form</h4>
+          <form
+            action="#"
+            method="post"
+            [formGroup]="userForm!"
+            (ngSubmit)="onLogin()"
+          >
+            <div class="form-group">
+              <label for="name">Name:</label>
+              <input
+                type="text"
+                class="form-control form-control-lg global-border-color"
+                formControlName="name"
+                id="name"
+                name="name"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="email">Email:</label>
+              <input
+                type="email"
+                class="form-control form-control-lg global-border-color"
+                formControlName="email"
+                id="email"
+                name="email"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="message">Message:</label>
+              <textarea
+                class="form-control form-control-lg global-border-color"
+                id="message"
+                formControlName="message"
+                name="message"
+                rows="4"
+                required
+              ></textarea>
+            </div>
+            <button
+              type="submit"
+              [disabled]="!userForm?.valid"
+              [ngClass]="{
+                'submit-button': userForm && userForm.valid,
+                'submit-invalid': userForm && !userForm.valid
+              }"
+              class="btn btn-primary btn-block global-background-color submit-button global-white-color"
+            >
+              Submit
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

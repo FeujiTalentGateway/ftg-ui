@@ -1,0 +1,68 @@
+<app-header></app-header>
+<div class="container mt-5">
+  <header class="text-center">
+    <h1 class="custom-headings global-color">
+      Welcome to Feuji Talent Gateway
+    </h1>
+  </header>
+
+  <section id="about" class="my-5 p-0 m-0">
+    <h2 class="custom-headings global-color">About Us</h2>
+    <h5>
+      At Feuji Software Solutions, we are excited to introduce Feuji Talent
+      Gateway, a cutting-edge platform designed to revolutionize the online
+      examination experience. As we embark on this journey, we aim to redefine
+      how assessments are conducted, focusing on efficiency, accessibility, and
+      user-friendly interactions.
+    </h5>
+  </section>
+
+  <div class="container-fluid">
+    <div class="row justify-content-center align-items-center">
+      <div class="col-md-7">
+        <div class="welcome">
+          <h3 class="project-name global-color">Our Mission</h3>
+          <p>
+            At Feuji Talent Gateway, our mission is to deliver a reliable,
+            secure, and innovative online examination platform. We empower
+            educators, employers, and learners by bridging the gap between
+            traditional assessment methods and the dynamic needs of the digital
+            age. Our commitment lies in providing a cutting-edge solution that
+            transforms the assessment experience, fostering growth and success
+            for all stakeholders.
+          </p>
+          <h3 class="project-name global-color">Get Started</h3>
+          <p>
+            Ready to embrace the future of online examinations? Join us and
+            embark on a journey of possibilities with Feuji Talent Gateway. Take
+            the first step by
+            <a
+              [routerLink]="['/register']"
+              class="btn custom-buttons btn-primary global-background-color global-border-color"
+              >Sign up</a
+            >
+            now.
+          </p>
+          <h3 class="project-name global-color">Get in Touch</h3>
+          <p>
+            If you have any questions or feedback, we'd love to hear from you!
+            Reach out to us and connect with our team by
+            <a
+              [routerLink]="['/contact']"
+              class="btn custom-buttons btn-info global-background-color global-white-color global-border-color"
+              >Contact us</a
+            >.
+          </p>
+        </div>
+      </div>
+      <div class="col-md-5">
+        <img
+          src="assets/images/feuji-home.png"
+          alt="select the correct path"
+          class="img-fluid"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

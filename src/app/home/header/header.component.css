@@ -1,0 +1,30 @@
+.header-fileds {
+  padding-top: 1%;
+  padding-left: 1%;
+  padding-right: 1%;
+}
+
+.logo {
+  width: 70%;
+}
+
+.navi {
+  color: #576368;
+}
+
+.navi:hover {
+  color: #f37730; /* Change to the desired hover color */
+  transition: color 0.3s ease-in-out;
+}
+
+.login {
+  padding-top: 0.4%;
+  font-size: 84%;
+  font-weight: 500;
+  color: #f37730;
+  border-color: #f37730;
+}
+.login:hover {
+  background: #f37730;
+  color: white;
+}

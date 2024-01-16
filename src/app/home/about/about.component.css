@@ -1,0 +1,7 @@
+.custom-buttons {
+  opacity: 0.7;
+}
+.custom-buttons:hover {
+  background-color: #f3752e;
+  opacity: 1;
+}

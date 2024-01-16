@@ -1,1 +1,22 @@
 /* You can add global styles to this file, and also import other style files */
+body {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+.global-color {
+  color: #f3752e !important;
+}
+.global-background-color {
+  background-color: #f3752e !important;
+}
+.global-border-color {
+  border: 1px solid #f3752e !important;
+}
+.global-black-background-color {
+  background-color: rgb(54, 54, 54) !important;
+}
+.global-black-color {
+  color: black !important;
+}
+.global-white-color {
+  color: white !important;
+}

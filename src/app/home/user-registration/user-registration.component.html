@@ -146,8 +146,9 @@
             class="input-label form-control-icon password-div"
             >Password</label
           >
-          <input
-            type="{{ passwordVisible ? 'text' : 'password' }}"
+          <div class="input-container">
+            <input
+            [type]="passwordVisible ? 'text' : 'password'"
             class="form-control input-fields"
             id="password"
             placeholder="password"
@@ -157,11 +158,14 @@
                 getControl('password')?.errors &&
                 getControl('password')?.touched
             }"
-          />
-          <i
-            class="fa {{ passwordVisible ? 'fa-eye' : 'fa-eye-slash' }}"
+            />
+            <i
+            class="fa-solid {{ passwordVisible ? 'fa-eye-slash' : 'fa-eye' }}"
+            id="eye"
             (click)="passwordVisibility()"
-          ></i>
+            ></i>  
+          </div>
+        
           <div
             *ngIf="
               getControl('password')?.errors && getControl('password')?.touched
@@ -185,22 +189,25 @@
           <label for="exampleFormControlInput1" class="input-label"
             >Confirm Password</label
           >
-          <input
-            type="{{ confirmPasswordVisible ? 'text' : 'password' }}"
-            class="form-control input-fields"
-            id="confirmPassword"
-            placeholder="Confirm Password"
-            formControlName="confirmPassword"
-            [ngClass]="{
-              error:
-                getControl('confirmPassword')?.errors &&
-                getControl('confirmPassword')?.touched
-            }"
-          />
-          <i
-            class="fa {{ confirmPasswordVisible ? 'fa-eye' : 'fa-eye-slash' }}"
+          <div class="input-container">
+            <input
+            [type]="confirmPasswordVisible ? 'text' : 'password'"
+              class="form-control input-fields"
+              id="confirmPassword"
+              placeholder="Confirm Password"
+              formControlName="confirmPassword"
+              [ngClass]="{
+                error:
+                  getControl('confirmPassword')?.errors &&
+                  getControl('confirmPassword')?.touched
+              }"
+            />
+            <i
+            class="fa-solid {{ confirmPasswordVisible ? 'fa-eye-slash' : 'fa-eye' }}"
+            id="eye"
             (click)="confirmPasswordVisibility()"
-          ></i>
+            ></i> 
+          </div>
           <div
             *ngIf="
               getControl('confirmPassword')?.errors &&
@@ -246,3 +253,7 @@
     </div>
   </div>
 </div>
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+/>

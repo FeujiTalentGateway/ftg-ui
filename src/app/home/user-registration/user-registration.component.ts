@@ -54,21 +54,6 @@ export class UserRegistrationComponent {
   newuser: User = new User();
   createUser() {
     console.log('creating the user');
-
-    // console.log(this.newuser);
-    // console.log(this.name);
-    // console.log(this.newuser.first_name_s);
-    // this.formSubmitted = true
-
-    // this.restdata.createUser(this.newuser).subscribe(
-    //   (response) =>{
-    //     console.log("response")
-    //   },
-    //   (error) => {
-    //     console.log("error in back end ");
-
-    //   }
-    // )
     const userData: User = {
       firstName: this.registerForm.get('firstName')?.value,
       lastName: this.registerForm.get('lastName')?.value,
@@ -78,21 +63,7 @@ export class UserRegistrationComponent {
     };
     console.log(userData);
     this.authService.register(userData);
-
-    // this.restdata.createUser(userData).subscribe(
-    //   (response) => {
-    //     console.log("User created successfully:", response);
-
-    //     this.registerForm.reset();
-    //     this.formSubmitted = false;
-    //   },
-    //   (error) => {
-    //     console.log("Error in backend:", error);
-
-    //   }
-    // );
   }
-  // validation part
 
   registeredEmail!: string;
   // Flags for password visibility
@@ -169,12 +140,4 @@ export class UserRegistrationComponent {
     console.log('Inside register component: register()');
     this.createUser();
   }
-
-  // sendOtp(data: FormGroup) {
-  //   this.isOtpSentDisabled = true;
-  //   console.log(data.value.email);
-  //   this.authService.sendOtpToVerifyEmail(data.value.email);
-  //   setTimeout(() => {
-  //     this.isOtpSentDisabled = !this.isOtpSentDisabled;
-  //   }, 5000);
 }

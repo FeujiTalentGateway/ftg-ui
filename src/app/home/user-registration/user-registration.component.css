@@ -115,3 +115,23 @@ a {
   cursor: not-allowed;
   opacity: 0.8;
 }
+::placeholder {
+    color: #aaa; /* Change to your desired color */
+}
+
+.input-container {
+    position: relative;
+  }
+  
+.input-fields {
+padding-right: 2rem; /* Adjust the padding to ensure space for the icon */
+}
+
+#eye {
+position: absolute;
+top: 50%;
+right: 10px; /* Adjust the distance from the right side */
+transform: translateY(-50%);
+cursor: pointer;
+color: #bbb;
+}

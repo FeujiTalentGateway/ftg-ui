@@ -1,40 +1,68 @@
 <app-header></app-header>
-<header>
-  <h1>Welcome to Feuji Talent Gateway</h1>
-</header>
+<div class="container mt-5">
+  <header class="text-center">
+    <h1 class="custom-headings global-color">
+      Welcome to Feuji Talent Gateway
+    </h1>
+  </header>
 
-<section>
-  <h2>About Us</h2>
-  <p>At [Your Company/Organization Name], we are excited to introduce Feuji Talent Gateway, a cutting-edge platform designed to revolutionize the online examination experience. As we embark on this journey, we aim to redefine how assessments are conducted, focusing on efficiency, accessibility, and user-friendly interactions.</p>
-</section>
+  <section id="about" class="my-5 p-0 m-0">
+    <h2 class="custom-headings global-color">About Us</h2>
+    <h5>
+      At Feuji Software Solutions, we are excited to introduce Feuji Talent
+      Gateway, a cutting-edge platform designed to revolutionize the online
+      examination experience. As we embark on this journey, we aim to redefine
+      how assessments are conducted, focusing on efficiency, accessibility, and
+      user-friendly interactions.
+    </h5>
+  </section>
 
-<section>
-  <h2>Key Features</h2>
-  <ul>
-      <li><strong>User-Friendly Interface:</strong> Feuji Talent Gateway offers an intuitive and user-friendly interface, ensuring a seamless experience for both administrators and test-takers.</li>
-      <li><strong>Scalability:</strong> Built with scalability in mind, our platform can handle assessments of any scale, from small quizzes to large-scale examinations.</li>
-      <li><strong>Robust Security Measures:</strong> Security is a top priority. We employ state-of-the-art encryption and authentication protocols to safeguard the integrity of the examination process.</li>
-      <li><strong>Customization:</strong> Tailor the platform to your specific needs. Customize exams, questions, and grading criteria to suit your unique requirements.</li>
-      <li><strong>Real-time Analytics:</strong> Gain valuable insights with real-time analytics. Track and analyze performance metrics to make data-driven decisions.</li>
-  </ul>
-</section>
-
-<section>
-  <h2>Our Mission</h2>
-  <p>At Feuji Talent Gateway, our mission is to provide a reliable, secure, and innovative online examination platform that empowers educators, employers, and learners alike. We strive to bridge the gap between traditional assessment methods and the dynamic needs of the digital age.</p>
-</section>
-
-<section>
-  <h2>Get Started</h2>
-  <p>Ready to experience the future of online examinations? <a href="#signup">Sign up</a> now and unlock a world of possibilities with Feuji Talent Gateway.</p>
-</section>
-
-<section>
-  <h2>Contact Us</h2>
-  <p>Have questions or feedback? We'd love to hear from you! <a href="#contact">Contact us</a> to connect with our team.</p>
-</section>
-
-<footer>
-  <p>Thank you for choosing Feuji Talent Gateway for your assessment needs.</p>
-  <p>[Your Company/Organization Name]<br>[Contact Information]</p>
-</footer>
+  <div class="container-fluid">
+    <div class="row justify-content-center align-items-center">
+      <div class="col-md-7">
+        <div class="welcome">
+          <h3 class="project-name global-color">Our Mission</h3>
+          <p>
+            At Feuji Talent Gateway, our mission is to deliver a reliable,
+            secure, and innovative online examination platform. We empower
+            educators, employers, and learners by bridging the gap between
+            traditional assessment methods and the dynamic needs of the digital
+            age. Our commitment lies in providing a cutting-edge solution that
+            transforms the assessment experience, fostering growth and success
+            for all stakeholders.
+          </p>
+          <h3 class="project-name global-color">Get Started</h3>
+          <p>
+            Ready to embrace the future of online examinations? Join us and
+            embark on a journey of possibilities with Feuji Talent Gateway. Take
+            the first step by
+            <a
+              [routerLink]="['/register']"
+              class="btn custom-buttons btn-primary global-background-color global-border-color"
+              >Sign up</a
+            >
+            now.
+          </p>
+          <h3 class="project-name global-color">Get in Touch</h3>
+          <p>
+            If you have any questions or feedback, we'd love to hear from you!
+            Reach out to us and connect with our team by
+            <a
+              [routerLink]="['/contact']"
+              class="btn custom-buttons btn-info global-background-color global-white-color global-border-color"
+              >Contact us</a
+            >.
+          </p>
+        </div>
+      </div>
+      <div class="col-md-5">
+        <img
+          src="assets/images/feuji-home.png"
+          alt="select the correct path"
+          class="img-fluid"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

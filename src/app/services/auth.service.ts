@@ -21,113 +21,99 @@ export class AuthService {
     private userDetails: UserdetailsService
   ) {}
 
-    // Handle user registration based on form data
-    
+  // Handle user registration based on form data
 
-    register(user: User) {
-
-
-      // Send the registration data to the server and handle the response
-      this.authRepo.register(user).subscribe({
-        next: (response: any) => {
-          const responseMessage: string = response.message;
-          console.log(responseMessage);
-          this.openSnackBar(response.message, 'Close');
-          if (responseMessage.includes('User successfully registered with')) {
-            this.openSnackBar(responseMessage, 'Close');
-            // this.route.navigateByUrl('login');
-          }
-        },
-        error: (error: any) => {
-          const responseMessage: string = error.error.message;
-          if (responseMessage == 'Username already exists') {
-            this.openSnackBar(
-              "Username '" + user.userName + "' already exists",
-              'Close'
-            );
-          } else if (responseMessage == 'Email already exists') {
-            this.openSnackBar(
-              "Email '" + user.emailId + "' already exists",
-              'Close'
-            );
-          }
+  register(user: User) {
+    // Send the registration data to the server and handle the response
+    this.authRepo.register(user).subscribe({
+      next: (response: any) => {
+        const responseMessage: string = response.message;
+        console.log(responseMessage);
+        this.openSnackBar(response.message, 'Close');
+        if (responseMessage.includes('User successfully registered with')) {
           this.openSnackBar(responseMessage, 'Close');
-        },
-      });
-    }
-      login(loginData: FormGroup) {
-        localStorage.removeItem('Email-Token');
-        // Create a new instance of LoginUser with the form data
-        const user: UserLoginModel = {
-          userName: loginData.value.userName,
-          password: loginData.value.password,
-        };
-        // Create a new instance of LoginUser with the form data
-    
-        // Send the login data to the server and handle the response
-        this.authRepo.login(user).subscribe({
-          next: (response: any) => {
-            console.log(response.message);
-            if (response.message == 'Successfully logged in') {
-    
-              this.openSnackBar('Login successfully', 'Close');
-              this.setJwtToken(response.token);
-              const tokenPayload = this.decodedToken();
-              this.userDetails.setUserNameFromToken(this.userPayload.sub);
-              this.userDetails.setRoleFromToken(
-                this.userPayload.authorities[0].authority
-              );
-              this.route.navigateByUrl('home/home');
-            }
-            if (response.message == 'Invalid username or password')
-              this.openSnackBar('Invalid username or password', 'Close');
-          },
-          error: (error: any) => {
-            if (error.status == 400) {
-              this.openSnackBar('Invalid Username or Password', 'Close');
-            } else {
-              this.openSnackBar('Something went wrong', 'Close');
-            }
-          },
-        });
-      }
-      setJwtToken(token: any) {
-        localStorage.setItem('token', token);
-      }
-      decodedToken() {
-        const jwtHelper = new JwtHelperService();
-        const jwtToken = localStorage.getItem('token') || '';
-        try {
-          this.userPayload = jwtHelper.decodeToken(jwtToken);
-        } catch (error) {
-          console.error('Error decoding JWT token:', error);
+          // this.route.navigateByUrl('login');
         }
-        return this.userPayload;
-      }
-    
-      // Check if the JWT token has expired
-      isTokenExpired() {
-        const jwtHelper = new JwtHelperService();
-        const jwtToken = localStorage.getItem('token')!;
-        return jwtHelper.isTokenExpired(jwtToken);
-      }
-    
- 
-  
+      },
+      error: (error: any) => {
+        const responseMessage: string = error.error.message;
+        if (responseMessage == 'Username already exists') {
+          this.openSnackBar(
+            "Username '" + user.userName + "' already exists",
+            'Close'
+          );
+        } else if (responseMessage == 'Email already exists') {
+          this.openSnackBar(
+            "Email '" + user.emailId + "' already exists",
+            'Close'
+          );
+        }
+        this.openSnackBar(responseMessage, 'Close');
+      },
+    });
+  }
+  login(loginData: FormGroup) {
+    localStorage.removeItem('Email-Token');
+    // Create a new instance of LoginUser with the form data
+    const user: UserLoginModel = {
+      userName: loginData.value.userName,
+      password: loginData.value.password,
+    };
+    // Create a new instance of LoginUser with the form data
 
-
-    openSnackBar(message: string, action: string) {
-      this.snackBar.open(message, action, {
-        duration: 3000,
-        panelClass: 'centered-snackbar', // Apply a custom CSS class
-        verticalPosition: 'top',
-        horizontalPosition: 'center',
-      });
+    // Send the login data to the server and handle the response
+    this.authRepo.login(user).subscribe({
+      next: (response: any) => {
+        console.log(response.message);
+        if (response.message == 'Successfully logged in') {
+          this.openSnackBar('Login successfully', 'Close');
+          this.setJwtToken(response.token);
+          const tokenPayload = this.decodedToken();
+          this.userDetails.setUserNameFromToken(this.userPayload.sub);
+          this.userDetails.setRoleFromToken(
+            this.userPayload.authorities[0].authority
+          );
+          this.route.navigateByUrl('/home');
+        }
+        if (response.message == 'Invalid username or password')
+          this.openSnackBar('Invalid username or password', 'Close');
+      },
+      error: (error: any) => {
+        if (error.status == 400) {
+          this.openSnackBar('Invalid Username or Password', 'Close');
+        } else {
+          this.openSnackBar('Something went wrong', 'Close');
+        }
+      },
+    });
+  }
+  setJwtToken(token: any) {
+    localStorage.setItem('token', token);
+  }
+  decodedToken() {
+    const jwtHelper = new JwtHelperService();
+    const jwtToken = localStorage.getItem('token') || '';
+    try {
+      this.userPayload = jwtHelper.decodeToken(jwtToken);
+    } catch (error) {
+      console.error('Error decoding JWT token:', error);
     }
+    return this.userPayload;
+  }
+
+  // Check if the JWT token has expired
+  isTokenExpired() {
+    const jwtHelper = new JwtHelperService();
+    const jwtToken = localStorage.getItem('token')!;
+    return jwtHelper.isTokenExpired(jwtToken);
+  }
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 3000,
+      panelClass: 'centered-snackbar', // Apply a custom CSS class
+      verticalPosition: 'top',
+      horizontalPosition: 'center',
+    });
+  }
 }
-
-
-
-
-
-

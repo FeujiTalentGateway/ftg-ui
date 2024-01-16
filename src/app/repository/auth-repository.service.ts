@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 })
 export class AuthRepositoryService {
   baseUrl: string = environment.apiUrl;
-  baseurl:string='http://3.110.151.104:8092';
+  baseurl: string = 'http://3.110.151.104:8092';
   constructor(private http: HttpClient) {
     this.baseUrl = environment.apiUrl;
   }
@@ -17,10 +17,10 @@ export class AuthRepositoryService {
   register(data: any): Observable<any> {
     console.log('Inside auth repo: register()');
     console.log(this.baseurl);
-    
+
     return this.http.post(this.baseurl + '/registration/register', data);
   }
-  
+
   login(loginData: UserLoginModel): Observable<any> {
     console.log('Inside auth repo: login()');
     // Send a POST request to the login endpoint with login data

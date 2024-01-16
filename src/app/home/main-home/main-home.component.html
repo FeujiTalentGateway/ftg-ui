@@ -1,24 +1,35 @@
 <app-header></app-header>
-<div class="content-container">
-  <div class="left-content">
-    <!-- Project Name  -->
-    <div class="welcome">
-      <h1 class="project-name">Feuji Talent Gateway</h1>
-      <!-- <p>Welcome to Feuji Talent Gateway – your pathway to a streamlined online examination experience! Similar to an online exam portal, Feuji Talent Gateway stands out with its intuitive design and user-friendly interface, ensuring a seamless journey for both administrators and test-takers. With scalability at its core, the platform effortlessly adapts to assessments of any size, offering robust security measures to maintain the integrity of every examination. Tailor exams to your specific needs, and gain real-time insights through analytics. Feuji Talent Gateway is more than a portal; it's your partner in redefining the future of assessments. Join us and elevate your examination process to new heights!</p> -->
-        <p>Discover Feuji Talent Gateway – where online assessments become a breeze. Our user-friendly platform ensures a seamless experience for both administrators and test-takers. Customize exams, enjoy real-time analytics, and elevate your assessment journey with us!</p>
-            <button class="submit-button" [routerLink]="['/home/register']">Get Started</button>
+<div class="container-fluid">
+  <div class="row justify-content-center align-items-center">
+    <div class="col-md-7">
+      <div class="welcome">
+        <h1 class="project-name global-color">Feuji Talent Gateway</h1>
+        <p>
+          Enhance assessments with Feuji Talent Gateway. Empower administrators
+          and test-takers stress-free. Our tools, including exam fine-tuning and
+          real-time analytics, ensure effective assessments. Join us in
+          revolutionizing talent evaluation with innovative solutions. Elevate
+          your talent management strategies today.
+        </p>
+
+        <button
+          class="btn btn-primary submit-button global-background-color global-border-color global-white-color"
+          [routerLink]="['/register']"
+        >
+          Get Started
+        </button>
+      </div>
     </div>
-
-
-  </div>
-  <!-- Picture of the Login Page  -->
-  <div class="right-content">
-    <img src="assets/images/feuji-home.png" alt="select the correct path" />
+    <div class="col-md-5">
+      <img
+        src="assets/images/feuji-home.png"
+        alt="select the correct path"
+        class="img-fluid"
+      />
+    </div>
   </div>
 </div>
-
 <link
   rel="stylesheet"
   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
 />
-

@@ -6,8 +6,8 @@ import {
   Validators,
   NgForm,
   ValidatorFn,
-  ValidationErrors
-} from "@angular/forms";
+  ValidationErrors,
+} from '@angular/forms';
 import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -22,7 +22,10 @@ function usernameFormatValidator(
   return null;
 }
 
-export function passwordMatch(passwordField: string, confirmPasswordField: string): ValidatorFn {
+export function passwordMatch(
+  passwordField: string,
+  confirmPasswordField: string
+): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
     const password = control.get(passwordField)?.value;
     const confirmPassword = control.get(confirmPasswordField)?.value;
@@ -36,24 +39,21 @@ export function passwordMatch(passwordField: string, confirmPasswordField: strin
   };
 }
 
-
 @Component({
   selector: 'app-user-registration',
   templateUrl: './user-registration.component.html',
-  styleUrls: ['./user-registration.component.css']
+  styleUrls: ['./user-registration.component.css'],
 })
 export class UserRegistrationComponent {
   @ViewChild('form') form!: NgForm;
-  
-  constructor(private authService:AuthService){
 
-  }
-  name:string = '';
-  confirmPassword:string= '';
-  formSubmitted:boolean = false
-  newuser:User = new User();
-  createUser(){
-    console.log("creating the user");
+  constructor(private authService: AuthService) {}
+  name: string = '';
+  confirmPassword: string = '';
+  formSubmitted: boolean = false;
+  newuser: User = new User();
+  createUser() {
+    console.log('creating the user');
 
     // console.log(this.newuser);
     // console.log(this.name);
@@ -66,7 +66,7 @@ export class UserRegistrationComponent {
     //   },
     //   (error) => {
     //     console.log("error in back end ");
-        
+
     //   }
     // )
     const userData: User = {
@@ -78,8 +78,7 @@ export class UserRegistrationComponent {
     };
     console.log(userData);
     this.authService.register(userData);
-    
-    
+
     // this.restdata.createUser(userData).subscribe(
     //   (response) => {
     //     console.log("User created successfully:", response);
@@ -92,8 +91,6 @@ export class UserRegistrationComponent {
 
     //   }
     // );
-
-
   }
   // validation part
 
@@ -102,11 +99,11 @@ export class UserRegistrationComponent {
   passwordVisible: boolean = false;
   confirmPasswordVisible: boolean = false;
 
-  emailRegex = "[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}";
+  emailRegex = '[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}';
 
   //Email Verification Form
   emailForm = new FormGroup({
-    email: new FormControl("", [
+    email: new FormControl('', [
       Validators.required,
       Validators.maxLength(32),
       Validators.pattern(this.emailRegex),
@@ -116,15 +113,15 @@ export class UserRegistrationComponent {
   // Form group for registration
   registerForm = new FormGroup(
     {
-      firstName: new FormControl("", [
+      firstName: new FormControl('', [
         Validators.required,
         Validators.pattern(/^[a-zA-Z\s']{1,32}$/),
       ]),
-      lastName: new FormControl("", [
+      lastName: new FormControl('', [
         Validators.required,
         Validators.pattern(/^[a-zA-Z\s-']{1,32}$/),
       ]),
-      userName: new FormControl("", [
+      userName: new FormControl('', [
         Validators.required,
         Validators.minLength(8),
         Validators.maxLength(20),
@@ -135,18 +132,18 @@ export class UserRegistrationComponent {
         Validators.maxLength(32),
         Validators.pattern(this.emailRegex),
       ]),
-      password: new FormControl("", [
+      password: new FormControl('', [
         Validators.required,
         Validators.maxLength(32),
         Validators.minLength(8),
       ]),
-      confirmPassword: new FormControl("", [
+      confirmPassword: new FormControl('', [
         Validators.required,
         Validators.maxLength(32),
         Validators.minLength(8),
       ]),
     },
-    [passwordMatch("password", "confirmPassword")]
+    [passwordMatch('password', 'confirmPassword')]
   );
 
   // Function to get a form control by its property name
@@ -169,7 +166,7 @@ export class UserRegistrationComponent {
 
   // Function to handle user registration
   register(data: FormGroup) {
-    console.log("Inside register component: register()");
+    console.log('Inside register component: register()');
     this.createUser();
   }
 

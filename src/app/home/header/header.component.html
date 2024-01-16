@@ -1,20 +1,50 @@
-<nav>
-  <img
-    src="assets/images/feuji-logo1.png"
-    class="nav-logo"
-    alt="Description of your image"
-  />
-  <span class="auto-growth"></span>
-  <div class="nav-div">
-    <a *ngIf="!isHomePage()" [routerLink]="['/home/home']" class="nav-links">Home</a>
-    <a *ngIf="!isAboutPage()" [routerLink]="['/home/about']" class="nav-links">About</a>
-    <a *ngIf="!isContactPage()" [routerLink]="['/home/contact']" class="nav-links">Contact</a>
-    <ng-container *ngIf="!isSignupPage(); else loginButton">
-      <a [routerLink]="['/home/register']" id="signup-button" class="btn">Signup</a>
-    </ng-container>
-    
-    <ng-template #loginButton>
-      <a [routerLink]="['/home/login']" id="login-button" class="btn">Login</a>
-    </ng-template>
+<header class="row align-items-center header-fileds">
+  <div class="col-2 col-md-2">
+    <a class="navbar-brand" href="#">
+      <img
+        src="assets/images/feuji-logo.png"
+        class="img-fluid logo"
+        alt="feuji-logo"
+      />
+    </a>
   </div>
-</nav>
+  <div class="col-12 col-md-6 offset-md-4">
+    <div class="row">
+      <a
+        *ngIf="!isHomePage()"
+        [routerLink]="['/home']"
+        class="nav-link col-sm-2 offset-sm-3 navi"
+        >Home</a
+      >
+      <a
+        *ngIf="!isAboutPage()"
+        [routerLink]="['/about']"
+        class="nav-link col-sm-2 navi"
+        >About</a
+      >
+      <a
+        *ngIf="!isContactPage()"
+        [routerLink]="['/contact']"
+        class="nav-link col-sm-2 navi"
+        >Contact</a
+      >
+      <ng-container *ngIf="!isSignupPage(); else loginButton">
+        <a
+          [routerLink]="['/register']"
+          id="signup-button"
+          class="btn btn-outline-primary btn-sm col-2 col-sm-2 login"
+          >Signup</a
+        >
+      </ng-container>
+
+      <ng-template #loginButton>
+        <a
+          [routerLink]="['/login']"
+          id="login-button"
+          class="btn btn-outline-primary btn-sm col-2 col-sm-2 login"
+          >Login</a
+        >
+      </ng-template>
+    </div>
+  </div>
+</header>

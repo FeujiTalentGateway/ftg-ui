@@ -1,21 +1,10 @@
-.content-container {
-  min-height: 70vh;
-  margin-top: 70px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
 .welcome {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 30px;
 }
 .welcome .welcome-back {
-  color: rgba(243, 119, 48, 1);
   font-family: "Gilda Display";
   font-size: 2.5rem;
   font-style: normal;
@@ -23,10 +12,7 @@
   line-height: normal;
 }
 .welcome .project-name {
-  color: rgba(243, 119, 48, 1);
   font-family: "Gurajada", sans-serif;
-
-  font-size: 3rem;
   font-style: normal;
   font-weight: bold;
   line-height: normal;
@@ -38,27 +24,23 @@ label {
 }
 form {
   width: 50%;
+  margin: auto;
 }
 .inputs {
   width: 100%;
   padding: 10px;
   box-sizing: border-box;
-  border: 1px solid rgba(243, 119, 48, 1);
   margin-bottom: 25px;
 }
 .submit-button {
-  background-color: rgba(243, 119, 48, 1);
-  color: white;
   cursor: pointer;
   width: 100%;
   padding: 10px;
   border: none;
   border-radius: 20px;
 }
-.submit-invalid{
-  background-color: rgba(243, 119, 48, 1);
+.submit-invalid {
   opacity: 0.7;
-  color: white;
   cursor: pointer;
   width: 100%;
   padding: 10px;
@@ -66,33 +48,17 @@ form {
   border-radius: 20px;
 }
 a {
-  color: rgba(243, 119, 48, 1);
   text-decoration: none;
 }
 p {
   margin-top: 15px;
   margin-left: 30px;
 }
-.left-content {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  max-width: 100%;
-}
 .password {
   display: flex;
   justify-content: space-between;
 }
 
-.right-content {
-  width: 100%;
-  max-width: 100%;
-}
-
-img {
-  width: max(500px, 100%);
-}
 .fa-eye,
 .fa-eye-slash {
   position: absolute;
@@ -111,20 +77,31 @@ img {
   color: red;
   margin-top: -25px;
 }
+.welcome .project-name {
+  font-family: "Gurajada", sans-serif;
+  font-size: 2rem;
+  font-style: normal;
+  font-weight: bold;
+  line-height: normal;
+}
 
-@media only screen and (min-width: 768px) {
-  .content-container {
-    flex-direction: row;
+@media (min-width: 308px) {
+  .welcome .project-name,
+  .welcome .welcome-back {
+    font-size: 2.5rem;
   }
-  .left-content {
-    width: 50%;
-    max-width: 60%;
+}
+
+@media (min-width: 470px) {
+  .welcome .project-name,
+  .welcome .welcome-back {
+    font-size: 3rem;
   }
-  .right-content {
-    width: 50%;
-  }
-  .fa-eye,
-  .fa-eye-slash {
-    top: 23%;
+}
+
+@media (min-width: 924px) {
+  .welcome .project-name,
+  .welcome .welcome-back {
+    font-size: 3rem;
   }
 }

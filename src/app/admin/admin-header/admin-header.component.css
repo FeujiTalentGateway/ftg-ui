@@ -1,0 +1,13 @@
+.navi {
+    color: #576368;
+}
+  
+.navi:hover {
+color: #f37730; 
+transition: color 0.3s ease-in-out;
+}
+
+.header-nav{
+    background-color: white;
+    height: 10vh;
+}

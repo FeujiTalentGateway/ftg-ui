@@ -1,0 +1,12 @@
+.img-nav{
+    padding-top: 1rem;
+    /* padding-left: rem; */
+    height: 8%;
+}
+
+.side-nav{
+    background-color: #FFE2D1;
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+}

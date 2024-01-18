@@ -1,8 +1,8 @@
 .container-fluid {
-    display: flex;
+    background-color: #EFF2F7;
 }
 
-.side-nav {
+/* .side-nav {
     width: 12rem;
     padding-right: 1rem;
 }
@@ -10,4 +10,4 @@
 .header-nav {
     flex: 1;
     padding-left: 0.5rem; 
-}
+} */

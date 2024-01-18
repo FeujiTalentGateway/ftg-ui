@@ -3,16 +3,11 @@
 }
   
 .navi:hover {
-color: #f37730; /* Change to the desired hover color */
+color: #f37730; 
 transition: color 0.3s ease-in-out;
 }
 
 .header-nav{
-    /* background-color: #FFE2D1; */
-    background-color: #EFF2F7;
+    background-color: white;
     height: 10vh;
 }
-
-/* .header {
-    flex: 1;
-} */

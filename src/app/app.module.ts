@@ -7,11 +7,21 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { CommonModule } from '@angular/common';
+import { MainLayoutComponent } from './layout/app-layout/main-layout/main-layout.component';
+import { MainHeaderComponent } from './layout/main-header/main-header.component';
+import { AuthLayoutComponent } from './layout/app-layout/auth-layout/auth-layout.component';
+import { SidebarComponent } from './layout/sidebar/sidebar.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
+    MainLayoutComponent,
+    AuthLayoutComponent,
+    MainHeaderComponent,
+    SidebarComponent
+    
+    
   ],
   imports: [
     BrowserModule,
@@ -21,7 +31,8 @@ import { CommonModule } from '@angular/common';
     HttpClientModule,
     MatSnackBarModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    
   ],
   providers: [Location],
   bootstrap: [AppComponent]

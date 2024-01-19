@@ -30,7 +30,7 @@
       >
       <ng-container *ngIf="!isSignupPage(); else loginButton">
         <a
-          [routerLink]="['/register']"
+          [routerLink]="['/auth/register']"
           id="signup-button"
           class="btn btn-outline-primary btn-sm col-2 col-sm-2 login"
           >Signup</a
@@ -39,7 +39,7 @@
 
       <ng-template #loginButton>
         <a
-          [routerLink]="['/login']"
+          [routerLink]="['/auth/login']"
           id="login-button"
           class="btn btn-outline-primary btn-sm col-2 col-sm-2 login"
           >Login</a

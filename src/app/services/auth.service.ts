@@ -90,6 +90,9 @@ export class AuthService {
   setJwtToken(token: any) {
     localStorage.setItem('token', token);
   }
+  removeJwtTocken(){
+    
+  }
   decodedToken() {
     const jwtHelper = new JwtHelperService();
     const jwtToken = localStorage.getItem('token') || '';
@@ -115,5 +118,12 @@ export class AuthService {
       verticalPosition: 'top',
       horizontalPosition: 'center',
     });
+  }
+  templogin(loginData :FormGroup){
+    console.log(loginData,'dvd')
+    if (loginData){
+      this.route.navigateByUrl('/user/home')
+    }
+
   }
 }

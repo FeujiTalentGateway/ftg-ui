@@ -32,7 +32,6 @@ export class AuthService {
         this.openSnackBar(response.message, 'Close');
         if (responseMessage.includes('User successfully registered with')) {
           this.openSnackBar(responseMessage, 'Close');
-          // this.route.navigateByUrl('login');
         }
       },
       error: (error: any) => {

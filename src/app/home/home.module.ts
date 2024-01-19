@@ -21,5 +21,6 @@ import { FooterComponent } from './footer/footer.component';
     FooterComponent,
   ],
   imports: [CommonModule, FormsModule, ReactiveFormsModule, HomeRoutingModule],
+  exports: [HeaderComponent]
 })
 export class HomeModule {}

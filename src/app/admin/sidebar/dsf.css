@@ -1,0 +1,30 @@
+.side-nav {
+    height: 100vh;
+    background-color: #ffe1d1;
+  }
+
+
+.nav-list{
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  align-items: center;
+  justify-content: space-evenly;
+  width: inherit;
+}
+.nav-item{
+  margin: 0.6rem;
+  width: inherit;
+  text-align: left;
+  padding-left: 20px;
+  transition: background-color 0.7s ease;
+}
+
+.nav-item:hover{
+  background-color: #d86f33;
+  color: #fff;
+ 
+}
+.image-logo{
+  width: 10rem;
+}

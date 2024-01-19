@@ -20,3 +20,5 @@ body {
 .global-white-color {
   color: white !important;
 }
+
+@import '~bootstrap/dist/css/bootstrap.min.css';

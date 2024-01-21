@@ -9,6 +9,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   providedIn: 'root'
 })
 export class ScheduleExamService {
+
   
 
   constructor(private scheduleExamRepo:ScheduleExamRepositoryService,
@@ -28,9 +29,7 @@ export class ScheduleExamService {
 
         },
         error :(error:any) =>{
-          console.log(error);
-          console.log(error.error.message);
-          
+
             this.openSnackBar(error.error.message, 'Close');          
         }
       }
@@ -49,12 +48,7 @@ export class ScheduleExamService {
     this.scheduleExamRepo.getExams().subscribe(
       {
         next :(response:any) =>{
-          console.log('response');
-          
-          console.log(response);
-          console.log('Service-sub' + this.exams + '---');
           this.exams =response;
-          console.log('Service-sub-2' + this.exams + '---');
         },
         error :(error:any) =>{
           console.log(error);
@@ -63,10 +57,26 @@ export class ScheduleExamService {
       }
       
     );
-    console.log('Service' + this.exams + '---');
     
     return this.exams;
 
+  }
+
+  changeStatus(id: any, active: any) {
+    this.scheduleExamRepo.changeStatus(id,active).subscribe(
+      {
+        next :(response:any) =>{
+          
+            this.openSnackBar(response.message, 'Close');
+
+
+        },
+        error :(error:any) =>{
+
+            this.openSnackBar(error.error.message, 'Close');          
+        }
+      }
+    )
   }
 
   openSnackBar(message: string, action: string) {

@@ -9,5 +9,6 @@ export interface Exam {
     endDate: string;
     active: boolean;
     paper: Paper;
+    
   }
   

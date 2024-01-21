@@ -8,6 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { CommonModule } from '@angular/common';
 import { MatDialogModule } from '@angular/material/dialog';
+import { ConfirmationDialogComponent } from './admin/util-component/confirmation-dialog.component';
 
 
 
@@ -15,6 +16,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 @NgModule({
   declarations: [
     AppComponent,
+    ConfirmationDialogComponent,
   ],
   imports: [
     BrowserModule,

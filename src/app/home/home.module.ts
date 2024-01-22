@@ -9,6 +9,7 @@ import { MainHomeComponent } from './main-home/main-home.component';
 import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
 import { FooterComponent } from './footer/footer.component';
+import { CreatePaperComponent } from '../admin/paper/create-paper/create-paper.component';
 
 @NgModule({
   declarations: [

@@ -1,0 +1,51 @@
+.container-fluid {
+  background-color: #EFF2F7;
+}
+
+.paperName-container {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  margin: 30px;
+}
+
+.paperName {
+  margin-bottom: 10px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.paperName-input {
+  width: 300px;
+  padding: 5px;
+}
+
+.radio-container {
+  flex-direction: column;
+}
+
+.radio-options {
+  display: flex;
+  align-items: center;
+}
+
+.radio-options input {
+  margin: 10px;
+}
+
+.radio-label {
+  margin-bottom: 5px;
+}
+.subject-select {
+  width: 150px;
+  padding: 5px;
+
+}
+
+li {
+  margin-bottom: 10px; /* Optional: add some spacing between list items */
+}
+

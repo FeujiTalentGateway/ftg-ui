@@ -9,7 +9,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { CommonModule } from '@angular/common';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from './admin/util-component/confirmation-dialog.component';
-
+import { CreatePaperComponent } from './admin/paper/create-paper/create-paper.component';
 
 
 

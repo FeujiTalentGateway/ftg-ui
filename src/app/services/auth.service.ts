@@ -72,7 +72,7 @@ export class AuthService {
           this.userDetails.setRoleFromToken(
             this.userPayload.authorities[0].authority
           );
-          this.route.navigateByUrl('/home');
+          this.route.navigateByUrl('/admin/home');
         }
         if (response.message == 'Invalid username or password')
           this.openSnackBar('Invalid username or password', 'Close');

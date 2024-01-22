@@ -5,24 +5,26 @@ import { AuthService } from 'src/app/services/auth.service';
 @Component({
   selector: 'app-main-header',
   templateUrl: './main-header.component.html',
-  styleUrls: ['./main-header.component.css']
+  styleUrls: ['./main-header.component.css'],
 })
 export class MainHeaderComponent {
-  
-  constructor(private el: ElementRef, private auth :AuthService, private route : Router) {}
+  constructor(
+    private el: ElementRef,
+    private auth: AuthService,
+    private route: Router
+  ) {}
   @Input() userData: any;
-  @Input() dummydata:any;
 
-  showDropdown:boolean = true;
-  toggleDropdown(){
+  showDropdown: boolean = false;
+
+  toggleDropdown() {
     this.showDropdown = !this.showDropdown;
-    console.log("ok");
-    
-    
+    console.log('ok');
   }
-  logOut(){
+
+  logOut() {
     this.auth.removeJwtTocken();
-    this.route.navigateByUrl('/home')
+    this.route.navigateByUrl('/auth/home');
   }
 
   @HostListener('document:click', ['$event'])

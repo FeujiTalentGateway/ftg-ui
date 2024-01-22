@@ -120,8 +120,11 @@ export class AuthService {
     });
   }
   templogin(loginData :FormGroup){
-    console.log(loginData,'dvd')
+
     if (loginData){
+      console.log(loginData);
+      
+      localStorage.setItem('role',loginData.value.userName)
       this.route.navigateByUrl('/user/home')
     }
 

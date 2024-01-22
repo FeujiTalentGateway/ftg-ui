@@ -6,12 +6,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgFor } from '@angular/common';
 import { MainLayoutComponent } from './layout/app-layout/main-layout/main-layout.component';
 import { MainHeaderComponent } from './layout/main-header/main-header.component';
 import { AuthLayoutComponent } from './layout/app-layout/auth-layout/auth-layout.component';
 import { SidebarComponent } from './layout/sidebar/sidebar.component';
-
 
 @NgModule({
   declarations: [
@@ -19,9 +18,7 @@ import { SidebarComponent } from './layout/sidebar/sidebar.component';
     MainLayoutComponent,
     AuthLayoutComponent,
     MainHeaderComponent,
-    SidebarComponent
-    
-    
+    SidebarComponent,
   ],
   imports: [
     BrowserModule,
@@ -32,9 +29,8 @@ import { SidebarComponent } from './layout/sidebar/sidebar.component';
     MatSnackBarModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    
   ],
   providers: [Location],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

@@ -7,12 +7,23 @@
          <div> {{userData.userName}}</div>
          <!-- <div><i class="fa-sharp fa-solid fa-gear"></i></div> -->
          <div >
-             <i class="fa-sharp fa-solid fa-gear" (click)="toggleDropdown()"></i>
-             <div *ngIf="showDropdown" class="dropdown-menu-settings">
+             <!-- <i class="fa-sharp fa-solid fa-gear" (click)="toggleDropdown()"></i>
+             <div *ngIf="showDropdown" class="dropdown-menu">
                <ul>
                    <li class="drop-item"><i class="fa-solid fa-user"></i> &nbsp;<span>Profile</span></li>
                    <li class="drop-item logout" (click)="logOut()"> <i class="fa-solid fa-right-from-bracket fa-sm" style="color: #ff0000;"></i> &nbsp;<span>Logout</span></li>
                </ul>
+             </div> -->
+             <div>
+              <i class="fa-sharp fa-solid fa-gear" (click)="toggleDropdown()"></i>
+              <div>
+              <div *ngIf="showDropdown" class="menu-dropdown">
+               <ul>
+                  <li class="drop-item"><i class="fa-solid fa-user"></i> &nbsp;<span>Profile</span></li>
+                  <li class="drop-item logout" (click)="logOut()"> <i class="fa-solid fa-right-from-bracket fa-sm" style="color: #ff0000;"></i> &nbsp;<span class="logout">Logout</span></li>
+              </ul>
+              </div>
+              </div>
              </div>
            </div>
          </div>

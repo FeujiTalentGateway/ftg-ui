@@ -1,25 +1,12 @@
-
-<div class="row">
+<aside>
+  <div class="row">
     <div class="side-nav">
-      <img  class="image-logo" src="assets/images/feuji-logo-bg.png" />
-        <div class="nav-list">
-          <div class="nav-item" (click)="isActiveDropdown('Exam')">
-            <i class="fa-solid fa-clipboard-question"></i>
-             &nbsp;  &nbsp; Exams  &nbsp; &nbsp; 
-             <i class="fa-solid fa-chevron-right"></i>
-  
-             <div *ngIf="true">
-              <ul>
-                <li>one</li>
-                <li>one</li>
-                <li>one</li>
-              </ul>
-  
-             </div>
-  
-          </div>
-          <div class="nav-item"> <i class="fa-solid fa-square-poll-vertical"></i> &nbsp; &nbsp; Result</div>
-          <div class="nav-item">Profile</div>
+    <img  class="image-logo" src="assets/images/feuji-logo-bg.png"/>
+    <div class="nav-list">
+      <div *ngFor="let route of listOfRoutes" class="nav-item">
+        <i class="{{route.icon}}"></i> &nbsp;<span>{{route.modulename}}</span> &nbsp;  
       </div>
+    </div>  
     </div>
   </div>
+</aside>

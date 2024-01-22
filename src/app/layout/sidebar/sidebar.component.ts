@@ -13,11 +13,19 @@ export class SidebarComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    let role = localStorage.getItem('role') || 'user';
+    // let role = localStorage.getItem('role') || 'user';
+    let role = 'Admin';
+    // let role = 'invigilator';
     if (role != null) {
       this.listOfRoutes = ROUTES.filter((item) => item.role.includes(role));
+      // this.listOfRoutes.forEach((route) => (route.active = false));
     }
   }
 
-  isActiveDropdown(activeModule: string) {}
+  toggleSubmenu(route: RouteInfo): void {
+    route.active = !route.active;
+  }
+
+  isActiveDropdown(activeModule: string) {
+  }
 }

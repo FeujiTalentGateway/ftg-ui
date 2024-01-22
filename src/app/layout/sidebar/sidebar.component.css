@@ -22,11 +22,28 @@
 }
 
 .nav-item:hover{
-  background-color: #fffefd;
+  background-color:#ffe1d1;
   color: #000000;
  
 }
 .image-logo{
   width: 10rem;
+}
+
+.submenu-link{
+  color: inherit;
+  text-decoration: none; 
+  cursor: pointer; 
+}
+
+.submenu-link:hover{
+  color: white;
+  background-color: #f3752e;
+}
+
+.submenu{
+  color: inherit;
+  text-decoration: none; 
+  cursor: pointer; 
 }
     

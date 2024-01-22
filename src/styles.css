@@ -26,3 +26,5 @@ body {
   --home-background-color : #EFF2F7 !important;
 
 }
+
+@import "~bootstrap/dist/css/bootstrap.min.css";

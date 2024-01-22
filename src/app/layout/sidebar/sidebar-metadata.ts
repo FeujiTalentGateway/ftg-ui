@@ -7,4 +7,5 @@ export interface RouteInfo {
   class: string;
   role: string[];
   submenu: RouteInfo[];
+  active?: boolean;
 }

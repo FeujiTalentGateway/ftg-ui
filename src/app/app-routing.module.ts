@@ -9,7 +9,11 @@ const routes: Routes = [
     component: MainLayoutComponent,
     children: [
       { path: '', redirectTo: '/auth/home', pathMatch: 'full' },
-
+      {
+        path: 'admin',
+        loadChildren: () =>
+          import('./admin/admin.module').then((m) => m.AdminModule),
+      },
       {
         path: 'user',
         loadChildren: () =>
@@ -23,6 +27,9 @@ const routes: Routes = [
     component: AuthLayoutComponent,
     loadChildren: () => import('./home/home.module').then((m) => m.HomeModule),
   },
+  { path: 'exams', loadChildren: () => import('./admin/exams/exams.module').then(m => m.ExamsModule) },
+  { path: 'users', loadChildren: () => import('./admin/users/users.module').then(m => m.UsersModule) },
+  { path: 'qp', loadChildren: () => import('./admin/question-papers/question-papers.module').then(m => m.QuestionPapersModule) },
 ];
 
 @NgModule({

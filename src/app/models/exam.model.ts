@@ -1,6 +1,7 @@
 import { Paper } from "./paper.model";
 
 export interface Exam {
+    id:Number;
     name: string;
     description: string;
     examCode: string;
@@ -8,7 +9,7 @@ export interface Exam {
     startDate: string;
     endDate: string;
     active: boolean;
-    paper: Paper;
+    paperDTO: Paper;
     
   }
   

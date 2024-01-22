@@ -9,6 +9,24 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   providedIn: 'root'
 })
 export class ScheduleExamService {
+  
+  updateExam(selectedExamId: any, formData: any) {
+    this.scheduleExamRepo.updateExam(formData,selectedExamId).subscribe(
+      {
+        next :(response:any) =>{
+  
+            this.openSnackBar(response.message , 'Close');
+            this.route.navigateByUrl('/admin/home');
+  
+
+        },
+        error :(error:any) =>{
+
+            this.openSnackBar(error.error.message, 'Close');          
+        }
+      }
+    )
+  }
 
   
 
@@ -25,6 +43,7 @@ export class ScheduleExamService {
           if ((response.message).includes('Exam scheduled successfully')) {
             this.openSnackBar('Exam scheduled successfully', 'Close');
             this.route.navigateByUrl('/admin/home');
+            
           }
 
         },

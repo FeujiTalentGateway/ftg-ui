@@ -8,14 +8,15 @@ import { FormGroup, FormBuilder, Validators, NgForm, FormControl } from '@angula
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../util-component/confirmation-dialog.component';
-import { getLocaleDateFormat } from '@angular/common';
+import { DatePipe, getLocaleDateFormat } from '@angular/common';
 
 
 
 @Component({
   selector: 'app-schedule-exam',
   templateUrl: './schedule-exam.component.html',
-  styleUrls: ['./schedule-exam.component.css']
+  styleUrls: ['./schedule-exam.component.css'],
+  providers: [DatePipe]
 })
 export class ScheduleExamComponent implements OnInit {
 
@@ -28,21 +29,12 @@ export class ScheduleExamComponent implements OnInit {
 
   showScheduleDialog = false;
   examForm: FormGroup<any>;
+  minStartDate: string = '';
+  selectedExamId: any;
 
     
   ngOnInit(): void {
-    this.service.getExam().subscribe(
-      (exams: Exam[]) => {
-        console.log(exams);
-        
-        this.dataSource = new MatTableDataSource(exams);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-      },
-      (error) => {
-        console.error('Error fetching exams:', error);
-      }
-    );
+    this.getExams();
 
   }
 
@@ -55,13 +47,14 @@ export class ScheduleExamComponent implements OnInit {
 
   constructor(
     private service: ScheduleExamService,
-    private dialog: MatDialog,private fb: FormBuilder
+    private dialog: MatDialog,
+    private fb: FormBuilder,
+    private datePipe: DatePipe
   ) {
     this.examForm = this.fb.group({
       name: ['', [
         Validators.required,
-        Validators.maxLength(255),
-        Validators.pattern(/^[a-zA-Z\s']{1,32}$/),
+        Validators.maxLength(255)
       ]],
   
       description: ['', [
@@ -88,82 +81,28 @@ export class ScheduleExamComponent implements OnInit {
       paperDTO: this.fb.group({
         id: [null, Validators.required],
       }),
-    }, { validators: this.dateRangeValidator.bind(this) });
-
+    }, { validators: this.dateRangeValidator });
+  
+    this.minStartDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd')!;
   }
-
-  // Form group for schedule exam
-  // examForm: FormGroup = new FormGroup({
-  //   name: new FormControl('', [
-  //     Validators.required,
-  //     Validators.maxLength(255),
-  //     Validators.pattern(/^[a-zA-Z\s']{1,32}$/),
-  //   ]),
-  
-  //   description: new FormControl('', [
-  //     Validators.required,
-  //     Validators.maxLength(500),
-  //   ]),
-  
-  //   examCode: new FormControl('', [
-  //     Validators.required,
-  //     Validators.maxLength(50),
-  //   ]),
-  
-  //   duration: new FormControl('', [
-  //     Validators.required,
-  //     Validators.pattern(/^([0-9][0-9]):([0-5][0-9]):([0-5][0-9])$/),
-  //   ]),
-  
-  //   startDate: new FormControl('', Validators.required),
-  
-  //   endDate: new FormControl('', Validators.required),
-  
-  //   active: new FormControl(false, Validators.required),
-  
-  //   paper: new FormGroup({
-  //     id: new FormControl(null, Validators.required),
-  //   }),
-  // }, { validators: this.dateRangeValidator.bind(this) });
-  
-  
 
   dateRangeValidator(group: FormGroup): { [key: string]: any } | null {
     const startDateControl = group.get('startDate');
     const endDateControl = group.get('endDate');
-  
+
     if (startDateControl && endDateControl) {
       const startDate = startDateControl.value;
       const endDate = endDateControl.value;
-  
-      // Get the current date
-      const currentDate = this.getCurrentDate();
-  
-      // Check if the start date is less than the current date
-        // if (startDate && endDate && endDate < currentDate && startDate < currentDate) {
-        //   return { 'dateRange': 'Start Date must be greater than or equal to the current Date' };
-        // }
-  
-      // Check if the start date is greater than the end date
+
       if (startDate && endDate && startDate > endDate) {
         return { 'dateRange': 'End Date must be greater than Start Date' };
       }
     }
-  
+
     return null;
   }
   
-
-  getCurrentDate(): Date {
-    console.log(new Date());
-    
-    return new Date();
-  }
   
-  
-
-
-
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -185,64 +124,68 @@ export class ScheduleExamComponent implements OnInit {
   onSubmit() {
     if (this.examForm.valid) {
       const formData = this.examForm.value;
-      this.service.scheduleExam(formData);
-      console.log('Form submitted:', formData);
-      
+  
+      if (this.selectedExamId) {
+        // Update existing exam
+        this.service.updateExam(this.selectedExamId, formData)
+      } else {
+        // Schedule a new exam
+        this.service.scheduleExam(formData)
+      }
     } else {
       console.log('Form is invalid');
     }
   }
-
   
-  // Add functions for button actions
-  viewExam(row: Exam): void {
-    // Implement logic for viewing exam details
-    console.log('Viewing exam:', row);
-  }
+
 
 
 
   toggleActive(id: any, active: any): void {
-
     let messages = '';
   
-    if (active === 0) {
+    if (!active) {
       messages = 'Do you want to activate this exam?';
-    } else if (active === 1) {
+    } else if (active) {
       messages = 'Do you want to deactivate this exam?';
     }
   
     console.log(messages);
-    
-    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-      data: { title: 'Confirmation', message: messages+'' },
-    });
-    
   
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      data: { title: 'Confirmation', message: messages + '' },
+    });
+      
+
     // Subscribe to the result of the dialog
     dialogRef.afterClosed().subscribe(result => {
       if (result === true) {
+        // Only perform the toggle operation if the user clicked "Yes"
         this.service.changeStatus(id, active);
+      } else if (result === false) {
+        this.getExams();
 
       }
     });
   }
-
-  // Inside your ScheduleExamComponent class
-  setFormValues(exam: Exam): void {
-    this.examForm.patchValue({
-      name: exam.name,
-      description: exam.description,
-      examCode: exam.examCode,
-      duration: exam.duration,
-      startDate: new Date(exam.startDate), 
-      endDate: new Date(exam.endDate),  
-      active: exam.active,
-      paperDTO: {
-        id : exam.paper, 
+  
+  getExams(){
+    this.service.getExam().subscribe(
+      (exams: Exam[]) => {
+        this.dataSource = new MatTableDataSource(exams);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
       },
-    });
+      (error) => {
+        console.error('Error fetching exams:', error);
+      }
+    );
   }
+  
+  
+
+  
+  
   
   formatDate(date: Date): string {
     const isoString = date.toISOString();
@@ -252,16 +195,36 @@ export class ScheduleExamComponent implements OnInit {
 
 // Inside your ScheduleExamComponent class
 editExam(row: Exam): void {
-  this.setFormValues(row);
+  const { id } = row;
+  const { name, description, examCode, duration, startDate, endDate, active, paperDTO} = row;
+
+  // Convert string dates to Date objects
+  const startDateObj = new Date(startDate);
+  console.log(startDateObj);
+  
+  const endDateObj = new Date(endDate);
+
+  this.examForm.setValue({
+    name,
+    description,
+    examCode,
+    duration,
+    startDate: startDateObj,
+    endDate: endDateObj,
+    active,
+    paperDTO: {
+      id : paperDTO.name,
+    },
+  });
+
   this.showScheduleDialog = true;
+  this.selectedExamId = id;
 }
+
 
 setActive(isActive: boolean): void {
   this.examForm.get('active')!.setValue(isActive);
 }
-
-
-
   
 
 }

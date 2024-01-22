@@ -8,6 +8,13 @@ import { Exam } from '../models/exam.model';
 })
 export class ScheduleExamRepositoryService {
 
+  updateExam(formData: any, selectedExamId: any) {
+
+    const requestOptions = { headers: this.setToken() };
+  
+    return this.http.put(this.adminUrl + 'exam/'+selectedExamId, formData, requestOptions);
+  }
+
   adminUrl = 'http://localhost:8093/';
 
   constructor(private http: HttpClient) { }

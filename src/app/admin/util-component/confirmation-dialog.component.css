@@ -24,14 +24,5 @@
     margin-left: 10px;
   }
   
-  /* Adjust the button colors */
-  button[color="primary"] {
-    background-color: #007bff;
-    color: #fff;
-  }
-  
-  button[color="warn"] {
-    background-color: #dc3545;
-    color: #fff;
-  }
+
   

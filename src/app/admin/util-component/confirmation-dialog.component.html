@@ -1,8 +1,10 @@
 <h2 mat-dialog-title>{{ data.title }}</h2>
-<h2 mat-dialog-title>{{ data.message }}</h2>
-<mat-dialog-content>{{ data.message }}</mat-dialog-content>
+<mat-dialog-content><b>{{ data.message }}</b></mat-dialog-content>
 <mat-dialog-actions>
-  <button mat-button color="primary" [mat-dialog-close]="true">Yes</button>
-  <button mat-button color="warn" [mat-dialog-close]="false">No</button>
+  <button mat-raised-button style="background-color: #2196F3; color: #FFFFFF; border: none;" [mat-dialog-close]="true">Yes</button>
+  <button mat-raised-button style="background-color: #FF0000; color: #FFFFFF; border: none;" [mat-dialog-close]="false">No</button>
 </mat-dialog-actions>
+
+
+
 

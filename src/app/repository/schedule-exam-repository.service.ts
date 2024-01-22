@@ -8,13 +8,6 @@ import { Exam } from '../models/exam.model';
 })
 export class ScheduleExamRepositoryService {
 
-  updateExam(formData: any, selectedExamId: any) {
-
-    const requestOptions = { headers: this.setToken() };
-  
-    return this.http.put(this.adminUrl + 'exam/'+selectedExamId, formData, requestOptions);
-  }
-
   adminUrl = 'http://localhost:8093/';
 
   constructor(private http: HttpClient) { }
@@ -31,7 +24,7 @@ export class ScheduleExamRepositoryService {
   scheduleExam(formData: Exam): Observable<any> {
     const requestOptions = { headers: this.setToken() };
   
-    return this.http.post(this.adminUrl + 'exam/schedule', formData, requestOptions);
+    return this.http.post(this.adminUrl + 'exam', formData, requestOptions);
   }
   
 
@@ -42,17 +35,25 @@ export class ScheduleExamRepositoryService {
     const requestOptions = { headers: this.setToken() };
 
     // Make the HTTP request
-    return this.http.get(this.adminUrl+'exam/getExams', requestOptions);
+    return this.http.get(this.adminUrl+'exam', requestOptions);
   }
 
 
-  changeStatus(id: any, active: any): Observable<any>  {
+  changeExamStatus(id: any): Observable<any>  {
     const requestOptions = { headers: this.setToken() };
     console.log("change status");
     
-   return  this.http.delete( this.adminUrl + 'exam/changestatus/'+ id, requestOptions);
+   return  this.http.delete( this.adminUrl + 'exam/'+ id, requestOptions);
  
   }
+  
+  updateExam(formData: Exam) {
+
+    const requestOptions = { headers: this.setToken() };
+  
+    return this.http.put(this.adminUrl + 'exam/', formData, requestOptions);
+  }
+
   
 
 

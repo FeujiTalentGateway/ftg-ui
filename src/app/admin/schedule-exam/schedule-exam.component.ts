@@ -12,6 +12,8 @@ import { DatePipe, getLocaleDateFormat } from '@angular/common';
 
 
 
+
+
 @Component({
   selector: 'app-schedule-exam',
   templateUrl: './schedule-exam.component.html',
@@ -127,10 +129,12 @@ export class ScheduleExamComponent implements OnInit {
   
       if (this.selectedExamId) {
         // Update existing exam
-        this.service.updateExam(this.selectedExamId, formData)
+        this.service.updateExam(formData)
       } else {
         // Schedule a new exam
         this.service.scheduleExam(formData)
+        console.log(formData);
+        
       }
     } else {
       console.log('Form is invalid');
@@ -161,7 +165,7 @@ export class ScheduleExamComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result === true) {
         // Only perform the toggle operation if the user clicked "Yes"
-        this.service.changeStatus(id, active);
+        this.service.changeExamStatus(id);
       } else if (result === false) {
         this.getExams();
 
@@ -194,31 +198,36 @@ export class ScheduleExamComponent implements OnInit {
   
 
 // Inside your ScheduleExamComponent class
-editExam(row: Exam): void {
-  const { id } = row;
-  const { name, description, examCode, duration, startDate, endDate, active, paperDTO} = row;
+editExam(exam: Exam): void {
+  const { name, description, examCode, duration, startDate, endDate, active, paperDTO} = exam;
 
   // Convert string dates to Date objects
   const startDateObj = new Date(startDate);
-  console.log(startDateObj);
+
+  // Use DatePipe to format the date
+  const formattedStartDate = this.datePipe.transform(startDateObj, 'yyyy-MM-dd');
+
   
   const endDateObj = new Date(endDate);
 
-  this.examForm.setValue({
-    name,
-    description,
-    examCode,
-    duration,
-    startDate: startDateObj,
-    endDate: endDateObj,
-    active,
-    paperDTO: {
-      id : paperDTO.name,
-    },
-  });
+    // Use DatePipe to format the date
+    const formattedEndDate = this.datePipe.transform(endDateObj, 'yyyy-MM-dd');
 
+    this.examForm.setValue({
+      name,
+      description,
+      examCode,
+      duration,
+      startDate: formattedStartDate,
+      endDate: formattedEndDate,
+      active,
+      paperDTO: {
+        id: exam.paperDTO.id
+      },
+    });
+    
   this.showScheduleDialog = true;
-  this.selectedExamId = id;
+  this.selectedExamId = exam.id;
 }
 
 

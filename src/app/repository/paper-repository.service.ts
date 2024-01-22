@@ -10,7 +10,7 @@ import { Subject } from '../models/subject';
   providedIn: 'root'
 })
 export class PaperRepositoryService {
-  baseUrl: string = environment.paperUrl;
+  baseUrl: string = 'http://localhost:8093/';
 
   constructor(private http: HttpClient) {
 

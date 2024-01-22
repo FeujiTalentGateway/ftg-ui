@@ -21,7 +21,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { CreatePaperComponent } from './paper/create-paper/create-paper.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 
 
 

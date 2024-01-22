@@ -10,8 +10,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class ScheduleExamService {
   
-  updateExam(selectedExamId: any, formData: any) {
-    this.scheduleExamRepo.updateExam(formData,selectedExamId).subscribe(
+  updateExam(formData: Exam) {
+    this.scheduleExamRepo.updateExam(formData).subscribe(
       {
         next :(response:any) =>{
   
@@ -39,13 +39,16 @@ export class ScheduleExamService {
   scheduleExam(formData: any) {
     this.scheduleExamRepo.scheduleExam(formData).subscribe(
       {
-        next :(response:any) =>{
-          if ((response.message).includes('Exam scheduled successfully')) {
+        next: (response: any) => {
+          // Check the HTTP status code
+          const statusCode = response?.statusCode;
+          console.log(statusCode);
+          
+  
+          if (statusCode === 201) { 
             this.openSnackBar('Exam scheduled successfully', 'Close');
             this.route.navigateByUrl('/admin/home');
-            
           }
-
         },
         error :(error:any) =>{
 
@@ -81,8 +84,8 @@ export class ScheduleExamService {
 
   }
 
-  changeStatus(id: any, active: any) {
-    this.scheduleExamRepo.changeStatus(id,active).subscribe(
+  changeExamStatus(id: any) {
+    this.scheduleExamRepo.changeExamStatus(id).subscribe(
       {
         next :(response:any) =>{
           

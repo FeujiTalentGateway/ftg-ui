@@ -9,6 +9,7 @@ import { environment } from 'src/environments/environment';
 })
 export class AuthRepositoryService {
   baseUrl: string = environment.apiUrl;
+
   constructor(private http: HttpClient) {
     this.baseUrl = environment.apiUrl;
   }
@@ -18,6 +19,7 @@ export class AuthRepositoryService {
     console.log(this.baseUrl);
 
     return this.http.post(this.baseUrl + 'registration/register', data);
+
   }
 
   login(loginData: UserLoginModel): Observable<any> {

@@ -23,19 +23,21 @@ export class CreatePaperComponent implements OnInit {
   paperResponse: Paper | undefined;
   paper: Paper | undefined;
   selectedQuestions: Question[] = [];
+  papers: Paper[] = [];
 
 
-  constructor(private paperService: PaperService, private fb: FormBuilder,private route: Router) {
+  constructor(private paperService: PaperService, private fb: FormBuilder, private route: Router) {
 
   }
   ngOnInit(): void {
     this.getAllSubjects();
     this.getAllQuestions();
+    this.getAllPapers();
   }
 
 
   register(data: FormGroup) {
-    console.log('Inside register component: register()');
+    // console.log('Inside register component: register()');
     this.savePaper();
   }
 
@@ -49,12 +51,6 @@ export class CreatePaperComponent implements OnInit {
 
 
 
-  onSubjectChange(event: any) {
-
-    const selectedSubjectId = event.target.value;
-    this.selectedSubject = this.subjects.find(subject => subject.id == selectedSubjectId);
-    this.questions = this.allQuestions.filter(question => question.subjectDTO.name == this.selectedSubject?.name).map(question => question);
-  }
   getAllQuestions() {
     this.paperService.getAllQuestions().subscribe(
       (questions) => {
@@ -83,17 +79,37 @@ export class CreatePaperComponent implements OnInit {
     const paper: Paper = {
       name: this.registerForm.get('name')?.value,
       active: this.registerForm.get('active')?.value,
-      questions: this.selectedQuestions|| []
+      questions: this.selectedQuestions || []
 
     };
     this.paperService.savePaper(paper).subscribe(
-      (res)=>{
-        console.log(res);
-        this.route.navigateByUrl('/login')
+      (response: string) => {
+        console.log('Response:', response);
+        this.getAllSubjects();
+        this.getAllQuestions();
+        this.getAllPapers();
+      },
+      (error) => {
+        console.error('Error:', error);
       }
     )
 
   }
+
+  getAllPapers() {
+    this.paperService.getAllPapers().subscribe(
+      (res) => {
+        this.papers = res;
+        console.log(res);
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
+
+  }
+
+
   onCheckboxChange(question: Question): void {
     const questionId = question.id;
 
@@ -108,8 +124,43 @@ export class CreatePaperComponent implements OnInit {
 
 
 
+  currentPage = 1;
+  itemsPerPage = 5; 
+  totalItems = 0;
+  nameSearch:string="";
+  objectnumber:number=0;
+
+  onSubjectChange(event: any) {
+    if(event===this.objectnumber){
+      console.log(event);
 
 
+    }
+
+    else{
+
+    const selectedSubjectId = event.target.value;
+      this.objectnumber=selectedSubjectId;
+    this.selectedSubject = this.subjects.find(subject => subject.id == selectedSubjectId);
+    this.questions = this.allQuestions.filter(question => question.subjectDTO.name == this.selectedSubject?.name).map(question => question);
+    this.totalItems = Math.ceil(this.questions.length / this.itemsPerPage);
+    this.currentPage = 1;
+    }
+    
+  }
+
+
+  changePage(page: number) {
+    if (page < 1 || page > this.totalItems) {
+      return;
+    }
+    this.currentPage = page;
+  }
+  getImageListSlice() {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    return this.questions.slice(startIndex, endIndex);
+  }
 
 
 

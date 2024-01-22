@@ -49,3 +49,85 @@ li {
   margin-bottom: 10px; /* Optional: add some spacing between list items */
 }
 
+.title{
+  display: flex;
+  justify-content: space-between;
+  margin: 30px;
+}
+
+.search-container {
+  position: relative;
+  display: inline-block;
+}
+
+.search {
+  padding: 8px;
+  width: 400px;
+  height: 35px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 141, 77, 0.15);
+  background: rgba(245, 130, 41, 0.16);
+}
+
+.search-icon {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  font-size: 14px;
+  color: #888;
+}
+
+
+
+
+.pagination {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 30px;
+  gap: 8px;
+  margin-left: 380px;
+}
+
+
+.pagination-button {
+background-color: #FFFFFF;
+color: #FC864A;
+border: 1px solid #FC864A;
+padding: 8px 12px;
+margin: 0 2px;
+cursor: pointer;
+}
+
+.pagination-button:hover {
+background-color: #FC864A;
+border-color: #FC864A;
+color:#FFFFFF ;
+}
+
+.btn-success {
+background-color:  #ff9f6f;
+color: #FFFFFF ;
+border: 1px solid #FFFFFF ;
+padding: 8px 12px;
+margin: 0 2px;
+}
+
+
+
+
+.global-background-color {
+  background-color: #918a87 !important;
+  padding: 10px;
+  font-size: 16px;
+  color: whitesmoke;
+  
+}
+
+.disabled-button {
+  
+  opacity: 0.5; 
+  cursor: not-allowed; 
+ 
+}
+

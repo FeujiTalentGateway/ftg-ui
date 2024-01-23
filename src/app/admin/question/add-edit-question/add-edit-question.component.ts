@@ -49,6 +49,7 @@ export class AddEditQuestionComponent implements OnInit {
         next: (value) => {
           this.question = value;
           this.setQuestionValueIntoQuestionForm(this.question);
+          this.selectedSubject = value.subject.id;
         },
       });
     }

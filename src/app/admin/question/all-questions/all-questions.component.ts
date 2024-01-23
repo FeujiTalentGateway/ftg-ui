@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Question } from 'src/app/models/question';
 import { Subject } from 'src/app/models/subject';
@@ -35,9 +36,14 @@ export class AllQuestionsComponent implements OnInit {
   constructor(
     private service: QuestionsService,
     private questionRepository: QuestionRepository,
-    private subjectRepository: SubjectRepositoryService
+    private subjectRepository: SubjectRepositoryService,
+    private activatedRoute: ActivatedRoute
   ) {}
   ngOnInit(): void {
+    const subjectQueryParam =
+      this.activatedRoute.snapshot.queryParamMap.get('subject');
+    this.selectedSubject = subjectQueryParam !== null ? +subjectQueryParam : 0; // Use a default value (e.g., 0) if subjectQueryParam is null
+    console.log(this.selectedSubject);
     this.service.questionChanged$.subscribe(() => {
       console.log('refreshing');
       this.getQuesitonsBySubject();
@@ -50,7 +56,11 @@ export class AllQuestionsComponent implements OnInit {
           this.subjects = subjects;
           // Initialize selectedSubject with the first subject
           if (subjects.length > 0) {
-            this.selectedSubject = subjects[0].id;
+            console.log(this.selectedSubject);
+            if (this.selectedSubject == 0) {
+              console.log(this.selectedSubject);
+              this.selectedSubject = subjects[0].id;
+            }
             this.getQuesitonsBySubject();
           }
         },

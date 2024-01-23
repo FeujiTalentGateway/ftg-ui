@@ -50,7 +50,9 @@ export class QuestionsService {
     this.questionRepository.addQuestion(question).subscribe({
       next: (response: any) => {
         console.log(response);
-        this.route.navigate(['/admin/questions']);
+        this.route.navigate(['/admin/questions'], {
+          queryParams: { subject: question.subject.id },
+        });
         this.snackBarService.openSnackBar(
           'Question added successfully',
           'Close'
@@ -68,7 +70,10 @@ export class QuestionsService {
     this.questionRepository.editQuestion(question).subscribe({
       next: (response) => {
         console.log(response);
-        this.route.navigate(['/admin/questions']);
+        this.route.navigate(['/admin/questions'], {
+          queryParams: { subject: question.subject.id },
+        });
+
         this.snackBarService.openSnackBar('Quesiton updated successfully');
       },
       error: (error) => {

@@ -176,7 +176,13 @@
     >
       Submit
     </button>
-    <p class="btn btn-secondary mt-3" routerLink="/admin/questions">Cancel</p>
+    <p
+      class="btn btn-secondary mt-3"
+      [routerLink]="['/admin/questions']"
+      [queryParams]="{ subject: selectedSubject }"
+    >
+      Cancel
+    </p>
   </form>
 </div>
 

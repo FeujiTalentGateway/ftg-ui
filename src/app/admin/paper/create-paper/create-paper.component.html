@@ -37,19 +37,10 @@
 
           </div>
           <div *ngIf="selectedSubject">
-            <!-- <div  class="title"> -->
             <h3 class="subject-name">{{ selectedSubject.name }} Questions:-</h3>
-            <!-- <div class="search-container">
-                <input type="text" placeholder="Search anything..." name="search" class="search"
-                [ngModel]="nameSearch" (ngModelChange)="onSubjectChange(objectnumber)"/>
-                <i class="fa solid fa-search search-icon" ></i>
-              </div> -->
-            <!-- </div>  -->
-
             <ol>
-
               <li *ngFor="let question of getImageListSlice()">
-                <input type="checkbox" [checked]="selectedQuestions.includes(question)"
+                <input type="checkbox" [checked]="isPrescentedOrNot(question)"
                   (change)="onCheckboxChange(question)" />{{ question.content }}
               </li>
             </ol>

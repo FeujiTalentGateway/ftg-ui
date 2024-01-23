@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Paper } from 'src/app/models/paper';
@@ -39,7 +39,6 @@ export class CreatePaperComponent implements OnInit {
 
 
   register(data: FormGroup) {
-    // console.log('Inside register component: register()');
     this.savePaper();
   }
 
@@ -55,13 +54,14 @@ export class CreatePaperComponent implements OnInit {
   createpaper() {
     this.heading = "Create Paper";
     this.showpaper = !this.showpaper;
-    // this.editpaper = true;
+    this.selectedQuestions = [];
+    this.registerForm.reset();
   }
   backbutton() {
     this.showpaper = false;
-    // this.editpaper = false;
     this.questions = [];
     this.selectedSubject = undefined;
+    this.registerForm.reset();
   }
 
   getAllQuestions() {
@@ -88,24 +88,49 @@ export class CreatePaperComponent implements OnInit {
 
   savePaper() {
 
+    if (this.heading === "Create Paper") {
+      const paper: Paper = {
+        id: 0,
+        name: this.registerForm.get('name')?.value,
+        active: this.registerForm.get('active')?.value,
+        questions: this.selectedQuestions || []
 
-    const paper: Paper = {
-      name: this.registerForm.get('name')?.value,
-      active: this.registerForm.get('active')?.value,
-      questions: this.selectedQuestions || []
+      };
+      this.paperService.savePaper(paper).subscribe(
+        (response: any) => {
+          this.openSnackBar(response.message, 'Close');
+          this.getAllPapers();
+          this.registerForm.reset();
+          this.route.navigateByUrl("admin/paper");
+          this.showpaper = !this.showpaper;
+        },
+        (error) => {
+          this.openSnackBar(error.error.message, 'Close');
+        }
+      );
+    }
+    else {
+      const paper: Paper = {
+        id: this.editPaperId,
+        name: this.registerForm.get('name')?.value,
+        active: this.registerForm.get('active')?.value,
+        questions: this.selectedQuestions || []
 
-    };
-    this.paperService.savePaper(paper).subscribe(
-      (response: any) => {
-        console.log('Response:', response);
-        this.openSnackBar(response.message, 'Close');
-        this.getAllPapers();
-        this.route.navigateByUrl("admin/paper");
-      },
-      (error) => {
-        this.openSnackBar('Error:', error.message);
-      }
-    )
+      };
+
+      this.paperService.updatePaper(paper).subscribe(
+        (response: any) => {
+          console.log(response);
+          this.getAllPapers();
+          this.registerForm.reset();
+          this.route.navigateByUrl("admin/paper");
+          this.showpaper = !this.showpaper;
+        },
+        (error) => {
+          this.openSnackBar(error.error.message, 'Close');
+        }
+      );
+    }
 
   }
 
@@ -113,7 +138,6 @@ export class CreatePaperComponent implements OnInit {
     this.paperService.getAllPapers().subscribe(
       (res) => {
         this.papers = res;
-        console.log(this.papers.length);
         this.totalPages = Math.ceil(this.papers.length / this.tablerowsperpage);
       },
       (error) => {
@@ -134,10 +158,19 @@ export class CreatePaperComponent implements OnInit {
     } else {
       this.selectedQuestions.push(question);
     }
+
   }
 
 
+  isPrescentedOrNot(question: Question) {
 
+
+    if ((this.selectedQuestions.filter(e => e.content == question.content).length > 0)) {
+      return true;
+
+    }
+    return false;
+  }
   currentPage = 1;
   itemsPerPage = 5;
   totalItems = 0;
@@ -146,7 +179,13 @@ export class CreatePaperComponent implements OnInit {
 
   onSubjectChange(event: any) {
     if (this.heading === "Edit Paper") {
-
+      const selectedSubjectId = event.target.value;
+      this.objectnumber = selectedSubjectId;
+      this.selectedSubject = this.subjects.find(subject => subject.id == selectedSubjectId);
+      this.questions = this.allQuestions.filter(question => question.subject.name == this.selectedSubject?.name).map(question => question);
+      this.totalItems = Math.ceil(this.questions.length / this.itemsPerPage);
+      this.currentPage = 1;
+      this.selectedQuestions = this.selectedQuestions
 
     }
 
@@ -155,7 +194,7 @@ export class CreatePaperComponent implements OnInit {
       const selectedSubjectId = event.target.value;
       this.objectnumber = selectedSubjectId;
       this.selectedSubject = this.subjects.find(subject => subject.id == selectedSubjectId);
-      this.questions = this.allQuestions.filter(question => question.subjectDTO.name == this.selectedSubject?.name).map(question => question);
+      this.questions = this.allQuestions.filter(question => question.subject.name == this.selectedSubject?.name).map(question => question);
       this.totalItems = Math.ceil(this.questions.length / this.itemsPerPage);
       this.currentPage = 1;
     }
@@ -173,9 +212,6 @@ export class CreatePaperComponent implements OnInit {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
     return this.questions.slice(startIndex, endIndex);
-  }
-  openCreatePaper() {
-
   }
 
 
@@ -207,26 +243,24 @@ export class CreatePaperComponent implements OnInit {
     this.paperService.updatePaper(paper).subscribe(
       (res) => {
         this.updatePaper = res;
-        console.log(this.updatePaper)
+        this.getAllPapers();
       },
       (error) => {
         console.error('Error fetching questions:', error);
       }
     );
   }
-  // editpaper: boolean = false;
+
+  editPaperId: number = 0;
   editPaper(paper: any) {
     this.heading = "Edit Paper"
-    // this.editpaper = !this.editpaper;
     this.showpaper = !this.showpaper;
     this.registerForm.patchValue({
       name: paper?.name,
       active: paper?.active.toString(),
     });
-    console.log(paper?.quesDto);
+    this.editPaperId = paper?.id;
     this.selectedQuestions = paper?.quesDto;
-    this.onCheckboxChange(this.selectedQuestions[0]);
-    console.log(this.selectedQuestions)
   }
 
 

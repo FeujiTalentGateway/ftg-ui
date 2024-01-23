@@ -2,8 +2,9 @@ import { Question } from "./question";
 
 export interface Paper{
     
+    id :number;
 
-    name:string;
+    name :string;
 
     active:boolean;
 

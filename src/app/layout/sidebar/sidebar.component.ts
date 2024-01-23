@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ROUTES } from './sidebar-items';
 import { RouteInfo } from './sidebar-metadata';
+import { UserdetailsService } from 'src/app/services/userdetails.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -10,15 +11,12 @@ import { RouteInfo } from './sidebar-metadata';
 export class SidebarComponent implements OnInit {
   listOfRoutes: RouteInfo[] = [];
 
-  constructor() {}
+  constructor(private userDetail: UserdetailsService) {}
 
   ngOnInit(): void {
-    // let role = localStorage.getItem('role') || 'user';
-    let role = 'Admin';
-    // let role = 'invigilator';
-    if (role != null) {
+    let role  = localStorage.getItem('role') ||'user'
+    if (role) {
       this.listOfRoutes = ROUTES.filter((item) => item.role.includes(role));
-      // this.listOfRoutes.forEach((route) => (route.active = false));
     }
   }
 

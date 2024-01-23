@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 })
 export class AuthRepositoryService {
   baseUrl: string = environment.apiUrl;
-  baseurl: string = 'http://3.110.151.104:8092';
+  baseurl: string = 'http://13.127.117.155:8092';
   constructor(private http: HttpClient) {
     this.baseUrl = environment.apiUrl;
   }

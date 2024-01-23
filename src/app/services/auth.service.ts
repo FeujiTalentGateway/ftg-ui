@@ -7,6 +7,7 @@ import { UserLoginModel } from '../models/user-login.model';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { User } from '../models/user.model';
+import { MatDialog } from '@angular/material/dialog';
 
 @Injectable({
   providedIn: 'root',

@@ -1,0 +1,228 @@
+<div class="main-div">
+  <h1 style="text-align: center">{{ operation }}</h1>
+  <form [formGroup]="questionForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label for="subject">Subject</label>
+      <div>
+        <select id="subject" class="form-select" formControlName="subject">
+          <option value="{{ subject.id }}" *ngFor="let subject of subjects">
+            {{ subject.name }}
+          </option>
+        </select>
+      </div>
+      <div class="error-div">
+        <span
+          class="text-danger"
+          *ngIf="
+            (questionForm?.get('subject')?.touched || isFormSubmitted) &&
+            questionForm?.get('subject')?.hasError('required')
+          "
+          >Subject is required</span
+        >
+      </div>
+    </div>
+    <div>
+      <label for="content">Question</label>
+      <div>
+        <input
+          id="content"
+          class="form-control"
+          type="text"
+          formControlName="content"
+        />
+        <div class="error-div">
+          <span
+            class="text-danger"
+            *ngIf="
+              (questionForm?.get('content')?.touched || isFormSubmitted) &&
+              questionForm?.get('content')?.invalid
+            "
+            >Question is required</span
+          >
+        </div>
+      </div>
+    </div>
+    <div formArrayName="optionNames">
+      <div *ngFor="let skillControl of OptionsArray.controls; let i = index">
+        <!-- <input
+        class="form-control"
+          type="text"
+          [formControlName]="i"
+          id="{{ i }}"
+          placeholder="Add Option "
+        /> <span *ngIf="OptionsArray.length>4" class="p-button" (click)="removeOption(i)">--</span> -->
+        <label for="{{ i }}">Option {{ i + 1 }}</label>
+        <div class="input-group">
+          <input
+            type="text"
+            class="form-control"
+            [formControlName]="i"
+            id="{{ i }}"
+            placeholder="Add Option "
+          />
+          <button
+            class="btn btn-outline-secondary"
+            type="button"
+            pInputText
+            pTooltip="Remove Option"
+            tooltipPosition="bottom"
+            *ngIf="OptionsArray.length > 2"
+            (click)="removeOption(i)"
+          >
+            <mat-icon aria-hidden="false" aria-label="Example minus icon"
+              >remove</mat-icon
+            >
+          </button>
+          <!-- [tooltipOptions]="{positionStyle: 'fixed'}" tooltipStyleClass="custom-tooltip" -->
+        </div>
+        <div class="error-div">
+          <span
+            class="text-danger"
+            *ngIf="
+              (OptionsArray.at(i)?.touched || isFormSubmitted) &&
+              OptionsArray.at(i).hasError('required')
+            "
+            >Option {{ i + 1 }} is required</span
+          >
+        </div>
+      </div>
+    </div>
+    <div>
+      <!-- <p
+        (click)="addAdditionalOption()"
+        class="btn btn-outline-secondary"
+        pButton
+        pTooltip="Add Option"
+        tooltipPosition="right"
+      >
+        <i class="pi pi-plus-circle"></i>
+      </p> -->
+      <p
+        mat-raised-button
+        #tooltip="matTooltip"
+        matTooltip="Add Option"
+        [matTooltipPosition]="'right'"
+        matTooltipHideDelay="100000"
+        aria-label="Button that displays a tooltip that hides when scrolled out of the container"
+        class="example-button btn btn-outline-secondary"
+        (click)="addAdditionalOption()"
+      >
+        <mat-icon aria-hidden="false" aria-label="Example plus icon"
+          >add</mat-icon
+        >
+      </p>
+    </div>
+    <label for="rightOptionName">Correct Option</label>
+    <div>
+      <select
+        id="rightOptionName"
+        class="form-select"
+        formControlName="rightOptionName"
+      >
+        <!-- <option value="A">A</option>
+        <option value="B">B</option>
+        <option value="C">C</option>
+        <option value="D">D</option> -->
+        <option
+          value="{{ option.value }}"
+          *ngFor="let option of OptionsArray.controls"
+        >
+          {{ option.value }}
+        </option>
+      </select>
+    </div>
+    <div class="error-div">
+      <span
+        class="text-danger"
+        *ngIf="
+          (questionForm?.get('rightOptionName')?.touched || isFormSubmitted) &&
+          questionForm?.get('rightOptionName')?.hasError('required')
+        "
+        >Correct answer is required</span
+      >
+    </div>
+    <div>
+      <label for="difficultyLevel">Difficulty Level</label>
+      <div>
+        <select
+          id="difficultyLevel"
+          class="form-select"
+          formControlName="difficultyLevel"
+        >
+          <option
+            value="{{ difficultyLevel }}"
+            *ngFor="let difficultyLevel of difficultLevelList"
+          >
+            {{ difficultyLevel }}
+          </option>
+        </select>
+      </div>
+      <div class="error-div">
+        <span
+          class="text-danger"
+          *ngIf="
+            (questionForm?.get('difficultyLevel')?.touched ||
+              isFormSubmitted) &&
+            questionForm?.get('difficultyLevel')?.hasError('required')
+          "
+          >Difficulty level is required</span
+        >
+      </div>
+    </div>
+    <button
+      [disabled]="questionForm.invalid"
+      class="btn mr-20"
+      [ngClass]="{ 'btn-success': !questionForm.invalid }"
+    >
+      Submit
+    </button>
+    <p class="btn btn-secondary mt-3" routerLink="/admin/questions">Cancel</p>
+  </form>
+</div>
+
+<div
+  class="modal fade"
+  [ngClass]="{ 'show modal-open': isEditModalOpen }"
+  role="dialog"
+  id="staticBackdrop"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Edit Question</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+          (click)="closeEditModal()"
+        ></button>
+      </div>
+      <div class="modal-body">
+        {{ editingQuestion }}
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-bs-dismiss="modal"
+          (click)="closeEditModal()"
+        >
+          NO
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="editQuestionAfterConfirmation()"
+        >
+          Yes
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

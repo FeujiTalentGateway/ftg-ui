@@ -1,0 +1,28 @@
+.subject-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+}
+.subject-header button {
+  padding: 10px;
+}
+
+table {
+  width: 100%;
+}
+.exam-table .header-cell {
+  background-color: #ffe2d1;
+}
+
+.mr-20 {
+  margin-right: 20px;
+}
+.show {
+  display: block;
+}
+.modal-open {
+  overflow-x: hidden;
+  overflow-y: auto;
+  background-color: rgba(0, 0, 0, 0.5); /* Adjust the opacity as needed */
+}

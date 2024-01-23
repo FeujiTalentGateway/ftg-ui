@@ -1,0 +1,143 @@
+<div class="main-div">
+  <div
+    class="d-flex align-item-center justify-content-around flex-dir-column header"
+  >
+    <div>
+      <select
+        id="subject"
+        class="form-select select header-child"
+        [(ngModel)]="selectedSubject"
+        (change)="getQuesitonsBySubject()"
+      >
+        <option
+          value="{{ subject.id }}"
+          *ngFor="let subject of subjects; let i = index"
+        >
+          {{ subject.name }}
+        </option>
+      </select>
+    </div>
+
+    <input
+      type="text"
+      [(ngModel)]="searchQuery"
+      placeholder="Search questions"
+      class="styled-input header-child"
+    />
+    <button
+      class="btn btn-light btn-query header-child"
+      [routerLink]="['/admin/addquestion']"
+      [queryParams]="{ subject: selectedSubject }"
+    >
+      Add Question
+    </button>
+  </div>
+  <div *ngIf="paginatedQuestions.length > 0; else noQuestionsMessage">
+    <div class="row d-flex align-item-center justify-content-center">
+      <div
+        class="col-sm-12 m-b-20"
+        *ngFor="let question of paginatedQuestions; let i = index"
+      >
+        <div class="card">
+          <div class="card-body">
+            <h2 class="card-title">
+              {{ pageNumber * pageSize + i + 1 + ". " + question.content }}
+            </h2>
+
+            <ol>
+              <li
+                class="card-text mb-3"
+                [ngClass]="{
+                  'text-success fw-700':
+                    option.optionName === question.rightOption.optionName
+                }"
+                *ngFor="let option of question.options; let i = index"
+              >
+                {{ option.optionName }}
+              </li>
+            </ol>
+
+            <button
+              class="btn btn-warning mr-20"
+              [routerLink]="['/admin/questions/edit', question.id]"
+            >
+              Edit
+            </button>
+            <button
+              class="btn btn-danger"
+              (click)="deleteQuestion(question.id)"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="d-flex justify-content-around">
+        <div style="width: fit-content">
+          <mat-paginator
+            [length]="questions.length"
+            [pageSize]="rows"
+            [pageSizeOptions]="[2, 4, 6, 8]"
+            (page)="onPageChange($event)"
+          ></mat-paginator>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-template #noQuestionsMessage>
+    <div
+      class="d-flex align-item-center justify-content-around mb-3 flex-dir-column"
+    >
+      <p class="no-quesitons-msg">
+        No questions available for the selected subject.
+      </p>
+    </div>
+  </ng-template>
+</div>
+
+<div
+  class="modal fade"
+  [ngClass]="{ 'show modal-open': isDeleteModalOpen }"
+  role="dialog"
+  id="staticBackdrop"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Delete Question</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+          (click)="closeDeleteModal()"
+        ></button>
+      </div>
+      <div class="modal-body">
+        {{ delitingQuestion }}
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-bs-dismiss="modal"
+          (click)="closeDeleteModal()"
+        >
+          NO
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="deleteQuestionAfterConfirmation()"
+        >
+          Yes
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

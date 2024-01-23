@@ -7,6 +7,7 @@ import { ViewPapersComponent } from './view-papers/view-papers.component';
 import { CreatePaperComponent } from './create-paper/create-paper.component';
 import { ViewQuestionsComponent } from './view-questions/view-questions.component';
 import { AddQuestionsComponent } from './add-questions/add-questions.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -19,7 +20,9 @@ import { AddQuestionsComponent } from './add-questions/add-questions.component';
   ],
   imports: [
     CommonModule,
-    QuestionPapersRoutingModule
+    QuestionPapersRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class QuestionPapersModule { }

@@ -11,6 +11,8 @@ import { MainLayoutComponent } from './layout/app-layout/main-layout/main-layout
 import { MainHeaderComponent } from './layout/main-header/main-header.component';
 import { AuthLayoutComponent } from './layout/app-layout/auth-layout/auth-layout.component';
 import { SidebarComponent } from './layout/sidebar/sidebar.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ConfirmationDialogComponent } from './utils/confirmation-dialog/confirmation-dialog.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +21,7 @@ import { SidebarComponent } from './layout/sidebar/sidebar.component';
     AuthLayoutComponent,
     MainHeaderComponent,
     SidebarComponent,
+    ConfirmationDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -29,6 +32,8 @@ import { SidebarComponent } from './layout/sidebar/sidebar.component';
     MatSnackBarModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+    ReactiveFormsModule,
+    MatDialogModule
   ],
   providers: [Location],
   bootstrap: [AppComponent],

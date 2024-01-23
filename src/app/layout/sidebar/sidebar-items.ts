@@ -15,8 +15,8 @@ export const ROUTES: RouteInfo[] = [
   //Admin Module
   {
     path: '',
-    title: 'ExamManagement',
-    modulename: 'ExamManagement',
+    title: 'PaperManagement',
+    modulename: 'PaperManagement',
     iconType: 'father',
     icon: 'fa-solid fa-pen',
     class: 'menu-toggle',

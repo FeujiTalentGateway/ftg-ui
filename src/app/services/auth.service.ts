@@ -90,7 +90,7 @@ export class AuthService {
   setJwtToken(token: any) {
     localStorage.setItem('token', token);
   }
-  removeJwtTocken(){
+  removeJwtToken(){
     
   }
   decodedToken() {

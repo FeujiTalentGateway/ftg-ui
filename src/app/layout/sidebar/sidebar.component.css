@@ -24,7 +24,7 @@
 .nav-item:hover{
   background-color:#ffe1d1;
   color: #000000;
- 
+  border-radius: 10px;
 }
 .image-logo{
   width: 10rem;

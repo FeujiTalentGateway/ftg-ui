@@ -8,7 +8,7 @@ const routes: Routes = [
     path: '',
     component: MainLayoutComponent,
     children: [
-      { path: '', redirectTo: '/auth/home', pathMatch: 'full' },
+      { path: '', redirectTo: '/main/home', pathMatch: 'full' },
       {
         path: 'admin',
         loadChildren: () =>
@@ -23,7 +23,7 @@ const routes: Routes = [
   },
 
   {
-    path: 'auth',
+    path: 'main',
     component: AuthLayoutComponent,
     loadChildren: () => import('./home/home.module').then((m) => m.HomeModule),
   },

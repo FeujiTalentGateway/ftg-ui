@@ -23,8 +23,8 @@ export class MainHeaderComponent {
   }
 
   logOut() {
-    this.auth.removeJwtTocken();
-    this.route.navigateByUrl('/auth/home');
+    this.auth.removeJwtToken();
+    this.route.navigateByUrl('/main/home');
   }
 
   @HostListener('document:click', ['$event'])

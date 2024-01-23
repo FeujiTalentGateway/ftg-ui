@@ -1,3 +1,8 @@
+.heading{
+  align-items: center;
+  text-align: center;
+  color: #e76828;
+}
 .container-fluid {
   background-color: #EFF2F7;
 }
@@ -113,16 +118,43 @@ border: 1px solid #FFFFFF ;
 padding: 8px 12px;
 margin: 0 2px;
 }
+.subject-name{
+  color: rgb(232, 103, 103);
+}
 
+.btn-back {
+  font-size: 16px;
+  background-color: #343a40; /* Dark background color */
+  color: #ffffff; /* Light text color */
+  border: none; /* Remove default button border */
+  padding: 10px 20px; /* Adjust padding as needed */
+  cursor: pointer;
+  box-sizing: border-box;
+  border-radius: none;
+  width: 110px;
+  height: 45px;
+}
 
+/* Hover effect for the button */
+.btn-back:hover {
+  background-color: #23272b; /* Darken the background color on hover */
+  color: #ffffff; /* Maintain light text color on hover */
+}
 
+.submit-button{
+  text-align: center;
+  justify-content: space-between;
+
+}
 
 .global-background-color {
   background-color: #918a87 !important;
   padding: 10px;
   font-size: 16px;
   color: whitesmoke;
-  
+  margin: 10px;
+  width: 110px;
+  height: 45px;
 }
 
 .disabled-button {
@@ -132,4 +164,80 @@ margin: 0 2px;
  
 }
 
+/* General styling for the container */
+.container {
+  max-width: 100%;
+  margin: 0 auto;
+}
 
+/* Heading style */
+.heading {
+  color: #333;
+}
+
+/* Style for the "List Of Papers" heading */
+.heading {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+/* Style for the "Create Paper" button */
+
+.create-paper-button {
+  float: right;
+  margin-bottom: 10px;
+  padding: 10px;
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Hover effect for the "Create Paper" button */
+.create-paper-button:hover {
+  background-color: #1b721f;
+}
+
+/* Apply basic styles to the table */
+.table table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+/* Style table header */
+.table th, .table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Apply alternating row colors to improve readability */
+.table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+/* Style the "Edit" cell */
+.table td:last-child {
+  cursor: pointer;
+  color: blue;
+  text-decoration: underline;
+}
+
+/* Hover effect for the "Edit" cell */
+.table td:last-child:hover {
+  color: darkblue;
+}
+.product-button{
+  border: none;
+  background-color: none;
+ 
+}
+.product-button i {
+  font-size: 16px;
+  color: #f36913;
+}
+.product-button i:hover {
+  color: #d37f5e;
+}

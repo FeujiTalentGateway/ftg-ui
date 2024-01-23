@@ -19,6 +19,7 @@ import { CreatePaperComponent } from './admin/paper/create-paper/create-paper.co
   declarations: [
     AppComponent,
     ConfirmationDialogComponent,
+    
   ],
   imports: [
     BrowserModule,

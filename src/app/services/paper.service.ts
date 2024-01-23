@@ -26,6 +26,9 @@ export class PaperService {
   getAllPapers(): Observable<Paper[]> {
     return this.paperrepo.getAllPapers();
   }
+  updatePaper(paper:Paper):Observable<Paper>{
+    return this.paperrepo.updatePaper(paper);
+  }
 
 
 

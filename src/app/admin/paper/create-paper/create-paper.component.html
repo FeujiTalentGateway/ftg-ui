@@ -5,7 +5,8 @@
     </div>
     <div class="col-md-10">
       <app-admin-header></app-admin-header>
-      <div>
+      <div *ngIf="showpaper">
+        <h2 class="heading">{{heading}}</h2>
         <form [formGroup]="registerForm" (ngSubmit)="registerForm.status !== 'INVALID' && register(registerForm)"
           class="form-container">
           <div class="paperName-container">
@@ -35,14 +36,9 @@
 
 
           </div>
-
-
-
-
-
           <div *ngIf="selectedSubject">
             <!-- <div  class="title"> -->
-            <h3>{{ selectedSubject.name }} Questions:</h3>
+            <h3 class="subject-name">{{ selectedSubject.name }} Questions:-</h3>
             <!-- <div class="search-container">
                 <input type="text" placeholder="Search anything..." name="search" class="search"
                 [ngModel]="nameSearch" (ngModelChange)="onSubjectChange(objectnumber)"/>
@@ -56,19 +52,13 @@
                 <input type="checkbox" [checked]="selectedQuestions.includes(question)"
                   (change)="onCheckboxChange(question)" />{{ question.content }}
               </li>
-
-
             </ol>
-
-
-
-
-
           </div>
 
 
 
-          <div class="col-2 col-md-4 offset-md-4">
+          <div class="col-2 col-md-4 offset-md-4 submit-button">
+            <button type="button" class=" btn-back" (click)="backbutton()">Back</button>
             <button class="button reg-btn global-background-color" type="submit" [ngClass]="{
           'disabled-button': registerForm.invalid || selectedQuestions.length === 0
         }" [disabled]="registerForm.invalid || selectedQuestions.length === 0">
@@ -89,17 +79,54 @@
                 <button class="pagination-button" [disabled]="currentPage === totalItems"
                   (click)="changePage(totalItems)">{{totalItems}}</button>
           </div>
-
-
         </form>
       </div>
 
 
 
+      <!-- show papers  -->
+
+      <div class="container" *ngIf="!showpaper">
+        <h2 class="heading">List Of Papers</h2>
+        <button class="create-paper-button" (click)="createpaper()">Create Paper</button>
+        <div class="table">
+          <table>
+            <thead>
+              <tr>
+                <th>S.No</th>
+                <th>PaperName</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let paper of paginatedPapers;let i=index">
+                <td>{{ (currenttable - 1) * tablerowsperpage + i + 1 }}</td>
+                <td>{{ paper.name }}</td>
+                <td>
+                  <button type="toggle" class="product-button" (click)="toggleButton(paper)">
+                    <i class="fa fa-xl" [ngClass]="{'fa-toggle-on': paper.active, 'fa-toggle-off': !paper.active}"
+                      aria-hidden="true"></i>
+                  </button>
+                </td>
+                <td> <button type="button" class="product-button" (click)="editPaper(paper)"><i
+                      class="fa-solid fa-pen-to-square"></i></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+
+          <div class="pagination">
+            <button (click)="prevPage()" [disabled]="currenttable === 1">Previous</button>
+            <span>{{ currenttable }} / {{ totalPages }}</span>
+            <button (click)="nextPage()" [disabled]="currenttable === totalPages">Next</button>
+          </div>
+        </div>
+      </div>
+
+
+
     </div>
-
   </div>
-
-
-
 </div>

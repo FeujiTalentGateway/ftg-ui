@@ -20,7 +20,7 @@ export class PaperService {
     return this.paperrepo.getAllQuestions();
   }
 
-  savePaper(Paper: Paper): Observable<string> {
+  savePaper(Paper: Paper): Observable<Paper> {
     return this.paperrepo.savePaper(Paper);
   }
   getAllPapers(): Observable<Paper[]> {

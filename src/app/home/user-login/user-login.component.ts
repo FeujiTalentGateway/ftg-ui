@@ -29,7 +29,7 @@ export class UserLoginComponent implements OnInit {
   onLogin() {
     this.formSubmitted = true;
     if (this.userForm?.valid) {
-      this.authService.templogin(this.userForm);
+      this.authService.login(this.userForm);
     }
   }
 }

@@ -14,9 +14,10 @@ export class SidebarComponent implements OnInit {
   constructor(private userDetail: UserdetailsService) {}
 
   ngOnInit(): void {
-    let role  = localStorage.getItem('role') ||'user'
+    // let role  = localStorage.getItem('role') ||'user'
+    let role = 'Admin';
     if (role) {
-      this.listOfRoutes = ROUTES.filter((item) => item.role.includes(role));
+      this.listOfRoutes = ROUTES.filter((item: { role: string | string[]; }) => item.role.includes(role));
     }
   }
 

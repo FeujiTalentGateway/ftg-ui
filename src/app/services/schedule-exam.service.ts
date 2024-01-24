@@ -38,7 +38,6 @@ export class ScheduleExamService {
       (response: HttpResponse<any>) => {
         if(response.status == 201){
           this.openSnackBar('Exam scheduled successfully', 'Close');
-          this.route.navigateByUrl('/admin/home');
           this.exams.push(response.body);
         }         
       },

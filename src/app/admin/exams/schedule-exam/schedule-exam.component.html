@@ -13,8 +13,9 @@
 
   <form [formGroup]="examForm" (ngSubmit)="onSubmit()" class="exam-form">
     <label for="name">Name:</label>
-    <input type="text" id="name" formControlName="name" required class="form-control"
-      placeholder="enter exam name here">
+      <input type="text" id="name" formControlName="name"
+       required class="form-control" placeholder="enter exam name here" aria-label="Exam Name">
+
     <div *ngIf="examForm.get('name')?.hasError('required') && examForm.get('name')?.touched" class="error-msg">
       Name is required.
     </div>

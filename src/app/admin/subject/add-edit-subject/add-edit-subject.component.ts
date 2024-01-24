@@ -19,7 +19,7 @@ export class AddEditSubjectComponent {
     active: true,
     name: '',
   };
-
+  subjectHeader: string = 'Add Subject';
   subjectId: any;
   isFormSubmitted: boolean = false;
 
@@ -38,6 +38,7 @@ export class AddEditSubjectComponent {
     this.subjectId = this.doalogData.id;
     this.initialiseSubjectForm();
     if (this.subjectId) {
+      this.subjectHeader = 'Edit Subject';
       this.subjectRepository.getSubjectById(this.subjectId).subscribe({
         next: (value: Subject) => {
           this.subject = value;
@@ -80,6 +81,7 @@ export class AddEditSubjectComponent {
       if (this.subjectId) {
         console.log(this.subject);
         this.editSubject(this.subject);
+        this.subjectHeader = 'Add Subject';
       } else {
         console.log(this.subject);
         this.questionService.addSubject(this.subject);

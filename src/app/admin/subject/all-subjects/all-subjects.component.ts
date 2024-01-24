@@ -19,9 +19,14 @@ export class AllSubjectsComponent implements OnInit {
   subjectsSubscription: Subscription = new Subscription();
   displayedColumns: string[] = ['serialNumber', 'name', 'action'];
   delitableSubjectId!: number;
-  delitingSubject: string = '';
+  modifyingMessage: string = '';
   dataSource = new MatTableDataSource(this.subjects);
   dataSourceWithSerial: any[] = [];
+  toggleValue: boolean = true;
+  isSubjectActivable: boolean = false;
+  modalHeader: string = 'Delete Subject';
+  activableSubject!: Subject;
+  activableSubjectId!: number;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
@@ -40,7 +45,7 @@ export class AllSubjectsComponent implements OnInit {
   }
   getAllSubjects() {
     this.subjectsSubscription = this.subjectService
-      .getUnSubscribedSubjects()
+      .getUnSubscribedSubjectsByActiveStatus(this.toggleValue)
       .subscribe({
         next: (subjects: Subject[]) => {
           this.subjects = subjects.map((subject, index) => ({
@@ -76,17 +81,40 @@ export class AllSubjectsComponent implements OnInit {
   deleteSubject(id: any) {
     console.log('delete subject');
     this.delitableSubjectId = id;
+    this.modalHeader = 'Delete Subject';
     this.openDeleteModal();
-    this.delitingSubject = 'Are you sure you want to delete this subject';
+    this.modifyingMessage = 'Are you sure you want to delete this subject';
+  }
+
+  updateSubjectActiveStatus(row: Subject) {
+    if (row.active) {
+      this.activableSubject = row;
+      this.isSubjectActivable = true;
+      console.log('delete subject');
+      this.activableSubjectId = row.id;
+      this.modalHeader = 'Activate Subject';
+      this.openDeleteModal();
+      this.modifyingMessage =
+        'Are you sure you want to make this subject active';
+    }
   }
   deleteSubjectAfterConfirmation() {
-    this.subjectService.deleteSubject(this.delitableSubjectId);
+    if (this.isSubjectActivable) {
+      console.log('update status');
+      this.subjectService.activateSubject(this.activableSubjectId);
+      this.isSubjectActivable = false;
+    } else if (this.delitableSubjectId) {
+      this.subjectService.deleteSubject(this.delitableSubjectId);
+    }
     this.closeDeleteModal();
   }
   openDeleteModal() {
     this.isDeleteModalOpen = true;
   }
   closeDeleteModal() {
+    if (this.isSubjectActivable) {
+      this.activableSubject.active = false;
+    }
     this.isDeleteModalOpen = false;
   }
   openAddSubjectModel() {

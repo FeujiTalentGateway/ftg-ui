@@ -23,6 +23,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle'; // Import MatSlideToggleModule
+
 @NgModule({
   declarations: [
     AdminHomeComponent,
@@ -49,6 +51,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatTooltipModule,
     MatIconModule,
     MatButtonModule,
+    MatSlideToggleModule,
     MatDialogModule,
   ],
 })

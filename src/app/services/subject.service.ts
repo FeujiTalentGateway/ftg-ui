@@ -5,7 +5,6 @@ import { SnackBarService } from './snack-bar.service';
 import { AddEditSubjectComponent } from '../admin/subject/add-edit-subject/add-edit-subject.component';
 import { SubjectRepositoryService } from '../repository/subject-repository.service';
 import { Observable, Subject as RxSubject } from 'rxjs';
-import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -39,8 +38,10 @@ export class SubjectService {
     return this.subjects;
   }
 
-  getUnSubscribedSubjects(): Observable<Subject[]> {
-    return this.subjectRepositoryService.getAllSubjects();
+  getUnSubscribedSubjectsByActiveStatus(
+    isActive: boolean
+  ): Observable<Subject[]> {
+    return this.subjectRepositoryService.getAllSubjectsByActiveStatus(isActive);
   }
 
   deleteSubject(id: number) {
@@ -91,6 +92,24 @@ export class SubjectService {
       },
     });
   }
+
+  activateSubject(subjectId: number) {
+    this.subjectRepositoryService.activateSubject(subjectId).subscribe({
+      next: (response) => {
+        console.log(response);
+        this.subjectChanged.next();
+        this.dialogRef.close();
+        this.snackBarService.openSnackBar(
+          'Subject activated successfully',
+          'Close'
+        );
+      },
+      error: (error) => {
+        this.snackBarService.openSnackBar(error.error.message);
+      },
+    });
+  }
+
   openEditSubjectModel(id: number) {
     let dialogConfig: MatDialogConfig = {
       width: '40%',

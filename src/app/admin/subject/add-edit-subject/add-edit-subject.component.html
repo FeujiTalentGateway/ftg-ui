@@ -3,7 +3,7 @@
     <mat-icon>close</mat-icon>
   </button>
   <div class="main-div">
-    <h3 style="text-align: center">Add Subject</h3>
+    <h3 style="text-align: center">{{subjectHeader}}</h3>
     <form [formGroup]="subjectForm" (ngSubmit)="onSubmit()">
       <div>
         <label for="name">Subject Name</label>

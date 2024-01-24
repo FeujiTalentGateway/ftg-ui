@@ -37,11 +37,6 @@ export class QuestionsService {
         this.questions = response;
       },
     });
-    this.subjectRepository.getAllSubjects().subscribe({
-      next: (response) => {
-        this.subjets = response;
-      },
-    });
   }
   getAllQuestions() {
     return this.questions;

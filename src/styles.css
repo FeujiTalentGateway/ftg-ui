@@ -20,3 +20,11 @@ body {
 .global-white-color {
   color: white !important;
 }
+.mdc-switch {
+  width: 3rem !important;
+}
+
+.mdc-switch .mdc-switch__track {
+  height: 2rem !important;
+  border-radius: 1rem !important;
+}

@@ -138,6 +138,7 @@ export class AddEditQuestionComponent implements OnInit {
     this.editingQuestion = 'Are you sure you want to edit this question';
   }
   editQuestionAfterConfirmation() {
+    console.log(this.question);
     this.service.editQuestion(this.question);
     this.closeEditModal();
   }

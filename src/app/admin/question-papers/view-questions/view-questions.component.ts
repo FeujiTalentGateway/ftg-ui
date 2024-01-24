@@ -8,11 +8,11 @@ import { SubjectRepositoryService } from 'src/app/repository/subject-repository.
 import { QuestionsService } from 'src/app/services/questions.service';
 
 @Component({
-  selector: 'app-view-questions',
+  selector: 'app-all-questions',
   templateUrl: './view-questions.component.html',
-  styleUrls: ['./view-questions.component.css']
+  styleUrls: ['./view-questions.component.css'],
 })
-export class ViewQuestionsComponent {
+export class ViewQuestionsComponent implements OnInit {
   // questions:{id:number,question:string,options:string[],correctAnswer:string}[]=[]
   isDeleteModalOpen: boolean = false;
   delitingQuestion: string = '';
@@ -50,7 +50,7 @@ export class ViewQuestionsComponent {
     });
     // Subscribe to getSubjects and store the result in the subjects variable
     this.subjectsSubscription = this.subjectRepository
-      .getAllSubjects()
+      .getAllSubjectsByActiveStatus(true)
       .subscribe(
         (subjects: Subject[]) => {
           this.subjects = subjects;
@@ -103,23 +103,24 @@ export class ViewQuestionsComponent {
     this.pageNumber = event.pageIndex;
     this.pageSize = event.pageSize;
   }
+
   deleteQuestion(id: any) {
     this.delitableQuestionId = id;
     this.openDeleteModal();
     this.delitingQuestion = 'Are you sure you want to delete this question';
   }
+
+  openDeleteModal() {
+    this.isDeleteModalOpen = true;
+  }
+
   deleteQuestionAfterConfirmation() {
     this.service.deleteQuestion(this.delitableQuestionId);
     this.closeDeleteModal();
   }
-  openDeleteModal() {
-    this.isDeleteModalOpen = true;
-  }
+
   closeDeleteModal() {
     this.isDeleteModalOpen = false;
-  }
-  onDivClick() {
-    this.addExtraStyle = !this.addExtraStyle;
   }
 
   ngOnDestroy(): void {

@@ -119,10 +119,11 @@ export class AddEditQuestionComponent implements OnInit {
       if (this.isEditForm) {
         console.log(this.question.options);
         console.log(this.question);
-        this.editQuestion(this.question);
+        this.initialiseQuestionForm();
       } else {
         console.log(this.question);
         this.service.addQuestion(this.question);
+        this.initialiseQuestionForm();
       }
     }
   }
@@ -138,6 +139,7 @@ export class AddEditQuestionComponent implements OnInit {
     this.editingQuestion = 'Are you sure you want to edit this question';
   }
   editQuestionAfterConfirmation() {
+    console.log(this.question);
     this.service.editQuestion(this.question);
     this.closeEditModal();
   }

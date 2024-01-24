@@ -1,29 +1,49 @@
-.subject-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 20px;
-  }
-  .subject-header button {
-    padding: 10px;
-  }
-  
-  table {
-    width: 100%;
-  }
-  .exam-table .header-cell {
-    background-color: #ffe2d1;
-  }
-  
-  .mr-20 {
-    margin-right: 20px;
-  }
-  .show {
-    display: block;
-  }
-  .modal-open {
-    overflow-x: hidden;
-    overflow-y: auto;
-    background-color: rgba(0, 0, 0, 0.5); /* Adjust the opacity as needed */
-  }
-  
+.header {
+  background-color: #e6864b;
+  padding: 15px 0;
+  margin: 0;
+  margin-bottom: 20px;
+}
+
+input[type="text"] {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 350px;
+}
+
+input[type="text"]:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+table {
+  width: 100%;
+}
+.exam-table .header-cell {
+  background-color: #ffe2d1;
+}
+
+.mr-20 {
+  margin-right: 20px;
+}
+.show {
+  display: block;
+}
+.modal-open {
+  overflow-x: hidden;
+  overflow-y: auto;
+  background-color: rgba(0, 0, 0, 0.5); /* Adjust the opacity as needed */
+}
+
+.mdc-switch__handle::before,
+.mdc-switch__handle::after {
+  width: 1.5rem !important;
+  height: 1.5rem !important;
+  top: -2px !important;
+}
+
+.mdc-switch__icon {
+  left: 5px !important;
+}

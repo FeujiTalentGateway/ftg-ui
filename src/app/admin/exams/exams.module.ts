@@ -20,9 +20,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TruncatePipe } from './custom-pipes/truncate.pipe';
-import { ViewSubjectsComponent } from './view-subjects/view-subjects.component';
 import { AddEditSubjectComponent } from './add-edit-subject/add-edit-subject.component';
-
+import { ViewSubjectsComponent } from './view-subjects/view-subjects.component';
 
 @NgModule({
   declarations: [
@@ -30,16 +29,16 @@ import { AddEditSubjectComponent } from './add-edit-subject/add-edit-subject.com
     ScheduleExamComponent,
     TruncatePipe,
     AddEditSubjectComponent,
-    ViewSubjectsComponent
+    ViewSubjectsComponent,
   ],
   imports: [
     CommonModule,
     ExamsRoutingModule,
     ReactiveFormsModule,
-    MatFormFieldModule, 
-    MatInputModule, 
-    MatTableModule, 
-    MatSortModule, 
+    MatFormFieldModule,
+    MatInputModule,
+    MatTableModule,
+    MatSortModule,
     MatPaginatorModule,
     MatButtonModule,
     FormsModule,
@@ -49,7 +48,7 @@ import { AddEditSubjectComponent } from './add-edit-subject/add-edit-subject.com
     MatNativeDateModule,
     MatDialogModule,
     MatIconModule,
-    MatSlideToggleModule
-  ]
+    MatSlideToggleModule,
+  ],
 })
-export class ExamsModule { }
+export class ExamsModule {}

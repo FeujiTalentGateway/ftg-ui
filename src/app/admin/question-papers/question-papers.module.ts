@@ -5,7 +5,6 @@ import { QuestionPapersRoutingModule } from './question-papers-routing.module';
 import { ViewPapersComponent } from './view-papers/view-papers.component';
 import { CreatePaperComponent } from './create-paper/create-paper.component';
 import { ViewQuestionsComponent } from './view-questions/view-questions.component';
-import { AddQuestionsComponent } from './add-questions/add-questions.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddEditQuestionComponent } from './add-edit-question/add-edit-question.component';
 import { MatIconModule } from '@angular/material/icon';
@@ -14,14 +13,12 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { PaginatorModule } from 'primeng/paginator';
 import { TooltipModule } from 'primeng/tooltip';
 
-
 @NgModule({
   declarations: [
     ViewPapersComponent,
     CreatePaperComponent,
     ViewQuestionsComponent,
-    AddQuestionsComponent,
-    AddEditQuestionComponent
+    AddEditQuestionComponent,
   ],
   imports: [
     CommonModule,
@@ -32,8 +29,7 @@ import { TooltipModule } from 'primeng/tooltip';
     MatTooltipModule,
     MatPaginatorModule,
     PaginatorModule,
-    TooltipModule
-
-  ]
+    TooltipModule,
+  ],
 })
-export class QuestionPapersModule { }
+export class QuestionPapersModule {}

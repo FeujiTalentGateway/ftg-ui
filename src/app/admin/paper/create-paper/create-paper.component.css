@@ -187,7 +187,7 @@ margin: 0 2px;
   float: right;
   margin-bottom: 10px;
   padding: 10px;
-  background-color: #4caf50;
+  background-color: #e39759;
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -196,7 +196,7 @@ margin: 0 2px;
 
 /* Hover effect for the "Create Paper" button */
 .create-paper-button:hover {
-  background-color: #1b721f;
+  background-color: #fd7e14;
 }
 
 /* Apply basic styles to the table */

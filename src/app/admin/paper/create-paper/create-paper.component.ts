@@ -26,6 +26,15 @@ export class CreatePaperComponent implements OnInit {
   selectedQuestions: Question[] = [];
   papers: Paper[] = [];
   heading: string | undefined;
+  currentPage = 1;
+  itemsPerPage = 5;
+  totalItems = 0;
+  nameSearch: string = "";
+  objectnumber: number = 0;
+  currenttable: number = 1;
+  tablerowsperpage: number = 5;
+  totalPages: number = 0; updatePaper: Paper | undefined;
+  editPaperId: number = 0;
 
   constructor(private paperService: PaperService, private fb: FormBuilder, private route: Router, private snackBar: MatSnackBar,) {
 
@@ -96,12 +105,12 @@ export class CreatePaperComponent implements OnInit {
         questions: this.selectedQuestions || []
 
       };
+
       this.paperService.savePaper(paper).subscribe(
         (response: any) => {
           this.openSnackBar(response.message, 'Close');
           this.getAllPapers();
           this.registerForm.reset();
-          this.route.navigateByUrl("admin/paper");
           this.showpaper = !this.showpaper;
         },
         (error) => {
@@ -123,7 +132,6 @@ export class CreatePaperComponent implements OnInit {
           console.log(response);
           this.getAllPapers();
           this.registerForm.reset();
-          this.route.navigateByUrl("admin/paper");
           this.showpaper = !this.showpaper;
         },
         (error) => {
@@ -134,18 +142,28 @@ export class CreatePaperComponent implements OnInit {
 
   }
 
+
   getAllPapers() {
     this.paperService.getAllPapers().subscribe(
-      (res) => {
-        this.papers = res;
-        this.totalPages = Math.ceil(this.papers.length / this.tablerowsperpage);
+      (res: any[]) => {
+        if (this.nameSearch === "") {
+          this.papers = res;
+          this.totalPages = Math.ceil(this.papers.length / this.tablerowsperpage);
+        } else {
+          let searchTerm = this.nameSearch.trim().toLowerCase();
+          this.papers = res.filter(
+            (paper: any) =>
+              paper.name.toLowerCase().includes(searchTerm)
+          );
+          this.totalPages = Math.ceil(this.papers.length / this.tablerowsperpage);
+        }
       },
       (error) => {
         console.error(error);
       }
     );
-
   }
+
 
 
   onCheckboxChange(question: Question): void {
@@ -171,11 +189,7 @@ export class CreatePaperComponent implements OnInit {
     }
     return false;
   }
-  currentPage = 1;
-  itemsPerPage = 5;
-  totalItems = 0;
-  nameSearch: string = "";
-  objectnumber: number = 0;
+
 
   onSubjectChange(event: any) {
     if (this.heading === "Edit Paper") {
@@ -185,10 +199,7 @@ export class CreatePaperComponent implements OnInit {
       this.questions = this.allQuestions.filter(question => question.subject.name == this.selectedSubject?.name).map(question => question);
       this.totalItems = Math.ceil(this.questions.length / this.itemsPerPage);
       this.currentPage = 1;
-      this.selectedQuestions = this.selectedQuestions
-
     }
-
     else {
 
       const selectedSubjectId = event.target.value;
@@ -215,9 +226,6 @@ export class CreatePaperComponent implements OnInit {
   }
 
 
-  currenttable: number = 1;
-  tablerowsperpage: number = 5;
-  totalPages: number = 0;
   get paginatedPapers(): any[] {
     const startIndex = (this.currenttable - 1) * this.tablerowsperpage;
     return this.papers.slice(startIndex, startIndex + this.tablerowsperpage);
@@ -237,7 +245,6 @@ export class CreatePaperComponent implements OnInit {
     }
   }
 
-  updatePaper: Paper | undefined;
   toggleButton(paper: Paper) {
     paper.active = !paper.active;
     this.paperService.updatePaper(paper).subscribe(
@@ -251,7 +258,6 @@ export class CreatePaperComponent implements OnInit {
     );
   }
 
-  editPaperId: number = 0;
   editPaper(paper: any) {
     this.heading = "Edit Paper"
     this.showpaper = !this.showpaper;

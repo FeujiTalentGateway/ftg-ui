@@ -37,7 +37,7 @@
 
           </div>
           <div *ngIf="selectedSubject">
-            <h3 class="subject-name">{{ selectedSubject.name }} Questions:-</h3>
+
             <ol>
               <li *ngFor="let question of getImageListSlice()">
                 <input type="checkbox" [checked]="isPrescentedOrNot(question)"
@@ -79,6 +79,11 @@
 
       <div class="container" *ngIf="!showpaper">
         <h2 class="heading">List Of Papers</h2>
+        <div class="search-container">
+          <input type="text" placeholder="Search anything..." name="search" class="search"
+          [(ngModel)]="nameSearch" (ngModelChange)="getAllPapers()"/>
+          <i class="fa solid fa-search search-icon" ></i>
+        </div>
         <button class="create-paper-button" (click)="createpaper()">Create Paper</button>
         <div class="table">
           <table>

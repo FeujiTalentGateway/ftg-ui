@@ -15,31 +15,32 @@ export class PaperRepositoryService {
   constructor(private http: HttpClient) {
 
   }
-  getAllPapers() {
+  getAllPapers():Observable<Paper[]> {
     let token = localStorage.getItem('token');
     let headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     let requestOptions = {
       headers: headers,
     };
-    return this.http.get(this.baseUrl + 'paper/getallpapers', requestOptions)
+    return this.http.get<Paper[]>(this.baseUrl + 'paper/', requestOptions)
   }
 
-  savePaper(paper: Paper):Observable<Paper> {
+  savePaper(paper: Paper): Observable<string> {
     let token = localStorage.getItem('token');
     let headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     let requestOptions = {
       headers: headers,
     };
-    return this.http.post<Paper>(this.baseUrl + 'paper/savepaper', paper, requestOptions)
+    return this.http.post<string>(this.baseUrl + 'paper/', paper, requestOptions);
   }
 
-  updatePaper(paper: Paper) {
+  updatePaper(paper: Paper):Observable<Paper> {
     let token = localStorage.getItem('token');
     let headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     let requestOptions = {
       headers: headers,
     };
-    return this.http.put(this.baseUrl + 'paper/update', paper, requestOptions)
+    console.log(paper);
+    return this.http.put<Paper>(this.baseUrl + 'paper/', paper, requestOptions)
   }
   getPaperById(id: number) {
     let token = localStorage.getItem('token');

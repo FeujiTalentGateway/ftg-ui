@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ExamsRoutingModule } from './exams-routing.module';
-import { ExamsComponent } from './exams.component';
 import { ViewExamsComponent } from './view-exams/view-exams.component';
 import { ScheduleExamComponent } from './schedule-exam/schedule-exam.component';
 
@@ -21,14 +20,17 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TruncatePipe } from './custom-pipes/truncate.pipe';
+import { ViewSubjectsComponent } from './view-subjects/view-subjects.component';
+import { AddEditSubjectComponent } from './add-edit-subject/add-edit-subject.component';
 
 
 @NgModule({
   declarations: [
-    ExamsComponent,
     ViewExamsComponent,
     ScheduleExamComponent,
-    TruncatePipe
+    TruncatePipe,
+    AddEditSubjectComponent,
+    ViewSubjectsComponent
   ],
   imports: [
     CommonModule,
@@ -40,7 +42,6 @@ import { TruncatePipe } from './custom-pipes/truncate.pipe';
     MatSortModule, 
     MatPaginatorModule,
     MatButtonModule,
-    MatDialogModule,
     FormsModule,
     MatCheckboxModule,
     MatSelectModule,

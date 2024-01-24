@@ -20,10 +20,15 @@ export class PaperService {
     return this.paperrepo.getAllQuestions();
   }
 
-  savePaper(Paper: Paper): Observable<Paper> {
+  savePaper(Paper: Paper): Observable<string> {
     return this.paperrepo.savePaper(Paper);
   }
-
+  getAllPapers(): Observable<Paper[]> {
+    return this.paperrepo.getAllPapers();
+  }
+  updatePaper(paper:Paper):Observable<Paper>{
+    return this.paperrepo.updatePaper(paper);
+  }
 
 
 

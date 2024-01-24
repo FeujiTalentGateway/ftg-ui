@@ -1,16 +1,11 @@
-import { AfterViewInit, Component, OnInit, ViewChild, Inject } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
+import { Component, OnInit, Input } from '@angular/core';
 import { Exam } from 'src/app/models/exam.model';
 import { ScheduleExamService } from 'src/app/services/schedule-exam.service';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { FormGroup, FormBuilder, Validators, NgForm, FormControl } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { DatePipe, getLocaleDateFormat } from '@angular/common';
-import { ConfirmationDialogComponent } from 'src/app/utils/confirmation-dialog/confirmation-dialog.component';
-
-
+import { DatePipe } from '@angular/common';
+import { FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-schedule-exam',
@@ -20,36 +15,59 @@ import { ConfirmationDialogComponent } from 'src/app/utils/confirmation-dialog/c
 })
 export class ScheduleExamComponent implements OnInit {
 
-  // @ViewChild('form') form!: NgForm;
+
+  @Input() isEditing: boolean = false;
+  @Input() isRouting : boolean = false;
+  @Input() exam: Exam | null = null;
 
   paperOptions = [
     { id: 1, name: 'Paper 1' },
     { id: 2, name: 'Paper 2' },
   ];
 
-  showScheduleDialog = false;
   examForm: FormGroup<any>;
   minStartDate: string = '';
   selectedExamId: any;
 
-    
+
   ngOnInit(): void {
-    this.getExams();
+    console.log('Exam Data:', this.exam);
+    console.log('Is Editing:', this.isEditing);
 
+    if (this.isEditing) {
+      // Convert string dates to Date objects
+      const startDateObj = new Date(this.exam!.startDate);
+      const endDateObj = new Date(this.exam!.endDate);
+
+      // Use DatePipe to format the date
+      const formattedStartDate = this.datePipe.transform(startDateObj, 'yyyy-MM-dd');
+      const formattedEndDate = this.datePipe.transform(endDateObj, 'yyyy-MM-dd');
+
+      // Set the form values
+      this.examForm.setValue({
+        name: this.exam!.name,
+        description: this.exam!.description,
+        examCode: this.exam!.examCode,
+        duration: this.exam!.duration,
+        startDate: formattedStartDate,
+        endDate: formattedEndDate,
+        active: this.exam!.active,
+        paperDTO: {
+          id: this.exam!.paperDTO.id,
+        },
+      });
+
+      // Set the selectedExamId
+      this.selectedExamId = this.exam!.id;
+    }
   }
-
-  displayedColumns: string[] = ['SNO','name', 'description', 'examCode', 'duration', 'startDate', 'endDate', 'active', 'paper','action'];
-
-  dataSource!: MatTableDataSource<Exam>;
-
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
 
   constructor(
     private service: ScheduleExamService,
     private dialog: MatDialog,
     private fb: FormBuilder,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private router:Router
   ) {
     this.examForm = this.fb.group({
       name: ['', [
@@ -86,6 +104,8 @@ export class ScheduleExamComponent implements OnInit {
     this.minStartDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd')!;
   }
 
+
+
   dateRangeValidator(group: FormGroup): { [key: string]: any } | null {
     const startDateControl = group.get('startDate');
     const endDateControl = group.get('endDate');
@@ -102,129 +122,70 @@ export class ScheduleExamComponent implements OnInit {
     return null;
   }
   
-  
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
-  }
-
-  openScheduleExamDialog(): void {
-    this.showScheduleDialog = true;
-  }
-
-  closeScheduleDialog(): void {
-    this.showScheduleDialog = false;
-  }
 
   onSubmit() {
+    
     if (this.examForm.valid) {
       const formData = this.examForm.value;
+      console.log(formData);
+      
+  
+      // Set the selectedExamId in formData
+      formData.id = this.selectedExamId;
   
       if (this.selectedExamId) {
         // Update existing exam
-        this.service.updateExam(this.selectedExamId, formData)
+        this.service.updateExam(formData);
       } else {
         // Schedule a new exam
-        this.service.scheduleExam(formData)
+        this.service.scheduleExam(formData);
+        console.log(formData);
       }
     } else {
       console.log('Form is invalid');
     }
   }
-  
 
-
-
-
-  toggleActive(id: any, active: any): void {
-    let messages = '';
-  
-    if (!active) {
-      messages = 'Do you want to activate this exam?';
-    } else if (active) {
-      messages = 'Do you want to deactivate this exam?';
-    }
-  
-    console.log(messages);
-  
-    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-      data: { title: 'Confirmation', message: messages + '' },
-    });
-      
-
-    // Subscribe to the result of the dialog
-    dialogRef.afterClosed().subscribe(result => {
-      if (result === true) {
-        // Only perform the toggle operation if the user clicked "Yes"
-        this.service.changeStatus(id, active);
-      } else if (result === false) {
-        this.getExams();
-
-      }
-    });
-  }
-  
-  getExams(){
-    this.service.getExam().subscribe(
-      (exams: Exam[]) => {
-        this.dataSource = new MatTableDataSource(exams);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-      },
-      (error) => {
-        console.error('Error fetching exams:', error);
-      }
-    );
-  }
-  
-  
-
-  
-  
+ 
   
   formatDate(date: Date): string {
     const isoString = date.toISOString();
     return isoString.substring(0, isoString.indexOf('T'));
   }
+
+
+  editExam(exam: Exam): void {
+
+    // Convert string dates to Date objects
+    const startDateObj = new Date(exam.startDate);
+    const endDateObj = new Date(exam.endDate);
   
-
-// Inside your ScheduleExamComponent class
-editExam(row: Exam): void {
-  const { id } = row;
-  const { name, description, examCode, duration, startDate, endDate, active, paperDTO} = row;
-
-  // Convert string dates to Date objects
-  const startDateObj = new Date(startDate);
-  console.log(startDateObj);
+    // Use DatePipe to format the date
+    const formattedStartDate = this.datePipe.transform(startDateObj, 'yyyy-MM-dd');
+    const formattedEndDate = this.datePipe.transform(endDateObj, 'yyyy-MM-dd');
   
-  const endDateObj = new Date(endDate);
-
-  this.examForm.setValue({
-    name,
-    description,
-    examCode,
-    duration,
-    startDate: startDateObj,
-    endDate: endDateObj,
-    active,
-    paperDTO: {
-      id : paperDTO.name,
-    },
-  });
-
-  this.showScheduleDialog = true;
-  this.selectedExamId = id;
-}
-
-
-setActive(isActive: boolean): void {
-  this.examForm.get('active')!.setValue(isActive);
-}
+    // Set the form values
+    this.examForm.setValue({
+      name: exam.name,
+      description: exam.description,
+      examCode: exam.examCode,
+      duration: exam.duration,
+      startDate: formattedStartDate,
+      endDate: formattedEndDate,
+      active: exam.active,
+      paperDTO: {
+        id: exam.paperDTO.id,
+      },
+    });
   
+    // Set the selectedExamId
+    this.selectedExamId = exam.id;
+  }
+
+  goBack(): void {
+    alert("hello");
+    this.router.navigate(['/admin/exams/viewExams']);
+  }
 
 }

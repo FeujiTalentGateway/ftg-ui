@@ -22,7 +22,6 @@ export class AuthRepositoryService {
 
   login(loginData: UserLoginModel): Observable<any> {
     console.log('Inside auth repo: login()');
-    // Send a POST request to the login endpoint with login data
     return this.http.post(this.baseUrl + 'auth/login', loginData);
   }
 }

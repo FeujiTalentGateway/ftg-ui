@@ -104,9 +104,9 @@ export class ViewPapersComponent {
 
       this.paperService.savePaper(paper).subscribe(
         (response: any) => {
-          this.openSnackBar(response.message, 'Close');
-          this.getAllPapers();
+          this.openSnackBar("paper saved successfully", 'Close');
           this.registerForm.reset();
+          this.getAllPapers();
           this.showpaper = !this.showpaper;
         },
         (error) => {
@@ -126,6 +126,7 @@ export class ViewPapersComponent {
       this.paperService.updatePaper(paper).subscribe(
         (response: any) => {
           console.log(response);
+          this.openSnackBar('paper updated successfully', 'Close');
           this.getAllPapers();
           this.registerForm.reset();
           this.showpaper = !this.showpaper;

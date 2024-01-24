@@ -1,5 +1,4 @@
 export const environment = {  
-    apiUrl: 'http://3.110.151.104:8092/',// Development URL
-    paperUrl: '',
+    apiUrl: 'http://localhost:8092/',// Development URL
     adminUrl: 'http://localhost:8093/',
 };

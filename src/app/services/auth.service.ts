@@ -59,9 +59,7 @@ export class AuthService {
       userName: loginData.value.userName,
       password: loginData.value.password,
     };
-    // Create a new instance of LoginUser with the form data
-
-    // Send the login data to the server and handle the response
+   
     this.authRepo.login(user).subscribe({
       next: (response: any) => {
         console.log(response.message);

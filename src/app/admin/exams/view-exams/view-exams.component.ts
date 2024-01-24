@@ -20,6 +20,8 @@ export class ViewExamsComponent implements OnInit {
 
   @Output() isEditing: boolean = false;
 
+  @Output() isRouting: boolean = true;
+
   @Output()selectedExam: Exam | null = null;
 
   paperOptions = [

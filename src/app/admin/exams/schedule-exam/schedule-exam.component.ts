@@ -5,6 +5,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { DatePipe } from '@angular/common';
 import { FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-schedule-exam',
@@ -14,7 +15,9 @@ import { FormControl } from '@angular/forms';
 })
 export class ScheduleExamComponent implements OnInit {
 
+
   @Input() isEditing: boolean = false;
+  @Input() isRouting : boolean = false;
   @Input() exam: Exam | null = null;
 
   paperOptions = [
@@ -25,20 +28,7 @@ export class ScheduleExamComponent implements OnInit {
   examForm: FormGroup<any>;
   minStartDate: string = '';
   selectedExamId: any;
-  // datePipe: any;
 
-  // constructor(
-  //   private service: ScheduleExamService,
-  //   private dialog: MatDialog,
-  //   private fb: FormBuilder,
-  //   private datePipe: DatePipe  // Initialize datePipe in the constructor
-  // ) {
-  //   this.examForm = this.fb.group({
-  //     // ... (your form controls)
-  //   }, { validators: this.dateRangeValidator });
-
-  //   this.minStartDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd')!;
-  // }
 
   ngOnInit(): void {
     console.log('Exam Data:', this.exam);
@@ -76,7 +66,8 @@ export class ScheduleExamComponent implements OnInit {
     private service: ScheduleExamService,
     private dialog: MatDialog,
     private fb: FormBuilder,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private router:Router
   ) {
     this.examForm = this.fb.group({
       name: ['', [
@@ -134,8 +125,11 @@ export class ScheduleExamComponent implements OnInit {
 
 
   onSubmit() {
+    
     if (this.examForm.valid) {
       const formData = this.examForm.value;
+      console.log(formData);
+      
   
       // Set the selectedExamId in formData
       formData.id = this.selectedExamId;
@@ -187,6 +181,11 @@ export class ScheduleExamComponent implements OnInit {
   
     // Set the selectedExamId
     this.selectedExamId = exam.id;
+  }
+
+  goBack(): void {
+    alert("hello");
+    this.router.navigate(['/admin/exams/viewExams']);
   }
 
 }

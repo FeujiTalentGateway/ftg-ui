@@ -3,6 +3,12 @@
 <div class="schedule-exam-form">
   <br><br>
 
+  <!-- Back Button with Arrow Icon -->
+<button mat-icon-button *ngIf="isRouting" (click)="goBack()">
+  <mat-icon>arrow_back</mat-icon>
+</button>
+
+
   <h1 style="text-align: center;">{{ isEditing ? 'Update Exam' : 'Schedule Exam' }} Form</h1>
 
   <form [formGroup]="examForm" (ngSubmit)="onSubmit()" class="exam-form">
@@ -76,15 +82,14 @@
       {{ examForm.get('endDate')?.getError('dateRange') }}
     </div>
 
-
-<!-- ACTIVE Column with Checkbox -->
-<ng-container matColumnDef="active">
-  <th mat-header-cell *matHeaderCellDef mat-sort-header class="header-cell"> ACTIVE </th>
-  <td mat-cell *matCellDef="let exam">
-    <input type="checkbox" [(ngModel)]="exam.active" name="activeCheckbox" id="activeCheckbox">
-  </td>
-</ng-container>
-
+        
+  
+    <div>
+      <label for="active">Active:</label> &nbsp; &nbsp; 
+      <mat-slide-toggle color="warn" id="active" formControlName="active">
+      </mat-slide-toggle>
+    </div>
+    
    
 
 

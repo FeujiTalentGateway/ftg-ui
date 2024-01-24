@@ -100,4 +100,4 @@
 <!--                 dialog                   -->
 
 
-<app-schedule-exam *ngIf="showScheduleDialog" [isEditing]="isEditing" [exam]="selectedExam"></app-schedule-exam>
+<app-schedule-exam *ngIf="showScheduleDialog" onclick="history.back()" [isEditing]="isEditing" [exam]="selectedExam" [isRouting]="isRouting"></app-schedule-exam>

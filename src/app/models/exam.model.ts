@@ -1,4 +1,5 @@
-import { Paper } from "./paper.model";
+import { Paper } from "./paper";
+
 
 export interface Exam {
     id:Number;

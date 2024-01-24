@@ -7,7 +7,7 @@
           <span (click)="toggleSubmenu(route)" class="main-menu">
             <i class="{{ route.icon }}"></i> &nbsp;<span>{{ route.title }}</span> &nbsp;
           </span>
-          <ul *ngIf="route.active && route.submenu.length > 0" >
+          <ul *ngIf="route.active && route.submenu.length > 0"  class="sub">
             <ng-container *ngFor="let submenu of route.submenu">
               <li  class="submenu-link">
                 <a [routerLink]="submenu.path" routerLinkActive="active" class="submenu">

@@ -16,11 +16,12 @@
     margin-top: 20px; 
   }
   
-  /* Add your styles to schedule-exam-form.component.css */
+
   
   .schedule-exam-form {
     max-width: 600px;
     margin: auto;
+    margin-bottom: 30px;
   }
   
   .exam-form {

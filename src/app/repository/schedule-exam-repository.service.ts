@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Exam } from '../models/exam.model';
@@ -7,13 +7,6 @@ import { Exam } from '../models/exam.model';
   providedIn: 'root'
 })
 export class ScheduleExamRepositoryService {
-
-  updateExam(formData: any, selectedExamId: any) {
-
-    const requestOptions = { headers: this.setToken() };
-  
-    return this.http.put(this.adminUrl + 'exam/'+selectedExamId, formData, requestOptions);
-  }
 
   adminUrl = 'http://localhost:8093/';
 
@@ -28,31 +21,40 @@ export class ScheduleExamRepositoryService {
   }
 
 
-  scheduleExam(formData: Exam): Observable<any> {
+  scheduleExam(formData: Exam): Observable<HttpResponse<any>> {
     const requestOptions = { headers: this.setToken() };
   
-    return this.http.post(this.adminUrl + 'exam/schedule', formData, requestOptions);
+    return this.http.post(this.adminUrl + 'exam', formData,{ ...requestOptions, observe: 'response' });
   }
   
 
 
 
-  getExams(): Observable<any> {
+  getExams(): Observable<HttpResponse<any>> {
 
     const requestOptions = { headers: this.setToken() };
 
     // Make the HTTP request
-    return this.http.get(this.adminUrl+'exam/getExams', requestOptions);
+    return this.http.get(this.adminUrl+'exam', { ...requestOptions, observe: 'response' });
   }
 
 
-  changeStatus(id: any, active: any): Observable<any>  {
+  changeExamStatus(id: any): Observable<HttpResponse<any>>  {
     const requestOptions = { headers: this.setToken() };
     console.log("change status");
     
-   return  this.http.delete( this.adminUrl + 'exam/changestatus/'+ id, requestOptions);
+   return  this.http.delete( this.adminUrl + 'exam/'+ id, { ...requestOptions, observe: 'response' });
  
   }
+  
+  updateExam(formData: Exam): Observable<HttpResponse<any>> {
+    const requestOptions = { headers: this.setToken() };
+
+    return this.http.put<any>(this.adminUrl + 'exam', formData, { ...requestOptions, observe: 'response' });
+  }
+
+
+
   
 
 

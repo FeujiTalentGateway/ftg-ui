@@ -4,94 +4,83 @@ import { Observable } from 'rxjs';
 import { ScheduleExamRepositoryService } from '../repository/schedule-exam-repository.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { HttpResponse } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ScheduleExamService {
-  
-  updateExam(selectedExamId: any, formData: any) {
-    this.scheduleExamRepo.updateExam(formData,selectedExamId).subscribe(
-      {
-        next :(response:any) =>{
-  
-            this.openSnackBar(response.message , 'Close');
-            this.route.navigateByUrl('/admin/home');
-  
 
-        },
-        error :(error:any) =>{
-
-            this.openSnackBar(error.error.message, 'Close');          
-        }
-      }
-    )
-  }
-
+  exams: Exam[] = [];
   
-
   constructor(private scheduleExamRepo:ScheduleExamRepositoryService,
     private snackBar:MatSnackBar,
     private route:Router) { }
+  
+    updateExam(formData: Exam) {
+      this.scheduleExamRepo.updateExam(formData).subscribe(
+        (response: HttpResponse<any>) => {
+          if(response.status ==200){
+          this.openSnackBar('Exam updated successfully', 'Close');
+          this.exams.push(response.body);
+          }
+        },
+        (error: any) => {
+          this.openSnackBar(error.error.message, 'Close');
+        }
+      );      
+    }
 
 
 
   scheduleExam(formData: any) {
     this.scheduleExamRepo.scheduleExam(formData).subscribe(
-      {
-        next :(response:any) =>{
-          if ((response.message).includes('Exam scheduled successfully')) {
-            this.openSnackBar('Exam scheduled successfully', 'Close');
-            this.route.navigateByUrl('/admin/home');
-            
-          }
-
-        },
-        error :(error:any) =>{
-
-            this.openSnackBar(error.error.message, 'Close');          
+      (response: HttpResponse<any>) => {
+        if(response.status == 201){
+          this.openSnackBar('Exam scheduled successfully', 'Close');
+          this.route.navigateByUrl('/admin/home');
+          this.exams.push(response.body);
+        }         
+      },
+      (error: any) => {
+        // For error response
+        if (error) {  
+          this.openSnackBar(error.error.message, 'Close');
         }
       }
-    )
+    );
   }
-
-  exams: Exam[] = [];
-
   
-  
-  getExam(): Observable<Exam[]> {
+
+  getExams(): Observable<HttpResponse<any>> {
     return this.scheduleExamRepo.getExams();
   }
 
-  getExams() : Exam[]{
-    this.scheduleExamRepo.getExams().subscribe(
-      {
-        next :(response:any) =>{
-          this.exams =response;
-        },
-        error :(error:any) =>{
-          console.log(error);
-          
-        }
+  // Optionally, you can have another method to handle the subscription in the component
+  fetchExams(): void {
+    this.getExams().subscribe(
+      (response: HttpResponse<any>) => {
+        this.exams = response.body;
+      },
+      (error: any) => {
+        console.error(error);
       }
-      
     );
-    
-    return this.exams;
-
   }
 
-  changeStatus(id: any, active: any) {
-    this.scheduleExamRepo.changeStatus(id,active).subscribe(
+
+  changeExamStatus(id: any) {
+    this.scheduleExamRepo.changeExamStatus(id).subscribe(
       {
         next :(response:any) =>{
-          
+
+          if(response.status == 201){
             this.openSnackBar(response.message, 'Close');
-
-
+            this.route.navigateByUrl('/admin/home');
+            this.exams.push(response.body);
+          } 
         },
         error :(error:any) =>{
-
             this.openSnackBar(error.error.message, 'Close');          
         }
       }

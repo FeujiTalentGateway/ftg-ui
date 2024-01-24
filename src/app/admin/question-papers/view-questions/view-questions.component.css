@@ -1,0 +1,131 @@
+.main-div {
+    /* margin: 10px 30px; */
+    background-color: hsl(24, 77%, 88%);
+    min-height: 100vh;
+    position: relative;
+  }
+  .header {
+    background-color: #e6864b;
+    padding: 15px 0;
+    margin: 0;
+    margin-bottom: 10px;
+  }
+  .header-child {
+    height: 45px;
+  }
+  .select {
+    cursor: pointer;
+    min-width: 150px;
+    margin-bottom: 0;
+  }
+  input[type="text"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 400px; /* Adjust the width as needed */
+  }
+  
+  /* Optional: Add focus styles for better user interaction */
+  input[type="text"]:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  }
+  .show {
+    display: block;
+  }
+  .modal-open {
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-color: rgba(0, 0, 0, 0.5); /* Adjust the opacity as needed */
+  }
+  .mr-20 {
+    margin-right: 20px;
+  }
+  .fw-700 {
+    font-weight: 700;
+  }
+  .search-div {
+    width: 40%;
+    background-color: white;
+    padding: 6px;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  }
+  .extra-style {
+    outline: 3px solid #e99767;
+  }
+  .search-input:focus,
+  .search-input {
+    width: 100%;
+    border: none;
+    outline: none;
+    font-size: larger;
+  }
+  .card {
+    margin: 3px 10px;
+  }
+  
+  .m-b-20 {
+    margin-bottom: 20px;
+  }
+  .no-quesitons-msg {
+    font-size: 2rem;
+    font-weight: 600;
+  }
+  
+  .bottom-container {
+    border: 1px solid black;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    width: 40%;
+    background-color: whitesmoke; /* Set background color as needed */
+    padding: 5px;
+  }
+  .bottom-container mat-paginator {
+    font-size: 16px;
+    font-weight: 550; /* Adjust the font size as needed */
+    /* Add any other styling properties as needed */
+  }
+  @media (max-width: 482px) {
+    /* .search-input,.search-input:focus{
+      font-size: small;
+    } */
+    .search-div {
+      padding: 3px;
+      border-radius: 100px;
+      width: 30%;
+    }
+    .search-input:focus,
+    .search-input {
+      width: 50%;
+    }
+  }
+  @media (max-width: 427px) {
+    .search-div {
+      padding: 3px;
+      border-radius: 100px;
+      width: 25%;
+      font-size: small;
+    }
+    .card-title {
+      font-size: large;
+    }
+  }
+  @media (max-width: 405px) {
+    .flex-dir-column {
+      flex-direction: column;
+    }
+    .search-div {
+      width: 100%;
+    }
+  }
+  @media (max-width: 223px) {
+    .btn-query {
+      font-size: smaller;
+    }
+  }
+  

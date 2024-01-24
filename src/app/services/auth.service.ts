@@ -73,7 +73,7 @@ export class AuthService {
           this.userDetails.setRoleFromToken(
             this.userPayload.authorities[0].authority
           );
-          this.route.navigateByUrl('/home');
+          this.route.navigateByUrl('/user/home');
         }
         if (response.message == 'Invalid username or password')
           this.openSnackBar('Invalid username or password', 'Close');
@@ -89,6 +89,10 @@ export class AuthService {
   }
   setJwtToken(token: any) {
     localStorage.setItem('token', token);
+  }
+  removeJwtToken() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('role');
   }
   decodedToken() {
     const jwtHelper = new JwtHelperService();
@@ -115,5 +119,15 @@ export class AuthService {
       verticalPosition: 'top',
       horizontalPosition: 'center',
     });
+  }
+  templogin(loginData :FormGroup){
+
+    if (loginData) {
+      console.log(loginData);
+
+      localStorage.setItem('role', loginData.value.userName);
+      this.route.navigateByUrl('/user/home');
+    }
+
   }
 }

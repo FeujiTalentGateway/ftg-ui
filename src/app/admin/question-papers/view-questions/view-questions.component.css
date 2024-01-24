@@ -3,6 +3,7 @@
   background-color: hsl(24, 77%, 88%);
   min-height: 100vh;
   position: relative;
+  z-index: 1 !important;
 }
 .header {
   background-color: #e6864b;

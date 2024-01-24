@@ -14,6 +14,7 @@ import { User } from '../models/user.model';
 export class AuthService {
   private userPayload: any;
   dialogRef: any;
+  roles :any []=[];
   constructor(
     private authRepo: AuthRepositoryService,
     private snackBar: MatSnackBar,
@@ -59,7 +60,7 @@ export class AuthService {
       userName: loginData.value.userName,
       password: loginData.value.password,
     };
-   
+
     this.authRepo.login(user).subscribe({
       next: (response: any) => {
         console.log(response.message);
@@ -69,8 +70,10 @@ export class AuthService {
           const tokenPayload = this.decodedToken();
           this.userDetails.setUserNameFromToken(this.userPayload.sub);
           this.userDetails.setRoleFromToken(
-            this.userPayload.authorities[0].authority
+            this.userPayload.authorities
           );
+          sessionStorage.setItem('roles',this.userPayload.authorities.map((e: { authority: any; }) => e.authority))
+          console.log(this.userDetails.getRoleFromToken(), '---tocken----  ');
           this.route.navigateByUrl('/user/home');
         }
         if (response.message == 'Invalid username or password')
@@ -118,14 +121,14 @@ export class AuthService {
       horizontalPosition: 'center',
     });
   }
-  templogin(loginData :FormGroup){
-
+  templogin(loginData: FormGroup) {
     if (loginData) {
       console.log(loginData);
 
       localStorage.setItem('role', loginData.value.userName);
       this.route.navigateByUrl('/user/home');
     }
-
   }
+
+
 }

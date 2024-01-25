@@ -22,6 +22,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TruncatePipe } from './custom-pipes/truncate.pipe';
 import { AddEditSubjectComponent } from './add-edit-subject/add-edit-subject.component';
 import { ViewSubjectsComponent } from './view-subjects/view-subjects.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { ViewSubjectsComponent } from './view-subjects/view-subjects.component';
     MatDialogModule,
     MatIconModule,
     MatSlideToggleModule,
+    MatTooltipModule,
   ],
 })
 export class ExamsModule {}

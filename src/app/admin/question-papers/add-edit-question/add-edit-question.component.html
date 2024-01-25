@@ -1,5 +1,7 @@
 <div class="main-div">
-  <h1 style="text-align: center">{{ operation }}</h1>
+  <h1 style="text-align: center" class="add-quesiton-header">
+    {{ operation }}
+  </h1>
   <form [formGroup]="questionForm" (ngSubmit)="onSubmit()">
     <div>
       <label for="subject">Subject</label>
@@ -177,6 +179,7 @@
       Submit
     </button>
     <p
+      *ngIf="isEditForm"
       class="btn btn-secondary mt-3"
       [routerLink]="['/admin/questionPapers/viewQuestions']"
       [queryParams]="{ subject: selectedSubject }"

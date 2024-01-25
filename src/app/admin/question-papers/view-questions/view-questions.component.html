@@ -24,13 +24,13 @@
       placeholder="Search questions"
       class="styled-input header-child"
     />
-    <button
+    <!-- <button
       class="btn btn-light btn-query header-child"
       [routerLink]="['/admin/questionPapers/addEditQuestion']"
       [queryParams]="{ subject: selectedSubject }"
     >
       Add Question
-    </button>
+    </button> -->
   </div>
   <div *ngIf="paginatedQuestions.length > 0; else noQuestionsMessage">
     <div class="row d-flex align-item-center justify-content-center">

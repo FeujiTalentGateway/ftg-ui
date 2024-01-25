@@ -49,7 +49,7 @@ export class SubjectService {
       next: (response: any) => {
         console.log(response);
         this.subjectChanged.next();
-        this.snackBarService.openSnackBar('Subject deleted successfully');
+        this.snackBarService.openSnackBar('Subject deactivated successfully');
       },
       error: (error) => {
         this.snackBarService.openSnackBar(error.error.message, 'Close');
@@ -98,7 +98,6 @@ export class SubjectService {
       next: (response) => {
         console.log(response);
         this.subjectChanged.next();
-        this.dialogRef.close();
         this.snackBarService.openSnackBar(
           'Subject activated successfully',
           'Close'

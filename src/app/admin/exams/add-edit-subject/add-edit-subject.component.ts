@@ -20,7 +20,6 @@ export class AddEditSubjectComponent {
 
   subjectId: any;
   isFormSubmitted: boolean = false;
-
   subjectForm!: FormGroup;
   isEditModalOpen: boolean = false;
   editingSubject!: string;

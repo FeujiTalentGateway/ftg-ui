@@ -37,6 +37,11 @@ export class AddEditQuestionComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.service.formSubmitSucceed$.subscribe({
+      next: (result) => {
+        this.resetForm();
+      },
+    });
     this.isEditForm = this.activatedRoute.snapshot.paramMap.get('id') !== null;
     const subjectQueryParam =
       this.activatedRoute.snapshot.queryParamMap.get('subject');
@@ -100,7 +105,7 @@ export class AddEditQuestionComponent implements OnInit {
   onSubmit() {
     console.log(this.questionForm);
     console.log(this.questionForm.value.content);
-    this.isFormSubmitted = true;
+    this.isFormSubmitted = false;
     if (this.questionForm.valid) {
       this.question.content = this.questionForm.value.content;
       this.question.options = this.questionForm.value.optionNames.map(
@@ -120,17 +125,20 @@ export class AddEditQuestionComponent implements OnInit {
         console.log(this.question.options);
         console.log(this.question);
         this.editQuestion(this.question);
-        this.initialiseQuestionForm();
       } else {
         console.log(this.question);
         this.service.addQuestion(this.question);
-        this.initialiseQuestionForm();
-        this.markFormControlsAsUntouched();
       }
     }
   }
+
+  resetForm() {
+    this.initialiseQuestionForm();
+    this.markFormControlsAsUntouched();
+  }
   markFormControlsAsUntouched() {
     Object.values(this.questionForm.controls).forEach((control) => {
+      console.log(control);
       control.markAsUntouched();
     });
   }

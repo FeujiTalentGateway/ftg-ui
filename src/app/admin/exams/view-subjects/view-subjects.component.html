@@ -46,17 +46,25 @@
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Action</th>
       <td mat-cell *matCellDef="let row">
         <ng-container *ngIf="toggleValue; else toggleContainer">
-          <button
+          <!-- <button
             mat-icon-button
             color="primary"
             (click)="deleteSubject(row.id)"
           >
             <mat-icon>delete</mat-icon>
-          </button>
+          </button> -->
+          <mat-slide-toggle
+            [(ngModel)]="row.active"
+            color="info"
+            (change)="deleteSubject(row)"
+            matTooltip="deactivate"
+          >
+          </mat-slide-toggle>
           <button
             mat-icon-button
             color="accent"
             (click)="openEditSubjectModel(row.id)"
+            matTooltip="edit"
           >
             <mat-icon>edit</mat-icon>
           </button>
@@ -67,6 +75,7 @@
             [(ngModel)]="row.active"
             color="warn"
             (change)="updateSubjectActiveStatus(row)"
+            matTooltip="activate"
           >
           </mat-slide-toggle>
         </ng-template>

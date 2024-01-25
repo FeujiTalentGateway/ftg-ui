@@ -18,15 +18,17 @@ export class ViewSubjectsComponent implements OnInit {
   isDeleteModalOpen: boolean = false;
   subjectsSubscription: Subscription = new Subscription();
   displayedColumns: string[] = ['serialNumber', 'name', 'action'];
-  delitableSubjectId!: number;
   modifyingMessage: string = '';
   dataSource = new MatTableDataSource(this.subjects);
   dataSourceWithSerial: any[] = [];
   toggleValue: boolean = true;
   isSubjectActivable: boolean = false;
+  isSubjectDeActivable: boolean = false;
   modalHeader: string = 'Delete Subject';
   activableSubject!: Subject;
   activableSubjectId!: number;
+  deActivableSubjectId!: number;
+  deActivableSubject!: Subject;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
@@ -78,19 +80,23 @@ export class ViewSubjectsComponent implements OnInit {
     }
   }
 
-  deleteSubject(id: any) {
-    console.log('delete subject');
-    this.delitableSubjectId = id;
-    this.modalHeader = 'Delete Subject';
-    this.openDeleteModal();
-    this.modifyingMessage = 'Are you sure you want to delete this subject';
+  deleteSubject(row: Subject) {
+    if (!row.active) {
+      console.log('delete subject');
+      this.deActivableSubjectId = row.id;
+      this.isSubjectDeActivable = true;
+      this.deActivableSubject = row;
+      this.modalHeader = 'Deactivate Subject';
+      this.openDeleteModal();
+      this.modifyingMessage =
+        'Are you sure you want to deactivate this subject';
+    }
   }
 
   updateSubjectActiveStatus(row: Subject) {
     if (row.active) {
       this.activableSubject = row;
       this.isSubjectActivable = true;
-      console.log('delete subject');
       this.activableSubjectId = row.id;
       this.modalHeader = 'Activate Subject';
       this.openDeleteModal();
@@ -103,8 +109,9 @@ export class ViewSubjectsComponent implements OnInit {
       console.log('update status');
       this.subjectService.activateSubject(this.activableSubjectId);
       this.isSubjectActivable = false;
-    } else if (this.delitableSubjectId) {
-      this.subjectService.deleteSubject(this.delitableSubjectId);
+    } else if (this.isSubjectDeActivable) {
+      this.subjectService.deleteSubject(this.deActivableSubjectId);
+      this.isSubjectDeActivable = false;
     }
     this.closeDeleteModal();
   }
@@ -114,6 +121,8 @@ export class ViewSubjectsComponent implements OnInit {
   closeDeleteModal() {
     if (this.isSubjectActivable) {
       this.activableSubject.active = false;
+    } else if (this.isSubjectDeActivable) {
+      this.deActivableSubject.active = true;
     }
     this.isDeleteModalOpen = false;
   }

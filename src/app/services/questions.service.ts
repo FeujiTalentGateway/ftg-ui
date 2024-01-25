@@ -15,10 +15,11 @@ export class QuestionsService {
   subjets: Subject[] = [];
   dialogRef: any;
   private questionChanged = new RxSubject<void>();
+  private formSubmitSucceed = new RxSubject<void>();
 
   // Observable to notify subscribers when quesitons are changed
   questionChanged$ = this.questionChanged.asObservable();
-
+  formSubmitSucceed$ = this.formSubmitSucceed.asObservable();
   constructor(
     private route: Router,
     private questionRepository: QuestionRepository,
@@ -45,7 +46,7 @@ export class QuestionsService {
     this.questionRepository.addQuestion(question).subscribe({
       next: (response: any) => {
         console.log(response);
-        this.route.navigate(['/admin/questionPapers/addEditQuestion']);
+        this.formSubmitSucceed.next();
         this.snackBarService.openSnackBar(
           'Question added successfully',
           'Close'
@@ -63,6 +64,7 @@ export class QuestionsService {
     this.questionRepository.editQuestion(question).subscribe({
       next: (response) => {
         console.log(response);
+        this.formSubmitSucceed.next();
         this.route.navigate(['/admin/questionPapers/viewQuestions'], {
           queryParams: { subject: question.subject.id },
         });

@@ -5,7 +5,10 @@ form {
   max-width: 80%;
   margin: 0 auto;
   padding: 30px;
-  background-color: #8aa05f6b;
+  background-color: #ffe1d1;
+}
+.add-quesiton-header {
+  color: #f3752e;
 }
 
 input {
@@ -49,6 +52,6 @@ input {
   overflow-y: auto;
   background-color: rgba(0, 0, 0, 0.5); /* Adjust the opacity as needed */
 }
-.option-input{
+.option-input {
   z-index: 0;
 }

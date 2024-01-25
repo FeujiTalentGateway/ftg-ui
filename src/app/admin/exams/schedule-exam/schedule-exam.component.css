@@ -19,9 +19,16 @@
 
   
   .schedule-exam-form {
+    background-color: rgb(241, 243, 245);
     max-width: 600px;
     margin: auto;
     margin-bottom: 30px;
+    margin-top: 20px;
+  }
+
+  .schedule-exam-form form{
+    margin: -1px 20px 15px 25px; /* top right bottom left */
+
   }
   
   .exam-form {

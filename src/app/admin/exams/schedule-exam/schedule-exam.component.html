@@ -1,7 +1,6 @@
 <!-- Schedule Exam Dialog -->
 
-<div class="schedule-exam-form">
-  <br><br>
+<div class="schedule-exam-form mat-elevation-z8">
 
   <!-- Back Button with Arrow Icon -->
 <button mat-icon-button *ngIf="isRouting" (click)="goBack()">
@@ -55,6 +54,7 @@
     </div>
 
     <!-- ... -->
+    
 
     <label for="startDate">Start Date:</label>
     <input type="date" id="startDate" formControlName="startDate" required class="form-control" [min]="minStartDate">
@@ -108,8 +108,9 @@
   </div>
   
 
-  <button mat-raised-button color="primary" type="submit" class="submit-btn"
-  [class.disabled-button]="examForm.invalid">{{ isEditing ? 'Update Exam' : 'Schedule Exam' }}</button>
+  <button mat-raised-button color="primary" type="submit" class="submit-btn mb-4 mt-2"
+  [disabled]="examForm.invalid">{{ isEditing ? 'Update Exam' : 'Schedule Exam' }}</button>
+
   </form>
 
 </div>

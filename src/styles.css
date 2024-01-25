@@ -25,13 +25,5 @@ body {
   --primary-color: #f3752e !important;
   --home-background-color: #eff2f7 !important;
 }
-.mdc-switch {
-  width: 3rem !important;
-}
-
-.mdc-switch .mdc-switch__track {
-  height: 2rem !important;
-  border-radius: 1rem !important;
-}
 
 @import "~bootstrap/dist/css/bootstrap.min.css";

@@ -36,14 +36,3 @@ table {
   overflow-y: auto;
   background-color: rgba(0, 0, 0, 0.5); /* Adjust the opacity as needed */
 }
-
-.mdc-switch__handle::before,
-.mdc-switch__handle::after {
-  width: 1.5rem !important;
-  height: 1.5rem !important;
-  top: -2px !important;
-}
-
-.mdc-switch__icon {
-  left: 5px !important;
-}

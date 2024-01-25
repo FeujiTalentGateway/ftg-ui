@@ -71,7 +71,7 @@ export class AddEditQuestionComponent implements OnInit {
         new FormControl(null, Validators.required),
       ]),
       rightOptionName: new FormControl(null, Validators.required),
-      subject: new FormControl(this.selectedSubject, Validators.required),
+      subject: new FormControl(null, Validators.required),
       difficultyLevel: new FormControl('EASY', Validators.required),
     });
   }
@@ -119,13 +119,20 @@ export class AddEditQuestionComponent implements OnInit {
       if (this.isEditForm) {
         console.log(this.question.options);
         console.log(this.question);
+        this.editQuestion(this.question);
         this.initialiseQuestionForm();
       } else {
         console.log(this.question);
         this.service.addQuestion(this.question);
         this.initialiseQuestionForm();
+        this.markFormControlsAsUntouched();
       }
     }
+  }
+  markFormControlsAsUntouched() {
+    Object.values(this.questionForm.controls).forEach((control) => {
+      control.markAsUntouched();
+    });
   }
   addAdditionalOption() {
     this.OptionsArray.push(new FormControl(null, Validators.required));

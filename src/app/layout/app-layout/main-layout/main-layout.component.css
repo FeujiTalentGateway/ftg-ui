@@ -1,5 +1,5 @@
-.container-fluid{
-    background-color: var(--home-background-color);
+.container-fluid {
+  background-color: var(--home-background-color);
 }
 .text-3 {
   text-align: left;
@@ -9,16 +9,15 @@
   /* line-height: 19.5%; */
   color: #000000;
 }
-app-sidebar{
-    position: sticky;
-    top: 0;
-    left: 0;
-    z-index: 1;
-  }
+app-sidebar {
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
 
-app-main-header{
-    position: sticky;
-    z-index: 0;
-    top: 0%;
-
-  }
+app-main-header {
+  position: sticky;
+  z-index: 100;
+  top: 0%;
+}

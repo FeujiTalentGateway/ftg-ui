@@ -20,3 +20,10 @@ body {
 .global-white-color {
   color: white !important;
 }
+
+:root {
+  --primary-color: #f3752e !important;
+  --home-background-color: #eff2f7 !important;
+}
+
+@import "~bootstrap/dist/css/bootstrap.min.css";

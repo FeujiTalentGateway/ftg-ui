@@ -59,7 +59,7 @@ export class UserRegistrationComponent {
       lastName: this.registerForm.get('lastName')?.value,
       userName: this.registerForm.get('userName')?.value,
       emailId: this.registerForm.get('email')?.value,
-      password: this.registerForm.get('password')?.value,
+      password: btoa(this.registerForm.get('password')?.value as string),
     };
     console.log(userData);
     this.authService.register(userData);

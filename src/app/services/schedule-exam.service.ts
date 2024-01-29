@@ -13,6 +13,9 @@ export class ScheduleExamService {
 
   private examsSubject = new BehaviorSubject<Exam[]>([]);
   exams$ = this.examsSubject.asObservable();
+
+  private goBackSubject = new BehaviorSubject<boolean>(false);
+  goBack$ = this.goBackSubject.asObservable();
   
   constructor(private scheduleExamRepo:ScheduleExamRepositoryService,
     private snackBar:MatSnackBar,
@@ -25,6 +28,7 @@ export class ScheduleExamService {
       this.scheduleExamRepo.updateExam(formData).subscribe(
         (response: HttpResponse<any>) => {
           if (response.status == 200) {
+            this.goBackSubject.next(true);
             const updatedExams = this.examsSubject.value.map(exam => {
               // Replace the existing exam with the updated one if they have the same id
               return exam.id === response.body.id ? response.body : exam;
@@ -49,6 +53,7 @@ export class ScheduleExamService {
       this.scheduleExamRepo.scheduleExam(formData).subscribe(
         (response: HttpResponse<any>) => {
           if (response.status == 201) {
+            this.goBackSubject.next(true);
             this.openSnackBar('Exam scheduled successfully', 'Close');
             // Use unshift to add the new response to the beginning of the array
             this.examsSubject.next([...this.examsSubject.value, response.body]);

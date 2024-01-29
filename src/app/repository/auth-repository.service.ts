@@ -17,7 +17,7 @@ export class AuthRepositoryService {
     console.log('Inside auth repo: register()');
     console.log(this.baseUrl);
 
-    return this.http.post(this.baseUrl + '/registration/register', data);
+    return this.http.post(this.baseUrl + 'registration/register', data);
   }
 
   login(loginData: UserLoginModel): Observable<any> {

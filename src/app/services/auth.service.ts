@@ -58,8 +58,9 @@ export class AuthService {
     // Create a new instance of LoginUser with the form data
     const user: UserLoginModel = {
       userName: loginData.value.userName,
-      password: loginData.value.password,
+      password: btoa(loginData.value.password),
     };
+    
 
     this.authRepo.login(user).subscribe({
       next: (response: any) => {

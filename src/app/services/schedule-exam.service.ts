@@ -17,15 +17,8 @@ export class ScheduleExamService {
   constructor(private scheduleExamRepo:ScheduleExamRepositoryService,
     private snackBar:MatSnackBar,
     private route:Router) {
-          // Initialize data when the service is created
-    this.getExams().subscribe(
-      (response: HttpResponse<any>) => {
-        this.examsSubject.next(response.body || []);
-      },
-      (error: any) => {
-        console.error('Error fetching exams on initialization:', error);
-      }
-    );
+      this.fetchExams();
+
      }
   
     updateExam(formData: Exam) {
@@ -38,7 +31,7 @@ export class ScheduleExamService {
             });
     
             // Reverse the order of the array
-            const reversedExams = updatedExams.reverse();
+            const reversedExams = updatedExams;
     
             this.examsSubject.next(reversedExams);
             this.openSnackBar('Exam updated successfully', 'Close');
@@ -57,6 +50,7 @@ export class ScheduleExamService {
         (response: HttpResponse<any>) => {
           if (response.status == 201) {
             this.openSnackBar('Exam scheduled successfully', 'Close');
+            // Use unshift to add the new response to the beginning of the array
             this.examsSubject.next([...this.examsSubject.value, response.body]);
           }
         },
@@ -69,29 +63,53 @@ export class ScheduleExamService {
     }
   
 
-  getExams(): Observable<HttpResponse<any>> {
-    return this.scheduleExamRepo.getExams();
-  }
+  // getExams(): Observable<HttpResponse<any>> {
+  //   return this.scheduleExamRepo.getExams();
+  // }
 
   // Optionally, you can have another method to handle the subscription in the component
   fetchExams(): void {
-    this.getExams().subscribe(
+    console.log("fetch exam");
+  
+    this.scheduleExamRepo.getExams().subscribe(
       (response: HttpResponse<any>) => {
-        this.exams$ = response.body;
+        if (response.status === 200) {
+          // Assuming that response.body is an array of exams
+          this.examsSubject.next(response.body);
+          console.log("inside fetch");
+          console.log(this.examsSubject.value);
+        } else {
+          console.error('Unexpected response status:', response.status);
+        }
       },
       (error: any) => {
-        console.error(error);
+        console.error('Error fetching exams:', error);
       }
     );
   }
+  
+  
 
 
   changeExamStatus(id: any) {
     this.scheduleExamRepo.changeExamStatus(id).subscribe({
       next: (response: any) => {
-        if (response.status == 201) {
-          this.openSnackBar(response.message, 'Close');
-          this.examsSubject.next([...this.examsSubject.value, response.body]);
+        console.log(response);
+        
+        if (response.status == 200) {
+          this.openSnackBar('Exam status updated!!', 'Close');
+  
+          // Find the index of the existing object with the same ID
+          const index = this.examsSubject.value.findIndex(exam => exam.id === response.body.id);
+  
+          if (index !== -1) {
+            // Replace the existing object with the updated object
+            const updatedExams = [...this.examsSubject.value];
+            updatedExams[index] = response.body;
+            this.examsSubject.next(updatedExams);
+          }
+          
+          console.log(this.exams$);
         }
       },
       error: (error: any) => {
@@ -99,6 +117,7 @@ export class ScheduleExamService {
       }
     });
   }
+  
   
   openSnackBar(message: string, action: string) {
     this.snackBar.open(message, action, {

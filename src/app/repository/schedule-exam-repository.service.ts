@@ -48,6 +48,10 @@ export class ScheduleExamRepositoryService {
   }
   
   updateExam(formData: Exam): Observable<HttpResponse<any>> {
+    console.log("repo");
+    
+    console.log(formData);
+    
     const requestOptions = { headers: this.setToken() };
 
     return this.http.put<any>(this.adminUrl + 'exam', formData, { ...requestOptions, observe: 'response' });

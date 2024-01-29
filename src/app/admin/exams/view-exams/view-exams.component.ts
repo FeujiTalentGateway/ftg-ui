@@ -104,11 +104,9 @@ export class ViewExamsComponent implements OnInit {
 
   // Method to fetch exams from the service
   getExams() {
-    this.service.getExams().subscribe(
-      (response: HttpResponse<any>) => {
-        // Reverse the data to display the latest exams first
-        const reversedData = response.body.reverse();
-        // Initialize the MatTableDataSource with the fetched data  
+    this.service.exams$.subscribe(
+      (exams) => {
+        const reversedData = exams.reverse();
         this.dataSource = new MatTableDataSource(reversedData);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
@@ -129,8 +127,8 @@ export class ViewExamsComponent implements OnInit {
 
   // Method to handle the event emitted from the child component to show/hide the schedule
   handleShowSchedule(event: any) {
-    this.getExams();
     this.showScheduleDialog = event;
+    this.isEditing=event;
   }
 
 }

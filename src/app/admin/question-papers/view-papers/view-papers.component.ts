@@ -6,6 +6,7 @@ import { Paper } from 'src/app/models/paper';
 import { Question } from 'src/app/models/question';
 import { Subject } from 'src/app/models/subject';
 import { PaperService } from 'src/app/services/paper.service';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-view-papers',

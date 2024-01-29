@@ -10,8 +10,6 @@ import { AddEditQuestionComponent } from './add-edit-question/add-edit-question.
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { PaginatorModule } from 'primeng/paginator';
-import { TooltipModule } from 'primeng/tooltip';
 
 @NgModule({
   declarations: [
@@ -28,8 +26,7 @@ import { TooltipModule } from 'primeng/tooltip';
     MatIconModule,
     MatTooltipModule,
     MatPaginatorModule,
-    PaginatorModule,
-    TooltipModule,
+
   ],
 })
 export class QuestionPapersModule {}

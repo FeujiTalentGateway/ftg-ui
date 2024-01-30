@@ -3,9 +3,9 @@
 <div class="schedule-exam-form mat-elevation-z8">
 
   <!-- Back Button with Arrow Icon -->
-<button mat-icon-button *ngIf="isRouting" (click)="goBack()">
+<!-- <button mat-icon-button *ngIf="isRouting" (click)="goBack()">
   <mat-icon>arrow_back</mat-icon>
-</button>
+</button> -->
 
 
   <h1 style="text-align: center;">{{ isEditing ? 'Update Exam' : 'Schedule Exam' }} Form</h1>
@@ -84,14 +84,12 @@
     </div>
 
         
-  
-    <div>
-      <label for="active">Active:</label> &nbsp; &nbsp; 
-      <mat-slide-toggle color="warn" id="active" formControlName="active">
-      </mat-slide-toggle>
-    </div>
     
-   
+  <!-- Inside your form -->
+  <div>
+    <label for="active">Active:</label> &nbsp; &nbsp;
+    <mat-slide-toggle color="warn" id="active" formControlName="active"></mat-slide-toggle>
+  </div>
 
 
 

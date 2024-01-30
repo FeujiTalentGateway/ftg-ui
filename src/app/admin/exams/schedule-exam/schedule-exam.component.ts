@@ -41,6 +41,13 @@ export class ScheduleExamComponent implements OnInit {
   // Lifecycle hook called after the component is initialized
   ngOnInit(): void {
 
+
+    this.service.goBack$.subscribe((shouldGoBack) => {
+      if (shouldGoBack) {
+        this.goBack();
+      }
+    });
+
     // If editing, populate the form with exam data
     if (this.isEditing) {
       // Convert string dates to Date objects
@@ -154,11 +161,11 @@ export class ScheduleExamComponent implements OnInit {
       if (this.selectedExamId) {
         // Update existing exam
         this.service.updateExam(formData);
-        this.goBack();
+        // this.goBack();
       } else {
         // Schedule a new exam
         this.service.scheduleExam(formData);
-        this.goBack();
+        // this.goBack();
       }
     } else {
       console.log('Form is invalid');

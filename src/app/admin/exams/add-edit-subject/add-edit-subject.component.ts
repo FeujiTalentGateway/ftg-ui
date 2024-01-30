@@ -17,7 +17,8 @@ export class AddEditSubjectComponent {
     active: true,
     name: '',
   };
-
+  subjectModifyHeader: string = 'Add Subject';
+  modalHeader: string = 'Edit Subject';
   subjectId: any;
   isFormSubmitted: boolean = false;
   subjectForm!: FormGroup;
@@ -37,6 +38,7 @@ export class AddEditSubjectComponent {
     if (this.subjectId) {
       this.subjectRepository.getSubjectById(this.subjectId).subscribe({
         next: (value: Subject) => {
+          this.subjectModifyHeader = 'Edit Subject';
           this.subject = value;
           this.setSubjectValueIntoSubjectForm(this.subject);
         },

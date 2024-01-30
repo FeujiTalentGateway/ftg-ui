@@ -31,7 +31,7 @@
     </div>
     <div *ngIf="examForm.get('description')?.hasError('maxlength') && examForm.get('description')?.touched"
       class="error-msg">
-      Maximum length is 500 characters.
+      Maximum length is 255 characters.
     </div>
 
     <label for="examCode">Exam Code:</label>
@@ -93,13 +93,13 @@
 
 
 
-  <div formGroupName="paperDTO">
+  <div formGroupName="paperSummaryDTO">
     <label for="paperId">Paper Name</label>
     <mat-select id="paperId" formControlName="id" required class="form-control">
       <mat-option value="Slect Paper" disabled>Select Any Paper</mat-option>
       <mat-option *ngFor="let paper of paperOptions" [value]="paper.id" >{{ paper.name }}</mat-option>
     </mat-select>
-    <div *ngIf="examForm.get('paperDTO.id')?.hasError('required') && examForm.get('paperDTO.id')?.touched"
+    <div *ngIf="examForm.get('paperSummaryDTO.id')?.hasError('required') && examForm.get('paperSummaryDTO.id')?.touched"
       class="error-msg">
       Paper Name is required.
     </div>

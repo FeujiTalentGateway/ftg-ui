@@ -10,7 +10,7 @@ export interface Exam {
     startDate: string;
     endDate: string;
     active: boolean;
-    paperDTO: Paper;
+    paperSummaryDTO : Paper;
     
   }
   

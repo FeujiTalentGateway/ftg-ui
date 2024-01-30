@@ -67,8 +67,8 @@ export class ScheduleExamComponent implements OnInit {
         startDate: formattedStartDate,
         endDate: formattedEndDate,
         active: this.exam!.active,
-        paperDTO: {
-          id: this.exam!.paperDTO.id,
+        paperSummaryDTO : {
+          id: this.exam!.paperSummaryDTO.id,
         },
       });
 
@@ -103,7 +103,7 @@ export class ScheduleExamComponent implements OnInit {
   
       description: ['', [
         Validators.required,
-        Validators.maxLength(500),
+        Validators.maxLength(255),
       ]],
   
       examCode: ['', [
@@ -122,7 +122,7 @@ export class ScheduleExamComponent implements OnInit {
   
       active: [false, Validators.required],
   
-      paperDTO: this.fb.group({
+      paperSummaryDTO: this.fb.group({
         id: [null, Validators.required],
       }),
     }, { validators: this.dateRangeValidator });
@@ -200,8 +200,8 @@ export class ScheduleExamComponent implements OnInit {
       startDate: formattedStartDate,
       endDate: formattedEndDate,
       active: exam.active,
-      paperDTO: {
-        id: exam.paperDTO.id,
+      paperSummaryDTO : {
+        id: exam.paperSummaryDTO.id,
       },
     });
   

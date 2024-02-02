@@ -4,15 +4,17 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { CommonModule, NgFor } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { MainLayoutComponent } from './layout/app-layout/main-layout/main-layout.component';
 import { MainHeaderComponent } from './layout/main-header/main-header.component';
 import { AuthLayoutComponent } from './layout/app-layout/auth-layout/auth-layout.component';
 import { SidebarComponent } from './layout/sidebar/sidebar.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from './utils/confirmation-dialog/confirmation-dialog.component';
+import { TokenInterceptor } from './TokenInterceptor/token.interceptor';
+import { UserExamLayoutComponent } from './layout/app-layout/user-exam-layout/user-exam-layout.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,8 @@ import { ConfirmationDialogComponent } from './utils/confirmation-dialog/confirm
     AuthLayoutComponent,
     MainHeaderComponent,
     SidebarComponent,
-    ConfirmationDialogComponent
+    ConfirmationDialogComponent,
+    UserExamLayoutComponent,
   ],
   imports: [
     BrowserModule,
@@ -33,9 +36,17 @@ import { ConfirmationDialogComponent } from './utils/confirmation-dialog/confirm
     ReactiveFormsModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
-    MatDialogModule
+    MatDialogModule,
   ],
-  providers: [Location],
+  providers: [
+    Location,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true,
+    },
+  ],
+
   bootstrap: [AppComponent],
 })
 export class AppModule {}

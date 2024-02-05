@@ -1,50 +1,56 @@
-<header class="row align-items-center header-fileds">
-  <div class="col-2 col-md-2">
-    <a class="navbar-brand" href="#">
-      <img
-        src="assets/images/feuji-logo.png"
-        class="img-fluid logo"
-        alt="feuji-logo"
-      />
-    </a>
-  </div>
-  <div class="col-12 col-md-6 offset-md-4">
-    <div class="row">
-      <a
-        *ngIf="!isHomePage()"
-        [routerLink]="['/home']"
-        class="nav-link col-sm-2 offset-sm-3 navi"
-        >Home</a
-      >
-      <a
-        *ngIf="!isAboutPage()"
-        [routerLink]="['/about']"
-        class="nav-link col-sm-2 navi"
-        >About</a
-      >
-      <a
-        *ngIf="!isContactPage()"
-        [routerLink]="['/contact']"
-        class="nav-link col-sm-2 navi"
-        >Contact</a
-      >
-      <ng-container *ngIf="!isSignupPage(); else loginButton">
-        <a
-          [routerLink]="['/main/login']"
-          id="signup-button"
-          class="btn btn-outline-primary btn-sm col-2 col-sm-2 login"
-          >Signup</a
-        >
-      </ng-container>
-
-      <ng-template #loginButton>
-        <a
-          [routerLink]="['/main/register']"
-          id="login-button"
-          class="btn btn-outline-primary btn-sm col-2 col-sm-2 login"
-          >Login</a
-        >
-      </ng-template>
+<div class="container-fluid">
+  <!-- Header row with alignment and specific styling -->
+  <header class="row align-items-center header-fileds">
+    <!-- Logo column with a link to the home page -->
+    <div class="col-2 col-md-2">
+      <a class="navbar-brand" href="#">
+        <img
+          src="assets/images/feuji-logo.png"
+          class="img-fluid logo"
+          alt="feuji-logo"
+        />
+      </a>
     </div>
-  </div>
-</header>
+
+    <!-- Navigation links column with responsive layout -->
+    <div class="col-12 col-md-6 offset-md-4">
+      <div class="row">
+        <!-- Home navigation link -->
+        <a [routerLink]="['/home']" class="nav-link col-sm-2 offset-sm-3 navi"
+          >Home</a
+        >
+
+
+        <!-- About navigation link -->
+        <a [routerLink]="['/about']" class="nav-link col-sm-2 navi">About</a>
+
+        <!-- Contact navigation link -->
+        <a [routerLink]="['/contact']" class="nav-link col-sm-2 navi"
+          >Contact</a
+        >
+
+        <!-- Conditional rendering for Signup or Login button -->
+        <ng-container *ngIf="!isSignupPage(); else loginButton">
+          <!-- Signup button -->
+          <a
+            [routerLink]="['/register']"
+            id="signup-button"
+            class="btn btn-outline-primary btn-sm col-2 col-sm-2 login"
+            >Signup</a
+          >
+        </ng-container>
+
+        <!-- Login button template -->
+        <ng-template #loginButton>
+          <!-- Login button -->
+          <a
+            [routerLink]="['/login']"
+            id="login-button"
+            class="btn btn-outline-primary btn-sm col-2 col-sm-2 login"
+            >Login</a
+          >
+        </ng-template>
+      </div>
+    </div>
+  </header>
+</div>

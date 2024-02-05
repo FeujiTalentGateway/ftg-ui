@@ -14,6 +14,7 @@ import { User } from '../models/user.model';
 export class AuthService {
   private userPayload: any;
   dialogRef: any;
+  roles :any []=[];
   constructor(
     private authRepo: AuthRepositoryService,
     private snackBar: MatSnackBar,
@@ -57,11 +58,10 @@ export class AuthService {
     // Create a new instance of LoginUser with the form data
     const user: UserLoginModel = {
       userName: loginData.value.userName,
-      password: loginData.value.password,
+      password: btoa(loginData.value.password),
     };
-    // Create a new instance of LoginUser with the form data
+    
 
-    // Send the login data to the server and handle the response
     this.authRepo.login(user).subscribe({
       next: (response: any) => {
         console.log(response.message);
@@ -71,9 +71,11 @@ export class AuthService {
           const tokenPayload = this.decodedToken();
           this.userDetails.setUserNameFromToken(this.userPayload.sub);
           this.userDetails.setRoleFromToken(
-            this.userPayload.authorities[0].authority
+            this.userPayload.authorities
           );
-          this.route.navigateByUrl('/home');
+          sessionStorage.setItem('roles',this.userPayload.authorities.map((e: { authority: any; }) => e.authority))
+          console.log(this.userDetails.getRoleFromToken(), '---tocken----  ');
+          this.route.navigateByUrl('/user/home');
         }
         if (response.message == 'Invalid username or password')
           this.openSnackBar('Invalid username or password', 'Close');
@@ -89,6 +91,10 @@ export class AuthService {
   }
   setJwtToken(token: any) {
     localStorage.setItem('token', token);
+  }
+  removeJwtToken() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('role');
   }
   decodedToken() {
     const jwtHelper = new JwtHelperService();
@@ -116,4 +122,14 @@ export class AuthService {
       horizontalPosition: 'center',
     });
   }
+  templogin(loginData: FormGroup) {
+    if (loginData) {
+      console.log(loginData);
+
+      localStorage.setItem('role', loginData.value.userName);
+      this.route.navigateByUrl('/user/home');
+    }
+  }
+
+
 }

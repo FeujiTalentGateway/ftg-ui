@@ -22,4 +22,4 @@ import { FooterComponent } from './footer/footer.component';
   ],
   imports: [CommonModule, FormsModule, ReactiveFormsModule, HomeRoutingModule],
 })
-export class HomeModule {}
+export class  HomeModule {}

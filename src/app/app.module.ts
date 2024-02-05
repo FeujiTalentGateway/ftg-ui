@@ -6,12 +6,22 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { CommonModule } from '@angular/common';
-
+import { CommonModule, NgFor } from '@angular/common';
+import { MainLayoutComponent } from './layout/app-layout/main-layout/main-layout.component';
+import { MainHeaderComponent } from './layout/main-header/main-header.component';
+import { AuthLayoutComponent } from './layout/app-layout/auth-layout/auth-layout.component';
+import { SidebarComponent } from './layout/sidebar/sidebar.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ConfirmationDialogComponent } from './utils/confirmation-dialog/confirmation-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    MainLayoutComponent,
+    AuthLayoutComponent,
+    MainHeaderComponent,
+    SidebarComponent,
+    ConfirmationDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -21,9 +31,11 @@ import { CommonModule } from '@angular/common';
     HttpClientModule,
     MatSnackBarModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ReactiveFormsModule,
+    MatDialogModule
   ],
   providers: [Location],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

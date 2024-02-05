@@ -7,7 +7,7 @@ import { BehaviorSubject } from 'rxjs';
 export class UserdetailsService {
   // BehaviorSubjects to store user-related data
   private name$ = new BehaviorSubject<string>('');
-  private role$ = new BehaviorSubject<string>('');
+  private role$ = new BehaviorSubject<string[]>([]);
   private userName$ = new BehaviorSubject<string>('');
 
   constructor() {}
@@ -28,8 +28,8 @@ export class UserdetailsService {
   }
 
   // Set the user's role in the stored data
-  public setRoleFromToken(role: string) {
-    this.role$.next(role);
+  public setRoleFromToken(roles: any[]) {
+    this.role$.next(roles);
   }
 
   // Get the user's username from the stored data as an observable

@@ -11,6 +11,7 @@ export interface Exam {
     endDate: string;
     active: boolean;
     paperSummaryDTO : Paper;
+    created_at_ts:string;
     
   }
   

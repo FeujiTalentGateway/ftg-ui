@@ -115,6 +115,7 @@ export class ViewExamsComponent implements OnInit,AfterViewInit {
           },
           (error: any) => {
             console.error('Error fetching exams:', error);
+          
           }
         );
       }

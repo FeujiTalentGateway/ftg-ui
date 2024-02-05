@@ -1,0 +1,19 @@
+.container{
+    margin-top: 30px;
+    width: 90%;
+    height: 75vh;
+    background-color: #fff;
+    box-sizing: border-box;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.188);
+    padding: 0;
+
+}
+.heading {
+  background-color: aquamarine;
+}
+.heading h2 {
+    font-family: 'Regular';
+}
+li{
+    list-style: none;
+}

@@ -15,7 +15,9 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from './utils/confirmation-dialog/confirmation-dialog.component';
 import { TokenInterceptor } from './TokenInterceptor/token.interceptor';
 import { UserExamLayoutComponent } from './layout/app-layout/user-exam-layout/user-exam-layout.component';
-
+import { ExamHeaderComponent } from './layout/exam-header/exam-header.component';
+import { SharedDataService } from './services/shared-data.service';
+import { TimeFormatPipe } from './pips/time-format.pipe';
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,6 +27,7 @@ import { UserExamLayoutComponent } from './layout/app-layout/user-exam-layout/us
     SidebarComponent,
     ConfirmationDialogComponent,
     UserExamLayoutComponent,
+    ExamHeaderComponent,
   ],
   imports: [
     BrowserModule,
@@ -39,6 +42,7 @@ import { UserExamLayoutComponent } from './layout/app-layout/user-exam-layout/us
     MatDialogModule,
   ],
   providers: [
+    SharedDataService,
     Location,
     {
       provide: HTTP_INTERCEPTORS,
@@ -46,7 +50,6 @@ import { UserExamLayoutComponent } from './layout/app-layout/user-exam-layout/us
       multi: true,
     },
   ],
-
   bootstrap: [AppComponent],
 })
 export class AppModule {}

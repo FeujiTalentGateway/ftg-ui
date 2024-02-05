@@ -9,4 +9,5 @@ export interface Question {
   subject: Subject;
   rightOption: Option;
   options: Option[];
+  optionSelected?:number;
 }

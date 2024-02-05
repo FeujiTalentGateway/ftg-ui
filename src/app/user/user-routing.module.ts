@@ -7,6 +7,11 @@ const routes: Routes = [
     path: 'home',
     component: UserHomePageComponent,
   },
+  {
+    path: 'exam',
+    loadChildren: () =>
+      import('./user-exam/user-exam.module').then((m) => m.UserExamModule),
+  },
 ];
 
 @NgModule({

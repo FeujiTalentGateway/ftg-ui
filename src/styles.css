@@ -1,6 +1,7 @@
+@import  "./assets/css/custome-font.css";
 /* You can add global styles to this file, and also import other style files */
 body {
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-family: 'SemiBold';
 }
 .global-color {
   color: #f3752e !important;
@@ -12,7 +13,7 @@ body {
   border: 1px solid #f3752e !important;
 }
 .global-black-background-color {
-  background-color: rgb(54, 54, 54) !important;
+  background-color: #f1f5f8 !important;
 }
 .global-black-color {
   color: black !important;
@@ -27,3 +28,4 @@ body {
 }
 
 @import "~bootstrap/dist/css/bootstrap.min.css";
+

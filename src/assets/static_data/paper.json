@@ -1,0 +1,175 @@
+{
+    "id": 3,
+    "name": "angular demo 1",
+    "questions": [
+        {
+            "id": 3,
+            "content": "what is router ",
+            "difficulty_level": "MEDIUM",
+            "subject": {
+                "id": 3,
+                "name": "Angular "
+            },
+            "options": [
+                {
+                    "id": 7,
+                    "name": "Router object"
+                },
+                {
+                    "id": 8,
+                    "name": "dnfjd"
+                },
+                {
+                    "id": 9,
+                    "name": "sddvdv"
+                },
+                {
+                    "id": 10,
+                    "name": "sdfhbd"
+                }
+            ]
+        },
+        {
+            "id": 1,
+            "content": "what is python ?",
+            "difficulty_level": "EASY",
+            "subject": {
+                "id": 1,
+                "name": "Python"
+            },
+            "options": [
+                {
+                    "id": 1,
+                    "name": "programing language"
+                },
+                {
+                    "id": 2,
+                    "name": "database"
+                },
+                {
+                    "id": 3,
+                    "name": "Markup language"
+                },
+                {
+                    "id": 4,
+                    "name": "tool"
+                }
+            ]
+        },
+        {
+            "id": 3,
+            "content": "What is the purpose of the 'try', 'catch', and 'finally' blocks in Java?",
+            "difficulty_level": "MEDIUM",
+            "options": [
+              {
+                "id": 21,
+                "name": "To define a new method"
+              },
+              {
+                "id": 22,
+                "name": "To handle exceptions and perform cleanup operations"
+              },
+              {
+                "id": 23,
+                "name": "To create a loop"
+              },
+              {
+                "id": 24,
+                "name": "To declare variables"
+              }
+            ]
+          },
+          {
+            "id": 4,
+            "content": "What is the concept of method overloading in Java?",
+            "difficulty_level": "MEDIUM",
+            "options": [
+              {
+                "id": 25,
+                "name": "Defining multiple methods with the same name in a class"
+              },
+              {
+                "id": 26,
+                "name": "Overriding a method in a subclass"
+              },
+              {
+                "id": 27,
+                "name": "Creating private methods"
+              },
+              {
+                "id": 28,
+                "name": "Using abstract methods"
+              }
+            ]
+          },
+          {
+            "id": 5,
+            "content": "What is a decorator in Python?",
+            "difficulty_level": "EASY",
+            "options": [
+              {
+                "id": 29,
+                "name": "A design pattern in Python"
+              },
+              {
+                "id": 30,
+                "name": "A way to add behavior to functions or methods"
+              },
+              {
+                "id": 31,
+                "name": "A type of data structure"
+              },
+              {
+                "id": 32,
+                "name": "A Python keyword for importing modules"
+              }
+            ]
+          },
+          {
+            "id": 7,
+            "content": "What is Angular CLI used for?",
+            "difficulty_level": "MEDIUM",
+            "options": [
+              {
+                "id": 37,
+                "name": "To create and manage Angular projects"
+              },
+              {
+                "id": 38,
+                "name": "To style HTML elements"
+              },
+              {
+                "id": 39,
+                "name": "To define TypeScript interfaces"
+              },
+              {
+                "id": 40,
+                "name": "To handle HTTP requests"
+              }
+            ]
+          },
+          {
+            "id": 8,
+            "content": "What is two-way data binding in Angular?",
+            "difficulty_level": "MEDIUM",
+            "options": [
+              {
+                "id": 41,
+                "name": "Binding data from the component to the template only"
+              },
+              {
+                "id": 42,
+                "name": "Binding data bidirectionally between the component and the template"
+              },
+              {
+                "id": 43,
+                "name": "Binding data from the template to the component only"
+              },
+              {
+                "id": 44,
+                "name": "Binding data asynchronously"
+              }
+            ]
+          }
+    ]
+}

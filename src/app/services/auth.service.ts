@@ -73,16 +73,23 @@ export class AuthService {
           this.userDetails.setRoleFromToken(
             this.userPayload.authorities
           );
+          let roles:string[] = this.userPayload.authorities.map((e: { authority: any; }) => e.authority)
+          console.log(roles);          
           sessionStorage.setItem('roles',this.userPayload.authorities.map((e: { authority: any; }) => e.authority))
-          console.log(this.userDetails.getRoleFromToken(), '---tocken----  ');
-          this.route.navigateByUrl('/user/home');
+          if (roles.includes('USER')){
+            this.route.navigateByUrl('/user/home');
+          }
+          else{
+            this.route.navigateByUrl('/admin/home');
+          }
         }
         if (response.message == 'Invalid username or password')
           this.openSnackBar('Invalid username or password', 'Close');
       },
       error: (error: any) => {
-        if (error.status == 400) {
-          this.openSnackBar('Invalid Username or Password', 'Close');
+
+        if (error.status == 409) {
+          this.openSnackBar(error.error.message, 'Close');
         } else {
           this.openSnackBar('Something went wrong', 'Close');
         }
@@ -121,14 +128,6 @@ export class AuthService {
       verticalPosition: 'top',
       horizontalPosition: 'center',
     });
-  }
-  templogin(loginData: FormGroup) {
-    if (loginData) {
-      console.log(loginData);
-
-      localStorage.setItem('role', loginData.value.userName);
-      this.route.navigateByUrl('/user/home');
-    }
   }
 
 

@@ -150,16 +150,16 @@ export const ROUTES: RouteInfo[] = [
     class: 'menu-toggle',
     role: ['user'],
     submenu: [
-      {
-        path: '/user/exam/view-exam',
-        title: 'List of Exams',
-        modulename: 'users',
-        iconType: '',
-        icon: '',
-        class: 'ml-menu',
-        role: [''],
-        submenu: [],
-      },
+      // {
+      //   path: '/user/exam/view-exam',
+      //   title: 'List of Exams',
+      //   modulename: 'users',
+      //   iconType: '',
+      //   icon: '',
+      //   class: 'ml-menu',
+      //   role: [''],
+      //   submenu: [],
+      // },
       {
         path: '/user/exam/exam-code',
         title: 'Take-exam',

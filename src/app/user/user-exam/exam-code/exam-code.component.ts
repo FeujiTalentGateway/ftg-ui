@@ -45,12 +45,16 @@ export class ExamCodeComponent implements OnInit {
     this.examRepo.checkExamCodeWithDetail(this.examCode).subscribe(
       (response) => {
         console.log(response);
-        this.examCode = response.examCode;
+        this.examCode;
         this.router.navigate(['/user/exam/exam-instructions', this.examCode]);
       },
       (error) => {
         console.log(error);
-        this.auth.openSnackBar(error.error.message, 'close');
+        console.log(error.error.error);
+        this.auth.openSnackBar(error.error.error, 'close');
+        if (error.status == 0){
+          alert("service not Available")
+        }
       }
     );
   }

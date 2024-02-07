@@ -4,6 +4,8 @@ import { ViewExamsComponent } from './view-exams/view-exams.component';
 import { ExamCodeComponent } from './exam-code/exam-code.component';
 import { ExamInstructionsComponent } from './exam-instructions/exam-instructions.component';
 import { ExamComponent } from './exam/exam.component';
+import { ExamSubmittedComponent } from './exam-submitted/exam-submitted.component';
+import { ViewResultComponent } from './view-result/view-result.component';
 
 const routes: Routes = [
   {
@@ -22,6 +24,14 @@ const routes: Routes = [
   {
     path: 'exam/:examCode',
     component: ExamComponent,
+  },
+  {
+    path: 'exam-submitted/:examCode/:examAttemptId',
+    component: ExamSubmittedComponent,
+  },
+  {
+    path: 'view-result/:examCode/:examAttemptId',
+    component: ViewResultComponent,
   },
 ];
 

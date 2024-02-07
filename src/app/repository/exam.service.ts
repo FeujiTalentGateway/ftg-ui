@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Exam } from '../models/exam.model';
 import { Paper } from '../models/paper';
 import { OptionAttempt } from '../models/option.attempt';
+import { ViewResult } from '../models/view-reult';
 
 @Injectable({
   providedIn: 'root',
@@ -14,9 +15,7 @@ export class ExamService {
   constructor(private http: HttpClient) {}
 
   getPaperByExamCode(examCode: string): Observable<Paper> {
-    return this.http.get<Paper>(
-      `${this.examUrl}exam/take-exam/${examCode}/`,
-    );
+    return this.http.post<Paper>(`${this.examUrl}exam/take-exam/${examCode}/`,{});
   }
 
   checkExamByCode(examCode: string): Observable<any> {
@@ -32,24 +31,23 @@ export class ExamService {
   getStaticQuestionPaper(): Observable<Paper> {
     return this.http.get<Paper>('/assets/static_data/paper.json');
   }
-  saveOption(optionAttempt: OptionAttempt):Observable<any>{
-    return this.http.post(`${this.examUrl}exam/save-options/`,optionAttempt)
+  saveOption(optionAttempt: OptionAttempt): Observable<any> {
+    return this.http.post(`${this.examUrl}exam/save-options/`, optionAttempt);
   }
 
-  checkExamCodeWithDetail(examCode: string): Observable<any> {
+  checkExamCodeWithDetail(examCode: string): Observable<HttpResponse<any>> {
     let data = {
-      'is_checking':true
-    }
-    const options = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'is_checking':'true'
-      }),
-      body: data,
+      is_checking: true,
     };
-
-    // Make a GET request with the provided data in the body
-    return this.http.get<any>(`${this.examUrl}exam/take-exam/${examCode}/`, options);
+    return this.http.post<HttpResponse<any>>(
+      `${this.examUrl}exam/take-exam/${examCode}/`,
+      data
+    );
   }
-
+  submitExam(examAttemptId: number, examCode :string):Observable<HttpResponse<any>>{
+    return this.http.post<HttpResponse<any>>(`${this.examUrl}exam/submit-exam/${examCode}/${examAttemptId}/`,{})
+  }
+  getResult(examAttemptId: string, examCode :string):Observable<ViewResult>{
+    return this.http.get<ViewResult>(`${this.examUrl}exam/view-result/${examCode}/${examAttemptId}/`)
+  }
 }

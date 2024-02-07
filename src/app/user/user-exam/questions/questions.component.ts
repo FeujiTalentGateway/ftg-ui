@@ -1,10 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { Option } from 'src/app/models/option';
 import { OptionAttempt } from 'src/app/models/option.attempt';
 import { Paper } from 'src/app/models/paper';
 import { Question } from 'src/app/models/question';
 import { ExamService } from 'src/app/repository/exam.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { SharedDataService } from 'src/app/services/shared-data.service';
 
 @Component({
   selector: 'app-questions',
@@ -13,8 +14,6 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class QuestionsComponent implements OnInit {
   @Input() paper: Paper = { id: 0, name: '', active: false, questions: [] };
-  // @Input() paper: Question[] = [];
-  // @Input() examAttemptId: number | undefined;
   currentQuestionIndex = 0;
   currentQuestion: Question | undefined;
   listOfQuestion: Question[] = [];
@@ -23,13 +22,19 @@ export class QuestionsComponent implements OnInit {
     console.log(this.paper);
 
     console.log(this.currentQuestion);
+    this.sharedData.updateExamAttempt(this.paper?.exam_attempt_id as number);
   }
-  constructor(private authRepo: AuthService , private ExamRepo:ExamService) {
+  constructor(
+    private authRepo: AuthService,
+    private ExamRepo: ExamService,
+    private sharedData: SharedDataService
+  ) {
     this.currentQuestion = this.paper?.questions[0];
   }
   nextQuestion() {
     if (this.currentQuestionIndex < this.paper.questions.length - 1) {
       this.currentQuestionIndex++;
+      this.currentQuestion = this.paper.questions[this.currentQuestionIndex];
     }
   }
   optionSelected(option: Option) {
@@ -47,33 +52,37 @@ export class QuestionsComponent implements OnInit {
   saveOption() {
     this.currentQuestion = this.paper.questions[this.currentQuestionIndex];
     console.log(this.currentQuestion);
+    
     if (this.currentQuestion.optionSelected == null) {
-      this.authRepo.openSnackBar('Please select the Option Fist', 'close');
+      // this.authRepo.openSnackBar('Please select the Option First', 'close');
     } else {
       console.log(this.currentQuestion.id);
       console.log(this.currentQuestion.optionSelected);
       console.log(this.paper.exam_attempt_id);
+
       let optionAttempt: OptionAttempt = {
         question_id_i: this.currentQuestion.id,
         option_selected_id: this.currentQuestion.optionSelected,
         attempt_id_i: this.paper.exam_attempt_id as number,
       };
       console.log(optionAttempt);
-      
-      this.ExamRepo.saveOption(optionAttempt).subscribe(
-        (response)=>{
 
-        },
-        (error)=>{
+      this.ExamRepo.saveOption(optionAttempt).subscribe(
+        (response) => {},
+        (error) => {
           console.log(error);
-          
         }
-      )
+      );
+      if (this.currentQuestionIndex < this.paper.questions.length - 1) {
+        this.currentQuestionIndex++;
+      }
+      this.currentQuestion = this.paper.questions[this.currentQuestionIndex];
     }
   }
   previousQuestion() {
     if (this.currentQuestionIndex > 0) {
       this.currentQuestionIndex--;
+      this.currentQuestion = this.paper.questions[this.currentQuestionIndex];
     }
   }
 }

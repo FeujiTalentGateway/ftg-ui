@@ -5,6 +5,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background-color: #fff;
 
 }
 .sections{
@@ -25,4 +26,9 @@
 .logo-image{
     margin-top: -5px;
 
+}
+.sub-items{
+    width: 30%;
+    height: auto;
+    text-align: center;
 }

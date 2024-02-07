@@ -66,7 +66,7 @@ export class AuthService {
       next: (response: any) => {
         console.log(response.message);
         if (response.message == 'Successfully logged in') {
-          this.openSnackBar('Login successfully', 'Close');
+          // this.openSnackBar('Login successfully', 'Close');
           this.setJwtToken(response.token);
           const tokenPayload = this.decodedToken();
           this.userDetails.setUserNameFromToken(this.userPayload.sub);

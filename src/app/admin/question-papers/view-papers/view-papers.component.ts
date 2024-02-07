@@ -1,17 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Paper } from 'src/app/models/paper';
 import { Question } from 'src/app/models/question';
 import { Subject } from 'src/app/models/subject';
 import { PaperService } from 'src/app/services/paper.service';
-import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-view-papers',
   templateUrl: './view-papers.component.html',
-  styleUrls: ['./view-papers.component.css']
+  styleUrls: ['./view-papers.component.css'],
 })
 export class ViewPapersComponent {
   allQuestions: any[] = [];
@@ -26,16 +30,20 @@ export class ViewPapersComponent {
   currentPage = 1;
   itemsPerPage = 5;
   totalItems = 0;
-  nameSearch: string = "";
+  nameSearch: string = '';
   objectnumber: number = 0;
   currenttable: number = 1;
   tablerowsperpage: number = 5;
-  totalPages: number = 0; updatePaper: Paper | undefined;
+  totalPages: number = 0;
+  updatePaper: Paper | undefined;
   editPaperId: number = 0;
 
-  constructor(private paperService: PaperService, private fb: FormBuilder, private route: Router, private snackBar: MatSnackBar,) {
-
-  }
+  constructor(
+    private paperService: PaperService,
+    private fb: FormBuilder,
+    private route: Router,
+    private snackBar: MatSnackBar
+  ) {}
   ngOnInit(): void {
     this.getAllSubjects();
     this.getAllQuestions();
@@ -43,31 +51,33 @@ export class ViewPapersComponent {
   }
   showpaper: boolean = false;
 
-
   register(data: FormGroup) {
     this.savePaper();
   }
 
-
   registerForm: FormGroup = new FormGroup({
-    name: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-Z0-9\s']{1,32}$/)]),
+    name: new FormControl('', [
+      Validators.required,
+      Validators.pattern(/^[a-zA-Z0-9\s']{1,100}$/),
+      Validators.minLength(4),
+      Validators.maxLength(50),
+    ]),
     active: new FormControl('', [Validators.required]),
     questions: this.fb.array([]),
   });
 
-
-
   createpaper() {
-    this.heading = "Create Paper";
+    this.heading = 'Create Paper';
     this.showpaper = !this.showpaper;
     this.selectedQuestions = [];
     this.registerForm.reset();
+    this.selectedSubject = undefined;
   }
   backbutton() {
     this.showpaper = false;
     this.questions = [];
-    this.selectedSubject = undefined;
     this.registerForm.reset();
+    this.selectedSubject = undefined;
   }
 
   getAllQuestions() {
@@ -91,43 +101,38 @@ export class ViewPapersComponent {
     );
   }
 
-
   savePaper() {
-
-    if (this.heading === "Create Paper") {
+    if (this.heading === 'Create Paper') {
       const paper: Paper = {
         id: 0,
         name: this.registerForm.get('name')?.value,
         active: this.registerForm.get('active')?.value,
-        questions: this.selectedQuestions || []
-
+        questions: this.selectedQuestions || [],
       };
 
       this.paperService.savePaper(paper).subscribe(
         (response: any) => {
-          this.openSnackBar("paper saved successfully", 'Close');
-          this.registerForm.reset();
+          this.openSnackBar('paper saved successfully', 'Close');
           this.getAllPapers();
+          this.selectedSubject = undefined;
           this.showpaper = !this.showpaper;
         },
         (error) => {
           this.openSnackBar(error.error.message, 'Close');
         }
       );
-    }
-    else {
+    } else {
       const paper: Paper = {
         id: this.editPaperId,
         name: this.registerForm.get('name')?.value,
         active: this.registerForm.get('active')?.value,
-        questions: this.selectedQuestions || []
-
+        questions: this.selectedQuestions || [],
       };
 
       this.paperService.updatePaper(paper).subscribe(
         (response: any) => {
-          console.log(response);
           this.openSnackBar('paper updated successfully', 'Close');
+          this.selectedSubject = undefined;
           this.getAllPapers();
           this.registerForm.reset();
           this.showpaper = !this.showpaper;
@@ -137,23 +142,24 @@ export class ViewPapersComponent {
         }
       );
     }
-
   }
-
 
   getAllPapers() {
     this.paperService.getAllPapers().subscribe(
       (res: any[]) => {
-        if (this.nameSearch === "") {
+        if (this.nameSearch === '') {
           this.papers = res;
-          this.totalPages = Math.ceil(this.papers.length / this.tablerowsperpage);
+          this.totalPages = Math.ceil(
+            this.papers.length / this.tablerowsperpage
+          );
         } else {
           let searchTerm = this.nameSearch.trim().toLowerCase();
-          this.papers = res.filter(
-            (paper: any) =>
-              paper.name.toLowerCase().includes(searchTerm)
+          this.papers = res.filter((paper: any) =>
+            paper.name.toLowerCase().includes(searchTerm)
           );
-          this.totalPages = Math.ceil(this.papers.length / this.tablerowsperpage);
+          this.totalPages = Math.ceil(
+            this.papers.length / this.tablerowsperpage
+          );
         }
       },
       (error) => {
@@ -162,54 +168,61 @@ export class ViewPapersComponent {
     );
   }
 
-
-
   onCheckboxChange(question: Question): void {
     const questionId = question.id;
 
-    if (this.selectedQuestions.some(selectedQuestion => selectedQuestion.id === questionId)) {
+    if (
+      this.selectedQuestions.some(
+        (selectedQuestion) => selectedQuestion.id === questionId
+      )
+    ) {
       this.selectedQuestions = this.selectedQuestions.filter(
-        selectedQuestion => selectedQuestion.id !== questionId
+        (selectedQuestion) => selectedQuestion.id !== questionId
       );
     } else {
       this.selectedQuestions.push(question);
     }
-
   }
 
-
   isPrescentedOrNot(question: Question) {
-
-
-    if ((this.selectedQuestions.filter(e => e.content == question.content).length > 0)) {
+    if (
+      this.selectedQuestions.filter((e) => e.content == question.content)
+        .length > 0
+    ) {
       return true;
-
     }
     return false;
   }
 
-
   onSubjectChange(event: any) {
-    if (this.heading === "Edit Paper") {
+    if (this.heading === 'Edit Paper') {
       const selectedSubjectId = event.target.value;
       this.objectnumber = selectedSubjectId;
-      this.selectedSubject = this.subjects.find(subject => subject.id == selectedSubjectId);
-      this.questions = this.allQuestions.filter(question => question.subject.name == this.selectedSubject?.name).map(question => question);
+      this.selectedSubject = this.subjects.find(
+        (subject) => subject.id == selectedSubjectId
+      );
+      this.questions = this.allQuestions
+        .filter(
+          (question) => question.subject.name == this.selectedSubject?.name
+        )
+        .map((question) => question);
+      this.totalItems = Math.ceil(this.questions.length / this.itemsPerPage);
+      this.currentPage = 1;
+    } else {
+      const selectedSubjectId = event.target.value;
+      this.objectnumber = selectedSubjectId;
+      this.selectedSubject = this.subjects.find(
+        (subject) => subject.id == selectedSubjectId
+      );
+      this.questions = this.allQuestions
+        .filter(
+          (question) => question.subject.name == this.selectedSubject?.name
+        )
+        .map((question) => question);
       this.totalItems = Math.ceil(this.questions.length / this.itemsPerPage);
       this.currentPage = 1;
     }
-    else {
-
-      const selectedSubjectId = event.target.value;
-      this.objectnumber = selectedSubjectId;
-      this.selectedSubject = this.subjects.find(subject => subject.id == selectedSubjectId);
-      this.questions = this.allQuestions.filter(question => question.subject.name == this.selectedSubject?.name).map(question => question);
-      this.totalItems = Math.ceil(this.questions.length / this.itemsPerPage);
-      this.currentPage = 1;
-    }
-
   }
-
 
   changePage(page: number) {
     if (page < 1 || page > this.totalItems) {
@@ -223,13 +236,10 @@ export class ViewPapersComponent {
     return this.questions.slice(startIndex, endIndex);
   }
 
-
   get paginatedPapers(): any[] {
     const startIndex = (this.currenttable - 1) * this.tablerowsperpage;
     return this.papers.slice(startIndex, startIndex + this.tablerowsperpage);
   }
-
-
 
   nextPage(): void {
     if (this.currenttable < this.totalPages) {
@@ -257,7 +267,7 @@ export class ViewPapersComponent {
   }
 
   editPaper(paper: any) {
-    this.heading = "Edit Paper"
+    this.heading = 'Edit Paper';
     this.showpaper = !this.showpaper;
     this.registerForm.patchValue({
       name: paper?.name,
@@ -267,7 +277,6 @@ export class ViewPapersComponent {
     this.selectedQuestions = paper?.quesDto;
   }
 
-
   openSnackBar(message: string, action: string) {
     this.snackBar.open(message, action, {
       duration: 3000,
@@ -276,6 +285,4 @@ export class ViewPapersComponent {
       horizontalPosition: 'center',
     });
   }
-
-
 }

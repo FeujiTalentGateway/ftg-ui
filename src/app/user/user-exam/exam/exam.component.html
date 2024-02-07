@@ -9,6 +9,7 @@
 ></app-questions> -->
 <div *ngIf="questions$ | async as questions; else loadingTemplate">
   <!-- Your component content using the 'questions' array -->
+
   <app-questions [paper]="questions"></app-questions>
 </div>
 

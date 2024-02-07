@@ -1,4 +1,10 @@
 section{
     background-color:#eff2f7;
-
+    height: 100vh;
+}
+app-exam-header{
+    position: sticky;
+    top: 0;
+    box-sizing: border-box;
+    box-shadow: 0px 0px 10px black;
 }

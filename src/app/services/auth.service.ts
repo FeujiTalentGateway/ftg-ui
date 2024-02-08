@@ -7,6 +7,11 @@ import { UserLoginModel } from '../models/user-login.model';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { User } from '../models/user.model';
+import { OtpVerificationComponent } from '../home/otp-verification/otp-verification.component';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { HttpHeaders } from '@angular/common/http';
+import { ResetPassowrdComponent } from '../home/reset-passowrd/reset-passowrd.component';
+import { ForgotPasswordRequest } from '../models/forgotPasswordRequest';
 
 @Injectable({
   providedIn: 'root',
@@ -19,7 +24,7 @@ export class AuthService {
     private authRepo: AuthRepositoryService,
     private snackBar: MatSnackBar,
     private route: Router,
-    private userDetails: UserdetailsService
+    private userDetails: UserdetailsService,
   ) {}
 
   // Handle user registration based on form data
@@ -33,7 +38,7 @@ export class AuthService {
         this.openSnackBar(response.message, 'Close');
         if (responseMessage.includes('User successfully registered with')) {
           this.openSnackBar(responseMessage, 'Close');
-          // this.route.navigateByUrl('login');
+          this.route.navigateByUrl('main/login');
         }
       },
       error: (error: any) => {
@@ -68,7 +73,7 @@ export class AuthService {
         if (response.message == 'Successfully logged in') {
           // this.openSnackBar('Login successfully', 'Close');
           this.setJwtToken(response.token);
-          const tokenPayload = this.decodedToken();
+          this.decodedToken();
           this.userDetails.setUserNameFromToken(this.userPayload.sub);
           this.userDetails.setRoleFromToken(
             this.userPayload.authorities
@@ -111,6 +116,7 @@ export class AuthService {
     } catch (error) {
       console.error('Error decoding JWT token:', error);
     }
+    console.log('inside decode '+this.userPayload.authorities);
     return this.userPayload;
   }
 
@@ -129,6 +135,55 @@ export class AuthService {
       horizontalPosition: 'center',
     });
   }
+  templogin(loginData: FormGroup) {
+    if (loginData) {
+      console.log(loginData);
 
+      localStorage.setItem('role', loginData.value.userName);
+      this.route.navigateByUrl('/user/home');
+    }
+  }
+  
+  // Get the JWT token from local storage if it exists.
+  // Returns the JWT token as a string or "no jwt token" if it doesn't exist.
+  getJwtToken(): string {
+    if (localStorage.getItem('token')) {
+      return localStorage.getItem('token') + "";
+    } else {
+      return "no jwt token";
+    }
+  }
 
+  // Check if the user is logged in by verifying the presence of a JWT token in local storage.
+  // Returns true if the user is logged in, otherwise false.
+  isLoggedin(): boolean {
+    this.sessionExpired();
+    return !!localStorage.getItem('token')
+  }
+
+  sessionExpired() {
+    if (this.isTokenExpired()) {
+      localStorage.removeItem('token');
+      this.openSnackBar("Session expired. Please login again", 'close');
+      // this.router.navigateByUrl('main/login');
+    }
+  }
+
+  checkAdminRole(): boolean {
+    const tokenPayload = this.decodedToken();
+    const isAdminPresent = tokenPayload.authorities.some((authority:any) => authority.authority === 'ADMIN');
+    if(isAdminPresent)return true;
+    return false;
+  }
+
+  checkUserRole(): boolean{
+    const tokenPayload = this.decodedToken();
+    const isUserPresent = tokenPayload.authorities.some((authority:any) => authority.authority === 'USER');
+    if(isUserPresent)return true;
+    return false;
+  }
+  logout(){
+    localStorage.clear();
+    sessionStorage.clear();
+  }
 }

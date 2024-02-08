@@ -24,4 +24,20 @@ export class AuthRepositoryService {
     console.log('Inside auth repo: login()');
     return this.http.post(this.baseUrl + 'auth/login', loginData);
   }
+  sendOtpToEmail(email: string): Observable<any> {  
+    return this.http.get(
+      this.baseUrl + 'account/generate-otp/' + email,
+      { observe: 'response' }
+    );
+  }
+  setPasswordRequestForForgotPassword(
+    forgotPasswordRequest: any,
+    options: any
+  ) { 
+    return this.http.put(
+      this.baseUrl + 'account/forgot-password',
+      forgotPasswordRequest,
+      options
+    );
+  }
 }

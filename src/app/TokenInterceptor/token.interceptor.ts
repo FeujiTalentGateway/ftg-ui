@@ -6,19 +6,18 @@ import {
   HttpInterceptor,
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { AuthGuardService } from '../services/auth-guard.service';
+import { AuthService } from '../services/auth.service';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
-  constructor(private authGuard: AuthGuardService) {}
-
+  constructor(private authGuard: AuthService) {}
 
   intercept(
     request: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
     console.log('inde the token');
-    
+
     const jwtToken = this.authGuard.getJwtToken();
 
     // Define an array of URLs to exclude from adding the Authorization header

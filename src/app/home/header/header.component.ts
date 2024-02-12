@@ -14,12 +14,13 @@ export class HeaderComponent implements OnInit {
   // Function to check if the current route is the Signup page
   isSignupPage(): boolean {
     return (
-      this.router.isActive('/register', true) && this.router.url === '/register'
+      this.router.isActive('/main/register', true) && this.router.url === '/main/register'
     );
   }
 
   // Function to check if the current route is the Login page
   isLoginPage(): boolean {
-    return this.router.isActive('/login', true) && this.router.url === '/login';
+    
+    return this.router.isActive('/main/login', true) && this.router.url === '/main/login';
   }
 }

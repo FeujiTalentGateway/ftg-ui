@@ -1,0 +1,34 @@
+.header{
+    width: 100%;
+    height: 10vh;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+
+}
+.sections{
+    width: 30%;
+    height: 30px;
+    /* background-color: #fff; */
+}
+.sections:nth-child(1){
+    width: 20%;
+    align-items: center;
+    text-align: center;
+}
+.sections:nth-child(2){
+    width: 50%;
+    display: flex;
+    justify-content: space-around;
+}
+.logo-image{
+    margin-top: -5px;
+
+}
+.sub-items{
+    width: 30%;
+    height: auto;
+    text-align: center;
+}

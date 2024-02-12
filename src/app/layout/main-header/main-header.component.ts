@@ -23,7 +23,7 @@ export class MainHeaderComponent {
   }
 
   logOut() {
-    this.auth.removeJwtToken();
+    this.auth.logout();
     this.route.navigateByUrl('/main/home');
   }
 

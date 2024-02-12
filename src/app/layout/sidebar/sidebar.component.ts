@@ -47,8 +47,8 @@ export class SidebarComponent implements OnInit {
     route.active = !route.active;
   }
   loadMenu() {
-    this.roles = sessionStorage.getItem('roles')?.split(',') as string[];
-    console.log(sessionStorage.getItem('roles'));
+    this.roles = localStorage.getItem('roles')?.split(',') as string[];
+    console.log(localStorage.getItem('roles'));
     if (this.roles) {
       this.listOfRoutes = ROUTES.filter((item) => {
         // Check if any role in item.role array matches with roles array

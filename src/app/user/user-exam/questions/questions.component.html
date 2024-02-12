@@ -1,0 +1,65 @@
+<section>
+  <div class="container">
+    <div class="heading"></div>
+    <div class="content">
+      <div *ngIf="paper.questions && paper.questions.length > 0">
+        <h5>
+          Question : {{ currentQuestionIndex + 1 }} /
+          {{ paper.questions.length }}
+        </h5>
+        <br />
+        <h4 class="question-name">
+          {{ paper.questions[currentQuestionIndex].content }}
+        </h4>
+        <ul>
+          <li
+            *ngFor="let option of paper.questions[currentQuestionIndex].options"
+          >
+            <input
+              type="radio"
+              name="paper.questions[currentQuestionIndex].id"
+              (click)="
+                assignRightOption(
+                  paper.questions[currentQuestionIndex],
+                  option,
+                  currentQuestionIndex
+                )
+              "
+              [checked]="
+                option.id ==
+                paper.questions[currentQuestionIndex].optionSelected
+              "
+            />
+            &nbsp; &nbsp;{{ option.name }}
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer">
+      <button
+        (click)="previousQuestion()"
+        [disabled]="this.currentQuestionIndex == 0"
+        class="btn"
+      >
+        Previous
+      </button>
+      <button
+        (click)="saveOption()"
+        class="btn"
+        [disabled]="this.currentQuestion?.optionSelected == undefined"
+      >
+        save & next
+      </button>
+      <button
+        (click)="nextQuestion()"
+        [disabled]="
+          this.currentQuestionIndex == this.paper.questions.length - 1
+        "
+        class="btn"
+      >
+        Next
+      </button>
+    </div>
+  </div>
+</section>

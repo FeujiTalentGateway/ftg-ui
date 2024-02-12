@@ -1,0 +1,129 @@
+#modal-body {
+    width: 100%;
+    height: 100%;
+    display: flex;
+  }
+  #close-button {
+    position: absolute;
+    right: 20px;
+    top: 10px;
+  }
+  
+  #grid-1 {
+    width: 40%;
+    height: 100%;
+    /* border: 1px solid; */
+  }
+  #grid-2 {
+    display: flex;
+    /* justify-content: center; */
+    /* align-items: center; */
+    width: 60%;
+    height: 100%;
+    border-radius: 1.875rem;
+    background: rgba(255, 141, 77, 0.15);
+    /* border: 1px solid; */
+  }
+  
+  #otp-img {
+    height: 100%;
+    width: 100%;
+  }
+  #content {
+    /* border: 1px solid black; */
+    width: 600px;
+    padding: 40px 0px;
+    flex-direction: column;
+    display: flex;
+    /* justify-content: space-between; */
+    align-items: center;
+  }
+  
+  #otp-name {
+    color: #182035;
+    font-family: Inter;
+    font-size: 1.5625rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    padding: 20px 0px 10px 0px;
+  }
+  #msg {
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    flex-direction: column;
+  }
+  
+  #enter-otp-msg {
+    padding: 0px 0px 0px 0px;
+    color: #606268;
+    text-align: center;
+    font-family: Inter;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.5rem; /* 150% */
+  }
+  #email-name {
+    color: #182035;
+    font-family: Inter;
+    font-size: 1.2rem;
+    font-style: normal;
+    font-weight: 550;
+    line-height: 1.5rem;
+  }
+  
+  .otp-input-container {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+  
+  .otp-input-container input {
+    width: 35px;
+    height: 35px;
+    margin: 2px 4px;
+    /* border: 1px solid black; */
+  
+    border-radius: 0.25rem;
+    text-align: center;
+    border: 1px solid var(--Primary, #f58229);
+    background: var(--text-highlighted, #fff);
+    box-shadow: 0px 4px 8px 0px rgba(245, 130, 41, 0.16);
+  }
+  
+  #otp-timer {
+    margin: 5px;
+  }
+  
+  #submit-input {
+    background-color: #fd7401;
+    border: 1px solid #fd7401;
+    width: 180px;
+    padding: 5px;
+    border-radius: 26px;
+    color: wheat;
+  }
+  .submit-div,
+  #sub-rout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+  #submit-input {
+    background-color: #fd7401;
+    border: 1px solid #fd7401;
+    padding: 10px;
+    border-radius: 26px;
+    width: 100%;
+  }
+  
+  .rout {
+    cursor: pointer;
+    color: black;
+    color: rgb(66, 96, 194);
+  }
+  

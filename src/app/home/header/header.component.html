@@ -11,20 +11,17 @@
   <div class="col-12 col-md-6 offset-md-4">
     <div class="row">
       <a
-        *ngIf="!isHomePage()"
-        [routerLink]="['/home']"
+        [routerLink]="['/main/home']"
         class="nav-link col-sm-2 offset-sm-3 navi"
         >Home</a
       >
       <a
-        *ngIf="!isAboutPage()"
-        [routerLink]="['/about']"
+        [routerLink]="['/main/about']"
         class="nav-link col-sm-2 navi"
         >About</a
       >
       <a
-        *ngIf="!isContactPage()"
-        [routerLink]="['/contact']"
+        [routerLink]="['/main/contact']"
         class="nav-link col-sm-2 navi"
         >Contact</a
       >

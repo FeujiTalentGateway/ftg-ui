@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Output } from '@angular/core';
+import { Component, OnInit, ViewChild, Output, AfterViewInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Exam } from 'src/app/models/exam.model';
 import { ScheduleExamService } from 'src/app/services/schedule-exam.service';
@@ -7,13 +7,14 @@ import { MatSort } from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from 'src/app/utils/confirmation-dialog/confirmation-dialog.component';
 import { HttpResponse } from '@angular/common/http';
+import { ScheduleExamRepositoryService } from 'src/app/repository/schedule-exam-repository.service';
 
 @Component({
   selector: 'app-view-exams',
   templateUrl: './view-exams.component.html',
   styleUrls: ['./view-exams.component.css']
 })
-export class ViewExamsComponent implements OnInit {
+export class ViewExamsComponent implements OnInit,AfterViewInit {
 
   // Output properties
   @Output() isEditing: boolean = false;
@@ -32,8 +33,12 @@ export class ViewExamsComponent implements OnInit {
   // Lifecycle hook called after the component is initialized 
   ngOnInit(): void {
     this.getExams();
-    console.log(this.showScheduleDialog);
 
+  }
+
+  ngAfterViewInit(): void {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
   // Table columns
@@ -49,9 +54,9 @@ export class ViewExamsComponent implements OnInit {
   // Constructor to inject services and dependencies
   constructor(
     private service: ScheduleExamService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private repoService :ScheduleExamRepositoryService
   ) {
-
   }
 
   // Method to filter data based on user input
@@ -94,28 +99,55 @@ export class ViewExamsComponent implements OnInit {
       if (result === true) {
         // Only perform the toggle operation if the user clicked "Yes"
         this.service.changeExamStatus(id);
-      } else if (result === false) {
-        // Refresh the list of exams
         this.getExams();
+      } else if (result === false) {
+        this.repoService.getExams().subscribe(
+          (response: HttpResponse<any>) => {
+            if (response.status === 200) {
+              const reversedData = response.body.reverse()
+              this.dataSource = new MatTableDataSource(reversedData);
+              this.dataSource.paginator = this.paginator;
+              this.dataSource.sort = this.sort;
 
+            } else {
+              console.error('Unexpected response status:', response.status);
+            }
+          },
+          (error: any) => {
+            console.error('Error fetching exams:', error);
+          
+          }
+        );
       }
     });
   }
 
   // Method to fetch exams from the service
   getExams() {
+    // this.ngAfterViewInit();
+    console.log("get exam");  
     this.service.exams$.subscribe(
       (exams) => {
-        const reversedData = exams.reverse();
+        console.log(exams);
+        
+        const reversedData = exams.slice().reverse(); // Create a copy of the array before reversing
         this.dataSource = new MatTableDataSource(reversedData);
+        console.log(reversedData);
+        
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+        console.log("reverse data");
+        console.log(this.paginator);
+        console.log(this.dataSource.paginator);
+        
+        console.log(reversedData);
       },
       (error) => {
         console.error('Error fetching exams:', error);
       }
     );
   }
+  
 
   // Method to handle editing an exam
   editExam(exam: Exam) {
@@ -129,6 +161,9 @@ export class ViewExamsComponent implements OnInit {
   handleShowSchedule(event: any) {
     this.showScheduleDialog = event;
     this.isEditing=event;
+    console.log("handle show");
+    
+    this.getExams()
   }
 
 }

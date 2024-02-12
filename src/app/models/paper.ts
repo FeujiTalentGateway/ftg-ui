@@ -9,4 +9,6 @@ export interface Paper{
     active:boolean;
 
     questions:Question[];
+
+    exam_attempt_id?:number;
 }

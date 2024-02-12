@@ -1,22 +1,26 @@
+/* Styling for the header */
 .header-fileds {
   padding-top: 1%;
   padding-left: 1%;
   padding-right: 1%;
 }
 
+/* Styling for the logo */
 .logo {
   width: 70%;
 }
 
+/* Styling for navigation links*/
 .navi {
   color: #576368;
 }
-
+/* Hover effect for navigation links*/
 .navi:hover {
-  color: #f37730; /* Change to the desired hover color */
+  color: #f37730;
   transition: color 0.3s ease-in-out;
 }
 
+/* Styling for login button */
 .login {
   padding-top: 0.4%;
   font-size: 84%;
@@ -24,6 +28,8 @@
   color: #f37730;
   border-color: #f37730;
 }
+
+/* Hover effect for login button*/
 .login:hover {
   background: #f37730;
   color: white;

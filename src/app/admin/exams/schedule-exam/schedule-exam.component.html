@@ -1,114 +1,115 @@
-<!-- Schedule Exam Dialog -->
-
-<div class="schedule-exam-form mat-elevation-z8">
-
-  <!-- Back Button with Arrow Icon -->
-<!-- <button mat-icon-button *ngIf="isRouting" (click)="goBack()">
-  <mat-icon>arrow_back</mat-icon>
-</button> -->
-
-
-  <h1 style="text-align: center;">{{ isEditing ? 'Update Exam' : 'Schedule Exam' }} Form</h1>
-
-  <form [formGroup]="examForm" (ngSubmit)="onSubmit()" class="exam-form">
-    <label for="name">Name:</label>
-      <input type="text" id="name" formControlName="name"
-       required class="form-control" placeholder="enter exam name here" aria-label="Exam Name">
-
-    <div *ngIf="examForm.get('name')?.hasError('required') && examForm.get('name')?.touched" class="error-msg">
-      Name is required.
-    </div>
-    <div *ngIf="examForm.get('name')?.hasError('maxlength') && examForm.get('name')?.touched" class="error-msg">
-      Maximum length is 255 characters.
-    </div>
-
-    <label for="description">Description:</label>
-    <textarea id="description" formControlName="description" required class="form-control"
-      placeholder="enter exam description here"></textarea>
-    <div *ngIf="examForm.get('description')?.hasError('required') && examForm.get('description')?.touched"
-      class="error-msg">
-      Description is required.
-    </div>
-    <div *ngIf="examForm.get('description')?.hasError('maxlength') && examForm.get('description')?.touched"
-      class="error-msg">
-      Maximum length is 255 characters.
-    </div>
-
-    <label for="examCode">Exam Code:</label>
-    <input type="text" id="examCode" formControlName="examCode" required class="form-control"
-      placeholder="enter exam code here">
-    <div *ngIf="examForm.get('examCode')?.hasError('required') && examForm.get('examCode')?.touched" class="error-msg">
-      Exam Code is required.
-    </div>
-    <div *ngIf="examForm.get('examCode')?.hasError('maxlength') && examForm.get('examCode')?.touched" class="error-msg">
-      Maximum length is 50 characters.
-    </div>
-
-    <label for="duration">Duration:</label>
-    <input type="text" id="duration" formControlName="duration" required class="form-control" placeholder="HH:mm:ss">
-    <div *ngIf="examForm.get('duration')?.hasError('required') && examForm.get('duration')?.touched" class="error-msg">
-      Duration is required.
-    </div>
-    <div *ngIf="examForm.get('duration')?.hasError('pattern') && examForm.get('duration')?.touched" class="error-msg">
-      Duration should be in the format HH:mm:ss.
-    </div>
-
-    <!-- ... -->
-    
-
-    <label for="startDate">Start Date:</label>
-    <input type="date" id="startDate" formControlName="startDate" required class="form-control" [min]="minStartDate">
-
-    <div *ngIf="examForm.get('startDate')?.hasError('required') && examForm.get('startDate')?.touched"
-      class="error-msg">
-      Start Date is required.
-    </div>
-
-    <div *ngIf="examForm.get('startDate')?.hasError('dateRange') && examForm.get('startDate')?.touched"
-      class="error-msg">
-      {{ examForm.get('startDate')?.getError('dateRange') }}
-    </div>
-
-    <label for="endDate">End Date:</label>
-    <input type="date" id="endDate" formControlName="endDate" required class="form-control" [min]="minStartDate">
-
-    <div *ngIf="examForm.get('endDate')?.hasError('required') && examForm.get('endDate')?.touched" class="error-msg">
-      End Date is required.
-    </div>
-    <div *ngIf="examForm.hasError('dateRange')" class="error-msg">
-      End Date must be greater than Start Date
-    </div>
-
-    <div *ngIf="examForm.get('endDate')?.hasError('dateRange') && examForm.get('endDate')?.touched" class="error-msg">
-      {{ examForm.get('endDate')?.getError('dateRange') }}
-    </div>
-
-        
-    
-  <!-- Inside your form -->
-  <div>
-    <label for="active">Active:</label> &nbsp; &nbsp;
-    <mat-slide-toggle color="warn" id="active" formControlName="active"></mat-slide-toggle>
+<div>
+  <div class="header">
+  <h1 >{{ isEditing ? 'Update Exam' : 'Schedule Exam' }} </h1>
   </div>
-
-
-
-  <div formGroupName="paperSummaryDTO">
-    <label for="paperId">Paper Name</label>
-    <mat-select id="paperId" formControlName="id" required class="form-control">
-      <mat-option value="Slect Paper" disabled>Select Any Paper</mat-option>
-      <mat-option *ngFor="let paper of paperOptions" [value]="paper.id" >{{ paper.name }}</mat-option>
-    </mat-select>
-    <div *ngIf="examForm.get('paperSummaryDTO.id')?.hasError('required') && examForm.get('paperSummaryDTO.id')?.touched"
-      class="error-msg">
-      Paper Name is required.
-    </div>
-  </div>
+  <!-- Schedule Exam Dialog -->
+  <div class="schedule-exam-form mat-elevation-z8">
+    <form [formGroup]="examForm" (ngSubmit)="onSubmit()" class="exam-form">
+      <label for="name">Name:</label>
+      <input type="text" id="name" formControlName="name" required class="form-control" placeholder="enter exam name here"
+        aria-label="Exam Name">
   
+      <div *ngIf="examForm.get('name')?.hasError('required') && examForm.get('name')?.touched" class="error-msg">
+        Name is required.
+      </div>
+      <div *ngIf="examForm.get('name')?.hasError('maxlength') && examForm.get('name')?.touched" class="error-msg">
+        Maximum length is 255 characters.
+      </div>
+  
+      
+  
+      <label for="examCode">Exam Code:</label>
+      <input type="text" id="examCode" formControlName="examCode" required class="form-control"
+        placeholder="enter exam code here">
+      <div *ngIf="examForm.get('examCode')?.hasError('required') && examForm.get('examCode')?.touched" class="error-msg">
+        Exam Code is required.
+      </div>
+      <div *ngIf="examForm.get('examCode')?.hasError('maxlength') && examForm.get('examCode')?.touched" class="error-msg">
+        Maximum length is 50 characters.
+      </div>
+  
+      <label for="duration">Duration:</label>
+      <input type="text" id="duration" formControlName="duration" required class="form-control" placeholder="HH:mm:ss">
+      <div *ngIf="examForm.get('duration')?.hasError('required') && examForm.get('duration')?.touched" class="error-msg">
+        Duration is required.
+      </div>
+      <div *ngIf="examForm.get('duration')?.hasError('pattern') && examForm.get('duration')?.touched" class="error-msg">
+        Duration should be in the format HH:mm:ss.
+      </div>
+      
+      <label for="description">Description:</label>
+      <textarea id="description" formControlName="description" required class="form-control"
+        placeholder="enter exam description here"></textarea>
+      <div *ngIf="examForm.get('description')?.hasError('required') && examForm.get('description')?.touched"
+        class="error-msg">
+        Description is required.
+      </div>
+      <div *ngIf="examForm.get('description')?.hasError('maxlength') && examForm.get('description')?.touched"
+        class="error-msg">
+        Maximum length is 255 characters.
+      </div>
+  
+      <label for="startDate">Start Date:</label>
+      <input type="date" id="startDate" formControlName="startDate" required class="form-control" [min]="minStartDate">
+  
+      <div *ngIf="examForm.get('startDate')?.hasError('required') && examForm.get('startDate')?.touched"
+        class="error-msg">
+        Start Date is required.
+      </div>
+  
+      <div *ngIf="examForm.get('startDate')?.hasError('dateRange') && examForm.get('startDate')?.touched"
+        class="error-msg">
+        {{ examForm.get('startDate')?.getError('dateRange') }}
+      </div>
+  
+      <label for="endDate">End Date:</label>
+      <input type="date" id="endDate" formControlName="endDate" required class="form-control" [min]="minStartDate">
+  
+      <div *ngIf="examForm.get('endDate')?.hasError('required') && examForm.get('endDate')?.touched" class="error-msg">
+        End Date is required.
+      </div>
+      <div *ngIf="examForm.hasError('dateRange')" class="error-msg">
+        End Date must be greater than Start Date
+      </div>
+  
+      <div *ngIf="examForm.get('endDate')?.hasError('dateRange') && examForm.get('endDate')?.touched" class="error-msg">
+        {{ examForm.get('endDate')?.getError('dateRange') }}
+      </div>
+  
+      <!-- Inside your form -->
+      <div>
+        <label for="active">Active:</label> &nbsp; &nbsp;
+        <mat-slide-toggle color="warn" id="active" formControlName="active"></mat-slide-toggle>
+      </div>
+      <div class="subject-list">
+        <label for="subjectControl">Subjects</label>
+        <mat-select id="subjectControl" required class="form-control" (valueChange)="onSubjectSelected($event)">
+          <mat-option [value]="null">Select Any Subject</mat-option>
+          <mat-option *ngFor="let subject of subjects" [value]="subject">{{ subject.name }}</mat-option>
+        </mat-select>
+      </div>
+  
+      <div class="exam-subject-list">
+        <ng-container formArrayName="examSubjects" *ngFor="let subjectGroup of getExamSubjectsControls(); let i = index">
+          <div [formGroupName]="i" class="exam-subject-item">
+            <label for="subjectName{{i}}">Subject Name</label>
+            <input id="subjectName{{i}}" formControlName="subjectName" class="form-control" />
+            <label for="maxQuestions{{i}}">Max Questions</label>
+            <input id="maxQuestions{{i}}" formControlName="maxQuestions" class="form-control" />
+            <label for="startingDifficultyLevel{{i}}">Starting Difficulty Level</label>
+            <input id="startingDifficultyLevel{{i}}" formControlName="startingDifficultyLevel" class="form-control" />
+            <label for="duration{{i}}">Duration</label>
+            <input id="duration{{i}}" formControlName="duration" class="form-control" />
+        
+            <!-- Add other form controls for the subject as needed -->
+          </div>
+        </ng-container>
+      </div>
 
-  <button mat-raised-button color="primary" type="submit" class="submit-btn mb-4 mt-2"
-  [disabled]="examForm.invalid">{{ isEditing ? 'Update Exam' : 'Schedule Exam' }}</button>
-
-  </form>
-
+      <button mat-raised-button color="primary" type="submit" class="submit-btn mb-4 mt-2"
+        [disabled]="examForm.invalid">{{ isEditing ? 'Update Exam' : 'Schedule Exam' }}</button>
+  
+    </form>
+  
+  </div>
 </div>

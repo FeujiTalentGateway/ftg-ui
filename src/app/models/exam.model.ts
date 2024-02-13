@@ -1,4 +1,4 @@
-import { Paper } from "./paper";
+import { ExamSubject } from "./examSubject";
 
 
 export interface Exam {
@@ -10,8 +10,7 @@ export interface Exam {
     startDate: string;
     endDate: string;
     active: boolean;
-    paperSummaryDTO : Paper;
     created_at_ts:string;
-    
+    examSubjects:ExamSubject[]
   }
   

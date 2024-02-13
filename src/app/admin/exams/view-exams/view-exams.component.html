@@ -45,13 +45,6 @@
         <td mat-cell *matCellDef="let exam"> {{ exam.duration }} </td>>
       </ng-container>
 
-
-      <!-- PAPER NAME Column -->
-      <ng-container matColumnDef="paper">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header class="header-cell"> Paper Name </th>
-        <td mat-cell *matCellDef="let exam"> {{ exam.paperSummaryDTO.name}} </td>>
-      </ng-container>
-
       <!-- START-DATE Column -->
       <ng-container matColumnDef="startDate">
         <th mat-header-cell *matHeaderCellDef mat-sort-header class="header-cell"> START-DATE </th>

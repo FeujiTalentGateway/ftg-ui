@@ -1,34 +1,29 @@
 
+.header{
+  margin-top: 10px;
+  background-color: #FFE2D1;
+}
+.header h1{
+  color: #D87033;
+  font-weight: 600;
+  font-size: xx-large;
+  padding: .5rem 1rem;
+}
+ .schedule-exam-form {
+   background-color: rgb(241, 243, 245);
+   margin: auto;
+   margin-bottom: 10px;
+   margin-top: 10px;
+   padding: 1rem .3rem;
+ }
+ 
 .exam-table .header-cell {
     background-color: #FFE2D1; 
   }
   
-  .exam-table {
-    margin: 1px;
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-  }
   
-  .filter-and-button {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px; 
-  }
-  
-
-  
-  .schedule-exam-form {
-    background-color: rgb(241, 243, 245);
-    max-width: 600px;
-    margin: auto;
-    margin-bottom: 30px;
-    margin-top: 20px;
-  }
-
   .schedule-exam-form form{
-    margin: -1px 20px 15px 25px; /* top right bottom left */
-
+    margin: -1px 20px 15px 25px; 
   }
   
   .exam-form {

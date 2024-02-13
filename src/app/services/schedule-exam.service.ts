@@ -69,7 +69,7 @@ export class ScheduleExamService {
  
  
   getExams(): Observable<HttpResponse<any>> {
-    return this.scheduleExamRepo.getExams();
+    return this.scheduleExamRepo.getStaticExams();
   }
  
   // Optionally, you can have another method to handle the subscription in the component

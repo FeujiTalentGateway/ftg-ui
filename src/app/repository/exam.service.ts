@@ -24,9 +24,27 @@ export class ExamService {
     return this.http.get(url, { params });
   }
 
+  
   getStaticData(): Observable<any[]> {
     return this.http.get<any[]>('/assets/static_data/listOfExams.json');
   }
+
+
+  getStaticExamData(): Observable<any[]> {
+    return this.http.get<any[]>('/assets/static_data/listOfExams.json');
+  }
+  // getExamData(): Observable<any[]> {
+  //   return this.http.get<any[]>('/assets/static_data/listOfExams.json');
+  // }
+
+
+  getExamById():Observable<Exam>{
+    return this.http.get<Exam>('')
+  }
+  getStaticExamById():Observable<Exam>{
+    return this.http.get<Exam>('/assets/static_data/ExamData.json')
+  }
+
 
   getStaticQuestionPaper(): Observable<Paper> {
     return this.http.get<Paper>('/assets/static_data/paper.json');

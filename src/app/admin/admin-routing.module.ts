@@ -26,6 +26,12 @@ const routes: Routes = [
       import("./question-papers/question-papers.module").then((m) => m.QuestionPapersModule),
     canActivate: [adminGuard, loginGuard]
   },
+  {
+    path: "result",
+    loadChildren: () =>
+      import("./result/result.module").then((m) => m.ResultModule),
+    canActivate: [adminGuard, loginGuard]
+  },
 ];
 
 @NgModule({

@@ -1,0 +1,11 @@
+.exam-name{
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    font-family: 'Bold';
+    margin-top: 1%;
+    padding: 10px;
+}
+.test{
+    font-family: 'Regular';
+    margin-top: 2%;
+}

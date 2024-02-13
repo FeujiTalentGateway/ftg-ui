@@ -1,0 +1,34 @@
+<div class="exams-label">
+<h1 class="heading">Exams</h1>
+</div>
+<section *ngIf="listOfExams$ | async as exams; else loadingTemplate" >
+    <div class="FlexContainer">
+      <div *ngFor="let exam of listOfExams" class="flex-item">
+        <div class="exam-card-header">
+          <div>{{ exam.name }}</div>
+          <div>
+            <button type="button" class="btn btn-outline-success btn-sm">
+              {{ getStatus(exam.active) }}
+            </button>
+          </div>
+        </div>
+        <div class="exam-card-body">
+          {{ exam.description }}
+          <div class="exam-date"><span class="date">Start-Date :</span> {{ formatDate(exam.startDate) }} &nbsp;&nbsp; <span class="date">End-Date :</span> {{ formatDate(exam.endDate) }}</div>
+
+        </div>
+        <div class="exam-card-footer">
+          <div class="exam-users"><span class="date">Total Users : </span>20</div>
+            <div>
+            <button type="button" class="btn btn-outline-success btn-sm result"
+            (click)="viewResultByExamId(exam.examCode)">
+                View Result
+              </button>
+            </div>
+          
+        </div>
+      </div>
+    </div>
+  </section>
+  <ng-template #loadingTemplate> Loading ..............</ng-template>
+  

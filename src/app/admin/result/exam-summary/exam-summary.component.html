@@ -1,0 +1,24 @@
+<section *ngIf="examObject$ | async as exam; else loadingTemplate">
+   <div class="exam-name">{{ examObject?.name }}</div>
+   <div>
+    <h2 class="test">Test Info</h2>
+   </div>
+    <div class="container-fluid">
+        <div class="row justify-content-center align-items-center">
+        <div class="col-md-3">
+            <div class="welcome">
+                <app-percentage-circle [percentage]="100"></app-percentage-circle>
+            </div>
+        </div>
+    
+        <div class="col-md-9">
+            <i class="fa-solid fa-plus-minus"></i>
+            
+        </div>
+        </div>
+    </div>
+</section>
+<ng-template #loadingTemplate> Loading ..............</ng-template>
+
+
+

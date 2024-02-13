@@ -27,19 +27,19 @@ export class ExamCodeComponent implements OnInit {
   // is_chekining
 
   submitForm() {
-    // this.currentExam = this.localExamArray.find(
-    //   (exam) => exam.examCode == this.examCode
-    // );
-    // console.log(this.currentExam);
-    // if (this.currentExam) {
-    //   console.log(this.examCode);
-    //   this.router.navigate([
-    //     '/user/exam/exam-instructions',
-    //     this.examCode,
-    //   ]);
-    // const exampleCode = this.examCode;
-    // this.router.navigate(['/user/exam/exam-instructions', exampleCode]);
-    // }
+    this.currentExam = this.localExamArray.find(
+      (exam) => exam.examCode == this.examCode
+    );
+    console.log(this.currentExam);
+    if (this.currentExam) {
+      console.log(this.examCode);
+      this.router.navigate([
+        '/user/exam/exam-instructions',
+        this.examCode,
+      ]);
+    const exampleCode = this.examCode;
+    this.router.navigate(['/user/exam/exam-instructions', exampleCode]);
+    }
 
     //   on production
     this.examRepo.checkExamCodeWithDetail(this.examCode).subscribe(

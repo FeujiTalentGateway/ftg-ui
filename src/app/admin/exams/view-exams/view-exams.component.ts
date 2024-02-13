@@ -42,7 +42,7 @@ export class ViewExamsComponent implements OnInit,AfterViewInit {
   }
 
   // Table columns
-  displayedColumns: string[] = ['SNO', 'name', 'description', 'examCode', 'duration', 'startDate', 'endDate', 'active', 'paper', 'action'];
+  displayedColumns: string[] = ['SNO', 'name', 'description', 'examCode', 'duration', 'startDate', 'endDate', 'active',  'action'];
 
   // Data source for MatTable
   dataSource!: MatTableDataSource<Exam>;

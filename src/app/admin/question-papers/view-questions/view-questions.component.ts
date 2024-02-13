@@ -128,4 +128,17 @@ export class ViewQuestionsComponent implements OnInit {
     this.subjectsSubscription.unsubscribe();
     this.quesitonSubscirption.unsubscribe();
   }
+  setRightOptionOrNot(option : any, question : Question):Boolean{
+    console.log(option,question);
+    let optionFound = question.rightOptions?.find(opt => opt.id === option.id)
+
+
+    if(optionFound){
+      return true
+    }
+    // option.optionName === question.rightOption.optionName
+
+    return false
+
+  }
 }

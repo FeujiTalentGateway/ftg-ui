@@ -1,13 +1,13 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Exam } from 'src/app/models/exam.model';
-import { ScheduleExamService } from 'src/app/services/schedule-exam.service';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
 import { DatePipe } from '@angular/common';
-import { FormControl } from '@angular/forms';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { PaperService } from 'src/app/services/paper.service';
-import { Paper } from 'src/app/models/paper';
+import { Exam } from 'src/app/models/exam.model';
+import { ExamSubject } from 'src/app/models/examSubject';
+import { Subject } from 'src/app/models/subject';
+import { SubjectRepositoryService } from 'src/app/repository/subject-repository.service';
+import { ScheduleExamService } from 'src/app/services/schedule-exam.service';
 
 @Component({
   selector: 'app-schedule-exam',
@@ -16,35 +16,108 @@ import { Paper } from 'src/app/models/paper';
   providers: [DatePipe],
 })
 export class ScheduleExamComponent implements OnInit {
-  // EventEmitter to emit a boolean value to indicate if the schedule should be shown
   @Output() showShowdule: EventEmitter<boolean> = new EventEmitter();
 
-  // Input properties to receive data from the parent component
   @Input() isEditing: boolean = false;
   @Input() isRouting: boolean = false;
   @Input() exam: Exam | null = null;
 
-  // Array to store paper options
-  paperOptions: Paper[] = [];
-
-  // Form group to manage the exam form
-  examForm: FormGroup<any>;
-
-  // Minimum start date for date inputs
+  examForm!: FormGroup<any>;
   minStartDate: string = '';
-
-  // Selected exam ID
   selectedExamId: any;
-
-  // Lifecycle hook called after the component is initialized
+  subjects!:Subject[];
   ngOnInit(): void {
     this.service.goBack$.subscribe((shouldGoBack) => {
       if (shouldGoBack) {
         this.goBack();
       }
     });
+    this.editExam();
+    this.subjectRepo.getAllSubjects().subscribe((response) => {
+      this.subjects = response;
+      console.log(this.subjects);
+    });
+    
+  }
 
-    // If editing, populate the form with exam data
+  // Constructor to inject services and dependencies
+  constructor(
+    private service: ScheduleExamService,
+    private dialog: MatDialog,
+    private fb: FormBuilder,
+    private datePipe: DatePipe,
+    private router: Router,
+    private subjectRepo: SubjectRepositoryService
+  ) {
+    this.initializeExamForm();
+  }
+
+  // Initialize the exam form with form controls and validators
+  initializeExamForm(){
+    this.examForm = this.fb.group(
+      {
+        id:[""],
+        name: ['', [Validators.required, Validators.maxLength(255)]],
+        description: ['', [Validators.required, Validators.maxLength(250)]],
+        examCode: ['', [Validators.required, Validators.maxLength(50)]],
+        duration: [
+          '',
+          [
+            Validators.required,
+            Validators.pattern(/^([0-9][0-9]):([0-5][0-9]):([0-5][0-9])$/),
+          ],
+        ],
+        startDate: ['', Validators.required],
+        endDate: ['', Validators.required],
+        active: [false, Validators.required],
+        examSubjects: this.fb.array([] as FormGroup[]),
+      },
+      
+      { validators: this.dateRangeValidator }
+    );
+    // Set the minimum start date for date inputs
+    this.minStartDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd')!;
+  }
+  // Custom validator for date range
+  get examSubjectsArray() {
+    return this.examForm.get('examSubjects') as FormArray;
+  }
+  
+  onSubjectSelected(subject:Subject) {
+    const selectedSubject =subject
+
+    if (selectedSubject) {
+      // Check if the subject is not already in the form array
+      const existingSubject = this.examSubjectsArray.controls.find(
+        (control) => control.get('subjectName')?.value === selectedSubject.name
+      );
+
+      console.log(existingSubject)
+      if (!existingSubject) {
+        this.examSubjectsArray.push(this.fb.group({
+          examSubjectId: [""],
+          subject: this.fb.group({
+            id: [selectedSubject.id, Validators.required]
+          })
+          ,
+          id:[''],
+          subjectName: [selectedSubject.name, Validators.required],
+          maxQuestions: [""],
+          startingDifficultyLevel: [""],
+          duration:[""]
+        }));
+      }
+      console.log(this.examSubjectsArray.value)
+      // Reset the subjectControl value to null after processing
+      this.examForm.get('subjectControl')?.setValue(null);
+    }
+  }
+  getExamSubjectsControls() {
+    return (this.examForm.get('examSubjects') as FormArray).controls;
+  }// Method to handle editing an exam
+  
+  
+  editExam(){
     if (this.isEditing) {
       // Convert string dates to Date objects
       const startDateObj = new Date(this.exam!.startDate);
@@ -59,9 +132,9 @@ export class ScheduleExamComponent implements OnInit {
         endDateObj,
         'yyyy-MM-dd'
       );
-
       // Set the form values
       this.examForm.setValue({
+        id:this.exam!.id,
         name: this.exam!.name,
         description: this.exam!.description,
         examCode: this.exam!.examCode,
@@ -69,83 +142,34 @@ export class ScheduleExamComponent implements OnInit {
         startDate: formattedStartDate,
         endDate: formattedEndDate,
         active: this.exam!.active,
-        paperSummaryDTO: {
-          id: this.exam!.paperSummaryDTO.id,
-        },
+        examSubjects: [],
       });
 
+      if (this.exam!.examSubjects) {
+        this.exam!.examSubjects.forEach((examSubject: ExamSubject) => {
+      console.log(examSubject)
+      this.examSubjectsArray.push(
+        this.fb.group({
+          id: examSubject.id,
+          maxQuestions: examSubject.maxQuestions,
+          startingDifficultyLevel: examSubject.startingDifficultyLevel,
+          duration: examSubject.duration,
+          subjectName:examSubject.subject.name,
+          subject: {
+            id:examSubject.subject.id
+          }
+        })
+      );
+    });
+  }
       // Set the selectedExamId
       this.selectedExamId = this.exam!.id;
     }
-
-    this.paperService.getAllPapers().subscribe((response) => {
-      this.paperOptions = response.filter((paper) => paper.active);
-      console.log(this.paperOptions);
-    });
-  }
-
-  // Constructor to inject services and dependencies
-  constructor(
-    private service: ScheduleExamService,
-    private dialog: MatDialog,
-    private fb: FormBuilder,
-    private datePipe: DatePipe,
-    private router: Router,
-    private paperService: PaperService
-  ) {
-    // Initialize the exam form with form controls and validators
-    this.examForm = this.fb.group(
-      {
-        name: ['', [Validators.required, Validators.maxLength(255)]],
-
-        description: ['', [Validators.required, Validators.maxLength(250)]],
-
-        examCode: ['', [Validators.required, Validators.maxLength(50)]],
-
-        duration: [
-          '',
-          [
-            Validators.required,
-            Validators.pattern(/^([0-9][0-9]):([0-5][0-9]):([0-5][0-9])$/),
-          ],
-        ],
-
-        startDate: ['', Validators.required],
-
-        endDate: ['', Validators.required],
-
-        active: [false, Validators.required],
-
-        paperSummaryDTO: this.fb.group({
-          id: [null, Validators.required],
-        }),
-      },
-      { validators: this.dateRangeValidator }
-    );
-
-    // Set the minimum start date for date inputs
-    this.minStartDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd')!;
-  }
-
-  // Custom validator for date range
-  dateRangeValidator(group: FormGroup): { [key: string]: any } | null {
-    const startDateControl = group.get('startDate');
-    const endDateControl = group.get('endDate');
-
-    if (startDateControl && endDateControl) {
-      const startDate = startDateControl.value;
-      const endDate = endDateControl.value;
-
-      if (startDate && endDate && startDate > endDate) {
-        return { dateRange: 'End Date must be greater than Start Date' };
-      }
-    }
-
-    return null;
   }
 
   // Method to handle form submission
   onSubmit(): void {
+    console.log(this.examForm.value)
     if (this.examForm.valid) {
       const formData = this.examForm.value;
 
@@ -174,39 +198,25 @@ export class ScheduleExamComponent implements OnInit {
     return isoString.substring(0, isoString.indexOf('T'));
   }
 
-  // Method to handle editing an exam
-  editExam(exam: Exam): void {
-    // Convert string dates to Date objects
-    const startDateObj = new Date(exam.startDate);
-    const endDateObj = new Date(exam.endDate);
-
-    // Use DatePipe to format the date
-    const formattedStartDate = this.datePipe.transform(
-      startDateObj,
-      'yyyy-MM-dd'
-    );
-    const formattedEndDate = this.datePipe.transform(endDateObj, 'yyyy-MM-dd');
-
-    // Set the form values
-    this.examForm.setValue({
-      name: exam.name,
-      description: exam.description,
-      examCode: exam.examCode,
-      duration: exam.duration,
-      startDate: formattedStartDate,
-      endDate: formattedEndDate,
-      active: exam.active,
-      paperSummaryDTO: {
-        id: exam.paperSummaryDTO.id,
-      },
-    });
-
-    // Set the selectedExamId
-    this.selectedExamId = exam.id;
-  }
+  
 
   // Method to navigate back and emit event to hide the form
   goBack(): void {
     this.showShowdule.emit(false);
+  }
+  dateRangeValidator(group: FormGroup): { [key: string]: any } | null {
+    const startDateControl = group.get('startDate');
+    const endDateControl = group.get('endDate');
+
+    if (startDateControl && endDateControl) {
+      const startDate = startDateControl.value;
+      const endDate = endDateControl.value;
+
+      if (startDate && endDate && startDate > endDate) {
+        return { dateRange: 'End Date must be greater than Start Date' };
+      }
+    }
+
+    return null;
   }
 }

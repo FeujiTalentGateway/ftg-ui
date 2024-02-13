@@ -44,6 +44,25 @@
         </div>
       </div>
     </div>
+    <div>
+      <label for="content">Question Type</label>
+      <div>
+        <br />
+        <span *ngFor="let questionType1 of questionTypes" class="question-type">
+          <input
+            type="radio"
+            name="questionType"
+            id="{{ questionType1 }}"
+            class="question-type-option"
+            (click)="setQuestionType(questionType1)"
+            [checked]="questionType1 === questionType"
+          />
+          <label for="{{ questionType1 }}">{{ questionType1 }}</label>
+        </span>
+        
+      </div>
+    </div>
+    <br />
     <div formArrayName="optionNames">
       <div *ngFor="let skillControl of OptionsArray.controls; let i = index">
         <!-- <input
@@ -51,10 +70,22 @@
           type="text"
           [formControlName]="i"
           id="{{ i }}"
-          placeholder="Add Option "
+          placeholder="Add Option "Difficulty Level
         /> <span *ngIf="OptionsArray.length>4" class="p-button" (click)="removeOption(i)">--</span> -->
         <label for="{{ i }}">Option {{ i + 1 }}</label>
         <div class="input-group">
+          <span *ngIf="this.questionType == 'multiple choices '">
+            <input
+              type="checkbox"
+              name=""
+              id=""
+              class="option-type"
+              (click)="setRightOption(skillControl)"
+              [disabled]="skillControl.value == null"
+              [checked]="getRightOrnot(skillControl)"
+              
+            />
+          </span>
           <input
             type="text"
             class="form-control option-input"
@@ -62,6 +93,7 @@
             id="{{ i }}"
             placeholder="Add Option "
           />
+
           <button
             class="btn btn-outline-secondary"
             type="button"
@@ -114,26 +146,31 @@
         >
       </p>
     </div>
-    <label for="rightOptionName">Correct Option</label>
-    <div>
+    <label for="rightOptionName" *ngIf="this.questionType == 'single choice'"
+      >Correct Option dffg</label
+    >
+    <div *ngIf="this.questionType == 'single choice'">
       <select
         id="rightOptionName"
         class="form-select"
-        formControlName="rightOptionName"
+        (change) = 'setRightOption($event.target)'
       >
-        <!-- <option value="A">A</option>
-        <option value="B">B</option>
-        <option value="C">C</option>
-        <option value="D">D</option> -->
         <option
           value="{{ option.value }}"
           *ngFor="let option of OptionsArray.controls"
+          (change) = 'setRightOption(option)'
+
         >
           {{ option.value }}
         </option>
       </select>
+      <!-- <ul>
+        <li *ngFor="let option of OptionsArray.controls">
+          <input type="checkbox" name="" id="" />{{ option.value }}
+        </li>
+      </ul> -->
     </div>
-    <div class="error-div">
+    <div class="error-div" *ngIf="this.questionType == 'single choice'">
       <span
         class="text-danger"
         *ngIf="

@@ -55,3 +55,14 @@ input {
 .option-input {
   z-index: 0;
 }
+.question-type{
+  padding: auto;
+}
+.question-type-option{
+  width: 20px;
+  padding: 20px;
+}
+.option-type{
+  width: auto;
+  margin: 10px;
+}

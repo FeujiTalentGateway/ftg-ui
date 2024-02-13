@@ -50,4 +50,9 @@ export class ExamService {
   getResult(examAttemptId: string, examCode :string):Observable<ViewResult>{
     return this.http.get<ViewResult>(`${this.examUrl}exam/view-result/${examCode}/${examAttemptId}/`)
   }
+
+ checkStaticExamByCode(examCode: string){
+
+ }
+
 }

@@ -1,4 +1,5 @@
 import { ExamSubject } from "./examSubject";
+import { User } from "./user.model";
 
 
 export interface Exam {
@@ -10,7 +11,8 @@ export interface Exam {
     startDate: string;
     endDate: string;
     active: boolean;
-    created_at_ts:string;
+  created_at_ts: string;
+  users:User[]
     examSubjects:ExamSubject[]
   }
   

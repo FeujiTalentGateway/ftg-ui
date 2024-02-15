@@ -1,21 +1,27 @@
-import { Component, OnInit, ViewChild, Output, AfterViewInit } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
-import { Exam } from 'src/app/models/exam.model';
-import { ScheduleExamService } from 'src/app/services/schedule-exam.service';
+import { HttpResponse } from '@angular/common/http';
+import {
+  AfterViewInit,
+  Component,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { MatDialog } from '@angular/material/dialog';
-import { ConfirmationDialogComponent } from 'src/app/utils/confirmation-dialog/confirmation-dialog.component';
-import { HttpResponse } from '@angular/common/http';
+import { MatTableDataSource } from '@angular/material/table';
+import { Exam } from 'src/app/models/exam.model';
 import { ScheduleExamRepositoryService } from 'src/app/repository/schedule-exam-repository.service';
+import { ScheduleExamService } from 'src/app/services/schedule-exam.service';
+import { ConfirmationDialogComponent } from 'src/app/utils/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
+  // changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-view-exams',
   templateUrl: './view-exams.component.html',
-  styleUrls: ['./view-exams.component.css']
+  styleUrls: ['./view-exams.component.css'],
 })
-export class ViewExamsComponent implements OnInit,AfterViewInit {
-
+export class ViewExamsComponent implements OnInit, AfterViewInit {
   // Output properties
   @Output() isEditing: boolean = false;
   @Output() isRouting: boolean = true;
@@ -30,10 +36,9 @@ export class ViewExamsComponent implements OnInit,AfterViewInit {
   // Selected exam ID
   selectedExamId: any;
 
-  // Lifecycle hook called after the component is initialized 
+  // Lifecycle hook called after the component is initialized
   ngOnInit(): void {
     this.getExams();
-
   }
 
   ngAfterViewInit(): void {
@@ -42,7 +47,17 @@ export class ViewExamsComponent implements OnInit,AfterViewInit {
   }
 
   // Table columns
-  displayedColumns: string[] = ['SNO', 'name', 'description', 'examCode', 'duration', 'startDate', 'endDate', 'active',  'action'];
+  displayedColumns: string[] = [
+    'SNO',
+    'name',
+    'description',
+    'examCode',
+    'duration',
+    'startDate',
+    'endDate',
+    'active',
+    'action',
+  ];
 
   // Data source for MatTable
   dataSource!: MatTableDataSource<Exam>;
@@ -55,9 +70,8 @@ export class ViewExamsComponent implements OnInit,AfterViewInit {
   constructor(
     private service: ScheduleExamService,
     private dialog: MatDialog,
-    private repoService :ScheduleExamRepositoryService
-  ) {
-  }
+    private repoService: ScheduleExamRepositoryService
+  ) {}
 
   // Method to filter data based on user input
   applyFilter(event: Event) {
@@ -93,9 +107,8 @@ export class ViewExamsComponent implements OnInit,AfterViewInit {
       data: { title: 'Confirmation', message: messages + '' },
     });
 
-
     // Subscribe to the result of the dialog
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result === true) {
         // Only perform the toggle operation if the user clicked "Yes"
         this.service.changeExamStatus(id);
@@ -104,18 +117,16 @@ export class ViewExamsComponent implements OnInit,AfterViewInit {
         this.repoService.getExams().subscribe(
           (response: HttpResponse<any>) => {
             if (response.status === 200) {
-              const reversedData = response.body.reverse()
+              const reversedData = response.body.reverse();
               this.dataSource = new MatTableDataSource(reversedData);
               this.dataSource.paginator = this.paginator;
               this.dataSource.sort = this.sort;
-
             } else {
               console.error('Unexpected response status:', response.status);
             }
           },
           (error: any) => {
             console.error('Error fetching exams:', error);
-          
           }
         );
       }
@@ -125,21 +136,21 @@ export class ViewExamsComponent implements OnInit,AfterViewInit {
   // Method to fetch exams from the service
   getExams() {
     // this.ngAfterViewInit();
-    console.log("get exam");  
+    console.log('get exam');
     this.service.exams$.subscribe(
       (exams) => {
         console.log(exams);
-        
+
         const reversedData = exams.slice().reverse(); // Create a copy of the array before reversing
         this.dataSource = new MatTableDataSource(reversedData);
         console.log(reversedData);
-        
+
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-        console.log("reverse data");
+        console.log('reverse data');
         console.log(this.paginator);
         console.log(this.dataSource.paginator);
-        
+
         console.log(reversedData);
       },
       (error) => {
@@ -147,23 +158,21 @@ export class ViewExamsComponent implements OnInit,AfterViewInit {
       }
     );
   }
-  
 
   // Method to handle editing an exam
   editExam(exam: Exam) {
-    // Set the selected exam and enable editing
+    console.log('the selected exam and enable editing');
     this.selectedExam = exam;
     this.isEditing = true;
     this.showScheduleDialog = true;
+    console.log(this.showScheduleDialog);
   }
 
   // Method to handle the event emitted from the child component to show/hide the schedule
   handleShowSchedule(event: any) {
     this.showScheduleDialog = event;
-    this.isEditing=event;
-    console.log("handle show");
-    
-    this.getExams()
+    this.isEditing = event;
+    console.log('handle show');
+    this.getExams();
   }
-
 }

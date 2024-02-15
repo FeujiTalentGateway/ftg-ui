@@ -1,16 +1,16 @@
-import { Injectable } from '@angular/core';
-import { Exam } from 'src/app/models/exam.model';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { ScheduleExamRepositoryService } from '../repository/schedule-exam-repository.service';
-import { Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpResponse } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { Exam } from 'src/app/models/exam.model';
+import { ScheduleExamRepositoryService } from '../repository/schedule-exam-repository.service';
  
 @Injectable({
   providedIn: 'root'
 })
 export class ScheduleExamService {
- 
+ examFormDetails!: Exam;
   private examsSubject = new BehaviorSubject<Exam[]>([]);
   exams$ = this.examsSubject.asObservable();
  
@@ -33,12 +33,11 @@ export class ScheduleExamService {
               // Replace the existing exam with the updated one if they have the same id
               return exam.id === response.body.id ? response.body : exam;
             });
-   
             // Reverse the order of the array
             const reversedExams = updatedExams;
-   
             this.examsSubject.next(reversedExams);
             this.openSnackBar('Exam updated successfully', 'Close');
+            this.route.navigate(['/admin/exams/viewExams'])
           }
         },
         (error: any) => {
@@ -46,8 +45,6 @@ export class ScheduleExamService {
         }
       );
     }
-   
- 
  
     scheduleExam(formData: any) {
       this.scheduleExamRepo.scheduleExam(formData).subscribe(
@@ -55,6 +52,7 @@ export class ScheduleExamService {
           if (response.status == 201) {
             this.goBackSubject.next(true);
             this.openSnackBar('Exam scheduled successfully', 'Close');
+            this.route.navigate(['/admin/exams/viewExams'])
             // Use unshift to add the new response to the beginning of the array
             this.examsSubject.next([...this.examsSubject.value, response.body]);
           }
@@ -93,9 +91,6 @@ export class ScheduleExamService {
     );
   }
  
- 
- 
- 
   changeExamStatus(id: any) {
     this.scheduleExamRepo.changeExamStatus(id).subscribe({
       next: (response: any) => {
@@ -123,7 +118,6 @@ export class ScheduleExamService {
     });
   }
  
- 
   openSnackBar(message: string, action: string) {
     this.snackBar.open(message, action, {
       duration: 3000,
@@ -131,5 +125,13 @@ export class ScheduleExamService {
       verticalPosition: 'top',
       horizontalPosition: 'center',
     });
+  }
+
+    setExamDetails(details: any) {
+    this.examFormDetails = { ...details };
+  }
+
+  getExamDetails() {
+    return { ...this.examFormDetails };
   }
 }

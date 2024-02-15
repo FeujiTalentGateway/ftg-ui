@@ -6,7 +6,7 @@
 .header h1{
   color: #D87033;
   font-weight: 600;
-  font-size: xx-large;
+  font-size: x-large;
   padding: .5rem 1rem;
 }
  .schedule-exam-form {
@@ -14,7 +14,7 @@
    margin: auto;
    margin-bottom: 10px;
    margin-top: 10px;
-   padding: 1rem .3rem;
+   padding: 1rem .3rem .1rem .3rem;
  }
  
 .exam-table .header-cell {
@@ -23,7 +23,7 @@
   
   
   .schedule-exam-form form{
-    margin: -1px 20px 15px 25px; 
+    margin: -1px 20px 2px 25px; 
   }
   
   .exam-form {
@@ -47,8 +47,25 @@
     font-size: 12px;
     margin-top: 5px;
   }
+  .exam-subject-item{
+    display: grid;
+    grid-template-columns:1fr 1fr 1fr 1fr .3fr;
+    gap: .5rem;
+  }
+  .remove-subject{
+    margin-top: 30%;
+    height: 70%;
+  }
   
-  
-  
-  
-  
+  .form-row{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap:1rem .5rem ;
+  }
+  .active{
+    display: grid;
+    grid-template-rows: repeat(3, 1fr);
+  }
+  .add-user{
+    width: 20%;
+  }

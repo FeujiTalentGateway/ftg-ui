@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { ExamService } from '../repository/exam.service';
 import { Router } from '@angular/router';
+import { ExamService } from '../repository/exam.service';
 import { AuthService } from './auth.service';
 
 @Injectable({
@@ -8,7 +8,10 @@ import { AuthService } from './auth.service';
 })
 export class ExamServiceForLogic {
   
-  constructor(private examRepo: ExamService, private route:Router, private auth:AuthService) {}
+  
+  constructor(private examRepo: ExamService,
+    private route: Router,
+    private auth: AuthService) { }
 
   checkExamPresentOrNot(examCode: string) {
     this.examRepo.checkExamByCode(examCode).subscribe(
@@ -25,8 +28,6 @@ export class ExamServiceForLogic {
       }
     );
   }
+  
 
-  getPaperByExamCode(examCode :string){
-
-  }
 }

@@ -1,0 +1,36 @@
+{
+  "id": 1,
+  "content": "What is the difference between a list and a tuple in Python?",
+  "active": "true",
+  "difficultyLevel": "5",
+  "questionType": "single choice",
+  "subject": "python",
+  "rightOptions": [],
+  "optionSelected": [],
+  "options": [
+    {
+      "id": 1,
+      "optionName": "List is mutable, Tuple is immutable",
+      "active": "true",
+      "name": "option1"
+    },
+    {
+      "id": 2,
+      "optionName": "List uses square brackets, Tuple uses parentheses",
+      "active": "true",
+      "name": "option2"
+    },
+    {
+      "id": 3,
+      "optionName": "List has more built-in methods, Tuple has fewer methods",
+      "active": "true",
+      "name": "option3"
+    },
+    {
+      "id": 4,
+      "optionName": "List is used for mutable collections, Tuple is used for immutable collections",
+      "active": "true",
+      "name": "option4"
+    }
+  ]
+}

@@ -10,7 +10,7 @@ export interface Question {
   subject: Subject;
   rightOptions?: Option[];
   options: Option[];
-  optionSelected?: number;
+  optionSelected?: Option[];
 }
 
 export interface ResultTimeQuestion {

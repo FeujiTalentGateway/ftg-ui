@@ -1,65 +1,97 @@
-<section>
+<section *ngIf="question$ | async as question; else loading">
+  <div>
+    {{ this.exam.examSubjects[this.indexPositionOfSubject].subject.name }}
+  </div>
   <div class="container">
     <div class="heading"></div>
     <div class="content">
-      <div *ngIf="paper.questions && paper.questions.length > 0">
-        <h5>
-          Question : {{ currentQuestionIndex + 1 }} /
-          {{ paper.questions.length }}
-        </h5>
-        <br />
-        <h4 class="question-name">
-          {{ paper.questions[currentQuestionIndex].content }}
-        </h4>
-        <ul>
-          <li
-            *ngFor="let option of paper.questions[currentQuestionIndex].options"
-          >
+      <h5>
+        Question : {{ attemptedQuestions }} /
+        {{ currentSubject?.maxQuestions }}
+      </h5>
+      <br />
+      <h4 class="question-name">
+        {{ question.content }}
+      </h4>
+      <ul>
+        <li *ngFor="let option of question.options">
+          <span *ngIf="question.questionType == 'single choice'">
             <input
               type="radio"
-              name="paper.questions[currentQuestionIndex].id"
-              (click)="
-                assignRightOption(
-                  paper.questions[currentQuestionIndex],
-                  option,
-                  currentQuestionIndex
-                )
-              "
-              [checked]="
-                option.id ==
-                paper.questions[currentQuestionIndex].optionSelected
-              "
+              name="question.id"
+              (change)="assignRightOption(option)"
             />
-            &nbsp; &nbsp;{{ option.name }}
-          </li>
-        </ul>
-      </div>
+            &nbsp; &nbsp;{{ option.optionName }}
+          </span>
+
+          <span *ngIf="question.questionType == 'multiple choice'">
+            <input
+              type="checkbox"
+              name="question.id"
+              (change)="assignRightOption(option)"
+            />
+            &nbsp; &nbsp;{{ option.optionName }}
+          </span>
+        </li>
+      </ul>
     </div>
 
     <div class="footer">
       <button
-        (click)="previousQuestion()"
-        [disabled]="this.currentQuestionIndex == 0"
-        class="btn"
-      >
-        Previous
-      </button>
-      <button
         (click)="saveOption()"
-        class="btn"
-        [disabled]="this.currentQuestion?.optionSelected == undefined"
+        class="btn btn-sm btn-success btn-custom"
+        [disabled]="this.currentQuestion?.optionSelected?.length == 0"
       >
         save & next
-      </button>
-      <button
-        (click)="nextQuestion()"
-        [disabled]="
-          this.currentQuestionIndex == this.paper.questions.length - 1
-        "
-        class="btn"
-      >
-        Next
       </button>
     </div>
   </div>
 </section>
+<ng-template #loading> fetching the data </ng-template>
+
+<!-- <div *ngIf="paper.questions && paper.questions.length > 0">
+  <h5>
+    Question : {{ currentQuestionIndex + 1 }} /
+    {{ paper.questions.length }}
+  </h5>
+  <br />
+  <h4 class="question-name">
+    {{ paper.questions[currentQuestionIndex].content }}
+  </h4>
+  <ul>
+    <li
+      *ngFor="let option of paper.questions[currentQuestionIndex].options"
+    >
+      <input
+        type="radio"
+        name="paper.questions[currentQuestionIndex].id"
+        (click)="
+          assignRightOption(
+            paper.questions[currentQuestionIndex],
+            option,
+            currentQuestionIndex
+          )
+        "
+        [checked]="
+          option.id ==
+          paper.questions[currentQuestionIndex].optionSelected
+        "
+      />
+      &nbsp; &nbsp;{{ option.name }}
+    </li>
+  </ul>
+</div> -->
+<!-- 
+type="radio"
+name="paper.questions[currentQuestionIndex].id"
+(click)="
+  assignRightOption(
+    paper.questions[currentQuestionIndex],
+    option,
+    currentQuestionIndex
+  )
+"
+[checked]="
+  option.id ==
+  paper.questions[currentQuestionIndex].optionSelected
+" -->

@@ -18,6 +18,7 @@ import { UserExamLayoutComponent } from './layout/app-layout/user-exam-layout/us
 import { ExamHeaderComponent } from './layout/exam-header/exam-header.component';
 import { SharedDataService } from './services/shared-data.service';
 import { ring } from 'ldrs';
+
 import { SharedModuleModule } from './shared-module/shared-module.module';
 ring.register();
 
@@ -31,6 +32,7 @@ ring.register();
     ConfirmationDialogComponent,
     UserExamLayoutComponent,
     ExamHeaderComponent,
+    TimeFormatPipe
   ],
   imports: [
     BrowserModule,

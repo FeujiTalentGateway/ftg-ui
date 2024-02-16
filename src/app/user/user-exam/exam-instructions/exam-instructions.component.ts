@@ -88,5 +88,5 @@ export class ExamInstructionsComponent implements OnInit {
     this.sharedDataService.updateExamTime(newData);
   }
 
-  timeFormat(time: string) {}
+  // timeFormat(time: string) {}
 }

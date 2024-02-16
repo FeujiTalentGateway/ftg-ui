@@ -1,14 +1,13 @@
-import { Component, HostListener, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Exam } from 'src/app/models/exam.model';
 import { ExamSubject } from 'src/app/models/examSubject';
 import { Option } from 'src/app/models/option';
-import { OptionAttempt } from 'src/app/models/option.attempt';
 import { Paper } from 'src/app/models/paper';
 import { Question } from 'src/app/models/question';
 import { ExamService } from 'src/app/repository/exam.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { SharedDataService } from 'src/app/services/shared-data.service';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-questions',

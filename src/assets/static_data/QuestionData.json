@@ -3,7 +3,7 @@
   "content": "What is the difference between a list and a tuple in Python?",
   "active": "true",
   "difficultyLevel": "5",
-  "questionType": "single choice",
+  "questionType": "multiple choice",
   "subject": "python",
   "rightOptions": [],
   "optionSelected": [],

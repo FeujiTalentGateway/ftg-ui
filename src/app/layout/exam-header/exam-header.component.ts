@@ -22,7 +22,7 @@ export class ExamHeaderComponent {
   currentSubjects$: Observable<ExamSubject[]> | undefined;
   updateSubjectIndex$: Observable<number> | undefined;
   updateSubjectIndex: number = 0;
-  currentSubjects: ExamSubject [] =[];
+  currentSubjects: ExamSubject[] = [];
   examAttemptId?: number;
   examCode: string | null = null;
 
@@ -41,7 +41,6 @@ export class ExamHeaderComponent {
 
     if (this.examTime$ != null) {
       this.examTime$.subscribe((response) => {
-        console.log(response);
         if (response != null) {
           this.examTime = response.exam_time;
           this.examCode = response.examCode;
@@ -52,24 +51,21 @@ export class ExamHeaderComponent {
     }
     if (this.examAttempt$ != null) {
       this.examAttempt$.subscribe((response) => {
-        console.log(response);
         this.examAttemptId = response;
 
         // if (response != null) {
         //   this.examAttemptId = response.exam_attempt_id;
-        //   console.log(this.examAttemptId);
         // }
       });
     }
 
     if (this.currentSubjects$ != null) {
       this.currentSubjects$.subscribe((response) => {
-        console.log(response);
-        this.currentSubjects = response
+        this.currentSubjects = response;
       });
     }
     this.updateSubjectIndex$.subscribe((response) => {
-      this.updateSubjectIndex = response
+      this.updateSubjectIndex = response;
     });
   }
   setCountDownValue() {
@@ -85,21 +81,20 @@ export class ExamHeaderComponent {
         this.updateCountdownDisplay();
       } else {
         this.countdownSubscription?.unsubscribe();
-        console.log('Countdown reached zero!');
-        if (this.updateSubjectIndex < (this.currentSubjects?.length as number) ){
-          console.log(this.currentSubjects[this.updateSubjectIndex]);
-          
-          this.examTime = this.currentSubjects[this.updateSubjectIndex].duration
+
+        if (
+          this.updateSubjectIndex <
+          (this.currentSubjects?.length as number) - 1
+        ) {
+          this.updateSubjectIndex += 1;
+          this.examTime =
+            this.currentSubjects[this.updateSubjectIndex].duration;
           this.setCountDownValue();
           this.startCountdown();
-          
+          this.sharedService.updateSubjectIndex(this.updateSubjectIndex);
+        } else {
+          this.submitExam();
         }
-        else{
-        this.submitExam();
-
-        }
-
-
       }
     });
   }
@@ -130,12 +125,14 @@ export class ExamHeaderComponent {
     const seconds = parseInt(timeArray[2], 10);
 
     if (hours > 0) {
-      console.log(time);
       time += hours * 60 * 60;
     }
 
     if (minutes > 0) {
       time += minutes * 60;
+    }
+    if (seconds > 0) {
+      time += seconds;
     }
 
     return time;
@@ -151,7 +148,6 @@ export class ExamHeaderComponent {
       .submitExam(this.examAttemptId as number, this.examCode as string)
       .subscribe(
         (response) => {
-          console.log(response);
           let url = `/user/exam/exam-submitted/${this.examCode}/${this.examAttemptId}`;
           this.router.navigateByUrl(url);
         },
@@ -159,4 +155,3 @@ export class ExamHeaderComponent {
       );
   }
 }
-// *ngIf="date$ | async as data; else loading"

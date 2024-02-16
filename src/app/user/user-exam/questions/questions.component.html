@@ -1,8 +1,9 @@
-<section *ngIf="question$ | async as question; else loading">
-  <div>
-    {{ this.exam.examSubjects[this.indexPositionOfSubject].subject.name }}
+<section *ngIf="startExam$ | async as startExam; else loading">
+  <br>
+  <div class="shadow p-2  bg-white rounded subject-name">
+    {{ this.exam.examSubjects[this.indexPositionOfSubject].subject.name }}  
   </div>
-  <div class="container">
+  <div class="container shadow p-3 mb-5 bg-white rounded">
     <div class="heading"></div>
     <div class="content">
       <h5>
@@ -11,11 +12,11 @@
       </h5>
       <br />
       <h4 class="question-name">
-        {{ question.content }}
+        {{ this.currentQuestion?.content }}
       </h4>
       <ul>
-        <li *ngFor="let option of question.options">
-          <span *ngIf="question.questionType == 'single choice'">
+        <li *ngFor="let option of currentQuestion?.options">
+          <span *ngIf="currentQuestion?.questionType == 'single choice'">
             <input
               type="radio"
               name="question.id"
@@ -24,7 +25,7 @@
             &nbsp; &nbsp;{{ option.optionName }}
           </span>
 
-          <span *ngIf="question.questionType == 'multiple choice'">
+          <span *ngIf="currentQuestion?.questionType == 'multiple choice'">
             <input
               type="checkbox"
               name="question.id"

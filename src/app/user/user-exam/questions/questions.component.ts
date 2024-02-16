@@ -28,44 +28,77 @@ export class QuestionsComponent implements OnInit {
     active: false,
     created_at_ts: '',
     examSubjects: [],
+    users: [],
   };
   currentQuestionIndex = 0;
   currentQuestion: Question | undefined;
   listOfQuestion: Question[] = [];
-
   currentSubject: ExamSubject | undefined;
   question$: Observable<Question> | undefined;
+  startExam$: Observable<any> | undefined;
   attemptedQuestions: number = 1;
   indexPositionOfTheExam: number = 0;
   totalSubjects: number = 0;
   indexPositionOfSubject: number = 0;
+  examAttemptID: number | undefined;
+
+  indexPositionOfSubject$: Observable<number> | undefined;
 
   ngOnInit(): void {
-    // this.currentQuestion = this.paper?.questions[0];
     console.log(this.paper);
     console.log(this.exam, '==========');
     this.currentSubject = this.exam.examSubjects[this.indexPositionOfTheExam];
     console.log(this.currentSubject);
-
+    this.indexPositionOfSubject$ = this.sharedData.indexPositionOfSubject$;
     this.totalSubjects = this.exam.examSubjects.length;
+    this.startExam$ = this.ExamRepo.startStaticExam(
+      this.exam.examCode,
+      this.currentSubject.startingDifficultyLevel,
+      this.currentSubject.id
+    );
     console.log(this.totalSubjects);
 
-    this.question$ = this.ExamRepo.getStaticQuestionByExamCodeAndSubjectId(
-      '',
-      2
+    // this.question$ = this.ExamRepo.getStaticQuestionByExamCodeAndSubjectId(
+    //   '',
+    //   2
+    // );
+    this.startExam$.subscribe(
+      (response) => {
+        console.log(response, '=================');
+        response.question['optionSelected'] = [];
+        this.currentQuestion = response.question;
+        this.examAttemptID = response.attemptId;
+        console.log(this.currentQuestion);
+        console.log(this.examAttemptID);
+      },
+      (error) => {}
     );
+
     this.sharedData.updateExamAttempt(this.paper?.exam_attempt_id as number);
     this.sharedData.updateSubjects(this.exam.examSubjects);
 
-    this.question$.subscribe(
-      (response) => {
-        this.currentQuestion = response;
+    // this.question$.subscribe(
+    //   (response) => {
+    //     this.currentQuestion = response;
+    //     console.log(response);
+    //   },
+    //   (error) => {
+    //     console.log(error);
+    //   }
+    // );
+    this.indexPositionOfSubject$.subscribe((response) => {
+      if (response != null) {
         console.log(response);
-      },
-      (error) => {
-        console.log(error);
+        this.currentSubject = this.exam.examSubjects[response];
+        this.indexPositionOfSubject = response;
+        console.log(this.currentSubject);
+        this.updateQuestions();
       }
-    );
+    });
+    this.updateSubjectIndex();
+  }
+  updateQuestions() {
+    console.log('updating the questions');
   }
   constructor(
     private authRepo: AuthService,
@@ -112,11 +145,24 @@ export class QuestionsComponent implements OnInit {
 
   saveOption() {
     console.log(this.currentQuestion);
+    let date = new Date();
+
+    console.log(date);
+    let currentQuestionData = {
+      questionId: this.currentQuestion?.id,
+      selectedOptions: this.getSelectedOptions(),
+      is_last: this.checkThisQuestionLastOrNot(),
+      end_date: this.checkThisQuestionLastOrNotForDate(),
+      attempt_id: this.examAttemptID,
+    };
+    console.log(currentQuestionData);
+
     this.question$ = this.ExamRepo.submitStaticQuestion(this.currentQuestion);
     this.attemptedQuestions += 1;
     this.checkQuestionsAvailableOrNot();
     this.question$.subscribe((response) => {
       this.currentQuestion = response;
+      this.currentQuestion.optionSelected = [];
     });
 
     // this.currentQuestion = this.paper.questions[this.currentQuestionIndex];
@@ -148,6 +194,7 @@ export class QuestionsComponent implements OnInit {
     //   this.currentQuestion = this.paper.questions[this.currentQuestionIndex];
     // }
   }
+
   previousQuestion() {
     if (this.currentQuestionIndex > 0) {
       this.currentQuestionIndex--;
@@ -181,6 +228,30 @@ export class QuestionsComponent implements OnInit {
     const subjectIndex = {
       subjectIndexPosition: this.indexPositionOfSubject,
     };
-    this.sharedData.updateExamTime(subjectIndex);
+    this.sharedData.updateSubjectIndex(this.indexPositionOfSubject);
+  }
+  getSelectedOptions(): [] {
+    let optionArray = [];
+    optionArray = this.currentQuestion?.optionSelected?.map(
+      (opt) => opt.id
+    ) as [];
+    console.log(optionArray);
+    return optionArray;
+  }
+  checkThisQuestionLastOrNot(): boolean {
+    if (this.currentSubject?.maxQuestions != undefined) {
+      if (this.attemptedQuestions == this.currentSubject?.maxQuestions) {
+        return true;
+      }
+    }
+    return false;
+  }
+  checkThisQuestionLastOrNotForDate(): any {
+    if (this.currentSubject?.maxQuestions != undefined) {
+      if (this.attemptedQuestions == this.currentSubject?.maxQuestions) {
+        return new Date().toISOString().slice(0, 23);
+      }
+    }
+    return null;
   }
 }

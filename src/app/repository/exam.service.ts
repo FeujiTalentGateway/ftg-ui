@@ -11,7 +11,6 @@ import { Question } from '../models/question';
   providedIn: 'root',
 })
 export class ExamService {
-  
   examUrl: string = ' http://127.0.0.1:8000/';
   javaExamUrl: string = 'http://localhost:8093/exam';
   constructor(private http: HttpClient) {}
@@ -89,12 +88,49 @@ export class ExamService {
   ): Observable<Question> {
     return this.http.get<Question>('');
   }
-  submitStaticQuestion(question :Question |undefined):Observable<Question> {
-    return this.http.get<Question>('/assets/static_data/QuestionData.json')
-    
+  submitStaticQuestion(question: Question | undefined): Observable<Question> {
+    return this.http.get<Question>('/assets/static_data/QuestionData.json');
   }
-  submitQuestion(question :Question |undefined):Observable<Question> {
-    return this.http.post<Question>('',question)
-    
+  submitQuestion(question: Question | undefined): Observable<Question> {
+    return this.http.post<Question>('', question);
+  }
+
+  checkExamAvailableForUserOrNot(examCode: string): Observable<any> {
+    return this.http.post<any>(
+      `${this.javaExamUrl}exam/validate/${examCode}`,
+      {}
+    );
+  }
+  startStaticExam(
+    examCode: string,
+    difficulty: number,
+    subjectId: Number
+  ): Observable<any> {
+    let data = {
+      examCode: examCode,
+      difficulty: difficulty,
+      startDate:new Date().toISOString().slice(0, 23),
+      subjectId: subjectId,
+    };
+    console.log(data,"=====================================================");
+
+    return this.http.get<any>('/assets/static_data/startExamObject.json');
+  }
+
+  startExam(
+    examCode: string,
+    difficulty: number,
+    startDate: string,
+    subjectId: Number
+  ): Observable<any> {
+    let data = {
+      examCode: examCode,
+      difficulty: difficulty,
+      startDate: Date().toString(),
+      subjectId: subjectId,
+    };
+    console.log(data);
+
+    return this.http.post<any>(`${this.javaExamUrl}`, data);
   }
 }

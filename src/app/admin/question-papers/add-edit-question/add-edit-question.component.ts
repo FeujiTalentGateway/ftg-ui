@@ -21,6 +21,7 @@ export class AddEditQuestionComponent implements OnInit {
     subject: { id: 0, name: '', active: true },
     rightOptions: [],
     options: [],
+    optionSelected: []
   };
 
   difficultLevelList: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];

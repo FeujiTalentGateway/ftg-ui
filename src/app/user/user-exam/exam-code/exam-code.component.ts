@@ -50,20 +50,22 @@ export class ExamCodeComponent implements OnInit {
     }
 
     //   on production
-    //   this.examRepo.checkExamCodeWithDetail(this.examCode).subscribe(
-    //     (response) => {
-    //       console.log(response);
-    //       this.examCode;
-    //       this.router.navigate(['/user/exam/exam-instructions', this.examCode]);
-    //     },
-    //     (error) => {
-    //       console.log(error);
-    //       console.log(error.error.error);
-    //       this.auth.openSnackBar(error.error.error, 'close');
-    //       if (error.status == 0){
-    //         alert("service not Available")
-    //       }
-    //     }
-    //   );
+      // this.examRepo.checkExamAvailableForUserOrNot(this.examCode).subscribe(
+      //   (response) => {
+      //     console.log(response);
+      //     this.router.navigate(['/user/exam/exam-instructions', this.examCode]);
+      //   },
+      //   (error) => {
+      //     console.log(error);
+      //     console.log(error.error.error);
+      //     this.auth.openSnackBar(error.error.error, 'close');
+      //     if (error.status == 0){
+      //       alert("service not Available")
+      //     }
+      //     else if (error.status >700){
+      //     this.auth.openSnackBar(error.error.error, 'close');
+      //     }
+      //   }
+      // );
   }
 }

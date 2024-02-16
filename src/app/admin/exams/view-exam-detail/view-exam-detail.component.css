@@ -1,0 +1,46 @@
+.main {
+  margin: 5px;
+}
+
+.header {
+  margin-top: 10px;
+  background-color: #ffe2d1;
+}
+.header h1 {
+  color: #d87033;
+  font-weight: 600;
+  font-size: x-large;
+  padding: 0.5rem 1rem;
+}
+#close-button {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+}
+.mat-card-content {
+  margin-top: 0.5rem;
+  background-color: #e8e9eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-flow: wrap;
+}
+
+.mat-card-content div {
+  width: 20%;
+  padding: 0.3rem;
+}
+.mat-mdc-card-content:last-child {
+  padding-bottom: 0px;
+}
+p {
+  margin: 0;
+}
+.show {
+  display: block;
+}
+.modal-open {
+  overflow-x: hidden;
+  overflow-y: auto;
+  background-color: rgba(0, 0, 0, 0.5); /* Adjust the opacity as needed */
+}

@@ -1,12 +1,6 @@
 import { HttpResponse } from '@angular/common/http';
-import {
-  AfterViewInit,
-  Component,
-  OnInit,
-  Output,
-  ViewChild,
-} from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -14,6 +8,7 @@ import { Exam } from 'src/app/models/exam.model';
 import { ScheduleExamRepositoryService } from 'src/app/repository/schedule-exam-repository.service';
 import { ScheduleExamService } from 'src/app/services/schedule-exam.service';
 import { ConfirmationDialogComponent } from 'src/app/utils/confirmation-dialog/confirmation-dialog.component';
+import { ViewExamDetailComponent } from '../view-exam-detail/view-exam-detail.component';
 
 @Component({
   // changeDetection: ChangeDetectionStrategy.OnPush,
@@ -22,14 +17,9 @@ import { ConfirmationDialogComponent } from 'src/app/utils/confirmation-dialog/c
   styleUrls: ['./view-exams.component.css'],
 })
 export class ViewExamsComponent implements OnInit, AfterViewInit {
-  // Output properties
-  @Output() isEditing: boolean = false;
-  @Output() isRouting: boolean = true;
-  @Output() selectedExam: Exam | null = null;
-
   // Flag to control the display of the schedule dialog
   showScheduleDialog = false;
-
+  dialogRef: any;
   // Minimum start date for date inputs
   minStartDate: string = '';
 
@@ -50,7 +40,6 @@ export class ViewExamsComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = [
     'SNO',
     'name',
-    'description',
     'examCode',
     'duration',
     'startDate',
@@ -70,7 +59,8 @@ export class ViewExamsComponent implements OnInit, AfterViewInit {
   constructor(
     private service: ScheduleExamService,
     private dialog: MatDialog,
-    private repoService: ScheduleExamRepositoryService
+    private repoService: ScheduleExamRepositoryService,
+    private matDialog: MatDialog
   ) {}
 
   // Method to filter data based on user input
@@ -94,9 +84,11 @@ export class ViewExamsComponent implements OnInit, AfterViewInit {
   }
 
   // Method to toggle the active status of an exam
-  toggleActive(id: any, active: any): void {
+  toggleActive(exam: Exam): void {
     let messages = '';
-
+    let active = exam.active;
+    let id = exam.id;
+    console.log(active);
     if (!active) {
       messages = 'Do you want to activate this exam?';
     } else if (active) {
@@ -159,20 +151,16 @@ export class ViewExamsComponent implements OnInit, AfterViewInit {
     );
   }
 
-  // Method to handle editing an exam
-  editExam(exam: Exam) {
-    console.log('the selected exam and enable editing');
-    this.selectedExam = exam;
-    this.isEditing = true;
-    this.showScheduleDialog = true;
-    console.log(this.showScheduleDialog);
-  }
-
-  // Method to handle the event emitted from the child component to show/hide the schedule
-  handleShowSchedule(event: any) {
-    this.showScheduleDialog = event;
-    this.isEditing = event;
-    console.log('handle show');
-    this.getExams();
+  openViewExamDetailsModal(selectedExam: Exam) {
+    let dialogConfig: MatDialogConfig = {
+      width: '100%',
+      height: '100%',
+      disableClose: true,
+      // other MatDialogConfig properties can go here
+    };
+    dialogConfig.data = {
+      selectedExam: selectedExam,
+    };
+    this.dialogRef = this.matDialog.open(ViewExamDetailComponent, dialogConfig);
   }
 }

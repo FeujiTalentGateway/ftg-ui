@@ -1,12 +1,13 @@
 import { DatePipe } from '@angular/common';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Exam } from 'src/app/models/exam.model';
 import { ExamSubject } from 'src/app/models/examSubject';
 import { Subject } from 'src/app/models/subject';
 import { User } from 'src/app/models/user.model';
+import { ScheduleExamRepositoryService } from 'src/app/repository/schedule-exam-repository.service';
 import { SubjectRepositoryService } from 'src/app/repository/subject-repository.service';
 import { ScheduleExamService } from 'src/app/services/schedule-exam.service';
 import { ExamUserComponent } from '../exam-user/exam-user.component';
@@ -18,44 +19,57 @@ import { ExamUserComponent } from '../exam-user/exam-user.component';
   providers: [DatePipe],
 })
 export class ScheduleExamComponent implements OnInit {
-  @Output() showShowdule: EventEmitter<boolean> = new EventEmitter();
-  @Input() isEditing: boolean = false;
-  @Input() isRouting: boolean = false;
-  @Input() exam: Exam | null = null;
+  exam: Exam | null = null;
   dialogRef: any;
+  isEditing: boolean = false;
+  editableExamId!: number;
   examForm!: FormGroup<any>;
   minStartDate: string = '';
   selectedExamId: any;
   subjects!: Subject[];
   updatedUsers!: User[];
   selectedSubjectIds!: number[];
+  maxQuestionsArray: number[] = Array.from(
+    { length: 50 },
+    (_, index) => index + 1
+  );
   difficultyLevelArray: number[] = Array.from(
     { length: 10 },
     (_, index) => index + 1
   );
+
+  constructor(
+    private service: ScheduleExamService,
+    private fb: FormBuilder,
+    private datePipe: DatePipe,
+    private examRepo: ScheduleExamRepositoryService,
+    private matDialog: MatDialog,
+    private subjectRepo: SubjectRepositoryService,
+    private activatedRoute: ActivatedRoute
+  ) {
+    this.initializeExamForm();
+  }
   ngOnInit(): void {
-    this.service.goBack$.subscribe((shouldGoBack) => {
-      if (shouldGoBack) {
-        this.goBack();
-      }
-    });
-    this.editExam();
+    this.isEditing = this.activatedRoute.snapshot.paramMap.get('id') !== null;
+    console.log(this.isEditing);
+    if (this.isEditing) {
+      this.editableExamId = Number(
+        this.activatedRoute.snapshot.paramMap.get('id')
+      );
+      console.log(this.editableExamId);
+      this.examRepo.getExamById(this.editableExamId).subscribe({
+        next: (exam) => {
+          this.exam = exam;
+          this.editExam();
+        },
+      });
+    }
     this.subjectRepo.getAllSubjects().subscribe((response) => {
       this.subjects = response;
     });
   }
 
   // Constructor to inject services and dependencies
-  constructor(
-    private service: ScheduleExamService,
-    private fb: FormBuilder,
-    private datePipe: DatePipe,
-    private router: Router,
-    private matDialog: MatDialog,
-    private subjectRepo: SubjectRepositoryService
-  ) {
-    this.initializeExamForm();
-  }
 
   // Initialize the exam form with form controls and validators
   initializeExamForm() {
@@ -72,6 +86,7 @@ export class ScheduleExamComponent implements OnInit {
             Validators.pattern(/^([0-9][0-9]):([0-5][0-9]):([0-5][0-9])$/),
           ],
         ],
+
         startDate: ['', Validators.required],
         endDate: ['', Validators.required],
         active: [false, Validators.required],
@@ -111,9 +126,20 @@ export class ScheduleExamComponent implements OnInit {
               }),
               id: [0],
               subjectName: [selectedSubject.name, Validators.required],
-              maxQuestions: [''],
-              startingDifficultyLevel: [''],
-              duration: [''],
+              maxQuestions: ['', Validators.required],
+              startingDifficultyLevel: ['', Validators.required],
+              duration: [
+                '',
+                [
+                  Validators.required,
+                  Validators.pattern(
+                    /^([0-9][0-9]):([0-5][0-9]):([0-5][0-9])$/
+                  ),
+                ],
+              ],
+              hours: ['00', Validators.required],
+              minutes: ['00', Validators.required],
+              seconds: ['00', Validators.required],
             })
           );
         }
@@ -145,55 +171,54 @@ export class ScheduleExamComponent implements OnInit {
   }
 
   editExam() {
-    if (this.isEditing) {
-      // Convert string dates to Date objects
-      const startDateObj = new Date(this.exam!.startDate);
-      const endDateObj = new Date(this.exam!.endDate);
+    // Convert string dates to Date objects
+    const startDateObj = new Date(this.exam!.startDate);
+    const endDateObj = new Date(this.exam!.endDate);
 
-      // Use DatePipe to format the date
-      const formattedStartDate = this.datePipe.transform(
-        startDateObj,
-        'yyyy-MM-dd'
-      );
-      const formattedEndDate = this.datePipe.transform(
-        endDateObj,
-        'yyyy-MM-dd'
-      );
-      // Set the form values
-      this.examForm.setValue({
-        id: this.exam!.id,
-        name: this.exam!.name,
-        description: this.exam!.description,
-        examCode: this.exam!.examCode,
-        duration: this.exam!.duration,
-        startDate: formattedStartDate,
-        endDate: formattedEndDate,
-        active: this.exam!.active,
-        examSubjects: [],
-        users: [],
+    // Use DatePipe to format the date
+    const formattedStartDate = this.datePipe.transform(
+      startDateObj,
+      'yyyy-MM-dd'
+    );
+    const formattedEndDate = this.datePipe.transform(endDateObj, 'yyyy-MM-dd');
+    // Set the form values
+    this.examForm.setValue({
+      id: this.exam!.id,
+      name: this.exam!.name,
+      description: this.exam!.description,
+      examCode: this.exam!.examCode,
+      duration: this.exam!.duration,
+      startDate: formattedStartDate,
+      endDate: formattedEndDate,
+      active: this.exam!.active,
+      examSubjects: [],
+      users: [],
+    });
+    this.updatedUsers = this.exam!.users;
+    this.setUsersToExamForm(this.exam?.users as User[]);
+    console.log(this.examForm.value);
+    if (this.exam!.examSubjects) {
+      this.exam!.examSubjects.forEach((examSubject: ExamSubject) => {
+        let [hours, minutes, seconds] = examSubject.duration.split(':');
+        this.examSubjectsArray.push(
+          this.fb.group({
+            id: examSubject.id,
+            maxQuestions: examSubject.maxQuestions,
+            startingDifficultyLevel: examSubject.startingDifficultyLevel,
+            duration: examSubject.duration,
+            hours: hours,
+            minutes: minutes,
+            seconds: seconds,
+            subjectName: examSubject.subject.name,
+            subject: {
+              id: examSubject.subject.id,
+            },
+          })
+        );
       });
-      this.updatedUsers = this.exam!.users;
-      this.setUsersToExamForm(this.exam?.users as User[]);
-      console.log(this.examForm.value);
-      if (this.exam!.examSubjects) {
-        this.exam!.examSubjects.forEach((examSubject: ExamSubject) => {
-          this.examSubjectsArray.push(
-            this.fb.group({
-              id: examSubject.id,
-              maxQuestions: examSubject.maxQuestions,
-              startingDifficultyLevel: examSubject.startingDifficultyLevel,
-              duration: examSubject.duration,
-              subjectName: examSubject.subject.name,
-              subject: {
-                id: examSubject.subject.id,
-              },
-            })
-          );
-        });
-      }
-      // Set the selectedExamId
-      this.selectedExamId = this.exam!.id;
     }
+    // Set the selectedExamId
+    this.selectedExamId = this.exam!.id;
     this.selectedSubjectIds = this.exam?.examSubjects.map(
       (exam) => exam.subject.id
     ) as number[];
@@ -230,16 +255,11 @@ export class ScheduleExamComponent implements OnInit {
     }
   }
 
-  // Method to format a date as a string
   formatDate(date: Date): string {
     const isoString = date.toISOString();
     return isoString.substring(0, isoString.indexOf('T'));
   }
 
-  // Method to navigate back and emit event to hide the form
-  goBack(): void {
-    this.showShowdule.emit(false);
-  }
   dateRangeValidator(group: FormGroup): { [key: string]: any } | null {
     const startDateControl = group.get('startDate');
     const endDateControl = group.get('endDate');
@@ -255,6 +275,19 @@ export class ScheduleExamComponent implements OnInit {
 
     return null;
   }
+  mapSubDurationToDuration() {
+    this.examSubjectsArray.controls.map((control) => {
+      let hours = control.get('hours')?.value;
+      let minutes = control.get('minutes')?.value;
+      let seconds = control.get('seconds')?.value;
+      let combinedDuration = `${String(hours).padStart(2, '0')}:${String(
+        minutes
+      ).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+      control.get('duration')?.setValue(combinedDuration);
+    });
+    this.updateExamDuration();
+  }
+
   updateExamDuration() {
     let durationList = this.examSubjectsArray.controls
       .map((control) => control.get('duration')?.value)
@@ -307,4 +340,22 @@ export class ScheduleExamComponent implements OnInit {
       console.log(this.updatedUsers);
     });
   }
+
+  isValid(): boolean {
+    if (this.selectedSubjectIds) {
+      return this.selectedSubjectIds.length > 0;
+    } else {
+      return false;
+    }
+  }
+
+  hoursArray: string[] = Array.from({ length: 24 }, (_, i) =>
+    i.toString().padStart(2, '0')
+  );
+  minutesArray: string[] = Array.from({ length: 60 }, (_, i) =>
+    i.toString().padStart(2, '0')
+  );
+  secondsArray: string[] = Array.from({ length: 60 }, (_, i) =>
+    i.toString().padStart(2, '0')
+  );
 }

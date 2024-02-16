@@ -7,27 +7,24 @@ import { AuthService } from './auth.service';
   providedIn: 'root',
 })
 export class ExamServiceForLogic {
-  
-  
-  constructor(private examRepo: ExamService,
+  constructor(
+    private examRepo: ExamService,
     private route: Router,
-    private auth: AuthService) { }
+    private auth: AuthService
+  ) {}
 
-  checkExamPresentOrNot(examCode: string) {
-    this.examRepo.checkExamByCode(examCode).subscribe(
+  checkExamAvailableForUserOrNot(examCode: string) {
+    this.examRepo.checkExamAvailableForUserOrNot(examCode).subscribe(
       (response) => {
-        return response
+        return response;
       },
       (error) => {
-        this.auth.openSnackBar("Re enter your Exam Code",'close')
+        this.auth.openSnackBar('Re enter your Exam Code', 'close');
         console.log(error);
-        if (error.status == 400){
-          this.route.navigateByUrl('/user/exam/exam-code')
+        if (error.status == 400) {
+          this.route.navigateByUrl('/user/exam/exam-code');
         }
-        
       }
     );
   }
-  
-
 }

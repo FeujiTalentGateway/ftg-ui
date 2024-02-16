@@ -38,34 +38,34 @@ export class ExamCodeComponent implements OnInit {
     );
 
     console.log(this.currentExam);
-    if (this.currentExam === undefined) {
-      alert;
-    } else {
-      if (this.currentExam) {
-        console.log(this.examCode);
-        this.router.navigate(['/user/exam/exam-instructions', this.examCode]);
-        const exampleCode = this.examCode;
-        this.router.navigate(['/user/exam/exam-instructions', exampleCode]);
-      }
-    }
+    // if (this.currentExam === undefined) {
+    //   alert;
+    // } else {
+    //   if (this.currentExam) {
+    //     console.log(this.examCode);
+    //     this.router.navigate(['/user/exam/exam-instructions', this.examCode]);
+    //     const exampleCode = this.examCode;
+    //     this.router.navigate(['/user/exam/exam-instructions', exampleCode]);
+    //   }
+    // }
 
     //   on production
-      // this.examRepo.checkExamAvailableForUserOrNot(this.examCode).subscribe(
-      //   (response) => {
-      //     console.log(response);
-      //     this.router.navigate(['/user/exam/exam-instructions', this.examCode]);
-      //   },
-      //   (error) => {
-      //     console.log(error);
-      //     console.log(error.error.error);
-      //     this.auth.openSnackBar(error.error.error, 'close');
-      //     if (error.status == 0){
-      //       alert("service not Available")
-      //     }
-      //     else if (error.status >700){
-      //     this.auth.openSnackBar(error.error.error, 'close');
-      //     }
-      //   }
-      // );
+      this.examRepo.checkExamAvailableForUserOrNot(this.examCode).subscribe(
+        (response) => {
+          console.log(response);
+          this.router.navigate(['/user/exam/exam-instructions', this.examCode]);
+        },
+        (error) => {
+          console.log(error);
+          console.log(error.error);
+          this.auth.openSnackBar(error.error.error, 'close');
+          if (error.status == 0){
+            alert("service not Available")
+          }
+          else if (error.status >=700){
+          this.auth.openSnackBar(error.error.message, 'close');
+          }
+        }
+      );
   }
 }

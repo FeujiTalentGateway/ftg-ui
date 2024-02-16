@@ -97,7 +97,7 @@ export class ExamService {
 
   checkExamAvailableForUserOrNot(examCode: string): Observable<any> {
     return this.http.post<any>(
-      `${this.javaExamUrl}exam/validate/${examCode}`,
+      `${this.javaExamUrl}/validate/${examCode}`,
       {}
     );
   }

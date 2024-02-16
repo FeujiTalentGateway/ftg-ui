@@ -40,10 +40,10 @@ export class ExamInstructionsComponent implements OnInit {
 
     //  on production
 
-    // this.examCode = this.activatedRoute.snapshot.paramMap.get('examCode');
-    // this.examDetails = this.examService.checkExamPresentOrNot(
-    //   this.examCode as string
-    // );
+    this.examCode = this.activatedRoute.snapshot.paramMap.get('examCode');
+    this.examDetails = this.examService.checkExamAvailableForUserOrNot(
+      this.examCode as string
+    );
     // this.examDetailsob$ = this.examRepo.checkExamByCode(this.examCode as string)
     // this.examRepo.checkExamByCode(this.examCode as string).subscribe(
     //   (response) => {

@@ -28,6 +28,7 @@ export class ScheduleExamRepositoryService {
     });
   }
 
+  
   getExams(): Observable<HttpResponse<any>> {
     const requestOptions = { headers: this.setToken() };
 
@@ -37,7 +38,15 @@ export class ScheduleExamRepositoryService {
       observe: 'response',
     });
   }
+  getStaticExams(): Observable<HttpResponse<any>> {
 
+    const requestOptions = { headers: this.setToken() };
+
+    // Make the HTTP request
+    return this.http.get(this.adminUrl+'exam', { ...requestOptions, observe: 'response' });
+  }
+
+  
   changeExamStatus(id: any) {
     const requestOptions = { headers: this.setToken() };
     console.log('change status');

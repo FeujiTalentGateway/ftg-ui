@@ -1,7 +1,13 @@
+<!-- Including the custom app header component -->
 <app-header></app-header>
+
+<!-- Main content container with fluid layout -->
 <div class="container-fluid">
+  <!-- Row for content alignment -->
   <div class="row justify-content-center align-items-center">
+    <!-- Left column (7 out of 12) for welcome text -->
     <div class="col-md-7">
+      <!-- Welcome section with project name, description, and call-to-action button -->
       <div class="welcome">
         <h1 class="project-name global-color">Feuji Talent Gateway</h1>
         <p>
@@ -12,15 +18,19 @@
           your talent management strategies today.
         </p>
 
+        <!-- Get Started button with routing to the registration page -->
         <button
           class="btn btn-primary submit-button global-background-color global-border-color global-white-color"
-          [routerLink]="['/main/login']"
+          [routerLink]="['/main/register']"
         >
           Get Started
         </button>
       </div>
     </div>
+
+    <!-- Right column (5 out of 12) for the image -->
     <div class="col-md-5">
+      <!-- Image displaying the message "select the correct path" -->
       <img
         src="assets/images/feuji-home.png"
         alt="select the correct path"
@@ -29,6 +39,8 @@
     </div>
   </div>
 </div>
+
+<!-- External stylesheet for Font Awesome icons -->
 <link
   rel="stylesheet"
   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"

@@ -1,12 +1,22 @@
 import { Option } from './option';
 import { Subject } from './subject';
- 
+
 export interface Question {
   id: number;
   content: string;
   active: boolean;
-  difficultyLevel: string;
+  difficultyLevel: number;
+  questionType: string;
   subject: Subject;
-  rightOption: Option;
+  rightOptions?: Option[];
   options: Option[];
+  optionSelected?: Option[];
+}
+
+export interface ResultTimeQuestion {
+  id: number;
+  content: string;
+  options: Option[];
+  selected_option_id?: number;
+  correct_option_id?: number;
 }

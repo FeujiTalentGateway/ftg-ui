@@ -24,13 +24,6 @@
       placeholder="Search questions"
       class="styled-input header-child"
     />
-    <!-- <button
-      class="btn btn-light btn-query header-child"
-      [routerLink]="['/admin/questionPapers/addEditQuestion']"
-      [queryParams]="{ subject: selectedSubject }"
-    >
-      Add Question
-    </button> -->
   </div>
   <div *ngIf="paginatedQuestions.length > 0; else noQuestionsMessage">
     <div class="row d-flex align-item-center justify-content-center">
@@ -41,15 +34,16 @@
         <div class="card">
           <div class="card-body">
             <h2 class="card-title">
-              {{ pageNumber * pageSize + i + 1 + ". " + question.content }}
+              {{ pageNumber * pageSize + i + 1 + ". " + question.content }} 
             </h2>
+            <span> difficultyLevel : {{question.difficultyLevel}}</span>
+           
 
             <ol>
               <li
                 class="card-text mb-3"
                 [ngClass]="{
-                  'text-success fw-700':
-                    option.optionName === question.rightOption.optionName
+                  'text-success fw-700': setRightOptionOrNot(option ,question)
                 }"
                 *ngFor="let option of question.options; let i = index"
               >

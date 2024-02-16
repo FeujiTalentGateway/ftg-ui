@@ -9,6 +9,11 @@ import { MainHomeComponent } from './main-home/main-home.component';
 import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
 import { FooterComponent } from './footer/footer.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { OtpVerificationComponent } from './otp-verification/otp-verification.component';
+import { ResetPassowrdComponent } from './reset-passowrd/reset-passowrd.component';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -19,7 +24,10 @@ import { FooterComponent } from './footer/footer.component';
     AboutComponent,
     ContactComponent,
     FooterComponent,
+    ForgotPasswordComponent,
+    OtpVerificationComponent,
+    ResetPassowrdComponent,
   ],
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, HomeRoutingModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, HomeRoutingModule, MatIconModule, MatDialogModule],
 })
 export class  HomeModule {}

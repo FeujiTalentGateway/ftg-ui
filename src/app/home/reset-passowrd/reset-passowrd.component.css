@@ -1,0 +1,90 @@
+.welcome {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .welcome .welcome-back {
+    font-family: "Gilda Display";
+    font-size: 2rem;
+    font-style: normal;
+    font-weight: 100;
+    line-height: normal;
+  }
+  .welcome .project-name {
+    font-family: "Gurajada", sans-serif;
+    font-size: 3.5rem;
+    font-style: normal;
+    font-weight: bold;
+    line-height: normal;
+  }
+
+#eye {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    /* Adjust the distance from the right side */
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #bbb;
+}
+
+.input-fields {
+    font-size: 0.9rem;
+    line-height: 1.5rem;
+    /* border: 1px solid #f3752e; */
+    margin-bottom: 0.2rem;
+}
+
+.input-label {
+    font-size: 1rem;
+}
+
+.form-group .input-fields:focus {
+    border: 0px solid #f3752e;
+    outline: none;
+    box-shadow: 0 0 4px #414f57;
+}
+
+.text-danger {
+    font-size: 0.7rem;
+}
+
+/* Custom styles for the floating labels when input is focused */
+.login-link {
+    font-size: 80%;
+}
+
+a {
+    text-decoration: none;
+}
+
+.disabled-button {
+    cursor: not-allowed;
+    opacity: 0.8;
+}
+
+::placeholder {
+    color: #aaa;
+    /* Change to your desired color */
+}
+
+.input-container {
+    position: relative;
+}
+
+.input-fields {
+    margin-bottom:0px;
+    padding-right: 2rem;
+    /* Adjust the padding to ensure space for the icon */
+}
+
+.btn-custom {
+    color: white;
+    background-color: #f3752e;
+    border: none;
+    width: 25%;
+}
+.empty-space{
+    height: 24px;
+}

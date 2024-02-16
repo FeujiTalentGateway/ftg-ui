@@ -1,0 +1,15 @@
+<section  *ngIf="examTime$ | async as questions; else loading">
+  <div class="header">
+    <div class="sections">
+      <img src="../../../assets/images/feuji-logo1.png" alt="Feuji Logo" class="logo-image">
+    </div>
+    <div class="sections" >
+      <div class="sub-items">
+        <button class="btn btn-success btn-sm btn-custom" (click)="submitExam()">Submit</button>
+      </div>
+      <div class="sub-items">Time left :{{ countdownDisplay }}</div>
+      <div class="sub-items">username</div>
+    </div>
+  </div>
+</section>
+<ng-template #loading>Loading...</ng-template>

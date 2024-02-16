@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -10,26 +11,13 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {}
 
-  isHomePage(): boolean {
-    return this.router.isActive('/', true) && this.router.url === '/';
-  }
-
-  isAboutPage(): boolean {
-    return this.router.isActive('/about', true) && this.router.url === '/about';
-  }
-
-  isContactPage(): boolean {
-    return (
-      this.router.isActive('/contact', true) && this.router.url === '/contact'
-    );
-  }
   isSignupPage(): boolean {
-    return (
-      this.router.isActive('/register', true) && this.router.url === '/register'
-    );
+    return this.router.isActive('/main/register', true) && this.router.url === '/main/register';
   }
-
+  isHomePage(): boolean {
+    return this.router.isActive('/main/home', true) && this.router.url === '/main/home';
+  }
   isLoginPage(): boolean {
-    return this.router.isActive('/login', true) && this.router.url === '/login';
+    return this.router.isActive('/main/login', true) && this.router.url === '/main/login';
   }
 }

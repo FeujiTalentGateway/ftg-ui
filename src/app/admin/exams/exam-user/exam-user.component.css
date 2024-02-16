@@ -1,0 +1,35 @@
+.main{
+    margin: 10px;
+}
+
+.header {
+    background-color: #FFE2D1;
+    padding: 8px 0;
+    margin:10px 0 10px 0;
+}
+
+input[type="text"] {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 300px;
+    min-height:50px ;
+    height: 100%;
+}
+
+input[type="text"]:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+table {
+    width: 100%;
+}
+
+.header h1 {
+    color: #D87033;
+    font-weight: 600;
+    font-size: xx-large;
+    margin-bottom: 0;
+}

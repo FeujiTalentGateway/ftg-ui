@@ -1,0 +1,20 @@
+<section>
+  <div class="FlexContainer">
+    <div *ngFor="let exam of listOfExams" class="flex-item">
+      <div class="exam-card-header">
+        <div>
+          <button type="button" class="btn btn-outline-success btn-sm">
+            {{ getStatus(exam.active) }}
+          </button>
+        </div>
+        <div>Start Date : {{ formatDate(exam.startDate) }}</div>
+      </div>
+      <div class="exam-card-body">
+        <span class="exam-name">{{ exam.name }}</span>
+        <br />
+        {{ exam.description }}
+      </div>
+      <div class="exam-card-footer"></div>
+    </div>
+  </div>
+</section>

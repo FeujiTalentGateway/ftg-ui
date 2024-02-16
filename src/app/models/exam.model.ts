@@ -1,4 +1,5 @@
-import { Paper } from "./paper";
+import { ExamSubject } from "./examSubject";
+import { User } from "./user.model";
 
 
 export interface Exam {
@@ -10,7 +11,8 @@ export interface Exam {
     startDate: string;
     endDate: string;
     active: boolean;
-    paperDTO: Paper;
-    
+    created_at_ts: string;
+    examSubjects:ExamSubject[]
+    users: User[]
   }
   

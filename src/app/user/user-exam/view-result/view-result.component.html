@@ -1,0 +1,33 @@
+<section>
+  <div *ngIf="result$ | async as questions; else loadingTemplate">
+    {{ result?.exam_attempt_id }}
+    <div class="container">
+      <div class="heading"></div>
+      <div class="content">
+        <br />
+        <div *ngFor="let question of result?.results; index as i">
+          <p class="question-name">
+            {{ i + 1 }} &nbsp;&nbsp;{{ question.content }}
+          </p>
+
+          <ul>
+            <li *ngFor="let option of question.options; index as i">
+              <p
+                [class.text-incorrect]="
+                  option.id == question.selected_option_id
+                "
+                [class.text-correct]="option.id == question.correct_option_id"
+              >
+                {{ i + 1 }} &nbsp; {{ option.optionName }}
+              </p>
+            </li>
+          </ul>
+          <small>{{ getTheMassage(question) }}</small>
+        </div>
+      </div>
+      <div class="footer"></div>
+    </div>
+  </div>
+  <ng-template #loadingTemplate> Loading Result.........</ng-template>
+
+</section>

@@ -32,7 +32,7 @@
 
     <ng-container matColumnDef="serialNumber">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
-      <td mat-cell *matCellDef="let row">{{ row.serialNumber }}</td>
+      <td mat-cell *matCellDef="let i = index">{{ i + 1 }}</td>
     </ng-container>
 
     <!-- Name Column -->

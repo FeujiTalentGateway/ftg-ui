@@ -1,0 +1,7 @@
+<div *ngIf="Exam$ | async as exam; else loadingTemplate">
+  <!-- Your component content using the 'exam' array -->
+
+  <app-questions [exam]="exam"></app-questions>
+</div>
+
+<ng-template #loadingTemplate>Loading...</ng-template>

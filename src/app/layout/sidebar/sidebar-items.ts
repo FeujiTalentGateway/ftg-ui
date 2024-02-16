@@ -23,16 +23,7 @@ export const ROUTES: RouteInfo[] = [
     role: ['invigilator'],
     submenu: [],
   },
-  {
-    path: '',
-    title: 'ResultManagement',
-    modulename: 'ResultManagement',
-    iconType: 'father',
-    icon: 'fa-solid fa-square-poll-vertical',
-    class: 'menu-toggle',
-    role: ['invigilator'],
-    submenu: [],
-  },
+  
 
   //invigilator Module
 
@@ -46,6 +37,7 @@ export const ROUTES: RouteInfo[] = [
     role: ['invigilator'],
     submenu: [],
   },
+
 
   //User Modules
 
@@ -143,13 +135,56 @@ export const ROUTES: RouteInfo[] = [
   },
   {
     path: '',
+    title: 'Results',
+    modulename: 'ResultManagement',
+    iconType: 'father',
+    icon: 'fa-solid fa-square-poll-vertical',
+    class: 'menu-toggle',
+    role: ['invigilator','admin'],
+    submenu: [
+      {
+        path: '/admin/result/home',
+        title: 'Home',
+        modulename: 'exams',
+        iconType: '',
+        icon: '',
+        class: 'ml-menu',
+        role: [''],
+        submenu: [],
+      }
+
+    ],
+  },
+  {
+    path: '',
     title: 'My Exams',
     modulename: 'My Exams',
     iconType: 'father',
     icon: 'fa-solid fa-file-invoice',
     class: 'menu-toggle',
     role: ['user'],
-    submenu: [],
+    submenu: [
+      // {
+      //   path: '/user/exam/view-exam',
+      //   title: 'List of Exams',
+      //   modulename: 'users',
+      //   iconType: '',
+      //   icon: '',
+      //   class: 'ml-menu',
+      //   role: [''],
+      //   submenu: [],
+      // },
+      {
+        path: '/user/exam/exam-code',
+        title: 'Take-exam',
+        modulename: 'users',
+        iconType: '',
+        icon: '',
+        class: 'ml-menu',
+        role: [''],
+        submenu: [],
+      },
+    ],
   },
   {
     path: '',

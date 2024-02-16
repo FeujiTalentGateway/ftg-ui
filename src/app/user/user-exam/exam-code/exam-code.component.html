@@ -1,0 +1,41 @@
+<section>
+  <div class="container">
+    <form #examForm="ngForm" (ngSubmit)="submitForm()">
+      <label for="examCode" class="heading-text">Exam Code:</label>
+      <div class="form-group">
+        <input
+          type="text"
+          id="examCode"
+          name="examCode"
+          [(ngModel)]="examCode"
+          #examCodeInput="ngModel"
+          required
+          class="input-box"
+          placeholder="Please enter the Exam code "
+        />
+
+        <div
+          *ngIf="
+            examCodeInput.invalid &&
+            (examCodeInput.dirty || examCodeInput.touched)
+          "
+        >
+          <small
+            class="text-danger"
+            *ngIf="examCodeInput.errors && examCodeInput.errors['required']"
+          >
+            Exam Code is required.
+          </small>
+        </div>
+      </div>
+
+      <button
+        type="submit"
+        [disabled]="examForm.invalid"
+        class="btn btn-primary submit-button global-background-color global-white-color"
+      >
+        Submit
+      </button>
+    </form>
+  </div>
+</section>

@@ -8,7 +8,6 @@ import { FormsModule } from '@angular/forms';
 import { ExamInstructionsComponent } from './exam-instructions/exam-instructions.component';
 import { ExamComponent } from './exam/exam.component';
 import { QuestionsComponent } from './questions/questions.component';
-import { TimeFormatPipe } from 'src/app/pips/time-format.pipe';
 import { ViewResultComponent } from './view-result/view-result.component';
 import { ExamSubmittedComponent } from './exam-submitted/exam-submitted.component';
 import { ResultChartComponent } from './result-chart/result-chart.component';
@@ -22,7 +21,6 @@ import { RemoveInspectComponent } from './remove-inspect/remove-inspect.componen
     ExamInstructionsComponent,
     ExamComponent,
     QuestionsComponent,
-    TimeFormatPipe,
     ViewResultComponent,
     ExamSubmittedComponent,
     ResultChartComponent,

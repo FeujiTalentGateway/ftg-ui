@@ -5,11 +5,15 @@ import { Exam } from '../models/exam.model';
 import { Paper } from '../models/paper';
 import { OptionAttempt } from '../models/option.attempt';
 import { ViewResult } from '../models/view-reult';
+import { ExamStatsModel } from '../models/exam.stats.model';
+import { UsersResult } from '../models/users.result.model';
+import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ExamService {
+  
   examUrl: string = ' http://127.0.0.1:8000/';
   javaExamUrl: string = 'http://localhost:8093/exam';
   constructor(private http: HttpClient) {}
@@ -33,16 +37,23 @@ export class ExamService {
   getStaticExamData(): Observable<any[]> {
     return this.http.get<any[]>('/assets/static_data/listOfExams.json');
   }
-  // getExamData(): Observable<any[]> {
-  //   return this.http.get<any[]>('/assets/static_data/listOfExams.json');
-  // }
 
-
-  getExamById():Observable<Exam>{
-    return this.http.get<Exam>('')
+  getExamData(examCode :string): Observable<Exam> {
+    const url = `${this.javaExamUrl}/code/${examCode}/`;
+    return this.http.get<Exam>(url);
   }
+  getAllExamData(): Observable<Exam[]> {
+    const url = `${this.javaExamUrl}/`;
+    return this.http.get<Exam[]>(url);
+  }
+
+
+  
   getStaticExamById():Observable<Exam>{
     return this.http.get<Exam>('/assets/static_data/ExamData.json')
+  }
+  getExamById(examCode: string):Observable<Exam>{
+    return this.http.get<Exam>(`${this.javaExamUrl}/code/${examCode}`)
   }
 
 
@@ -71,6 +82,23 @@ export class ExamService {
 
  checkStaticExamByCode(examCode: string){
 
+  
  }
+
+ getStaticExamStatsByExamCode(examCode: string): Observable<ExamStatsModel>{
+  return this.http.get<ExamStatsModel>('/assets/static_data/ExamStatsData.json')
+  
+
+ }
+ getExamStatsByExamCode(examCode: string): Observable<ExamStatsModel>{
+  return this.http.get<ExamStatsModel>(``)
+  
+ }
+
+ getStaticUserResults(examCode: string):Observable<UsersResult[]>{
+  return this.http.get<UsersResult[]>('/assets/static_data/UsersResult.json')
+
+ }
+ 
 
 }

@@ -30,8 +30,7 @@ export class ExamsPageComponent {
   }
  
   ngOnInit(): void {
-    this.getExams()
-    this.listOfExams$ = this.examService.getStaticExamData()
+    this.listOfExams$ = this.examService.getAllExamData()
     this.listOfExams$.subscribe(
       (response)=>{
         this.listOfExams = response
@@ -44,35 +43,19 @@ export class ExamsPageComponent {
     
   }
 
-
-  getExams(){
-    // this.examService.getExams().subscribe(
-    //   (response)=>{
-    //     console.log(response)
-    //     // this.listOfExams = response.body
-    //     this.listOfExams = this.listOfExams.concat(response.body)
-    //   },
-    //   (error)=>{
-    //     console.error("error",error)
-    //     this.errorService.httpErrorHandler(error)
-    //   }
-
-    // )
-}
 formatDate(date :string){
   return new Date(date).toDateString();
 }
 getStatus(status: boolean){
   return  status ?"ACTIVE":'INACTIVE';
 }
-
 ngOnDestroy(): void {
   
 }
 viewResultByExamId(examCode : string){
   console.log(examCode);
   this.route.navigate(['admin/result/summary',examCode])
-  
+
 
 }
 }

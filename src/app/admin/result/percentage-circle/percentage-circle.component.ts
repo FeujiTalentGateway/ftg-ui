@@ -6,26 +6,14 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./percentage-circle.component.css']
 })
 export class PercentageCircleComponent implements OnInit {
-  @Input() percentage: number = 20;
-  @Input() color: string = '#4caf50'; // Change color as desired
-  @Input() strokeWidth: number = 10;
-
-  circumference: number = Math.PI * 180; // Circumference for radius 90 (180 is diameter)
+  @Input() percentage: number = 0;
+  @Input() totalAssignedUsers: number = 0;
+  circumference: number = Math.PI * 180; 
   offset: number = this.circumference;
 
   constructor() { }
 
   ngOnInit(): void {
-    this.updateProgress();
   }
 
-  private updateProgress(): void {
-    const progress = this.percentage / 100;
-    this.offset = this.circumference * (1 - progress);
-  }
-  setPercentage(percentage: number): void {
-    this.percentage = percentage;
-    this.updateProgress(); // Update progress when percentage changes
-  }
 }
-

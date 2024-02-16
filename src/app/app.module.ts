@@ -28,6 +28,7 @@ import { TimeFormatPipe } from './pips/time-format.pipe';
     ConfirmationDialogComponent,
     UserExamLayoutComponent,
     ExamHeaderComponent,
+    TimeFormatPipe
   ],
   imports: [
     BrowserModule,

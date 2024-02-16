@@ -18,6 +18,7 @@ import { SidebarComponent } from './layout/sidebar/sidebar.component';
 import { SharedDataService } from './services/shared-data.service';
 import { ConfirmationDialogComponent } from './utils/confirmation-dialog/confirmation-dialog.component';
 
+import { ExamHeaderComponent } from './layout/exam-header/exam-header.component';
 import { SharedModuleModule } from './shared-module/shared-module.module';
 ring.register();
 
@@ -30,6 +31,7 @@ ring.register();
     SidebarComponent,
     ConfirmationDialogComponent,
     UserExamLayoutComponent,
+    ExamHeaderComponent,
   ],
   imports: [
     BrowserModule,

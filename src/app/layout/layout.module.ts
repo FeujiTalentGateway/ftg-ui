@@ -1,7 +1,7 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LayoutRouterModule } from './layout-router.module';
+import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { LayoutRouterModule } from './layout-router.module';
 
 @NgModule({
   declarations: [],

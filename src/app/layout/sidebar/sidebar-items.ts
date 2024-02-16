@@ -23,16 +23,7 @@ export const ROUTES: RouteInfo[] = [
     role: ['invigilator'],
     submenu: [],
   },
-  {
-    path: '',
-    title: 'ResultManagement',
-    modulename: 'ResultManagement',
-    iconType: 'father',
-    icon: 'fa-solid fa-square-poll-vertical',
-    class: 'menu-toggle',
-    role: ['invigilator'],
-    submenu: [],
-  },
+  
 
   //invigilator Module
 
@@ -46,6 +37,7 @@ export const ROUTES: RouteInfo[] = [
     role: ['invigilator'],
     submenu: [],
   },
+
 
   //User Modules
 
@@ -139,6 +131,28 @@ export const ROUTES: RouteInfo[] = [
         role: [''],
         submenu: [],
       },
+    ],
+  },
+  {
+    path: '',
+    title: 'Results',
+    modulename: 'ResultManagement',
+    iconType: 'father',
+    icon: 'fa-solid fa-square-poll-vertical',
+    class: 'menu-toggle',
+    role: ['invigilator','admin'],
+    submenu: [
+      {
+        path: '/admin/result/home',
+        title: 'Home',
+        modulename: 'exams',
+        iconType: '',
+        icon: '',
+        class: 'ml-menu',
+        role: [''],
+        submenu: [],
+      }
+
     ],
   },
   {

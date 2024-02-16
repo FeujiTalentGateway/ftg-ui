@@ -11,8 +11,8 @@ export interface Exam {
     startDate: string;
     endDate: string;
     active: boolean;
-  created_at_ts: string;
-  users:User[]
+    created_at_ts: string;
     examSubjects:ExamSubject[]
+    users: User[]
   }
   

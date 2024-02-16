@@ -13,6 +13,7 @@ import { ViewResultComponent } from './view-result/view-result.component';
 import { ExamSubmittedComponent } from './exam-submitted/exam-submitted.component';
 import { ResultChartComponent } from './result-chart/result-chart.component';
 import { RemoveInspectComponent } from './remove-inspect/remove-inspect.component';
+import { SharedModuleModule } from 'src/app/shared-module/shared-module.module';
 
 
 @NgModule({
@@ -22,7 +23,6 @@ import { RemoveInspectComponent } from './remove-inspect/remove-inspect.componen
     ExamInstructionsComponent,
     ExamComponent,
     QuestionsComponent,
-    TimeFormatPipe,
     ViewResultComponent,
     ExamSubmittedComponent,
     ResultChartComponent,
@@ -31,7 +31,8 @@ import { RemoveInspectComponent } from './remove-inspect/remove-inspect.componen
   imports: [
     CommonModule,
     UserExamRoutingModule,
-    FormsModule
+    FormsModule,
+    SharedModuleModule
   ]
 })
 export class UserExamModule { }

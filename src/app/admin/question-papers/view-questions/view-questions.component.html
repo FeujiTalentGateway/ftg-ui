@@ -34,8 +34,10 @@
         <div class="card">
           <div class="card-body">
             <h2 class="card-title">
-              {{ pageNumber * pageSize + i + 1 + ". " + question.content }}
+              {{ pageNumber * pageSize + i + 1 + ". " + question.content }} 
             </h2>
+            <span> difficultyLevel : {{question.difficultyLevel}}</span>
+           
 
             <ol>
               <li

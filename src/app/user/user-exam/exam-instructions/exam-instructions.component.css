@@ -30,6 +30,7 @@ ul > li{
   font-family: 'Regular' !important;
   padding: 5px;
   list-style: disc;
+  /* list-style: none; */
 }
 .time{
   color: var(--primary-color);
@@ -45,4 +46,7 @@ ul > li{
   background-color: var( --primary-color) !important; 
   border: 1px solid var(--primary-color);
   color: black;
+}
+.subject-table{
+  margin:0% 10%;
 }

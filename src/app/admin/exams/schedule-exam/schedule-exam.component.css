@@ -1,54 +1,74 @@
-
-.header{
+.header {
   margin-top: 10px;
-  background-color: #FFE2D1;
+  background-color: #ffe2d1;
 }
-.header h1{
-  color: #D87033;
+.header h1 {
+  color: #d87033;
   font-weight: 600;
-  font-size: xx-large;
-  padding: .5rem 1rem;
+  font-size: x-large;
+  padding: 0.5rem 1rem;
 }
- .schedule-exam-form {
-   background-color: rgb(241, 243, 245);
-   margin: auto;
-   margin-bottom: 10px;
-   margin-top: 10px;
-   padding: 1rem .3rem;
- }
- 
+.schedule-exam-form {
+  background-color: rgb(241, 243, 245);
+  margin: auto;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  padding: 1rem 0.3rem 0.1rem 0.3rem;
+}
+
 .exam-table .header-cell {
-    background-color: #FFE2D1; 
-  }
-  
-  
-  .schedule-exam-form form{
-    margin: -1px 20px 15px 25px; 
-  }
-  
-  .exam-form {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-gap: 10px;
-    margin-top: 20px;
-  }
-  
-  .form-control {
-    width: 100%;
-    padding: 8px;
-  }
-  
-  .form-checkbox {
-    margin-top: 5px;
-  }
-  
-  .error-msg {
-    color: red;
-    font-size: 12px;
-    margin-top: 5px;
-  }
-  
-  
-  
-  
-  
+  background-color: #ffe2d1;
+}
+
+.schedule-exam-form form {
+  margin: -1px 20px 2px 25px;
+}
+
+.exam-form {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 10px;
+  margin-top: 20px;
+}
+
+.form-control {
+  width: 100%;
+  padding: 8px;
+}
+
+.form-checkbox {
+  margin-top: 5px;
+}
+
+.error-msg {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+}
+.exam-subject-item {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 0.3fr;
+  gap: 0.5rem;
+}
+.remove-subject {
+  margin-top: 30%;
+  height: 70%;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem 0.5rem;
+}
+.active {
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+}
+.add-user {
+  width: 20%;
+}
+
+.sub-duration {
+  /* height: 170%; */
+  border: none;
+}

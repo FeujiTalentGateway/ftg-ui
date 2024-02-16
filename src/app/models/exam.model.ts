@@ -1,5 +1,7 @@
 import { ExamSubject } from "./examSubject";
 import { User } from "./user.model";
+
+
 export interface Exam {
     id:Number;
     name: string;
@@ -9,7 +11,7 @@ export interface Exam {
     startDate: string;
     endDate: string;
     active: boolean;
-    created_at_ts:string;
+    created_at_ts: string;
     examSubjects:ExamSubject[]
     users: User[]
   }

@@ -17,7 +17,10 @@ import { TokenInterceptor } from './TokenInterceptor/token.interceptor';
 import { UserExamLayoutComponent } from './layout/app-layout/user-exam-layout/user-exam-layout.component';
 import { ExamHeaderComponent } from './layout/exam-header/exam-header.component';
 import { SharedDataService } from './services/shared-data.service';
+import { ring } from 'ldrs';
 import { TimeFormatPipe } from './pips/time-format.pipe';
+ring.register();
+
 @NgModule({
   declarations: [
     AppComponent,

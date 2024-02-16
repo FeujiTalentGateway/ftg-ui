@@ -6,12 +6,14 @@ import { AdminHomeComponent } from './admin-home/admin-home.component';
 import { HomeComponent } from './home/home.component';
 
 
+
 @NgModule({
   declarations: [
 
   
     AdminHomeComponent,
-    HomeComponent
+    HomeComponent,
+    
   ],
   imports: [
     CommonModule,

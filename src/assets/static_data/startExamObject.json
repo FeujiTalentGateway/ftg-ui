@@ -1,0 +1,40 @@
+{
+    "message": "Success",
+    "question": {
+        "id": 7,
+        "content": "what is list in python",
+        "questionType": "multiple choice",
+        "codeSnippet": null,
+        "active": true,
+        "difficultyLevel": 2,
+        "subject": {
+            "id": 1,
+            "name": "Python",
+            "active": true
+        },
+        "rightOptions": null,
+        "options": [
+            {
+                "id": 11,
+                "optionName": "array",
+                "active": true
+            },
+            {
+                "id": 20,
+                "optionName": "list",
+                "active": true
+            },
+            {
+                "id": 10,
+                "optionName": "class",
+                "active": true
+            },
+            {
+                "id": 21,
+                "optionName": "function",
+                "active": true
+            }
+        ]
+    },
+    "attemptId": 13
+}

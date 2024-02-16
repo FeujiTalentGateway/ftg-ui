@@ -9,20 +9,21 @@ import { AddEditSubjectComponent } from './add-edit-subject/add-edit-subject.com
 import { ExamUserComponent } from './exam-user/exam-user.component';
 import { ViewSubjectsComponent } from './view-subjects/view-subjects.component';
 
-
 const routes: Routes = [
   { path: 'scheduleExam', component: ScheduleExamComponent },
   { path: 'viewExams', component: ViewExamsComponent },
   { path: 'viewSubjects', component: ViewSubjectsComponent },
   { path: 'addEditSubject', component: AddEditSubjectComponent },
-  { path: 'exam-users', component: ExamUserComponent }
+  { path: 'exam-users', component: ExamUserComponent },
+  {
+    path: 'scheduleExam/:id',
+    component: ScheduleExamComponent,
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
-  providers: [
-    DatePipe
-  ],
+  providers: [DatePipe],
 })
-export class ExamsRoutingModule { }
+export class ExamsRoutingModule {}

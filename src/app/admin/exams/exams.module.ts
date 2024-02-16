@@ -1,12 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
-import { ExamsRoutingModule } from './exams-routing.module';
-import { ScheduleExamComponent } from './schedule-exam/schedule-exam.component';
-import { ViewExamsComponent } from './view-exams/view-exams.component';
-
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -23,6 +20,10 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { AddEditSubjectComponent } from './add-edit-subject/add-edit-subject.component';
 import { TruncatePipe } from './custom-pipes/truncate.pipe';
 import { ExamUserComponent } from './exam-user/exam-user.component';
+import { ExamsRoutingModule } from './exams-routing.module';
+import { ScheduleExamComponent } from './schedule-exam/schedule-exam.component';
+import { ViewExamDetailComponent } from './view-exam-detail/view-exam-detail.component';
+import { ViewExamsComponent } from './view-exams/view-exams.component';
 import { ViewSubjectsComponent } from './view-subjects/view-subjects.component';
 
 @NgModule({
@@ -32,7 +33,8 @@ import { ViewSubjectsComponent } from './view-subjects/view-subjects.component';
     TruncatePipe,
     AddEditSubjectComponent,
     ViewSubjectsComponent,
-    ExamUserComponent
+    ExamUserComponent,
+    ViewExamDetailComponent,
   ],
   imports: [
     CommonModule,
@@ -53,6 +55,7 @@ import { ViewSubjectsComponent } from './view-subjects/view-subjects.component';
     MatIconModule,
     MatSlideToggleModule,
     MatTooltipModule,
+    MatCardModule,
   ],
 })
 export class ExamsModule {}

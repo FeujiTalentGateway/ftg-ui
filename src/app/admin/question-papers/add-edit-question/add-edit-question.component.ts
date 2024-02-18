@@ -21,7 +21,7 @@ export class AddEditQuestionComponent implements OnInit {
     subject: { id: 0, name: '', active: true },
     rightOptions: [],
     options: [],
-    optionSelected: []
+    optionSelected: [],
   };
 
   difficultLevelList: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
@@ -110,7 +110,7 @@ export class AddEditQuestionComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.questionForm);
+    console.log(this.questionForm.value);
     console.log(this.questionForm.value.content);
     this.isFormSubmitted = false;
     if (this.questionForm.valid && this.question.rightOptions?.length != 0) {
@@ -161,7 +161,6 @@ export class AddEditQuestionComponent implements OnInit {
   }
   removeOption(id: number) {
     this.OptionsArray.removeAt(id);
-    
   }
   editQuestion(quesion: Question) {
     this.editableQuestionId = quesion.id;
@@ -208,14 +207,13 @@ export class AddEditQuestionComponent implements OnInit {
     }
     console.log(this.question.rightOptions);
   }
-  getRightOrnot(option:any):Boolean{
+  getRightOrnot(option: any): Boolean {
     const index = this.question.rightOptions?.findIndex(
       (opt) => opt.optionName === option.value
     );
-    if (index !=-1){
-      return true
+    if (index != -1) {
+      return true;
     }
-    return false
-    
+    return false;
   }
 }

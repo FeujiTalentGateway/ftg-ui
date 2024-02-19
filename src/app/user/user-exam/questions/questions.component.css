@@ -1,5 +1,5 @@
 .container {
-  margin-top: 30px;
+  margin-top: 15px;
   width: 90%;
   height: auto;
   background-color: #fff;
@@ -27,7 +27,7 @@ h5 {
 }
 .footer {
   display: flex;
-  padding: 20px;
+  /* padding: 20px; */
   justify-content: space-around;
 }
 .btn-custom {
@@ -35,7 +35,7 @@ h5 {
   border: 1px solid #0bc279;
 }
 .subject-name{
-    margin: -18px 0px ;
+    margin: 10px 0px 0px 0px;
     text-align: center;
     font-family: 'Bold';
 }

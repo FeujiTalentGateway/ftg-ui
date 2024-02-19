@@ -145,11 +145,11 @@ export class ExamHeaderComponent {
       '00000000000000000000000000'
     );
     this.examService
-      .submitExam(this.examAttemptId as number, this.examCode as string)
+      .submitExam(this.examAttemptId as number)
       .subscribe(
         (response) => {
-          let url = `/user/exam/exam-submitted/${this.examCode}/${this.examAttemptId}`;
-          this.router.navigateByUrl(url);
+          // let url = `/user/exam/exam-submitted/${this.examCode}/${this.examAttemptId}`;
+          this.router.navigateByUrl('/user/home');
         },
         (error) => {}
       );

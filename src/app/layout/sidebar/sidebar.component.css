@@ -1,6 +1,7 @@
 .side-nav {
     height: 100vh;
     background-color: #ffe1d1;
+    /* overflow-y: auto; */
   }
 
 
@@ -13,7 +14,8 @@
   width: inherit;
 }
 .nav-item{
-  margin: 0.6rem;
+  /* margin: 0.6rem; */
+  margin-top: 0.5rem;
   width: inherit;
   text-align: left;
   padding: 8px;
@@ -48,6 +50,9 @@
 }
 .sub{
   list-style: none;
+  margin-left: -10px;
+  margin-bottom: 0px;
+  font-family: 'Regular';
 
 }
 .sub li{

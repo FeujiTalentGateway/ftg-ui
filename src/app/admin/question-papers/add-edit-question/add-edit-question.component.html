@@ -74,7 +74,7 @@
         /> <span *ngIf="OptionsArray.length>4" class="p-button" (click)="removeOption(i)">--</span> -->
         <label for="{{ i }}">Option {{ i + 1 }}</label>
         <div class="input-group">
-          <span *ngIf="this.questionType == 'multiple choices '">
+          <span *ngIf="this.questionType == 'multiple choices'">
             <input
               type="checkbox"
               name=""
@@ -263,7 +263,7 @@
         </button>
         <button
           type="button"
-          class="btn btn-primary"
+          class="btn btn-success"
           (click)="editQuestionAfterConfirmation()"
         >
           Yes

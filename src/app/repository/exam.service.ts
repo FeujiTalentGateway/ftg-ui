@@ -7,14 +7,12 @@ import { OptionAttempt } from '../models/option.attempt';
 import { ViewResult } from '../models/view-reult';
 import { ExamStatsModel } from '../models/exam.stats.model';
 import { UsersResult } from '../models/users.result.model';
-import { User } from '../models/user.model';
 import { Question } from '../models/question';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ExamService {
-  
   examUrl: string = ' http://127.0.0.1:8000/';
   javaExamUrl: string = 'http://localhost:8093/exam';
   constructor(private http: HttpClient) {}
@@ -32,17 +30,15 @@ export class ExamService {
     return this.http.get(url, { params });
   }
 
-  
   getStaticData(): Observable<any[]> {
     return this.http.get<any[]>('/assets/static_data/listOfExams.json');
   }
-
 
   getStaticExamData(): Observable<any[]> {
     return this.http.get<any[]>('/assets/static_data/listOfExams.json');
   }
 
-  getExamData(examCode :string): Observable<Exam> {
+  getExamData(examCode: string): Observable<Exam> {
     const url = `${this.javaExamUrl}/code/${examCode}/`;
     return this.http.get<Exam>(url);
   }
@@ -51,15 +47,12 @@ export class ExamService {
     return this.http.get<Exam[]>(url);
   }
 
-
-  
-  getStaticExamById():Observable<Exam>{
-    return this.http.get<Exam>('/assets/static_data/ExamData.json')
+  getStaticExamById(): Observable<Exam> {
+    return this.http.get<Exam>('/assets/static_data/ExamData.json');
   }
-  getExamById(examCode: string):Observable<Exam>{
-    return this.http.get<Exam>(`${this.javaExamUrl}/code/${examCode}`)
+  getExamById(examCode: string): Observable<Exam> {
+    return this.http.get<Exam>(`${this.javaExamUrl}/code/${examCode}`);
   }
-
 
   getStaticQuestionPaper(): Observable<Paper> {
     return this.http.get<Paper>('/assets/static_data/paper.json');
@@ -77,13 +70,14 @@ export class ExamService {
       data
     );
   }
-  submitExam(
-    examAttemptId: number,
-    examCode: string
-  ): Observable<HttpResponse<any>> {
+  submitExam(attemptID: number): Observable<HttpResponse<any>> {
+    let data = {
+      attemptId: attemptID,
+      endDate: new Date().toISOString().slice(0, 23),
+    }
     return this.http.post<HttpResponse<any>>(
-      `${this.examUrl}exam/submit-exam/${examCode}/${examAttemptId}/`,
-      {}
+      `${this.javaExamUrl}/submit`,
+     data
     );
   }
   getResult(examAttemptId: string, examCode: string): Observable<ViewResult> {
@@ -100,23 +94,18 @@ export class ExamService {
     return this.http.get<Exam>('/assets/static_data/ExamDataObject.json');
   }
 
-  
+  getStaticExamStatsByExamCode(examCode: string): Observable<ExamStatsModel> {
+    return this.http.get<ExamStatsModel>(
+      '/assets/static_data/ExamStatsData.json'
+    );
+  }
+  getExamStatsByExamCode(examCode: string): Observable<ExamStatsModel> {
+    return this.http.get<ExamStatsModel>(``);
+  }
 
- getStaticExamStatsByExamCode(examCode: string): Observable<ExamStatsModel>{
-  return this.http.get<ExamStatsModel>('/assets/static_data/ExamStatsData.json')
-  
-
- }
- getExamStatsByExamCode(examCode: string): Observable<ExamStatsModel>{
-  return this.http.get<ExamStatsModel>(``)
-  
- }
-
- getStaticUserResults(examCode: string):Observable<UsersResult[]>{
-  return this.http.get<UsersResult[]>('/assets/static_data/UsersResult.json')
-
- }
- 
+  getStaticUserResults(examCode: string): Observable<UsersResult[]> {
+    return this.http.get<UsersResult[]>('/assets/static_data/UsersResult.json');
+  }
 
   getExamByCode(examCode: string): Observable<Exam> {
     const url = `${this.javaExamUrl}/code/${examCode}`;
@@ -138,15 +127,15 @@ export class ExamService {
   submitStaticQuestion(question: Question | undefined): Observable<Question> {
     return this.http.get<Question>('/assets/static_data/QuestionData.json');
   }
-  submitQuestion(question: Question | undefined): Observable<Question> {
-    return this.http.post<Question>('', question);
+  submitQuestion(question: any | undefined): Observable<Question> {
+    return this.http.post<Question>(
+      `${this.javaExamUrl}/next-question`,
+      question
+    );
   }
 
   checkExamAvailableForUserOrNot(examCode: string): Observable<any> {
-    return this.http.post<any>(
-      `${this.javaExamUrl}/validate/${examCode}`,
-      {}
-    );
+    return this.http.post<any>(`${this.javaExamUrl}/validate/${examCode}`, {});
   }
   startStaticExam(
     examCode: string,
@@ -156,10 +145,10 @@ export class ExamService {
     let data = {
       examCode: examCode,
       difficulty: difficulty,
-      startDate:new Date().toISOString().slice(0, 23),
+      startDate: new Date().toISOString().slice(0, 23),
       subjectId: subjectId,
     };
-    console.log(data,"=====================================================");
+    console.log(data, '=====================================================');
 
     return this.http.get<any>('/assets/static_data/startExamObject.json');
   }
@@ -167,17 +156,23 @@ export class ExamService {
   startExam(
     examCode: string,
     difficulty: number,
-    startDate: string,
     subjectId: Number
   ): Observable<any> {
     let data = {
       examCode: examCode,
       difficulty: difficulty,
-      startDate: Date().toString(),
+      startDate: new Date().toISOString().slice(0, 23),
       subjectId: subjectId,
     };
     console.log(data);
 
-    return this.http.post<any>(`${this.javaExamUrl}`, data);
+    return this.http.post<any>(`${this.javaExamUrl}/start/question`, data);
+  }
+
+  changeSubjectAndGetFirstQuestion(question: any): Observable<Question> {
+    return this.http.post<Question>(
+      `${this.javaExamUrl}/change-subject`,
+      question
+    );
   }
 }

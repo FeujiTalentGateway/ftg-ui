@@ -110,3 +110,25 @@
     display: flex;
     justify-content: space-between;
   }
+  .timer-content {
+    overflow: hidden; /* Ensures that content doesn't overflow */
+}
+
+.subject1,
+.subject2,
+.subject3 {
+    display: flex;
+    flex-wrap: wrap; /* Allows items to wrap within the container */
+    align-items: center;
+    margin-top: 10px;
+    margin-bottom: 10px; /* Add margin bottom for spacing */
+}
+.col-md-6{
+    overflow: hidden;
+}
+
+  @media (max-width: 900px) {
+    .col-md-6 {
+        width: 100%;
+    }
+}

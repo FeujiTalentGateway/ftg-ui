@@ -31,16 +31,6 @@ export class ExamsPageComponent {
  
   ngOnInit(): void {
     this.listOfExams$ = this.examService.getAllExamData()
-    this.listOfExams$.subscribe(
-      (response)=>{
-        this.listOfExams = response
-      },
-      (error)=>{
-        console.log('error');
-        
-      }
-    )
-    
   }
 
 formatDate(date :string){

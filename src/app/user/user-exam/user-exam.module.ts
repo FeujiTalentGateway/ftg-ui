@@ -14,6 +14,7 @@ import { UserExamRoutingModule } from './user-exam-routing.module';
 import { ViewExamsComponent } from './view-exams/view-exams.component';
 import { ViewResultComponent } from './view-result/view-result.component';
 
+
 @NgModule({
   declarations: [
     ViewExamsComponent,

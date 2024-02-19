@@ -36,9 +36,9 @@ export class UsersResultComponent implements OnInit {
 
   ngOnInit() {
     this.examCode = this.activatedRoute.snapshot.paramMap.get('examCode') as string;
-    this.userId =  this.activatedRoute.snapshot.paramMap.get('userId') as number | null | undefined;
-    this.examObject$ = this.examService.getStaticExamById();
-    this.usersResult$ = this.examService.getStaticUserResults(this.examCode as string);
+    this.userId =  this.activatedRoute.snapshot.paramMap.get('userId') as number | null | undefined; 
+    this.examObject$ = this.examService.getExamById(this.examCode);
+    this.usersResult$ = this.examService.getUserResults(this.examCode as string);
     this.usersResult$.subscribe(
       (response: UsersResult[]) => {
         this.dataSource = new MatTableDataSource<UsersResult>(response);
@@ -74,7 +74,7 @@ export class UsersResultComponent implements OnInit {
   }
   getStatusButtonClass(status: string): string {
     switch (status) {
-      case 'Completed':
+      case 'completed':
         return 'status-button completed';
       case 'In Progress':
         return 'status-button in-progress';
@@ -84,8 +84,19 @@ export class UsersResultComponent implements OnInit {
         return 'status-button';
     }
   }
-  navigateToDetailedUserResult(){
-    this.router.navigate(['admin/result/detailed-users-result',this.examCode,this.userId])
+  
+  navigateToDetailedUserResult(userId: any){
+    console.log(userId);
+    this.router.navigate(['admin/result/detailed-user-result',this.examCode,userId])
   }
 
+  getStatus(status: string): boolean {
+    switch (status) {
+      case 'completed':
+        return true;
+      default:
+          return false;
+    }
+
+}
 }

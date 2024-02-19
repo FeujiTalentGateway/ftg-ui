@@ -20,7 +20,6 @@ import { SharedDataService } from './services/shared-data.service';
 import { ConfirmationDialogComponent } from './utils/confirmation-dialog/confirmation-dialog.component';
 
 import { SharedModuleModule } from './shared-module/shared-module.module';
-ring.register();
 
 @NgModule({
   declarations: [

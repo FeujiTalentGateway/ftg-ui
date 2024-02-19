@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subscription, interval } from 'rxjs';
+import { ExamSubject } from 'src/app/models/examSubject';
 import { Paper } from 'src/app/models/paper';
 import { ExamService } from 'src/app/repository/exam.service';
 import { SharedDataService } from 'src/app/services/shared-data.service';
@@ -18,6 +19,10 @@ export class ExamHeaderComponent {
   countdownDisplay: string = '';
   private countdownSubscription: Subscription | undefined;
   examAttempt$: Observable<any> | undefined;
+  currentSubjects$: Observable<ExamSubject[]> | undefined;
+  updateSubjectIndex$: Observable<number> | undefined;
+  updateSubjectIndex: number = 0;
+  currentSubjects: ExamSubject[] = [];
   examAttemptId?: number;
   examCode: string | null = null;
 
@@ -31,9 +36,11 @@ export class ExamHeaderComponent {
   ngOnInit() {
     this.examTime$ = this.sharedService.examTime$;
     this.examAttempt$ = this.sharedService.examAttempt$;
+    this.currentSubjects$ = this.sharedService.currentExamSubjects$;
+    this.updateSubjectIndex$ = this.sharedService.indexPositionOfSubject$;
+
     if (this.examTime$ != null) {
       this.examTime$.subscribe((response) => {
-        console.log(response);
         if (response != null) {
           this.examTime = response.exam_time;
           this.examCode = response.examCode;
@@ -44,21 +51,29 @@ export class ExamHeaderComponent {
     }
     if (this.examAttempt$ != null) {
       this.examAttempt$.subscribe((response) => {
-        console.log(response);
         this.examAttemptId = response;
 
         // if (response != null) {
         //   this.examAttemptId = response.exam_attempt_id;
-        //   console.log(this.examAttemptId);
         // }
       });
     }
+
+    if (this.currentSubjects$ != null) {
+      this.currentSubjects$.subscribe((response) => {
+        this.currentSubjects = response;
+      });
+    }
+    this.updateSubjectIndex$.subscribe((response) => {
+      this.updateSubjectIndex = response;
+    });
   }
   setCountDownValue() {
     this.countdownDuration = this.getTime(this.examTime); // 20 minutes and 20 seconds in seconds
   }
 
   private startCountdown() {
+    this.countdownSubscription?.unsubscribe();
     this.countdownSubscription = interval(1000).subscribe(() => {
       this.countdownDuration--;
 
@@ -66,8 +81,20 @@ export class ExamHeaderComponent {
         this.updateCountdownDisplay();
       } else {
         this.countdownSubscription?.unsubscribe();
-        console.log('Countdown reached zero!');
-        this.submitExam()
+
+        if (
+          this.updateSubjectIndex <
+          (this.currentSubjects?.length as number) - 1
+        ) {
+          this.updateSubjectIndex += 1;
+          this.examTime =
+            this.currentSubjects[this.updateSubjectIndex].duration;
+          this.setCountDownValue();
+          this.startCountdown();
+          this.sharedService.updateSubjectIndex(this.updateSubjectIndex);
+        } else {
+          this.submitExam();
+        }
       }
     });
   }
@@ -98,12 +125,14 @@ export class ExamHeaderComponent {
     const seconds = parseInt(timeArray[2], 10);
 
     if (hours > 0) {
-      console.log(time);
       time += hours * 60 * 60;
     }
 
     if (minutes > 0) {
       time += minutes * 60;
+    }
+    if (seconds > 0) {
+      time += seconds;
     }
 
     return time;
@@ -113,22 +142,12 @@ export class ExamHeaderComponent {
     console.log(
       this.examAttemptId,
       this.examCode,
-      '00000000000000000000000000'
     );
-
-    this.examService
-      .submitExam(this.examAttemptId as number, this.examCode as string)
-      .subscribe(
-        (response) => {
-          console.log(response);
-          let url  = `/user/exam/exam-submitted/${this.examCode}/${this.examAttemptId}`
-          this.router.navigateByUrl(url);
-        },
-        (error) => {}
-      );
+    this.examService.submitExam(this.examAttemptId as number).subscribe(
+      (response) => {
+        this.router.navigateByUrl('/user/home');
+      },
+      (error) => {}
+    );
   }
-
-
-
 }
-// *ngIf="date$ | async as data; else loading"

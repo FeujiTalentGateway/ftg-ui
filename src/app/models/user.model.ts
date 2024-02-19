@@ -1,5 +1,6 @@
 export class User{
-    id_i?:number | null;
+    id_i?: number | null;
+    userId?: number | null;
     userName?:string | null;
     emailId?:string | null;
     firstName?:string | null;

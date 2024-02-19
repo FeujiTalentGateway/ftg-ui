@@ -1,16 +1,7 @@
-<!-- <app-questions
-  [questions]="getQuestions()"
-  [examAttemptId]="getExamAttemptId()"
-></app-questions>
-<app-questions
-  *ngIf="(getQuestions() | async) && (getExamAttemptId() | async)"
-  [questions]="getQuestions() | async"
-  [examAttemptId]="getExamAttemptId() | async"
-></app-questions> -->
-<div *ngIf="questions$ | async as questions; else loadingTemplate">
-  <!-- Your component content using the 'questions' array -->
+<div *ngIf="Exam$ | async as exam; else loadingTemplate">
+  <!-- Your component content using the 'exam' array -->
 
-  <app-questions [paper]="questions"></app-questions>
+  <app-questions [exam]="exam"></app-questions>
 </div>
 
 <ng-template #loadingTemplate>Loading...</ng-template>

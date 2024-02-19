@@ -19,12 +19,12 @@ import { ForgotPasswordRequest } from '../models/forgotPasswordRequest';
 export class AuthService {
   private userPayload: any;
   dialogRef: any;
-  roles :any []=[];
+  roles: any[] = [];
   constructor(
     private authRepo: AuthRepositoryService,
     private snackBar: MatSnackBar,
     private route: Router,
-    private userDetails: UserdetailsService,
+    private userDetails: UserdetailsService
   ) {}
 
   // Handle user registration based on form data
@@ -65,7 +65,6 @@ export class AuthService {
       userName: loginData.value.userName,
       password: btoa(loginData.value.password),
     };
-    
 
     this.authRepo.login(user).subscribe({
       next: (response: any) => {
@@ -75,25 +74,26 @@ export class AuthService {
           this.setJwtToken(response.token);
           this.decodedToken();
           this.userDetails.setUserNameFromToken(this.userPayload.sub);
-          this.userDetails.setRoleFromToken(
-            this.userPayload.authorities
+          this.userDetails.setRoleFromToken(this.userPayload.authorities);
+          let roles: string[] = this.userPayload.authorities.map(
+            (e: { authority: any }) => e.authority
           );
-          let roles:string[] = this.userPayload.authorities.map((e: { authority: any; }) => e.authority)
-          console.log(roles);          
-          sessionStorage.setItem('roles',this.userPayload.authorities.map((e: { authority: any; }) => e.authority))
-          if (roles.includes('USER')){
+          console.log(roles);
+          sessionStorage.setItem(
+            'roles',
+            this.userPayload.authorities.map(
+              (e: { authority: any }) => e.authority
+            )
+          );
+          if (roles.includes('USER')) {
             this.route.navigateByUrl('/user/home');
-          }
-          else{
+          } else {
             this.route.navigateByUrl('/admin/home');
           }
         }
-        if (response.message == 'Invalid username or password')
-          this.openSnackBar('Invalid username or password', 'Close');
       },
       error: (error: any) => {
-
-        if (error.status == 409) {
+        if (error.status == 401) {
           this.openSnackBar(error.error.message, 'Close');
         } else {
           this.openSnackBar('Something went wrong', 'Close');
@@ -116,7 +116,7 @@ export class AuthService {
     } catch (error) {
       console.error('Error decoding JWT token:', error);
     }
-    console.log('inside decode '+this.userPayload.authorities);
+    console.log('inside decode ' + this.userPayload.authorities);
     return this.userPayload;
   }
 
@@ -143,14 +143,14 @@ export class AuthService {
       this.route.navigateByUrl('/user/home');
     }
   }
-  
+
   // Get the JWT token from local storage if it exists.
   // Returns the JWT token as a string or "no jwt token" if it doesn't exist.
   getJwtToken(): string {
     if (localStorage.getItem('token')) {
-      return localStorage.getItem('token') + "";
+      return localStorage.getItem('token') + '';
     } else {
-      return "no jwt token";
+      return 'no jwt token';
     }
   }
 
@@ -158,31 +158,35 @@ export class AuthService {
   // Returns true if the user is logged in, otherwise false.
   isLoggedin(): boolean {
     this.sessionExpired();
-    return !!localStorage.getItem('token')
+    return !!localStorage.getItem('token');
   }
 
   sessionExpired() {
     if (this.isTokenExpired()) {
       localStorage.removeItem('token');
-      this.openSnackBar("Session expired. Please login again", 'close');
+      this.openSnackBar('Session expired. Please login again', 'close');
       // this.router.navigateByUrl('main/login');
     }
   }
 
   checkAdminRole(): boolean {
     const tokenPayload = this.decodedToken();
-    const isAdminPresent = tokenPayload.authorities.some((authority:any) => authority.authority === 'ADMIN');
-    if(isAdminPresent)return true;
+    const isAdminPresent = tokenPayload.authorities.some(
+      (authority: any) => authority.authority === 'ADMIN'
+    );
+    if (isAdminPresent) return true;
     return false;
   }
 
-  checkUserRole(): boolean{
+  checkUserRole(): boolean {
     const tokenPayload = this.decodedToken();
-    const isUserPresent = tokenPayload.authorities.some((authority:any) => authority.authority === 'USER');
-    if(isUserPresent)return true;
+    const isUserPresent = tokenPayload.authorities.some(
+      (authority: any) => authority.authority === 'USER'
+    );
+    if (isUserPresent) return true;
     return false;
   }
-  logout(){
+  logout() {
     localStorage.clear();
     sessionStorage.clear();
   }

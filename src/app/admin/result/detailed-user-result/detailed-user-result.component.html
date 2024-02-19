@@ -1,0 +1,92 @@
+<section *ngIf="examObject$ | async as exam ;else template">
+<div class="exam-name">{{ exam.name }}</div>
+<div class="user-name" *ngIf="detailedUserResultObject$ | async as detailedUserResult ;else template">
+    <div class="user-data">
+        Respondent
+    </div>
+    <div class="user-info">
+        <i class="fa-regular fa-id-badge user-icon"></i>&nbsp;&nbsp;<span>{{ detailedUserResult.fullName }}</span>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+      <div class="card result-card">
+        <div class="card-body">
+          <h5 class="card-title">RESULT</h5>
+        </div>
+        <div class="test-ended">
+        <div class="test">
+            Test Ended
+        </div>
+        <div class="col">
+          <svg width="200" height="200">
+            <circle
+              cx="100"
+              cy="100"
+              r="90"
+              fill="none"
+              stroke="rgb(11, 194, 121)"
+              [attr.stroke-width]="strokeWidth"
+              [attr.stroke-dasharray]="circumference"
+              [attr.stroke-dashoffset]="0"
+            ></circle>
+            <text x="50%" y="50%" text-anchor="middle" alignment-baseline="central" font-size="24" fill="black">100%</text>
+        </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6" *ngIf="detailedUserResultObject$ | async as detailedUserResult ;else template">
+      <div class="card result-card">
+        <div class="card-body">
+          <h5 class="card-title">TIMER</h5>
+          <div class="timer-content">
+            
+        </div>
+          <p class="card-text"><i class="fa-regular fa-clock"></i>&nbsp; Total time</p>
+          <div>
+            {{ detailedUserResult.totalTimeTakenForExam }}&nbsp;/&nbsp;{{ exam.duration }}
+          </div>
+          <div class="progress progress1">
+            <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+          <div class="start-end-date">
+            <span class="time-heading">Start time :</span><span class="time">{{ detailedUserResult.examStartedAt | date: 'shortTime'}}</span>
+            <span class="time-heading">End time :</span><span class="time">{{ detailedUserResult.examCompletedAt }}</span>
+            <span class="time-heading">Date :</span><span class="time">{{  getCurrentDate() }}</span>
+          </div>
+          <div class="subject1" *ngFor="let result of detailedUserResult.subjectDuration">
+            <span class="subject-name">{{ result.subjectName }}</span>
+            <span style="padding-left: 26px;">00:88:99</span>/&nbsp;
+            <span>{{ result.subjectDuration }}</span>
+            <span class="total-time">Total time</span>
+            <span>{{ result.totalTimeTakenForSubject}}</span>
+          </div>
+          <!-- <div class="subject2">
+            <span class="subject-name">PYTHON</span>
+            <span>00:88:99</span>/&nbsp;
+            <span>99:77:99</span>
+            <span class="total-time">Total time</span>
+            <span>00:23</span>
+          </div> -->
+          <!-- <div class="subject3" style="margin-left: -10px;">
+            <span class="subject-name">ANGULAR</span>
+            <span style="padding-left: 0px;">00:88:99</span>/&nbsp;
+            <span>99:77:99</span>
+            <span class="total-time">Total time</span>
+            <span style="padding-left: 10px;">00:23</span>
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+<div class="user-name">
+    <div class="user-data">
+        Questions
+    </div>
+    <div class="user-info">
+        <span>Coming Soon....</span>
+    </div>
+</div>
+</section>
+<ng-template #template></ng-template>

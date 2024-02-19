@@ -23,16 +23,7 @@ export const ROUTES: RouteInfo[] = [
     role: ['invigilator'],
     submenu: [],
   },
-  {
-    path: '',
-    title: 'ResultManagement',
-    modulename: 'ResultManagement',
-    iconType: 'father',
-    icon: 'fa-solid fa-square-poll-vertical',
-    class: 'menu-toggle',
-    role: ['invigilator'],
-    submenu: [],
-  },
+  
 
   //invigilator Module
 
@@ -46,6 +37,7 @@ export const ROUTES: RouteInfo[] = [
     role: ['invigilator'],
     submenu: [],
   },
+
 
   //User Modules
 
@@ -89,16 +81,16 @@ export const ROUTES: RouteInfo[] = [
     class: 'menu-toggle',
     role: ['Admin'],
     submenu: [
-      {
-        path: '/admin/questionPapers/viewPapers',
-        title: 'View Papers',
-        modulename: 'questionPapers',
-        iconType: '',
-        icon: '',
-        class: 'ml-menu',
-        role: [''],
-        submenu: [],
-      },
+      // {
+      //   path: '/admin/questionPapers/viewPapers',
+      //   title: 'View Papers',
+      //   modulename: 'questionPapers',
+      //   iconType: '',
+      //   icon: '',
+      //   class: 'ml-menu',
+      //   role: [''],
+      //   submenu: [],
+      // },
       // {
       //   path: "/admin/questionPapers/createPaper",
       //   title: "Create Paper",
@@ -139,6 +131,28 @@ export const ROUTES: RouteInfo[] = [
         role: [''],
         submenu: [],
       },
+    ],
+  },
+  {
+    path: '',
+    title: 'Results',
+    modulename: 'ResultManagement',
+    iconType: 'father',
+    icon: 'fa-solid fa-square-poll-vertical',
+    class: 'menu-toggle',
+    role: ['invigilator','admin'],
+    submenu: [
+      {
+        path: '/admin/result/home',
+        title: 'Home',
+        modulename: 'exams',
+        iconType: '',
+        icon: '',
+        class: 'ml-menu',
+        role: [''],
+        submenu: [],
+      }
+
     ],
   },
   {

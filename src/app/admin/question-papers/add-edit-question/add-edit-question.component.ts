@@ -16,12 +16,17 @@ export class AddEditQuestionComponent implements OnInit {
     id: 0,
     content: '',
     active: true,
-    difficultyLevel: '',
+    difficultyLevel: 0,
+    questionType: 'single choice',
     subject: { id: 0, name: '', active: true },
-    rightOption: { id: 0, optionName: '', active: true },
+    rightOptions: [],
     options: [],
+    optionSelected: [],
   };
-  difficultLevelList: string[] = ['EASY', 'MEDIUM', 'HARD'];
+
+  difficultLevelList: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  questionTypes: string[] = ['single choice', 'multiple choices '];
+  questionType: string = 'single choice';
   isEditForm: boolean = false;
   isFormSubmitted: boolean = false;
   selectedSubject!: number;
@@ -52,6 +57,8 @@ export class AddEditQuestionComponent implements OnInit {
       let id = Number(this.activatedRoute.snapshot.paramMap.get('id'));
       this.service.getQuestionById(id).subscribe({
         next: (value) => {
+          console.log(value);
+
           this.question = value;
           this.setQuestionValueIntoQuestionForm(this.question);
           this.selectedSubject = value.subject.id;
@@ -75,9 +82,9 @@ export class AddEditQuestionComponent implements OnInit {
         new FormControl(null, Validators.required),
         new FormControl(null, Validators.required),
       ]),
-      rightOptionName: new FormControl(null, Validators.required),
+      // rightOptionName: new FormControl(null, Validators.required),
       subject: new FormControl(null, Validators.required),
-      difficultyLevel: new FormControl('EASY', Validators.required),
+      difficultyLevel: new FormControl(0, Validators.required),
     });
   }
 
@@ -92,10 +99,10 @@ export class AddEditQuestionComponent implements OnInit {
     this.questionForm.patchValue({
       content: question.content,
       optionNames: question.options.map((option: Option) => option.optionName),
-      rightOptionName: question.rightOption.optionName,
       subject: question.subject.id,
       difficultyLevel: question.difficultyLevel,
     });
+    this.questionType = question.questionType;
   }
 
   get OptionsArray() {
@@ -103,23 +110,28 @@ export class AddEditQuestionComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.questionForm);
+    console.log(this.questionForm.value);
     console.log(this.questionForm.value.content);
     this.isFormSubmitted = false;
-    if (this.questionForm.valid) {
+    if (this.questionForm.valid && this.question.rightOptions?.length != 0) {
       this.question.content = this.questionForm.value.content;
       this.question.options = this.questionForm.value.optionNames.map(
         (optionName: string) => ({ optionName, id: 0, active: true })
       );
 
-      this.question.rightOption = {
-        optionName: this.questionForm.value.rightOptionName,
-        id: 0,
-        active: true,
-      };
+      // this.question.rightOption = {
+      //   optionName: this.questionForm.value.rightOptionName,
+      //   id: 0,
+      //   active: true,
+      // };
+      // this.question.rightOption  =
 
       this.question.subject.id = this.questionForm.value.subject;
-      this.question.difficultyLevel = this.questionForm.value.difficultyLevel;
+      console.log(typeof parseInt(this.questionForm.value.difficultyLevel));
+
+      this.question.difficultyLevel = parseInt(
+        this.questionForm.value.difficultyLevel
+      );
       this.question.subject.name = '';
       if (this.isEditForm) {
         console.log(this.question.options);
@@ -129,6 +141,8 @@ export class AddEditQuestionComponent implements OnInit {
         console.log(this.question);
         this.service.addQuestion(this.question);
       }
+    } else {
+      alert();
     }
   }
 
@@ -163,5 +177,43 @@ export class AddEditQuestionComponent implements OnInit {
   }
   closeEditModal() {
     this.isEditModalOpen = false;
+  }
+
+  setQuestionType(questionType: string) {
+    console.log(questionType, this.questionType);
+    this.questionType = questionType;
+    this.question.questionType = this.questionType;
+    this.question.rightOptions = [];
+  }
+  setRightOption(setRightOption: any) {
+    console.log(setRightOption.value);
+    let option: Option = { optionName: setRightOption.value, active: true };
+    console.log(option);
+    console.log(this.question.rightOptions);
+    const index = this.question.rightOptions?.findIndex(
+      (opt) => opt.optionName === setRightOption.value
+    );
+    console.log(index);
+
+    if (index != -1 && typeof index === 'number') {
+      this.question.rightOptions?.splice(index, 1);
+    } else {
+      if (this.questionType == 'single choice') {
+        this.question.rightOptions = [];
+        this.question.rightOptions?.push(option);
+      } else {
+        this.question.rightOptions?.push(option);
+      }
+    }
+    console.log(this.question.rightOptions);
+  }
+  getRightOrnot(option: any): Boolean {
+    const index = this.question.rightOptions?.findIndex(
+      (opt) => opt.optionName === option.value
+    );
+    if (index != -1) {
+      return true;
+    }
+    return false;
   }
 }

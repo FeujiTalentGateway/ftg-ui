@@ -25,23 +25,15 @@
         class="nav-link col-sm-2 navi"
         >Contact</a
       >
-      <ng-container *ngIf="!isSignupPage(); else loginButton">
-        <a
-          [routerLink]="['/main/login']"
-          id="signup-button"
-          class="btn btn-outline-primary btn-sm col-2 col-sm-2 login"
-          >Signup</a
-        >
+      <ng-container *ngIf="isSignupPage()">
+        <a [routerLink]="['/main/login']" id="login-button" class="btn btn-outline-primary btn-sm col-2 col-sm-2 login">Login</a>
       </ng-container>
-
-      <ng-template #loginButton>
-        <a
-          [routerLink]="['/main/register']"
-          id="login-button"
-          class="btn btn-outline-primary btn-sm col-2 col-sm-2 login"
-          >Login</a
-        >
-      </ng-template>
+      <ng-container *ngIf="isLoginPage()">
+        <a [routerLink]="['/main/register']" id="signup-button" class="btn btn-outline-primary btn-sm col-2 col-sm-2 login">Signup</a>
+      </ng-container>
+      <ng-container *ngIf="isHomePage()">
+        <a [routerLink]="['/main/login']" id="login-button" class="btn btn-outline-primary btn-sm col-2 col-sm-2 login">Login</a>
+      </ng-container>
     </div>
   </div>
 </header>

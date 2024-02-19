@@ -1,5 +1,6 @@
 .main-div {
   /* margin: 10px 30px; */
+  margin-top: 5px;
   background-color: hsl(24, 77%, 88%);
   min-height: 100vh;
   position: relative;
@@ -9,7 +10,7 @@
   background-color: #e6864b;
   padding: 15px 0;
   margin: 0;
-  margin-bottom: 20px;
+  margin-bottom: 7px;
 }
 .header-child {
   min-height: 45px;

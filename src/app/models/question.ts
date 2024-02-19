@@ -5,11 +5,12 @@ export interface Question {
   id: number;
   content: string;
   active: boolean;
-  difficultyLevel: string;
+  difficultyLevel: number;
+  questionType: string;
   subject: Subject;
-  rightOption: Option;
+  rightOptions?: Option[];
   options: Option[];
-  optionSelected?: number;
+  optionSelected?: Option[];
 }
 
 export interface ResultTimeQuestion {

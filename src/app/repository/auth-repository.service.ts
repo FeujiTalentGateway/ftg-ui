@@ -1,8 +1,9 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { UserLoginModel } from '../models/user-login.model';
 import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { UserLoginModel } from '../models/user-login.model';
+import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root',
@@ -40,4 +41,17 @@ export class AuthRepositoryService {
       options
     );
   }
+
+  getUserByRoleName(roleName: string): Observable<User[]> {
+    let token = localStorage.getItem('token');
+    let headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    let requestOptions = {
+      headers: headers,
+    };
+    return this.http.get<User[]>(
+      `${this.baseUrl}user/role/${roleName}`,
+      requestOptions
+    );
+  }
+
 }

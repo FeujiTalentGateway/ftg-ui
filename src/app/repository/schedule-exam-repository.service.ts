@@ -1,13 +1,14 @@
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { Exam } from '../models/exam.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ScheduleExamRepositoryService {
-  adminUrl = 'http://localhost:8093/';
+  adminUrl = environment.adminUrl;
 
   constructor(private http: HttpClient) {}
 
@@ -28,7 +29,6 @@ export class ScheduleExamRepositoryService {
     });
   }
 
-  
   getExams(): Observable<HttpResponse<any>> {
     const requestOptions = { headers: this.setToken() };
 
@@ -39,14 +39,15 @@ export class ScheduleExamRepositoryService {
     });
   }
   getStaticExams(): Observable<HttpResponse<any>> {
-
     const requestOptions = { headers: this.setToken() };
 
     // Make the HTTP request
-    return this.http.get(this.adminUrl+'exam', { ...requestOptions, observe: 'response' });
+    return this.http.get(this.adminUrl + 'exam', {
+      ...requestOptions,
+      observe: 'response',
+    });
   }
 
-  
   changeExamStatus(id: any) {
     const requestOptions = { headers: this.setToken() };
     console.log('change status');

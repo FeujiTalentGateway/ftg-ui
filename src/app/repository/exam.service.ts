@@ -9,7 +9,7 @@ import { OptionAttempt } from '../models/option.attempt';
 import { Paper } from '../models/paper';
 import { Question } from '../models/question';
 import { UsersResult } from '../models/users.result.model';
-import { ViewResult } from '../models/view-reult';
+import { ViewResult } from '../models/view-result';
 
 @Injectable({
   providedIn: 'root',

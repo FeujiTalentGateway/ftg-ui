@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ResultTimeQuestion } from 'src/app/models/question';
-import { ViewResult } from 'src/app/models/view-reult';
+import { ViewResult } from 'src/app/models/view-result';
 import { ExamService } from 'src/app/repository/exam.service';
 
 @Component({
@@ -14,7 +14,7 @@ export class ViewResultComponent {
   examCode?: string;
   examAttemptId?: string;
   result$: Observable<ViewResult> | undefined;
-  result :ViewResult|undefined;
+  result: ViewResult | undefined;
 
   constructor(
     private router: Router,
@@ -32,29 +32,24 @@ export class ViewResultComponent {
         this.examCode
       );
       this.result$.subscribe(
-        (response)=>{
-          this.result=response
+        (response) => {
+          this.result = response;
           console.log(this.result);
         },
-        (error)=>{
+        (error) => {
           console.log(error);
-          
         }
-      )
+      );
     });
-    
   }
-  calculateScore(){
-
-  }
-  getTheMassage(question :ResultTimeQuestion):string{
-    if (question.correct_option_id == question.selected_option_id){
-      return 'Correct Option'
+  calculateScore() {}
+  getTheMassage(question: ResultTimeQuestion): string {
+    if (question.correct_option_id == question.selected_option_id) {
+      return 'Correct Option';
     }
-    if (question.selected_option_id){
-      return 'Wrong Option'
+    if (question.selected_option_id) {
+      return 'Wrong Option';
     }
-    return 'Not Attempted'
-
+    return 'Not Attempted';
   }
 }

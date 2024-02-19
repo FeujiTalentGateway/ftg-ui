@@ -1,8 +1,10 @@
-
 .exam-table .header-cell {
   padding-top: 10px;
   padding-bottom: 2px;
-  background-color: #FFE2D1; 
+  background-color: #ffe2d1;
+}
+table {
+  width: 100%;
 }
 
 .exam-table {
@@ -15,9 +17,8 @@
 .filter-and-button {
   display: flex;
   justify-content: space-between;
-  margin-top: 20px; 
+  margin-top: 20px;
 }
-
 
 .schedule-exam-form {
   max-width: 600px;
@@ -46,6 +47,6 @@
   margin-top: 5px;
 }
 
-.filter{
+.filter {
   width: 60%;
 }

@@ -104,9 +104,7 @@ export class ExamService {
     );
   }
   getExamStatsByExamCode(examCode: string): Observable<ExamStatsModel> {
-    return this.http.get<ExamStatsModel>(
-      `${this.resultUrl}/result/${examCode}`
-    );
+    return this.http.get<ExamStatsModel>(`${this.resultUrl}result/${examCode}`);
   }
 
   getStaticUserResults(examCode: string): Observable<UsersResult[]> {
@@ -114,7 +112,7 @@ export class ExamService {
   }
   getUserResults(examCode: string): Observable<UsersResult[]> {
     return this.http.get<UsersResult[]>(
-      `${this.resultUrl}/result/${examCode}?viewResultTable=true`
+      `${this.resultUrl}result/${examCode}?viewResultTable=true`
     );
   }
   getStaticDetailedUserResult(

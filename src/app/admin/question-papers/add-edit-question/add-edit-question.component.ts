@@ -25,7 +25,7 @@ export class AddEditQuestionComponent implements OnInit {
   };
 
   difficultLevelList: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-  questionTypes: string[] = ['single choice', 'multiple choices '];
+  questionTypes: string[] = ['single choice', 'multiple choices'];
   questionType: string = 'single choice';
   isEditForm: boolean = false;
   isFormSubmitted: boolean = false;

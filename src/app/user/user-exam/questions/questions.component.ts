@@ -48,6 +48,8 @@ export class QuestionsComponent implements OnInit {
   isLoading: boolean = false;
   indexPositionOfSubject$: Observable<number> | undefined;
   nextSubjectLoading: boolean = false;
+  updateSubjectIndex$: Observable<number> | undefined;
+  
 
   ngOnInit(): void {
     console.log(this.paper);

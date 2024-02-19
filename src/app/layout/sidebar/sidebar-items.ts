@@ -81,16 +81,16 @@ export const ROUTES: RouteInfo[] = [
     class: 'menu-toggle',
     role: ['Admin'],
     submenu: [
-      {
-        path: '/admin/questionPapers/viewPapers',
-        title: 'View Papers',
-        modulename: 'questionPapers',
-        iconType: '',
-        icon: '',
-        class: 'ml-menu',
-        role: [''],
-        submenu: [],
-      },
+      // {
+      //   path: '/admin/questionPapers/viewPapers',
+      //   title: 'View Papers',
+      //   modulename: 'questionPapers',
+      //   iconType: '',
+      //   icon: '',
+      //   class: 'ml-menu',
+      //   role: [''],
+      //   submenu: [],
+      // },
       // {
       //   path: "/admin/questionPapers/createPaper",
       //   title: "Create Paper",

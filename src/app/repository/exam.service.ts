@@ -9,6 +9,7 @@ import { ExamStatsModel } from '../models/exam.stats.model';
 import { UsersResult } from '../models/users.result.model';
 import { User } from '../models/user.model';
 import { Question } from '../models/question';
+import { DetailedUserResult } from '../models/detailedUserResult.model';
 
 @Injectable({
   providedIn: 'root',
@@ -17,6 +18,7 @@ export class ExamService {
   
   examUrl: string = ' http://127.0.0.1:8000/';
   javaExamUrl: string = 'http://localhost:8093/exam';
+  resultUrl: string = 'http://localhost:8093';
   constructor(private http: HttpClient) {}
 
   getPaperByExamCode(examCode: string): Observable<Paper> {
@@ -93,9 +95,11 @@ export class ExamService {
   }
 
   checkStaticExamByCode(examCode: string) {}
+
   getStaticListOfExams(): Observable<Exam[]> {
     return this.http.get<Exam[]>('/assets/static_data/ListOfExamsDynamic.json');
   }
+
   getStaticExamByCode(examCode: string): Observable<Exam> {
     return this.http.get<Exam>('/assets/static_data/ExamDataObject.json');
   }
@@ -107,13 +111,26 @@ export class ExamService {
   
 
  }
- getExamStatsByExamCode(examCode: string): Observable<ExamStatsModel>{
-  return this.http.get<ExamStatsModel>(``)
+ getExamStatsByExamCode(examCode: string): Observable<ExamStatsModel>{ 
+  return this.http.get<ExamStatsModel>(`${this.resultUrl}/result/${examCode}`)
   
  }
 
  getStaticUserResults(examCode: string):Observable<UsersResult[]>{
   return this.http.get<UsersResult[]>('/assets/static_data/UsersResult.json')
+
+ }
+ getUserResults(examCode: string):Observable<UsersResult[]>{
+  return this.http.get<UsersResult[]>(`${this.resultUrl}/result/${examCode}?viewResultTable=true`)
+
+
+ }
+ getStaticDetailedUserResult(examCode: string,userId : number):Observable<DetailedUserResult>{
+  return this.http.get<DetailedUserResult>('/assets/static_data/DetailedUserResult.json')
+
+ }
+ getDetailedUserResult(examCode: string,userId : number):Observable<DetailedUserResult>{
+  return this.http.get<DetailedUserResult>(``)
 
  }
  

@@ -3,7 +3,7 @@
 </div>
 <section *ngIf="listOfExams$ | async as exams; else loadingTemplate" >
     <div class="FlexContainer">
-      <div *ngFor="let exam of listOfExams" class="flex-item shadow p-1 mb-3 bg-body rounded">
+      <div *ngFor="let exam of exams" class="flex-item shadow p-1 mb-3 bg-body rounded">
         <div class="exam-card-header">
           <div>{{ exam.name }}</div>
           <div>

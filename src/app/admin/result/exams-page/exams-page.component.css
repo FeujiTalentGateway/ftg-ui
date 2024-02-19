@@ -49,6 +49,11 @@
     margin-right: 1%;
 
 }
+.exam-card-body {
+    overflow-y: auto; 
+    max-height: 100px; 
+  }
+  
 .exam-card-footer{
     display: flex;
     justify-content: space-between;

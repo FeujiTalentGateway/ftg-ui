@@ -6,6 +6,7 @@
     padding: 10px;
     position: sticky;
     top: 12%;
+    z-index: 1;
 }
 .icons{
     text-align: center;
@@ -59,5 +60,9 @@
   
   .filter-and-button .filter input::placeholder {
     /* color: #999;  */
+  }
+  .disabled {
+    opacity: 0.5; /* or any other style to visually indicate the icon is disabled */
+    pointer-events: none; /* disable pointer events to prevent click actions */
   }
   

@@ -11,6 +11,8 @@ import { TimeFormatPipe } from 'src/app/pips/time-format.pipe';
   styleUrls: ['./exam-summary.component.css']
 })
 export class ExamSummaryComponent implements OnInit {
+
+
   examCode:string |undefined;
   examObject : Exam |undefined;
   examObject$ : Observable<Exam>| undefined;
@@ -42,32 +44,8 @@ export class ExamSummaryComponent implements OnInit {
      this.examCode = this.activateRoute.snapshot.paramMap.get('examCode') as string;
      console.log(this.examCode);
      this.examObject$ = this.examService.getExamById(this.examCode)
-     this.examStatObject$ =  this.examService.getStaticExamStatsByExamCode(this.examCode)
-     this.examObject$.subscribe(
-      (response)=>{
-        this.examObject = response;
-        console.log(response);
-        if (this.examObject && this.examObject.users) {
-          this.totalAssignedUsers = this.examObject.users.length;
-        }
-      },
-      (error)=>{
-        console.log("exam object not available");
-        
-      }
-     )
-     this.examStatObject$.subscribe(
-      (response)=>{
-        console.log(response);
-        this.examStatObject = response;
-        this.completedTests = this.examStatObject.testsCompletedUsers;
-        
-      },
-      (error)=>{
-        console.log("exam stat object not available");
-        
-      }
-     )
+     this.examStatObject$ =  this.examService.getExamStatsByExamCode(this.examCode)
+     this.calculatePercentage();
   }
   navigateToUserResult(){
     this.router.navigate(['admin/result/users-result',this.examCode])
@@ -77,9 +55,18 @@ export class ExamSummaryComponent implements OnInit {
     const completedPercentage = (this.completedTests / this.totalAssignedUsers) * 100;
     const roundedCompletedPercentage = parseFloat(completedPercentage.toFixed(2));
     const remainingPercentage = 100 - completedPercentage;
-    console.log(completedPercentage,remainingPercentage)
     return { completedPercentage: roundedCompletedPercentage, remainingPercentage };
   }
   
+  handleExamObject(exam: Exam){
+    this.totalAssignedUsers = exam.users.length
+    return true
+    }
 
+    handleExamStatObject(examStat: ExamStatsModel) {
+      this.completedTests = examStat.testsCompletedUsers
+      return true
+    }
 }
+
+

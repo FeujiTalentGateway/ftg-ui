@@ -1,5 +1,5 @@
 export interface UsersResult{
-    userName:string;
+    fullName:string;
     totalScore:number;
     examStartedAt:string;
     examCompletedAt:string;

@@ -12,7 +12,7 @@ import { ViewResultComponent } from './view-result/view-result.component';
 import { ExamSubmittedComponent } from './exam-submitted/exam-submitted.component';
 import { ResultChartComponent } from './result-chart/result-chart.component';
 import { RemoveInspectComponent } from './remove-inspect/remove-inspect.component';
-import { TimeFormatPipe } from 'src/app/pips/time-format.pipe';
+import { SharedModuleModule } from 'src/app/shared-module/shared-module.module';
 
 
 @NgModule({
@@ -26,12 +26,12 @@ import { TimeFormatPipe } from 'src/app/pips/time-format.pipe';
     ExamSubmittedComponent,
     ResultChartComponent,
     RemoveInspectComponent,
-    TimeFormatPipe
   ],
   imports: [
     CommonModule,
     UserExamRoutingModule,
-    FormsModule
+    FormsModule,
+    SharedModuleModule
   ]
 })
 export class UserExamModule { }

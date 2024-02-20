@@ -16,11 +16,12 @@ export class DetailedUserResultComponent implements OnInit {
   examObject$: Observable<Exam> | undefined;
   userId : number | undefined | null;
   examObject : Exam | undefined;
+  examDuration:string | undefined;
+  duration:string | undefined;
   strokeWidth: number = 10;
   circumference: number = Math.PI * 180;
   detailedUserResultObject : DetailedUserResult | undefined;
   detailedUserResultObject$ : Observable<DetailedUserResult> | undefined;
-
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -31,10 +32,22 @@ export class DetailedUserResultComponent implements OnInit {
     this.examCode = this.activatedRoute.snapshot.paramMap.get('examCode') as string;
     this.userId =  this.activatedRoute.snapshot.paramMap.get('userId') as number | null | undefined; 
     this.examObject$ = this.examService.getExamById(this.examCode);
-    this.detailedUserResultObject$ = this.examService.getStaticDetailedUserResult(this.examCode,this.userId as number);
+    this.detailedUserResultObject$ = this.examService.getDetailedUserResult(this.examCode,this.userId as number);
   }
   getCurrentDate(): string {
     return this.datePipe.transform(new Date(), 'dd MMM yyyy') || '';
+  }
+  handleDetailedUserResultObject(detailedUserResult:DetailedUserResult){
+    this.examDuration = detailedUserResult.examDuration
+    console.log(this.examDuration);
+    return true
+
+
+  }
+  handleExamObject(exam:Exam){
+    this.duration = exam.duration
+    console.log(this.duration);
+    return true
   }
 
 }

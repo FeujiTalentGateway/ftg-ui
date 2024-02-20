@@ -130,7 +130,7 @@ export class ExamService {
 
  }
  getDetailedUserResult(examCode: string,userId : number):Observable<DetailedUserResult>{
-  return this.http.get<DetailedUserResult>(``)
+  return this.http.get<DetailedUserResult>(`${this.resultUrl}/result/${examCode}/${userId}`)
 
  }
  

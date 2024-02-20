@@ -66,20 +66,14 @@
 .start-end-date>.time-heading{
     font-family: 'Regular';
     font-size: medium;
-    margin: 2%;
-    margin-right: 1.5;
+    margin-right: 1%;
+    margin: 1%;
 }
 .start-end-date>.time{
     margin: 0.5%;
     font-family: 'SemiBold';
-    font-size: medium;
+    font-size: 13px;
 }
-
-.subject1,.subject2,.subject3 {
-    display: flex;
-    align-items: center;
-    margin-top: 10px;
-  }
   
   .subject-name {
     margin-right: 40px; 
@@ -114,18 +108,24 @@
     overflow: hidden; /* Ensures that content doesn't overflow */
 }
 
-.subject1,
-.subject2,
-.subject3 {
+.subject1 {
     display: flex;
-    flex-wrap: wrap; /* Allows items to wrap within the container */
+    flex-wrap: wrap; 
     align-items: center;
     margin-top: 10px;
-    margin-bottom: 10px; /* Add margin bottom for spacing */
+    margin-bottom: 10px; 
 }
 .col-md-6{
     overflow: hidden;
 }
+.time-in-min{
+    margin-left: 1%;
+}
+.subject-name{
+    margin: auto;
+    margin-left: 2%;
+}
+
 
   @media (max-width: 900px) {
     .col-md-6 {

@@ -16,7 +16,6 @@ export class ExamsPageComponent {
   totalItems = 0;
   tablerowsperpage: number = 5;
   totalPages: number = 0;
-
   listOfExams :Exam[] =[]
   listOfExams$ : Observable<Exam[]> |undefined
 

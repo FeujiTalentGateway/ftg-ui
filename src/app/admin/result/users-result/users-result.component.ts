@@ -76,10 +76,10 @@ export class UsersResultComponent implements OnInit {
     switch (status) {
       case 'completed':
         return 'status-button completed';
-      case 'In Progress':
+      case 'inprogress':
         return 'status-button in-progress';
-      case 'Not Started':
-        return 'status-button not-started';
+      case 'notstarted':
+        return 'status-button not started';
       default:
         return 'status-button';
     }

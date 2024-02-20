@@ -4,7 +4,7 @@ export interface DetailedUserResult{
     fullName : string;
     examStartedAt:string;
     examCompletedAt:string;
-    totalTimeTakenForExam:string;
-    subjectDuration:SubjectDuration[]
+    examDuration:string;
+    subjectWiseResult:SubjectDuration[]
 
 }

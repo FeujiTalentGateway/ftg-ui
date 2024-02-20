@@ -27,7 +27,7 @@ export class ExamSummaryComponent implements OnInit {
   offset: number = this.circumference;
   completedTestsColor: string = '#0BC279';
   remainingColor: string = '#f3752e';
-  
+  averageMarksOfExam: number | undefined;
   constructor(
     private router : Router,
     private activateRoute : ActivatedRoute,

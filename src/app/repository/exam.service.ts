@@ -105,7 +105,7 @@ export class ExamService {
 
  }
  getExamStatsByExamCode(examCode: string): Observable<ExamStatsModel>{ 
-  return this.http.get<ExamStatsModel>(`${this.resultUrl}/result/${examCode}`)
+  return this.http.get<ExamStatsModel>(`${this.resultUrl}result/${examCode}`)
   
  }
 
@@ -114,7 +114,7 @@ export class ExamService {
 
  }
  getDetailedUserResult(examCode: string,userId : number):Observable<DetailedUserResult>{
-  return this.http.get<DetailedUserResult>(`${this.resultUrl}/result/${examCode}/${userId}`)
+  return this.http.get<DetailedUserResult>(`${this.resultUrl}result/${examCode}/${userId}`)
 
  }
  

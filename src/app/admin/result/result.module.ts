@@ -12,6 +12,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { DetailedUserResultComponent } from './detailed-user-result/detailed-user-result.component';
 import { SharedModuleModule } from 'src/app/shared-module/shared-module.module';
 import { DatePipe } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ export class YourModule { }
     MatPaginatorModule,
     MatSortModule,
     MatFormFieldModule,
-    SharedModuleModule
+    SharedModuleModule,
+    FormsModule
 
   ],
   providers: [

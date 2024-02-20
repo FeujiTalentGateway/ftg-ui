@@ -23,7 +23,7 @@ export class UsersResultComponent implements OnInit {
   examObject: Exam | undefined;
   usersResult$: Observable<UsersResult[]> | undefined;
   dataSource!: MatTableDataSource<UsersResult>;
-  displayedColumns: string[] = ['name', 'totalScore', 'examStartDate', 'examCompletedAt', 'examStatus', 'detailView'];
+  displayedColumns: string[] = ['fullName', 'examStatus','totalScore', 'examStartDate', 'examCompletedAt', 'detailView'];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -74,12 +74,12 @@ export class UsersResultComponent implements OnInit {
   }
   getStatusButtonClass(status: string): string {
     switch (status) {
-      case 'completed':
+      case 'Completed':
         return 'status-button completed';
-      case 'inprogress':
+      case 'In Progress':
         return 'status-button in-progress';
-      case 'notstarted':
-        return 'status-button not started';
+      case 'Not started':
+        return 'status-button not-started';
       default:
         return 'status-button';
     }
@@ -92,7 +92,7 @@ export class UsersResultComponent implements OnInit {
 
   getStatus(status: string): boolean {
     switch (status) {
-      case 'completed':
+      case 'Completed':
         return true;
       default:
           return false;

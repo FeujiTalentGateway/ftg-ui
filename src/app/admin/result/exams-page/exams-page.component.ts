@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { GlobalExceptionHandlerService } from 'src/app/Exception_handler_service/global-exception-handler.service';
 import { Exam } from 'src/app/models/exam.model';
 import { ExamService } from 'src/app/repository/exam.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-exams-page',
@@ -12,7 +13,7 @@ import { ExamService } from 'src/app/repository/exam.service';
 })
 export class ExamsPageComponent {
 
-  filterByExamName: string = '';
+  filterQuery: string = '';
   totalItems = 0;
   tablerowsperpage: number = 5;
   totalPages: number = 0;
@@ -47,5 +48,19 @@ viewResultByExamId(examCode : string){
 
 
 }
+applyFilter() {
+  this.listOfExams$ = this.examService.getAllExamData().pipe(
+    map(exams => exams.filter(exam =>
+      exam.name.toLowerCase().includes(this.filterQuery.toLowerCase()) ||
+      exam.startDate.includes(this.filterQuery) ||
+      exam.endDate.includes(this.filterQuery) ||
+      this.getStatus(exam.active).toLowerCase().includes(this.filterQuery.toLowerCase())
+    ))
+  );
+}
+
+
+
+
 }
 

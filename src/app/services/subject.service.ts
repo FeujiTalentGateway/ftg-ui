@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { Subject } from '../models/subject';
-import { SnackBarService } from './snack-bar.service';
-import { SubjectRepositoryService } from '../repository/subject-repository.service';
 import { Observable, Subject as RxSubject } from 'rxjs';
 import { AddEditSubjectComponent } from '../admin/exams/add-edit-subject/add-edit-subject.component';
+import { Subject } from '../models/subject';
+import { SubjectRepositoryService } from '../repository/subject-repository.service';
+import { SnackBarService } from './snack-bar.service';
 
 @Injectable({
   providedIn: 'root',
@@ -111,8 +111,8 @@ export class SubjectService {
 
   openEditSubjectModel(id: number) {
     let dialogConfig: MatDialogConfig = {
-      width: '40%',
-      height: '30%',
+      width: '50%',
+      height: '50%',
       disableClose: true,
       // other MatDialogConfig properties can go here
     };

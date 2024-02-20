@@ -1,16 +1,35 @@
 /* .main-div{
   background-color: #3caf895e;
 } */
-form {
-  max-width: 80%;
+.question-form {
+  background-color: rgb(241, 243, 245);
+  margin: auto;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  padding: 1rem 0.3rem 0.1rem 0.3rem;
+  /* max-width: 100%;
   margin: 0 auto;
-  padding: 30px;
-  background-color: #ffe1d1;
+  padding: 30px; */
+}
+form {
+  margin: -1px 20px 2px 25px;
+}
+.header {
+  margin-top: 10px;
+  background-color: #ffe2d1;
+}
+.header h1 {
+  color: #d87033;
+  font-weight: 600;
+  font-size: x-large;
+  padding: 0.5rem 1rem;
 }
 .add-quesiton-header {
   color: #f3752e;
 }
-
+.form-row {
+  margin-bottom: 10px;
+}
 input {
   width: 100%;
   padding: 10px;
@@ -20,13 +39,11 @@ input {
   font-size: medium;
   min-height: 24px;
 }
-.p-button {
-  width: fit-content;
-  border: 1px red solid;
-  border-radius: 20px;
-  cursor: pointer;
-  color: #007bff;
+
+.example-button {
+  margin-bottom: 0;
 }
+
 .validsubmit-button {
   background-color: #4caf50;
   color: #fff;
@@ -41,9 +58,7 @@ input {
   border: none;
   cursor: none;
 }
-.mr-20 {
-  margin-right: 20px;
-}
+
 .show {
   display: block;
 }
@@ -55,14 +70,14 @@ input {
 .option-input {
   z-index: 0;
 }
-.question-type{
+.question-type {
   padding: auto;
 }
-.question-type-option{
+.question-type-option {
   width: 20px;
   padding: 20px;
 }
-.option-type{
+.option-type {
   width: auto;
   margin: 10px;
 }

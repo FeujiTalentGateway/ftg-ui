@@ -1,11 +1,14 @@
-<section *ngIf="startExam$ | async as startExam; else loading">
-  <br>
-  <div class="shadow p-2  bg-white rounded subject-name">
-    {{ this.exam.examSubjects[this.indexPositionOfSubject].subject.name }}  
+<div *ngIf="isLoading; else examDetails">
+  <p>Loading...</p>
+</div>
+
+<ng-template #examDetails>
+  <div class="shadow p-2 bg-white rounded subject-name">
+    {{ this.exam.examSubjects[this.indexPositionOfSubject].subject.name }}
   </div>
   <div class="container shadow p-3 mb-5 bg-white rounded">
     <div class="heading"></div>
-    <div class="content">
+    <div class="content" *ngIf="nextSubjectLoading; else loadingSubject">
       <h5>
         Question : {{ attemptedQuestions }} /
         {{ currentSubject?.maxQuestions }}
@@ -25,7 +28,7 @@
             &nbsp; &nbsp;{{ option.optionName }}
           </span>
 
-          <span *ngIf="currentQuestion?.questionType == 'multiple choice'">
+          <span *ngIf="currentQuestion?.questionType == 'multiple choices'">
             <input
               type="checkbox"
               name="question.id"
@@ -42,57 +45,19 @@
         (click)="saveOption()"
         class="btn btn-sm btn-success btn-custom"
         [disabled]="this.currentQuestion?.optionSelected?.length == 0"
+        *ngIf="!checkLastAndSubjectAndFinalQuestionOrNot()"
       >
         save & next
       </button>
+      <button
+        (click)="saveAndSubmit()"
+        class="btn btn-sm btn-success btn-custom"
+        [disabled]="this.currentQuestion?.optionSelected?.length == 0"
+        *ngIf="checkLastAndSubjectAndFinalQuestionOrNot()"
+      >
+        save & submit
+      </button>
     </div>
   </div>
-</section>
-<ng-template #loading> fetching the data </ng-template>
-
-<!-- <div *ngIf="paper.questions && paper.questions.length > 0">
-  <h5>
-    Question : {{ currentQuestionIndex + 1 }} /
-    {{ paper.questions.length }}
-  </h5>
-  <br />
-  <h4 class="question-name">
-    {{ paper.questions[currentQuestionIndex].content }}
-  </h4>
-  <ul>
-    <li
-      *ngFor="let option of paper.questions[currentQuestionIndex].options"
-    >
-      <input
-        type="radio"
-        name="paper.questions[currentQuestionIndex].id"
-        (click)="
-          assignRightOption(
-            paper.questions[currentQuestionIndex],
-            option,
-            currentQuestionIndex
-          )
-        "
-        [checked]="
-          option.id ==
-          paper.questions[currentQuestionIndex].optionSelected
-        "
-      />
-      &nbsp; &nbsp;{{ option.name }}
-    </li>
-  </ul>
-</div> -->
-<!-- 
-type="radio"
-name="paper.questions[currentQuestionIndex].id"
-(click)="
-  assignRightOption(
-    paper.questions[currentQuestionIndex],
-    option,
-    currentQuestionIndex
-  )
-"
-[checked]="
-  option.id ==
-  paper.questions[currentQuestionIndex].optionSelected
-" -->
+  <ng-template #loadingSubject></ng-template>
+</ng-template>

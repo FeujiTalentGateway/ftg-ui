@@ -1,8 +1,8 @@
 .header {
   background-color: #e6864b;
   padding: 15px 0;
-  margin: 0;
-  margin-bottom: 20px;
+  margin-top: 8px;
+  margin-bottom: 8px;
 }
 
 input[type="text"] {

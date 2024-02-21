@@ -1,96 +1,123 @@
 <div class="main-div">
-  <h1 style="text-align: center" class="add-quesiton-header">
-    {{ operation }}
-  </h1>
-  <form [formGroup]="questionForm" (ngSubmit)="onSubmit()">
-    <div>
-      <label for="subject">Subject</label>
-      <div>
-        <select id="subject" class="form-select" formControlName="subject">
-          <option value="{{ subject.id }}" *ngFor="let subject of subjects">
-            {{ subject.name }}
-          </option>
-        </select>
-      </div>
-      <div class="error-div">
-        <span
-          class="text-danger"
+  <div class="header">
+    <h1 class="add-quesiton-header">
+      {{ operation }}
+    </h1>
+  </div>
+  <div class="question-form mat-elevation-z8">
+    <form [formGroup]="questionForm" (ngSubmit)="onSubmit()">
+      <div class="form-row">
+        <label for="subject">Subject</label>
+        <div>
+          <select id="subject" class="form-select" formControlName="subject">
+            <option value="{{ subject.id }}" *ngFor="let subject of subjects">
+              {{ subject.name }}
+            </option>
+          </select>
+        </div>
+        <div
+          class="error-div"
           *ngIf="
             (questionForm?.get('subject')?.touched || isFormSubmitted) &&
             questionForm?.get('subject')?.hasError('required')
           "
-          >Subject is required</span
         >
+          <span class="text-danger">Subject is required</span>
+        </div>
       </div>
-    </div>
-    <div>
-      <label for="content">Question</label>
-      <div>
-        <input
-          id="content"
-          class="form-control"
-          type="text"
-          formControlName="content"
-        />
-        <div class="error-div">
-          <span
-            class="text-danger"
+      <div class="form-row">
+        <label for="content">Question</label>
+        <div>
+          <input
+            id="content"
+            class="form-control"
+            type="text"
+            formControlName="content"
+          />
+          <div
+            class="error-div"
             *ngIf="
               (questionForm?.get('content')?.touched || isFormSubmitted) &&
               questionForm?.get('content')?.invalid
             "
-            >Question is required</span
           >
+            <span class="text-danger">Question is required</span>
+          </div>
         </div>
       </div>
-    </div>
-    <div formArrayName="optionNames">
-      <div *ngFor="let skillControl of OptionsArray.controls; let i = index">
-        <!-- <input
-        class="form-control"
-          type="text"
-          [formControlName]="i"
-          id="{{ i }}"
-          placeholder="Add Option "
-        /> <span *ngIf="OptionsArray.length>4" class="p-button" (click)="removeOption(i)">--</span> -->
-        <label for="{{ i }}">Option {{ i + 1 }}</label>
-        <div class="input-group">
-          <input
-            type="text"
-            class="form-control option-input"
-            [formControlName]="i"
-            id="{{ i }}"
-            placeholder="Add Option "
-          />
-          <button
-            class="btn btn-outline-secondary"
-            type="button"
-            pInputText
-            pTooltip="Remove Option"
-            tooltipPosition="bottom"
-            *ngIf="OptionsArray.length > 2"
-            (click)="removeOption(i)"
-          >
-            <mat-icon aria-hidden="false" aria-label="Example minus icon"
-              >remove</mat-icon
-            >
-          </button>
-          <!-- [tooltipOptions]="{positionStyle: 'fixed'}" tooltipStyleClass="custom-tooltip" -->
-        </div>
-        <div class="error-div">
+      <div class="form-row">
+        <label for="content">Question Type</label>
+        <div class="form-group mt-2">
           <span
-            class="text-danger"
+            *ngFor="let questionType1 of questionTypes"
+            class="question-type"
+          >
+            <input
+              type="radio"
+              name="questionType"
+              id="{{ questionType1 }}"
+              class="question-type-option"
+              (click)="setQuestionType(questionType1)"
+              [checked]="questionType1 === questionType"
+            />
+            <label for="{{ questionType1 }}">{{ questionType1 }}</label>
+          </span>
+        </div>
+      </div>
+      <div formArrayName="optionNames">
+        <div
+          class="form-row"
+          *ngFor="let skillControl of OptionsArray.controls; let i = index"
+        >
+          <label for="{{ i }}">Option {{ i + 1 }}</label>
+          <div class="input-group">
+            <span *ngIf="this.questionType == 'multiple choices'">
+              <input
+                type="checkbox"
+                name=""
+                id=""
+                class="option-type"
+                (click)="setRightOption(skillControl)"
+                [disabled]="skillControl.value == null"
+                [checked]="getRightOrnot(skillControl)"
+              />
+            </span>
+            <input
+              type="text"
+              class="form-control option-input"
+              [formControlName]="i"
+              id="{{ i }}"
+              placeholder="Add Option "
+            />
+
+            <button
+              class="btn btn-outline-secondary"
+              type="button"
+              pInputText
+              pTooltip="Remove Option"
+              tooltipPosition="bottom"
+              *ngIf="OptionsArray.length > 2"
+              (click)="removeOption(i)"
+            >
+              <mat-icon aria-hidden="false" aria-label="Example minus icon"
+                >remove</mat-icon
+              >
+            </button>
+            <!-- [tooltipOptions]="{positionStyle: 'fixed'}" tooltipStyleClass="custom-tooltip" -->
+          </div>
+          <div
+            class="error-div"
             *ngIf="
               (OptionsArray.at(i)?.touched || isFormSubmitted) &&
               OptionsArray.at(i).hasError('required')
             "
-            >Option {{ i + 1 }} is required</span
           >
+            <span class="text-danger">Option {{ i + 1 }} is required</span>
+          </div>
         </div>
       </div>
-    </div>
-    <div>
-      <!-- <p
+      <div class="form-row">
+        <!-- <p
         (click)="addAdditionalOption()"
         class="btn btn-outline-secondary"
         pButton
@@ -99,94 +126,107 @@
       >
         <i class="pi pi-plus-circle"></i>
       </p> -->
-      <p
-        mat-raised-button
-        #tooltip="matTooltip"
-        matTooltip="Add Option"
-        [matTooltipPosition]="'right'"
-        matTooltipHideDelay="100000"
-        aria-label="Button that displays a tooltip that hides when scrolled out of the container"
-        class="example-button btn btn-outline-secondary"
-        (click)="addAdditionalOption()"
-      >
-        <mat-icon aria-hidden="false" aria-label="Example plus icon"
-          >add</mat-icon
+        <p
+          mat-raised-button
+          #tooltip="matTooltip"
+          matTooltip="Add Option"
+          [matTooltipPosition]="'right'"
+          matTooltipHideDelay="100000"
+          aria-label="Button that displays a tooltip that hides when scrolled out of the container"
+          class="example-button btn btn-outline-secondary"
+          (click)="addAdditionalOption()"
         >
-      </p>
-    </div>
-    <label for="rightOptionName">Correct Option</label>
-    <div>
-      <select
-        id="rightOptionName"
-        class="form-select"
-        formControlName="rightOptionName"
-      >
-        <!-- <option value="A">A</option>
-        <option value="B">B</option>
-        <option value="C">C</option>
-        <option value="D">D</option> -->
-        <option
-          value="{{ option.value }}"
-          *ngFor="let option of OptionsArray.controls"
-        >
-          {{ option.value }}
-        </option>
-      </select>
-    </div>
-    <div class="error-div">
-      <span
-        class="text-danger"
-        *ngIf="
-          (questionForm?.get('rightOptionName')?.touched || isFormSubmitted) &&
-          questionForm?.get('rightOptionName')?.hasError('required')
-        "
-        >Correct answer is required</span
-      >
-    </div>
-    <div>
-      <label for="difficultyLevel">Difficulty Level</label>
-      <div>
-        <select
-          id="difficultyLevel"
-          class="form-select"
-          formControlName="difficultyLevel"
-        >
-          <option
-            value="{{ difficultyLevel }}"
-            *ngFor="let difficultyLevel of difficultLevelList"
+          <mat-icon aria-hidden="false" aria-label="Example plus icon"
+            >add</mat-icon
           >
-            {{ difficultyLevel }}
-          </option>
-        </select>
+        </p>
       </div>
-      <div class="error-div">
-        <span
-          class="text-danger"
+      <div class="form-row">
+        <label
+          for="rightOptionName"
+          *ngIf="this.questionType == 'single choice'"
+          >Correct Option</label
+        >
+        <div *ngIf="this.questionType == 'single choice'">
+          <select
+            id="rightOptionName"
+            class="form-select"
+            (change)="setRightOption($event.target)"
+          >
+            <option
+              value="{{ option.value }}"
+              *ngFor="let option of OptionsArray.controls"
+              (change)="setRightOption(option)"
+            >
+              {{ option.value }}
+            </option>
+          </select>
+          <!-- <ul>
+        <li *ngFor="let option of OptionsArray.controls">
+          <input type="checkbox" name="" id="" />{{ option.value }}
+        </li>
+      </ul> -->
+        </div>
+        <div
+          class="error-div"
+          *ngIf="
+            this.questionType == 'single choice' &&
+            (questionForm?.get('rightOptionName')?.touched ||
+              isFormSubmitted) &&
+            questionForm?.get('rightOptionName')?.hasError('required')
+          "
+        >
+          <span class="text-danger" *ngIf="">Correct answer is required</span>
+        </div>
+      </div>
+      <div class="form-row">
+        <label for="difficultyLevel">Difficulty Level</label>
+        <div>
+          <select
+            id="difficultyLevel"
+            class="form-select"
+            formControlName="difficultyLevel"
+          >
+            <option
+              value="{{ difficultyLevel }}"
+              *ngFor="let difficultyLevel of difficultLevelList"
+            >
+              {{ difficultyLevel }}
+            </option>
+          </select>
+        </div>
+        <div
+          class="error-div"
           *ngIf="
             (questionForm?.get('difficultyLevel')?.touched ||
               isFormSubmitted) &&
             questionForm?.get('difficultyLevel')?.hasError('required')
           "
-          >Difficulty level is required</span
         >
+          <span class="text-danger">Difficulty level is required</span>
+        </div>
       </div>
-    </div>
-    <button
-      [disabled]="questionForm.invalid"
-      class="btn mr-20"
-      [ngClass]="{ 'btn-success': !questionForm.invalid }"
-    >
-      Submit
-    </button>
-    <p
-      *ngIf="isEditForm"
-      class="btn btn-secondary mt-3"
-      [routerLink]="['/admin/questionPapers/viewQuestions']"
-      [queryParams]="{ subject: selectedSubject }"
-    >
-      Cancel
-    </p>
-  </form>
+      <div
+        class="d-flex flex-row justify-content-around align-items-center mb-2"
+      >
+        <button
+          [disabled]="questionForm.invalid"
+          class="btn"
+          [ngClass]="{ 'btn-success': !questionForm.invalid }"
+        >
+          Submit
+        </button>
+        <button
+          *ngIf="isEditForm"
+          class="btn btn-secondary"
+          [routerLink]="['/admin/questionPapers/viewQuestions']"
+          [queryParams]="{ subject: selectedSubject }"
+        >
+          Cancel
+        </button>
+      </div>
+    </form>
+  </div>
 </div>
 
 <div
@@ -226,7 +266,7 @@
         </button>
         <button
           type="button"
-          class="btn btn-primary"
+          class="btn btn-success"
           (click)="editQuestionAfterConfirmation()"
         >
           Yes

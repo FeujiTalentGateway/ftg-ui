@@ -1,0 +1,66 @@
+.exam-name{
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    font-family: 'Bold';
+    margin-top: 1%;
+    padding: 10px;
+    position: sticky;
+    top: 12%;
+    z-index: 1;
+}
+.icons{
+    text-align: center;
+
+}
+.table-header{
+    background-color: #EFF2F7 !important;  
+}
+.detail{
+    text-align: center !important;
+}
+.status-button{
+    border: none;
+    background-color: #f3410be9;
+}
+.completed {
+    background-color: #34C38F2E;
+    color: #34C38F;
+    border-radius: 7px;
+    padding: 0px 9px;
+}
+
+.in-progress {
+    background-color: #F1B44C2E;
+    color: #F1B44C;
+    border-radius: 7px;
+    padding: 0px 9px;
+}
+
+.not-started {
+    background-color:#F46A6A2E;
+    color: #F46A6A; 
+    border-radius: 7px;
+    padding: 0px 9px;
+}
+.filter-and-button {
+    display: flex;
+    align-items: center;
+  }
+  
+  .filter-and-button .filter {
+    flex: 0.5;
+  }
+  
+  .filter-and-button .filter input {
+    border-radius: 20px; /* Adjust border radius to your preference */
+    border: 1px solid #ccc; 
+    padding: 8px 12px; /* Add padding */
+    width: 60%; /* Make the input fill the available space */
+  }
+  
+ 
+  .disabled {
+    opacity: 0.5; /* or any other style to visually indicate the icon is disabled */
+    pointer-events: none; /* disable pointer events to prevent click actions */
+  }
+  

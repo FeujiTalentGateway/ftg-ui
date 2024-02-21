@@ -1,0 +1,205 @@
+<div class="main">
+  <button id="close-button" mat-icon-button mat-dialog-close aria-label="Close">
+    <mat-icon>close</mat-icon>
+  </button>
+  <div
+    class="header d-flex flex-column justify-content-center align-items-center"
+  >
+    <h1>Exam-Code: {{ this.selectedExam.examCode }}</h1>
+  </div>
+  <mat-card class="mt-2">
+    <mat-card-header>
+      <mat-card-title>{{ selectedExam.name }}</mat-card-title>
+      <mat-card-subtitle
+        ><strong>{{ selectedExam.description }}</strong>
+      </mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content class="mat-card-content">
+      <div>
+        <p><strong>Exam Code</strong></p>
+        <p>
+          <small>{{ selectedExam.examCode }}</small>
+        </p>
+      </div>
+      <div>
+        <p><strong>Duration</strong></p>
+        <p>
+          <small>{{ selectedExam.duration }}</small>
+        </p>
+      </div>
+      <div>
+        <p><strong>Start Date</strong></p>
+        <p>
+          <small>{{ selectedExam.startDate | date : "medium" }}</small>
+        </p>
+      </div>
+      <div>
+        <p><strong>End Date</strong></p>
+        <p>
+          <small> {{ selectedExam.endDate | date : "medium" }}</small>
+        </p>
+      </div>
+      <div>
+        <p><strong>Active</strong></p>
+        <small
+          ><p>{{ selectedExam.active ? "Yes" : "No" }}</p></small
+        >
+      </div>
+    </mat-card-content>
+  </mat-card>
+  <div class="mt-2">
+    <p><strong>Total Users : </strong>{{ selectedExam.users.length }}</p>
+    <button mat-button color="warn" (click)="toggleUserList()">
+      View Users
+    </button>
+
+    <!-- Dialog to display user names -->
+  </div>
+  <div class="exam-table">
+    <h3 class="subjects-header">Subjects</h3>
+    <!-- <div class="filter-and-button">
+      <mat-form-field class="filter">
+        <mat-label>Filter</mat-label>
+        <input
+          style="width: 180%"
+          matInput
+          (keyup)="applyFilter($event)"
+          placeholder="Ex. java"
+          #input
+        />
+      </mat-form-field>
+    </div> -->
+    <div class="mat-elevation-z8 exam-subjects-div">
+      <table mat-table [dataSource]="dataSource" matSort>
+        <!-- ACTIVE Column -->
+        <ng-container matColumnDef="SNO">
+          <th mat-header-cell *matHeaderCellDef mat-header class="header-cell">
+            S.NO.
+          </th>
+          <td mat-cell *matCellDef="let i = index">{{ i + 1 }}</td>
+        </ng-container>
+
+        <!-- NAME Column -->
+        <ng-container matColumnDef="name">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            class="header-cell"
+          >
+            Subject Name
+          </th>
+          <td mat-cell *matCellDef="let exam">{{ exam.subject.name }}</td>
+        </ng-container>
+
+        <!-- EXAM-CODE Column -->
+        <ng-container matColumnDef="difficultyLevel">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            class="header-cell"
+          >
+            Difficulty Level
+          </th>
+          <td mat-cell *matCellDef="let exam">
+            {{ exam.startingDifficultyLevel }}
+          </td>
+        </ng-container>
+
+        <!-- DURATION Column -->
+        <ng-container matColumnDef="duration">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            class="header-cell"
+          >
+            Duration
+          </th>
+          <td mat-cell *matCellDef="let exam">{{ exam.duration }}</td>
+          >
+        </ng-container>
+
+        <!-- START-DATE Column -->
+        <ng-container matColumnDef="maxQuestions">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            class="header-cell"
+          >
+            Maximum Questions
+          </th>
+          <td mat-cell *matCellDef="let exam">{{ exam.maxQuestions }}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let exam; columns: displayedColumns"></tr>
+
+        <!-- Row shown when there is no matching data. -->
+        <!-- <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="4">
+            No data matching the filter "{{ input.value }}"
+          </td>
+        </tr> -->
+      </table>
+
+      <!-- <mat-paginator
+        [pageSizeOptions]="[3, 5, 10, 15]"
+        aria-label="Select page of users"
+      ></mat-paginator> -->
+    </div>
+  </div>
+</div>
+<div
+  class="modal fade"
+  [ngClass]="{ 'show modal-open': showUserList }"
+  role="dialog"
+  id="staticBackdrop"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">{{ "Usernames" }}</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+          (click)="toggleUserList()"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div *ngIf="showUserList && selectedExam.users.length > 0">
+          <div *ngFor="let user of selectedExam.users">
+            {{ user.userName }}
+          </div>
+        </div>
+      </div>
+      <!-- <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-bs-dismiss="modal"
+          (click)="closeDeleteModal()"
+        >
+          NO
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="deleteSubjectAfterConfirmation()"
+        >
+          Yes
+        </button>
+      </div> -->
+    </div>
+  </div>
+</div>

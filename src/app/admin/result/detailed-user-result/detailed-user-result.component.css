@@ -1,0 +1,134 @@
+.exam-name{
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    font-family: 'Bold';
+    margin-top: 1%;
+    padding: 10px;
+    position: sticky;
+    top: 12%;
+}
+.user-name{
+    background-color: #FFFFFF;
+    height: 100px;
+    top: 212px;
+    left: 273px;
+    border-radius: 6px;
+    margin-top: 1%;
+}
+
+.card.result-card{
+    margin-top: 2% !important;
+    height: 270px;
+   
+}
+
+.respondent{
+    margin-left: 2%;
+    margin-right: 0.5%;
+}
+.user-icon{
+
+    font-size: 25px;
+
+}
+.user-info{
+    margin-left: 2%;
+    margin-right: 0.5%;
+    margin-top: 0.2%;
+    font-family: 'SemiBold';
+    font-size: x-large;
+}
+.user-data{
+    /* margin-top:; */
+    padding: 15px;
+    font-family: 'Regular';
+    font-size: medium;
+}
+.card-title{
+    font-family: 'Regular' !important;
+    font-size: medium;
+}
+.progress{
+    height: 8px !important;
+
+}
+.progress1{
+    margin-top: 1%;
+}
+.progress-bar{
+    background-color: #f3752e;
+}
+.start-end-date{
+    margin-bottom: 2%;
+    margin-top: 2%;
+}
+
+.start-end-date>.time-heading{
+    font-family: 'Regular';
+    font-size: medium;
+    margin-right: 1%;
+    margin: 1%;
+}
+.start-end-date>.time{
+    margin: 0.5%;
+    font-family: 'SemiBold';
+    font-size: 13px;
+}
+  
+  .subject-name {
+    margin-right: 40px; 
+  }
+  
+  .total-time {
+    margin-left: 50px;
+  }
+  .test{
+    margin-right: 25%;
+    margin-top: 10%;
+    font-family: 'Bold';
+    font-size: 25px;
+    margin-right: 5%; 
+    margin-left: 5%;
+    
+
+    
+  }
+  .col{
+    margin-bottom: 9%;
+    margin-top: -4%;
+    margin-left: 10%;
+
+
+  }
+  .test-ended{
+    display: flex;
+    justify-content: space-between;
+  }
+  .timer-content {
+    overflow: hidden; /* Ensures that content doesn't overflow */
+}
+
+.subject1 {
+    display: flex;
+    flex-wrap: wrap; 
+    align-items: center;
+    margin-top: 10px;
+    margin-bottom: 10px; 
+}
+.col-md-6{
+    overflow: hidden;
+}
+.time-in-min{
+    margin-left: 1%;
+}
+.subject-name{
+    margin: auto;
+    margin-left: 2%;
+}
+
+
+  @media (max-width: 900px) {
+    .col-md-6 {
+        width: 100%;
+    }
+}

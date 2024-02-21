@@ -19,8 +19,9 @@ export class TimeFormatPipe implements PipeTransform {
     if (minutes > 0) {
       formattedTime += `${minutes} min `;
     }
-
-    // formattedTime += `${seconds} sec`;
+    if (seconds > 0) {
+      formattedTime += `${seconds} sec`;
+    }
 
     return formattedTime.trim();
   }

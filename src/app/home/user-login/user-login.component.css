@@ -5,17 +5,11 @@
   justify-content: space-between;
 }
 .welcome .welcome-back {
-  font-family: "Gilda Display";
-  font-size: 2.5rem;
-  font-style: normal;
-  font-weight: 100;
-  line-height: normal;
+  font-family: 'Regular';
+
 }
 .welcome .project-name {
-  font-family: "Gurajada", sans-serif;
-  font-style: normal;
-  font-weight: bold;
-  line-height: normal;
+  font-family: 'Bold';
 }
 label {
   display: block;
@@ -31,6 +25,8 @@ form {
   padding: 10px;
   box-sizing: border-box;
   margin-bottom: 25px;
+  font-family: 'Light';
+
 }
 .submit-button {
   cursor: pointer;
@@ -49,14 +45,23 @@ form {
 }
 a {
   text-decoration: none;
+  font-size: 15px;
+
 }
 p {
   margin-top: 15px;
   margin-left: 30px;
+  font-size: 13px;
+
 }
 .password {
   display: flex;
   justify-content: space-between;
+}
+.forgot-password{
+  font-family: 'Regular';
+  font-size: 13px;
+  color: black;
 }
 
 .fa-eye,
@@ -75,14 +80,9 @@ p {
 }
 .error-message {
   color: red;
+  font-family: 'Light';
   margin-top: -25px;
-}
-.welcome .project-name {
-  font-family: "Gurajada", sans-serif;
-  font-size: 2rem;
-  font-style: normal;
-  font-weight: bold;
-  line-height: normal;
+  font-size: 15px;
 }
 
 @media (min-width: 308px) {

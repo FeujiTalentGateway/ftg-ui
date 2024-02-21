@@ -11,16 +11,13 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {}
 
-  // Function to check if the current route is the Signup page
   isSignupPage(): boolean {
-    return (
-      this.router.isActive('/main/register', true) && this.router.url === '/main/register'
-    );
+    return this.router.isActive('/main/register', true) && this.router.url === '/main/register';
   }
-
-  // Function to check if the current route is the Login page
+  isHomePage(): boolean {
+    return this.router.isActive('/main/home', true) && this.router.url === '/main/home';
+  }
   isLoginPage(): boolean {
-    
     return this.router.isActive('/main/login', true) && this.router.url === '/main/login';
   }
 }

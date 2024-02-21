@@ -1,0 +1,88 @@
+
+<div  *ngIf="examObject$ | async as exam">
+  <ng-container *ngIf="handleExamObject(exam)"></ng-container>
+  <div class="exam-name">{{ exam.name }}</div>
+</div>
+<section *ngIf="examStatObject$ | async as examStat; else loadingTemplate">
+  <ng-container *ngIf="handleExamStatObject(examStat)"></ng-container>
+  <div>
+    <h2 class="test">Test Info</h2>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <svg width="200" height="200">
+            <circle
+              cx="100"
+              cy="100"
+              r="90"
+              fill="none"
+              stroke="rgb(11, 194, 121)"
+              [attr.stroke-width]="strokeWidth"
+              [attr.stroke-dasharray]="circumference"
+              [attr.stroke-dashoffset]="0"
+            ></circle>
+            <circle
+              cx="100"
+              cy="100"
+              r="90"
+              fill="none"
+              stroke="#ccc"
+              [attr.stroke-width]="strokeWidth"
+              [attr.stroke-dasharray]="circumference"
+              [attr.stroke-dashoffset]="calculatePercentage().completedPercentage * circumference / 100"
+            ></circle>
+            <text
+              x="50%"
+              y="50%"
+              fill="#333"
+              text-anchor="middle"
+              alignment-baseline="central"
+            >{{ calculatePercentage().completedPercentage }}%</text>
+          </svg>
+      </div>
+      <div class="col average">
+        <i class="fa-solid fa-plus-minus icons"></i>&nbsp;&nbsp; Average Time :
+        {{ (examStat.averageTimeOfExam | timeFormat) || '0' }}<br />
+        <i class="fa-regular fa-clock icons"></i>&nbsp;&nbsp; Average Marks :
+        {{ (examStat.averageMarksOfExam | number: '1.2-2') || '0'}}<br />
+        <i class="fa-solid fa-check icons"></i>&nbsp;&nbsp; Tests Completed :
+        {{ examStat.testsCompletedUsers }}
+      </div>
+      <div>
+        <button
+          type="button"
+          class="btn btn-outline-success btn-sm user-result"
+          (click)="navigateToUserResult()"
+        >
+          View User Result
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="summary">
+    <div class="Configuration Summary">
+      <h4 class="heading">Configuration Summary</h4>
+    </div>
+    <div>
+      <div *ngIf="examObject$ | async as exam">
+        <ul class="test-time">
+          <li>
+            Test access will close on : 
+            {{ exam.endDate | date : "dd MMM yyyy HH:mm" }} IST. Current
+            server time is : {{ currentTime  }} IST.
+          </li>
+          <li>Random order of questions and answers enabled.</li>
+        </ul>
+        <ul>
+          <li *ngFor="let subject of exam.examSubjects">
+            Each respondent will get {{ subject.maxQuestions }} out of
+            {{ subject.maxQuestions }} available questions for
+            {{ subject.subject.name }}.
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+<ng-template #loadingTemplate> Loading ..............</ng-template>

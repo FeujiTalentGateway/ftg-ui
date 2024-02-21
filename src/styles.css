@@ -5,6 +5,7 @@ body {
 }
 .global-color {
   color: #f3752e !important;
+  
 }
 .global-background-color {
   background-color: #f3752e !important;
@@ -24,6 +25,7 @@ body {
 
 :root {
   --primary-color: #f3752e !important;
+  --secondary-color: #ffe1d1 !important;
   --home-background-color: #eff2f7 !important;
 }
 

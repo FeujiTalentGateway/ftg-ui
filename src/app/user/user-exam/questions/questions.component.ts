@@ -150,11 +150,15 @@ export class QuestionsComponent implements OnInit {
       isLast: this.checkThisQuestionLastOrNot(),
       endDate: this.checkThisQuestionLastOrNotForDate(),
       attemptId: this.examAttemptID,
+      isUpdating:false
     };
     if (this.currentQuestionIndex < this.listOfQuestion.length - 1) {
       this.currentQuestionIndex++;
       this.currentQuestion = this.listOfQuestion[this.currentQuestionIndex];
       console.log('updating the question with options');
+      currentQuestionData.isUpdating =true
+      console.log(currentQuestionData);
+      
     } else {
       console.log(currentQuestionData);
       this.currentQuestionIndex += 1;

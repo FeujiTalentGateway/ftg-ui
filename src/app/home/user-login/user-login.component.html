@@ -1,91 +1,78 @@
 <div class="container-fluid">
   <app-header></app-header>
   <div class="row justify-content-center align-items-center">
-    <!-- Left Content (Project Information) -->
     <div class="col-md-7">
-      <div class="welcome">
-        <h1 class="project-name global-color">Feuji Talent Gateway</h1>
-        <!-- <h2 class="welcome-back global-color">Welcome Back!</h2> -->
+      <div class="card login-card shadow p-3 rounded">
+        <div class="card-body">
+          <h1 class="project-name global-color">SIGN IN</h1>
+          <form (ngSubmit)="onLogin()" [formGroup]="userForm!">
+            <label for="username">
+              <i class="fas fa-user"></i>&nbsp;&nbsp;Username</label>
+            <input
+              id="username"
+              type="text"
+              class="inputs border-none"
+              placeholder="Enter your Username"
+              formControlName="userName"
+            />
+            <div
+              class="error-message"
+              *ngIf="
+                (userForm?.get('userName')?.hasError('required') &&
+                  userForm?.get('userName')?.touched) ||
+                (formSubmitted && userForm?.get('userName')?.hasError('required'))
+              "
+            >
+              Username is required.
+            </div>
+            <div class="password">
+              <label for="password"><i class="fas fa-lock"></i>&nbsp;&nbsp;Password</label>
+              <a routerLink="/main/forgot-password" class="forgot-password">Forgot Password?</a>
+            </div>
+            <div class="password-container">
+              <input
+                id="password"
+                class="inputs border-none"
+                [type]="isPasswordVisible ? 'text' : 'password'"
+                placeholder="Password"
+                formControlName="password"
+              />
+              <i
+                class="fa-solid {{ isPasswordVisible ? 'fa-eye-slash' : 'fa-eye' }}"
+                id="eye"
+                (click)="ToggleEye()"
+              ></i>
+            </div>
+            <div
+              class="error-message"
+              *ngIf="
+                (userForm?.get('password')?.hasError('required') &&
+                  userForm?.get('password')?.touched) ||
+                (formSubmitted && userForm?.get('password')?.hasError('required'))
+              "
+            >
+              Password is required.
+            </div>
+            <button
+              [disabled]="!userForm?.valid"
+              class="btn btn-primary submit-button global-background-color global-white-color"
+              [ngClass]="{
+                'submit-button': userForm && userForm.valid,
+                'submit-invalid': userForm && !userForm.valid
+              }"
+            >
+              Submit
+            </button>
+            <div class="row or">
+              OR
+             
+            </div>
+            <button class="signup">
+              <a [routerLink]="['/main/register']">Sign Up</a>
+            </button>
+          </form>
+        </div>
       </div>
-      <!-- Login Form -->
-      <form (ngSubmit)="onLogin()" [formGroup]="userForm!">
-        <!-- UserName Field -->
-        <label for="username" class="global-color">Username</label>
-        <input
-          id="username"
-          type="text"
-          class="inputs global-border-color"
-          placeholder="Enter your Username"
-          formControlName="userName"
-        />
-        <div
-          class="error-message"
-          *ngIf="
-            (userForm?.get('userName')?.hasError('required') &&
-              userForm?.get('userName')?.touched) ||
-            (formSubmitted && userForm?.get('userName')?.hasError('required'))
-          "
-        >
-          Username is required.
-        </div>
-        <!-- Password Field -->
-        <div class="password">
-          <label for="password" class="global-color">Password</label>
-          <a routerLink="/main/forgot-password" class="forgot-password">Forgot Password?</a>
-        </div>
-        <div class="password-container">
-          <input
-            id="password"
-            class="inputs global-border-color"
-            [type]="isPasswordVisible ? 'text' : 'password'"
-            placeholder="Password"
-            formControlName="password"
-          />
-          <i
-            class="fa-solid {{ isPasswordVisible ? 'fa-eye-slash' : 'fa-eye' }}"
-            id="eye"
-            (click)="ToggleEye()"
-          ></i>
-        </div>
-        <div
-          class="error-message"
-          *ngIf="
-            (userForm?.get('password')?.hasError('required') &&
-              userForm?.get('password')?.touched) ||
-            (formSubmitted && userForm?.get('password')?.hasError('required'))
-          "
-        >
-          Password is required.
-        </div>
-        <!-- Submit Field -->
-        <button
-          [disabled]="!userForm?.valid"
-          class="btn btn-primary submit-button global-background-color global-white-color"
-          [ngClass]="{
-            'submit-button': userForm && userForm.valid,
-            'submit-invalid': userForm && !userForm.valid
-          }"
-        >
-          Submit
-        </button>
-        <p>
-          Don't have an account?
-          <a [routerLink]="['/main/register']" class="global-color">Register here</a>
-        </p>
-      </form>
-    </div>
-    <!-- Right Content (Image) -->
-    <div class="col-md-5">
-      <img
-        src="assets/images/feuji-login.png"
-        alt="select the correct path"
-        class="img-fluid"
-      />
     </div>
   </div>
 </div>
-
-<link
-  rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
-/>

@@ -73,6 +73,7 @@ export class AuthService {
           // this.openSnackBar('Login successfully', 'Close');
           this.setJwtToken(response.token);
           this.decodedToken();
+          localStorage.setItem('userName', this.userPayload.sub);
           this.userDetails.setUserNameFromToken(this.userPayload.sub);
           this.userDetails.setRoleFromToken(this.userPayload.authorities);
           let roles: string[] = this.userPayload.authorities.map(

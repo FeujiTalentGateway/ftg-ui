@@ -19,7 +19,7 @@ export class MainLayoutComponent implements OnInit {
     this.userName$ = this.userDetails.getUserNameFromToken();
     this.userName$.subscribe(
       (response) => {
-        localStorage.setItem('userName', response);
+        // localStorage.setItem('userName', response);
       },
       (error) => {
         console.log(error);

@@ -12,6 +12,7 @@ import { AuthService } from 'src/app/services/auth.service';
 export class SidebarComponent implements OnInit {
   listOfRoutes: RouteInfo[] = [];
   roles: string[] = [];
+  activeRoute: any;
 
   constructor(
     private userDetail: UserdetailsService,
@@ -54,7 +55,7 @@ export class SidebarComponent implements OnInit {
         // Check if any role in item.role array matches with roles array
         return item.role.some((role) =>
           this.roles.includes(role.toUpperCase())
-        );  
+        );
       });
 
       // Output the filtered list
@@ -63,4 +64,12 @@ export class SidebarComponent implements OnInit {
   }
 
   isActiveDropdown(activeModule: string) {}
+  
+  toggleActiveRoute(route: any) {
+    if (this.activeRoute === route) {
+      this.activeRoute = null; // Deactivate the route if it's already active
+    } else {
+      this.activeRoute = route; // Activate the clicked route
+    }
+  }
 }

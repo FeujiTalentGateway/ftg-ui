@@ -1,73 +1,86 @@
+<app-header></app-header>
 <div class="container">
   <div class="row justify-content-center">
-    <div class="col-md-7">
-      <div class="welcome">
-        <div class="row justify-content-center logo2 global-color">Sign up!</div>
-        <form [formGroup]="registerForm" (ngSubmit)="registerForm.status !== 'INVALID' && register(registerForm)"
-          class="form-container">
-          <div class="row">
-            <div class="col-md-6 form-group">
-              <label for="firstName" class="input-label">First Name</label>
+    <div class="col-md-8 col-lg-6">
+      <div class="card login-card shadow p-3 rounded">
+        <div class="card-body">
+          <h2 class="global-color">SIGN UP!</h2>
+          <form [formGroup]="registerForm" (ngSubmit)="registerForm.status !== 'INVALID' && register(registerForm)"
+            class="form-container">
+            <div class="form-group no-border">
+              <label for="firstName" class="input-label">
+                <i class="fas fa-user"></i>&nbsp;&nbsp;First Name
+              </label>
               <input type="text" class="form-control input-fields" id="firstName" placeholder="John"
                 formControlName="firstName" />
               <div *ngIf="getControl('firstName')?.errors && getControl('firstName')?.touched">
-                <!-- Validation messages here -->
+                <span class="text-danger">First name is required.</span>
               </div>
             </div>
-            <div class="col-md-6 form-group">
-              <label for="lastName" class="input-label">Last Name</label>
+            <div class="form-group no-border">
+              <label for="lastName" class="input-label">
+                <i class="fas fa-user"></i>&nbsp;&nbsp;Last Name
+              </label>
               <input type="text" class="form-control input-fields" id="lastName" placeholder="Doe"
                 formControlName="lastName" />
               <div *ngIf="getControl('lastName')?.errors && getControl('lastName')?.touched">
-                <!-- Validation messages here -->
+                <span class="text-danger">Last name is required.</span>
               </div>
             </div>
-          </div>
-          <div class="form-group">
-            <label for="email" class="input-label">Email</label>
-            <input type="email" class="form-control input-fields" id="email" placeholder="name@example.com"
-              formControlName="email" />
-            <div *ngIf="getControl('email')?.errors && getControl('email')?.touched">
-              <!-- Validation messages here -->
+            <div class="form-group no-border">
+              <label for="email" class="input-label">
+                <i class="fas fa-envelope"></i>&nbsp;&nbsp;Email
+              </label>
+              <input type="email" class="form-control input-fields" id="email" placeholder="name@example.com"
+                formControlName="email" />
+              <div *ngIf="getControl('email')?.errors && getControl('email')?.touched">
+                <span class="text-danger">Please enter a valid email address.</span>
+              </div>
             </div>
-          </div>
-          <div class="form-group">
-            <label for="userName" class="input-label">Username</label>
-            <input type="text" class="form-control input-fields" id="userName" placeholder="john10"
-              formControlName="userName" />
-            <div *ngIf="getControl('userName')?.errors && getControl('userName')?.touched">
-              <!-- Validation messages here -->
+            <div class="form-group no-border">
+              <label for="userName" class="input-label">
+                <i class="fas fa-user"></i>&nbsp;&nbsp;Username
+              </label>
+              <input type="text" class="form-control input-fields" id="userName" placeholder="john10"
+                formControlName="userName" />
+              <div *ngIf="getControl('userName')?.errors && getControl('userName')?.touched">
+                <span class="text-danger">Username is required.</span>
+              </div>
             </div>
-          </div>
-          <div class="form-group">
-            <label for="password" class="input-label">Password</label>
-            <input type="password" class="form-control input-fields" id="password" placeholder="Password"
-              formControlName="password" />
-            <div *ngIf="getControl('password')?.errors && getControl('password')?.touched">
-              <!-- Validation messages here -->
+            <div class="form-group no-border">
+              <label for="password" class="input-label">
+                <i class="fas fa-lock"></i>&nbsp;&nbsp;Password
+              </label>
+              <input type="password" class="form-control input-fields" id="password" placeholder="Password"
+                formControlName="password" />
+              <div *ngIf="getControl('password')?.errors && getControl('password')?.touched">
+                <span class="text-danger">Password is required.</span>
+              </div>
             </div>
-          </div>
-          <div class="form-group">
-            <label for="confirmPassword" class="input-label">Confirm Password</label>
-            <input type="password" class="form-control input-fields" id="confirmPassword"
-              placeholder="Confirm Password" formControlName="confirmPassword" />
-            <div *ngIf="getControl('confirmPassword')?.errors && getControl('confirmPassword')?.touched">
-              <!-- Validation messages here -->
+            <div class="form-group no-border">
+              <label for="confirmPassword" class="input-label">
+                <i class="fas fa-lock"></i>&nbsp;&nbsp;Confirm Password
+              </label>
+              <input type="password" class="form-control input-fields" id="confirmPassword"
+                placeholder="Confirm Password" formControlName="confirmPassword" />
+              <div *ngIf="getControl('confirmPassword')?.errors && getControl('confirmPassword')?.touched">
+                <span class="text-danger">Please confirm your password.</span>
+              </div>
+              <div *ngIf="registerForm.hasError('passwordMismatch') && getControl('confirmPassword')?.touched">
+                <span class="text-danger">Passwords do not match.</span>
+              </div>
             </div>
-            <div *ngIf="registerForm.hasError('passwordMismatch') && getControl('confirmPassword')?.touched">
-              <span class="text-danger">Passwords do not match.</span>
+            <!-- Other form fields and validations -->
+            <button class="button reg-btn global-background-color" type="submit"
+              [class.disabled-button]="registerForm.invalid">
+              Register
+            </button>
+            <div class="login-link globar-color text-center">
+              Already have an account?
+              <a [routerLink]="['/main/login']"><span class="global-color"> Login</span></a>
             </div>
-          </div>
-          <!-- Other form fields and validations -->
-          <button class="button reg-btn global-background-color" type="submit"
-            [class.disabled-button]="registerForm.invalid">
-            Register
-          </button>
-          <div class="login-link globar-color text-center">
-            Already have an account?
-            <a [routerLink]="['/main/login']"><span class="global-color"> Login</span></a>
-          </div>
-        </form>
+          </form>
+        </div>
       </div>
     </div>
   </div>

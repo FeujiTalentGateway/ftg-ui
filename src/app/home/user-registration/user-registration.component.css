@@ -41,7 +41,7 @@
   border: none;
   width: 3 rem;
   color: white;
-  padding: 15px 32px;
+  padding: 14px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -50,16 +50,15 @@
   cursor: pointer;
 }
 .reg-btn {
-  padding-bottom: 4%;
-  padding-top: 3%;
-  width: 90%;
+ 
+  width: 60%;
   border-radius: 30px;
   margin-top: 6%;
+  margin-left: 14%;
 }
 .input-fields {
   font-size: 0.9rem;
   line-height: 1.5rem;
-  /* border: 1px solid #f3752e; */
   margin-bottom: 0.2rem;
 }
 .input-label {
@@ -72,7 +71,7 @@
   font-size: 10px;
   width: 100%;
   margin-top: 2%;
-  border-radius: 10px;
+  /* border-radius: 10px; */
 }
 .form-floating .form-control {
   border: 0.1px solid #8399a3;
@@ -81,7 +80,7 @@
   font-size: 10px;
   width: 100%;
   margin-top: 2%;
-  border-radius: 10px;
+  /* border-radius: 10px; */
 }
 .form-floating label {
   font-size: 10px;
@@ -123,9 +122,7 @@ a {
     position: relative;
   }
   
-.input-fields {
-padding-right: 2rem; /* Adjust the padding to ensure space for the icon */
-}
+
 
 #eye {
 position: absolute;
@@ -135,3 +132,93 @@ transform: translateY(-50%);
 cursor: pointer;
 color: #bbb;
 }
+.no-border .form-control {
+  border: none;
+  border-bottom: 1px solid black;
+  border-radius: 0px;
+}
+
+.no-border .form-control:focus {
+  border-color: #80bdff;
+  box-shadow: none;
+}
+.inputs:focus,
+.inputs:not(:placeholder-shown) { 
+  border-bottom-color: #f3752e; 
+}
+input{
+  margin: 0%;
+}
+.input-line.focused {
+  border-bottom-color: #007bff; /* Change line color when focused */
+}
+
+.input-line.has-content {
+  border-bottom-color: #007bff; /* Change line color when input has content */
+}
+.form-group{
+  margin-top: 3% !important;
+
+}
+h2{
+  text-align: center;
+  font-family: 'SemiBold';
+}
+.col-md-6 {
+  max-width: 48%; /* Adjust as needed */
+}
+
+.input-fields {
+  width: 100%; /* Ensure input fields take full width */
+}
+.col-md-6 {
+  max-width: 48%; /* Adjust as needed */
+}
+
+.input-fields {
+  width: 100%; /* Ensure input fields take full width */
+}
+
+.no-border .form-control {
+  border: none;
+  border-bottom: 1px solid black;
+  border-radius: 0px;
+}
+
+.no-border .form-control:focus {
+  border-color: #80bdff;
+  box-shadow: none;
+}
+
+.text-danger {
+  font-size: 0.7rem;
+}
+.col-md-6 {
+  max-width: 48%;
+}
+
+.input-fields {
+  width: 100%;
+}
+
+.no-border .form-control {
+  border: none;
+  border-bottom: 1px solid black;
+  border-radius: 0px;
+}
+
+.no-border .form-control:focus {
+  border-color: #80bdff;
+  box-shadow: none;
+}
+
+.text-danger {
+  font-size: 0.7rem;
+}
+
+/* .button {
+  border: none;
+  width: 3rem;
+  color: white;
+  padding: 14px;
+} */

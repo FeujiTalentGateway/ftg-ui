@@ -163,9 +163,4 @@ export class ViewExamsComponent implements OnInit, AfterViewInit {
     };
     this.dialogRef = this.matDialog.open(ViewExamDetailComponent, dialogConfig);
   }
-
-  getStatusButtonClass(status: boolean): string {
-    console.log(status);
-    return status ? 'status-button active' : 'status-button in-active';
-  }
 }

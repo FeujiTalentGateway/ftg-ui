@@ -7,7 +7,7 @@
     <form [formGroup]="examForm" (ngSubmit)="onSubmit()" class="exam-form">
       <div class="form-row">
         <div>
-          <label for="name">Name</label>
+          <label for="name">Name:</label>
           <input
             type="text"
             id="name"
@@ -39,7 +39,7 @@
         </div>
 
         <div>
-          <label for="examCode">Exam Code</label>
+          <label for="examCode">Exam Code:</label>
           <input
             type="text"
             id="examCode"
@@ -69,7 +69,7 @@
         </div>
 
         <div>
-          <label for="duration">Exam Duration</label>
+          <label for="duration">Exam Duration:</label>
           <input
             type="text"
             readonly
@@ -99,7 +99,7 @@
           </div>
         </div>
         <div>
-          <label for="startDate">Start Date</label>
+          <label for="startDate">Start Date:</label>
           <input
             type="date"
             id="startDate"
@@ -131,7 +131,7 @@
         </div>
 
         <div>
-          <label for="endDate">End Date</label>
+          <label for="endDate">End Date:</label>
           <input
             type="date"
             id="endDate"
@@ -169,7 +169,7 @@
         <div class="active">
           <div></div>
           <div>
-            <label for="active">Active</label> &nbsp; &nbsp;
+            <label for="active">Active:</label> &nbsp; &nbsp;
             <mat-slide-toggle
               color="warn"
               id="active"
@@ -180,7 +180,7 @@
         <div></div>
       </div>
       <div>
-        <label for="description">Description</label>
+        <label for="description">Description:</label>
         <textarea
           id="description"
           formControlName="description"
@@ -298,7 +298,6 @@
             </div>
             <!-- <input id="startingDifficultyLevel{{i}}" formControlName="startingDifficultyLevel" class="form-control" /> -->
           </div>
-          <igx-time-picker formControlName="duration"></igx-time-picker>
           <div>
             <!-- <label for="duration{{ i }}">Duration</label>
             <input
@@ -327,42 +326,49 @@
             </div> -->
             <label for="duration">Duration</label>
             <div
-              class="d-flex align-item-center justify-content-even flex-dir-column"
+              class="d-flex align-item-center justify-content-even flex-dir-column form-control"
             >
-              <!-- <label for="hours{{ i }}">:</label> -->
-              <select
-                id="hours{{ i }}"
-                formControlName="hours"
-                class="sub-duration"
-                (change)="mapSubDurationToDuration()"
-              >
-                <option *ngFor="let hour of hoursArray" [value]="hour">
-                  {{ hour }}
-                </option>
-              </select>
-              <label for="minutes{{ i }}">:</label>
-              <select
-                id="minutes{{ i }}"
-                formControlName="minutes"
-                class="sub-duration"
-                (change)="mapSubDurationToDuration()"
-              >
-                <option *ngFor="let minute of minutesArray" [value]="minute">
-                  {{ minute }}
-                </option>
-              </select>
-              <label for="seconds{{ i }}">:</label>
+              <div>
+                <!-- <label for="hours{{ i }}">:</label> -->
+                <select
+                  id="hours{{ i }}"
+                  formControlName="hours"
+                  class="sub-duration"
+                  (change)="mapSubDurationToDuration()"
+                >
+                  <option *ngFor="let hour of hoursArray" [value]="hour">
+                    {{ hour }}
+                  </option>
+                </select>
+              </div>
 
-              <select
-                id="seconds{{ i }}"
-                formControlName="seconds"
-                class="sub-duration"
-                (change)="mapSubDurationToDuration()"
-              >
-                <option *ngFor="let second of secondsArray" [value]="second">
-                  {{ second }}
-                </option>
-              </select>
+              <div>
+                <label for="minutes{{ i }}">:</label>
+                <select
+                  id="minutes{{ i }}"
+                  formControlName="minutes"
+                  class="sub-duration"
+                  (change)="mapSubDurationToDuration()"
+                >
+                  <option *ngFor="let minute of minutesArray" [value]="minute">
+                    {{ minute }}
+                  </option>
+                </select>
+              </div>
+
+              <div>
+                <label for="seconds{{ i }}">:</label>
+                <select
+                  id="seconds{{ i }}"
+                  formControlName="seconds"
+                  class="sub-duration"
+                  (change)="mapSubDurationToDuration()"
+                >
+                  <option *ngFor="let second of secondsArray" [value]="second">
+                    {{ second }}
+                  </option>
+                </select>
+              </div>
             </div>
           </div>
           <button
@@ -381,28 +387,14 @@
           <!-- Add other form controls for the subject as needed -->
         </div>
       </ng-container>
-      <p
-        mat-raised-button
-        #tooltip="matTooltip"
-        matTooltip="Add Users"
-        [matTooltipPosition]="'right'"
-        matTooltipHideDelay="100"
-        aria-label="Button that displays a tooltip that hides when scrolled out of the container"
-        class="example-button btn btn-outline-secondary add-user"
-        (click)="addUsers($event)"
-      >
-        <mat-icon aria-hidden="false" aria-label="Example plus icon"
-          >person_add</mat-icon
-        >
-      </p>
-      <!-- <button
+      <button
         mat-raised-button
         color="warn"
         class="add-user"
         (click)="addUsers($event)"
       >
         {{ isEditing ? "Update Users" : "Add Users" }}
-      </button> -->
+      </button>
 
       <button
         mat-raised-button

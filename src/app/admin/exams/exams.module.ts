@@ -17,7 +17,6 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { AddEditSubjectComponent } from './add-edit-subject/add-edit-subject.component';
 import { TruncatePipe } from './custom-pipes/truncate.pipe';
 import { ExamUserComponent } from './exam-user/exam-user.component';
@@ -26,7 +25,6 @@ import { ScheduleExamComponent } from './schedule-exam/schedule-exam.component';
 import { ViewExamDetailComponent } from './view-exam-detail/view-exam-detail.component';
 import { ViewExamsComponent } from './view-exams/view-exams.component';
 import { ViewSubjectsComponent } from './view-subjects/view-subjects.component';
-import { IgxTimePickerModule } from 'igniteui-angular';
 
 @NgModule({
   declarations: [
@@ -58,8 +56,6 @@ import { IgxTimePickerModule } from 'igniteui-angular';
     MatSlideToggleModule,
     MatTooltipModule,
     MatCardModule,
-    NgxMaterialTimepickerModule,
-    IgxTimePickerModule,
   ],
 })
 export class ExamsModule {}

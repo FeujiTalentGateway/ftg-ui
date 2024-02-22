@@ -43,7 +43,7 @@ import { SharedModuleModule } from './shared-module/shared-module.module';
     BrowserAnimationsModule,
     ReactiveFormsModule,
     MatDialogModule,
-    SharedModuleModule
+    SharedModuleModule,
   ],
   providers: [
     SharedDataService,
@@ -56,5 +56,4 @@ import { SharedModuleModule } from './shared-module/shared-module.module';
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {
-}
+export class AppModule {}

@@ -61,26 +61,10 @@
   grid-template-rows: repeat(3, 1fr);
 }
 .add-user {
-  width: 10%;
-}
-sub-duration-div {
-  width: fit-content;
-  height: 170%;
-}
-.sub-duration {
-  width: 90px;
-  height: 170%;
-  padding: 2px;
-  border: none;
-}
-input,
-textarea,
-select {
-  font-family: "Your Preferred Font", sans-serif;
+  width: 20%;
 }
 
-label {
-  font-family: Roboto;
-  font-weight: 400;
-  font-size: 15px;
+.sub-duration {
+  /* height: 170%; */
+  border: none;
 }

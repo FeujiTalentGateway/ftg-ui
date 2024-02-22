@@ -1,0 +1,36 @@
+<div class="profile-container" *ngIf="userProfile">
+    <mat-card class="custom-card">
+      <mat-card-header>
+        <div class="header-content">
+          <mat-icon class="profile-icon">account_circle</mat-icon>
+          <h1 class="profile-title">Profile Details</h1>
+        </div>
+      </mat-card-header>
+      <hr>
+      <mat-card-content>
+        <div class="profile-item">
+          <label>First Name: &nbsp;</label>
+          <span>{{ userProfile.firstName }}</span>
+        </div>
+        <div class="profile-item">
+          <label>Last Name: &nbsp;</label>
+          <span>{{ userProfile.lastName }}</span>
+        </div>
+        <div class="profile-item">
+          <label>User Name: &nbsp;</label>
+          <span>{{ userProfile.userName }}</span>
+        </div>
+        <div class="profile-item">
+          <label>Email ID: &nbsp;</label>
+          <span>{{ userProfile.emailId }}</span>
+        </div>
+        <div class="profile-item">
+          <label>Roles: &nbsp;</label>
+          <ul>
+            <li *ngFor="let role of userProfile.roles">{{ role }}</li>
+          </ul>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  

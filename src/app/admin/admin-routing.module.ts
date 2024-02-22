@@ -34,6 +34,12 @@ const routes: Routes = [
       import('./result/result.module').then((m) => m.ResultModule),
     canActivate: [adminGuard, loginGuard],
   },
+  {
+    path: 'profile',
+    loadChildren: () =>
+      import('../common/common.module').then((m) => m.CustomCommonModule),
+    canActivate: [adminGuard, loginGuard],
+  },
 ];
 
 @NgModule({

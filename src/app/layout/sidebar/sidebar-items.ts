@@ -218,7 +218,7 @@ export const ROUTES: RouteInfo[] = [
     ],
   },
   {
-    path: '',
+    path: '/admin/profile',
     title: 'Profile',
     modulename: 'Profile',
     iconType: 'father',

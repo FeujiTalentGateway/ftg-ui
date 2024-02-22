@@ -1,0 +1,31 @@
+.profile-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80%;
+  }
+  
+  .custom-card {
+    max-width: 400px; /* Adjust the max-width as needed */
+    width: 100%;
+    border-radius: 20px; /* Adjust border-radius as needed */
+    box-shadow: 0 4px 8px rgba(223, 212, 212, 0.1); /* Add a box-shadow for depth */
+    overflow: hidden;
+  }
+  
+  .header-content {
+    display: flex;
+    align-items: center;
+  }
+  
+  .profile-icon {
+    margin-right: 10px;
+    margin-bottom: -4px;
+  }
+  
+  .profile-title {
+    margin-top: 5px;
+    font-weight: bold;
+    font-size: 24px;
+  }
+  

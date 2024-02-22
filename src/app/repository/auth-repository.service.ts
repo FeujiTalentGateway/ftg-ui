@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { UserLoginModel } from '../models/user-login.model';
 import { User } from '../models/user.model';
+import { UserProfile } from '../models/userProfile';
 
 @Injectable({
   providedIn: 'root',
@@ -25,12 +26,14 @@ export class AuthRepositoryService {
     console.log('Inside auth repo: login()');
     return this.http.post(this.baseUrl + 'auth/login', loginData);
   }
+
   sendOtpToEmail(email: string): Observable<any> {  
     return this.http.get(
       this.baseUrl + 'account/generate-otp/' + email,
       { observe: 'response' }
     );
   }
+
   setPasswordRequestForForgotPassword(
     forgotPasswordRequest: any,
     options: any
@@ -53,5 +56,16 @@ export class AuthRepositoryService {
       requestOptions
     );
   }
+
+  getUserProfile(): Observable<UserProfile> {
+    let token = localStorage.getItem('token');
+    let headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    let requestOptions = {
+      headers: headers,
+    };
+    return this.http.get<UserProfile>(this.baseUrl+'profile',requestOptions);
+  }
+
+
 
 }

@@ -1,13 +1,11 @@
 /* Styling for the header */
 .header-fileds {
-  padding-top: 1%;
-  padding-left: 1%;
-  padding-right: 1%;
+  background-color: #fff;
 }
 
 /* Styling for the logo */
 .logo {
-  width: 70%;
+  width: 40%;
 }
 
 /* Styling for navigation links*/

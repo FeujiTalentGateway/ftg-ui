@@ -1,24 +1,20 @@
-<!-- Header component -->
+<!-- Header component
 <app-header></app-header>
 
-<!-- External stylesheet for Font Awesome icons -->
 <link
   rel="stylesheet"
   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
 />
 
-<!-- Main content container -->
 <div
   class="container-fluid align-items-center justify-content-center container-class"
 >
-  <!-- Header section -->
   <section
     class="header-section w-100 border-0 mb-0 text-black text-center py-4"
   >
-    <h1 class="global-color">Contact Feuji Talent Gateway</h1>
+    <h1 class="global-color">CONTACT US</h1>
   </section>
 
-  <!-- Get in Touch section -->
   <section
     class="get-in-touch-section w-100 border-0 mb-0 text-black text-center py-4"
   >
@@ -30,9 +26,7 @@
     </p>
   </section>
 
-  <!-- Contact Information and Form -->
   <div class="row justify-content-center align-items-stretch">
-    <!-- Contact Information Card -->
     <div class="col-md-5 offset-md-1">
       <div
         class="card h-100 flex-column justify-content-center global-border-color global-background-color text-center"
@@ -65,13 +59,11 @@
       </div>
     </div>
 
-    <!-- Contact Form Card -->
     <div class="col-md-5">
       <div class="card h-100 align-items-center border-0 global-color">
         <div class="card-body">
           <h4 class="card-title text-center mb-4 global-color">Contact Form</h4>
 
-          <!-- Form for user input -->
           <form
             action="#"
             method="post"
@@ -112,7 +104,6 @@
               ></textarea>
             </div>
 
-            <!-- Submit button-->
             <button
               type="submit"
               [disabled]="!userForm?.valid"
@@ -131,5 +122,81 @@
   </div>
 </div>
 
-<!-- Footer component -->
+<app-footer></app-footer> -->
+<app-header></app-header>
+
+<div class="container-fluid mt-5">
+  <header class="text-center">
+    <h1 class="custom-headings global-color">CONTACT US</h1>
+    <hr class="line">
+  </header>
+
+  <section id="about" class="my-5 p-0 m-0">
+    <div class="col-md-12 custom">
+      <div class="card mb-3  shadow p-3 rounded custom-card-one">
+        <div class="card-body custom-one">
+          <p>
+            Do let us know your name, and what you'd like for us to help you with, and any queries you may have. We'll get back to you within 24 hours.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-7">
+        <div class="card mb-3 shadow p-3 mb-3 rounded custom-card h-100">
+          <div class="card-body">
+            <h2 class="custom-headings global-color">FAQ</h2>
+            <div class="faq-item mt-4">
+              <h5 class="faq-question">How do I contact support?</h5>
+              <p class="faq-answer">You can contact our support team via email at info.india@feuji.com or by phone at +91-40-12345678.</p>
+            </div>
+            <div class="faq-item">
+              <h5 class="faq-question">How can I reschedule my exam date or time?</h5>
+              <p class="faq-answer">Most exam portals allow you to reschedule your exam by logging into your account and accessing the exam scheduling section. Follow the prompts to select a new date and time based on availability. Be mindful that rescheduling may incur additional fees.</p>
+            </div>
+            <div class="faq-item">
+              <h5 class="faq-question">How long are exam scores valid?</h5>
+              <p class="faq-answer">The validity period of exam scores varies depending on the exam and the organization administering it. Check the exam guidelines or contact the exam provider for information on score validity.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-5 align-items-center justify-content-center"> 
+        <div class="card one mb-6 shadow p-3 rounded custom-card h-100"> 
+          <div class="card-body">
+            <h2 class="custom-headings global-color">Contact Form</h2>
+            <div class="row one">
+              <div class="col-md-12 one">
+                <div class="card border-0 one">
+                  <div class="card-body text-align-center" >
+                    <form action="#" method="post" [formGroup]="userForm!" (ngSubmit)="onLogin()">
+                      <div class="form-group contact">
+                        <label for="name">Name:</label>
+                        <input type="text" class="form-control inputs" formControlName="name" id="name" name="name" placeholder="Enter Your Name" required>
+                      </div>
+                      <div class="form-group contact">
+                        <label for="email">Email:</label>
+                        <input type="email" class="form-control inputs" formControlName="email" id="email" name="email" placeholder="Enter Your Email" required>
+                      </div>
+                      <div class="form-group contact">
+                        <label for="message">Message:</label>
+                        <textarea class="form-control inputs" id="message" formControlName="message" name="message" rows="4" placeholder="Enter Your Message" required></textarea>
+                      </div>
+                      <button type="submit" [disabled]="!userForm?.valid" [ngClass]="{'submit-button': userForm && userForm.valid,'submit-invalid': userForm && !userForm.valid}" class="btn btn-primary contact submit-button global-background-color global-white-color">Submit</button>
+                      
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+
+
 <app-footer></app-footer>

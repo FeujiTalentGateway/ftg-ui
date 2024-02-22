@@ -1,141 +1,74 @@
-<div class="container-fluid">
-  <app-header></app-header>
-  <div class="row">
-    <div class="col-sm-12 col-md-7 register data">
-      <div class="row justify-content-center logo1 global-color">Feuji Talent Gateway</div>
-      <div class="row justify-content-center logo2 global-color">Sign up!</div>
-      <form [formGroup]="registerForm" (ngSubmit)="registerForm.status !== 'INVALID' && register(registerForm)"
-        class="form-container">
-        <div class="row">
-          <div class="col-md-6 form-group firstname">
-            <label for="exampleFormControlInput1" class="input-label">First Name</label>
-            <input type="text" class="form-control input-fields firstname" id="firstName" placeholder="John"
-              formControlName="firstName" />
-            <div *ngIf="
-                getControl('firstName')?.errors &&
-                getControl('firstName')?.touched
-              ">
-              <span class="text-danger" *ngIf="getControl('firstName')?.errors?.['required']">First name is required.
-              </span>
-              <span class="text-danger" *ngIf="getControl('firstName')?.errors?.['pattern']">Invalid first name.
-              </span>
-              <span class="text-danger" *ngIf="getControl('firstName')?.errors?.['maxlength']">Only 32 characters are
-                allowed.
-              </span>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-7">
+      <div class="welcome">
+        <div class="row justify-content-center logo2 global-color">Sign up!</div>
+        <form [formGroup]="registerForm" (ngSubmit)="registerForm.status !== 'INVALID' && register(registerForm)"
+          class="form-container">
+          <div class="row">
+            <div class="col-md-6 form-group">
+              <label for="firstName" class="input-label">First Name</label>
+              <input type="text" class="form-control input-fields" id="firstName" placeholder="John"
+                formControlName="firstName" />
+              <div *ngIf="getControl('firstName')?.errors && getControl('firstName')?.touched">
+                <!-- Validation messages here -->
+              </div>
+            </div>
+            <div class="col-md-6 form-group">
+              <label for="lastName" class="input-label">Last Name</label>
+              <input type="text" class="form-control input-fields" id="lastName" placeholder="Doe"
+                formControlName="lastName" />
+              <div *ngIf="getControl('lastName')?.errors && getControl('lastName')?.touched">
+                <!-- Validation messages here -->
+              </div>
             </div>
           </div>
-          <div class="col-md-6 form-group lastname">
-            <label for="exampleFormControlInput1" class="input-label">Last Name</label>
-            <input type="text" class="form-control input-fields" id="lastName" placeholder="Doe"
-              formControlName="lastName" />
-            <div *ngIf="
-                getControl('lastName')?.errors &&
-                getControl('lastName')?.touched
-              ">
-              <span class="text-danger" *ngIf="getControl('lastName')?.errors?.['required']">Last name is required.
-              </span>
-              <span class="text-danger" *ngIf="getControl('lastName')?.errors?.['pattern']">Invalid last name.
-              </span>
-              <span class="text-danger" *ngIf="getControl('lastName')?.errors?.['maxlength']">Only 32 characters are
-                allowed.
-              </span>
+          <div class="form-group">
+            <label for="email" class="input-label">Email</label>
+            <input type="email" class="form-control input-fields" id="email" placeholder="name@example.com"
+              formControlName="email" />
+            <div *ngIf="getControl('email')?.errors && getControl('email')?.touched">
+              <!-- Validation messages here -->
             </div>
           </div>
-        </div>
-        <div class="col-md-12 form-group">
-          <label for="exampleFormControlInput1" class="input-label">Email</label>
-          <input type="email" class="form-control input-fields" id="email" placeholder="name@example.com"
-            formControlName="email" />
-          <div *ngIf="getControl('email')?.errors && getControl('email')?.touched">
-            <span class="text-danger" *ngIf="getControl('email')?.errors?.['required']">Email is required.
-            </span>
-            <span class="text-danger" *ngIf="getControl('email')?.errors?.['maxlength']">Only 32 characters are allowed.
-            </span>
-            <span class="text-danger" *ngIf="getControl('email')?.errors?.['pattern']">Please enter a valid email.
-            </span>
+          <div class="form-group">
+            <label for="userName" class="input-label">Username</label>
+            <input type="text" class="form-control input-fields" id="userName" placeholder="john10"
+              formControlName="userName" />
+            <div *ngIf="getControl('userName')?.errors && getControl('userName')?.touched">
+              <!-- Validation messages here -->
+            </div>
           </div>
-
-          <label for="exampleFormControlInput1" class="input-label">Username</label>
-          <input type="text" class="form-control input-fields" id="userName" placeholder="john10"
-            formControlName="userName" />
-          <div *ngIf="
-              getControl('userName')?.errors && getControl('userName')?.touched
-            ">
-            <span class="text-danger" *ngIf="getControl('userName')?.errors?.['required']">Username is required.
-            </span>
-            <span class="text-danger" *ngIf="getControl('userName')?.errors?.['invalidUsername']">First 4 letters should
-              only be letters.
-            </span>
-            <span class="text-danger"
-              *ngIf="getControl('userName')?.errors?.['minlength'] || getControl('userName')?.errors?.['maxlength']">Username
-              should be between 8 and 20 characters.
-            </span>
+          <div class="form-group">
+            <label for="password" class="input-label">Password</label>
+            <input type="password" class="form-control input-fields" id="password" placeholder="Password"
+              formControlName="password" />
+            <div *ngIf="getControl('password')?.errors && getControl('password')?.touched">
+              <!-- Validation messages here -->
+            </div>
           </div>
-          <label for="exampleFormControlInput1" class="input-label form-control-icon password-div">Password</label>
-          <div class="input-container">
-            <input [type]="passwordVisible ? 'text' : 'password'" class="form-control input-fields" id="password"
-              placeholder="password" formControlName="password" [ngClass]="{
-              error:
-                getControl('password')?.errors &&
-                getControl('password')?.touched
-            }" />
-            <i class="fa-solid {{ passwordVisible ? 'fa-eye-slash' : 'fa-eye' }}" id="eye"
-              (click)="passwordVisibility()"></i>
+          <div class="form-group">
+            <label for="confirmPassword" class="input-label">Confirm Password</label>
+            <input type="password" class="form-control input-fields" id="confirmPassword"
+              placeholder="Confirm Password" formControlName="confirmPassword" />
+            <div *ngIf="getControl('confirmPassword')?.errors && getControl('confirmPassword')?.touched">
+              <!-- Validation messages here -->
+            </div>
+            <div *ngIf="registerForm.hasError('passwordMismatch') && getControl('confirmPassword')?.touched">
+              <span class="text-danger">Passwords do not match.</span>
+            </div>
           </div>
-
-          <div *ngIf="
-              getControl('password')?.errors && getControl('password')?.touched
-            ">
-            <span class="text-danger" *ngIf="getControl('password')?.hasError('required')">Password is required.
-            </span>
-            <span class="text-danger" *ngIf="
-                getControl('password')?.hasError('maxlength') ||
-                getControl('password')?.hasError('minlength')
-              ">Password should be between 8 and 32 characters long.
-            </span>
-          </div>
-
-          <label for="exampleFormControlInput1" class="input-label">Confirm Password</label>
-          <div class="input-container">
-            <input [type]="confirmPasswordVisible ? 'text' : 'password'" class="form-control input-fields"
-              id="confirmPassword" placeholder="Confirm Password" formControlName="confirmPassword" [ngClass]="{
-                error:
-                  getControl('confirmPassword')?.errors &&
-                  getControl('confirmPassword')?.touched
-              }" />
-            <i class="fa-solid {{ confirmPasswordVisible ? 'fa-eye-slash' : 'fa-eye' }}" id="eye"
-              (click)="confirmPasswordVisibility()"></i>
-          </div>
-          <div *ngIf="
-              getControl('confirmPassword')?.errors &&
-              getControl('confirmPassword')?.touched
-            ">
-            <span class="text-danger" *ngIf="getControl('confirmPassword')?.hasError('required')">Confirm Password is
-              required.
-            </span>
-          </div>
-          <div *ngIf="
-              registerForm.hasError('passwordMismatch') &&
-              getControl('confirmPassword')?.touched
-            ">
-            <span class="text-danger">Passwords do not match. </span>
-          </div>
-        </div>
-        <div class="col-2 col-md-4 offset-md-4">
+          <!-- Other form fields and validations -->
           <button class="button reg-btn global-background-color" type="submit"
             [class.disabled-button]="registerForm.invalid">
             Register
           </button>
-        </div>
-        <div class="login-link globar-color text-center">
-          Already have an account?
-          <a [routerLink]="['/main/login']"><span class="global-color"> Login</span></a>
-        </div>
-      </form>
-    </div>
-    <div class="col-sm-12 col-md-5">
-      <img class="img-fluid col-12 col-md-12" src="../assets/images/register.png" alt="register!" />
+          <div class="login-link globar-color text-center">
+            Already have an account?
+            <a [routerLink]="['/main/login']"><span class="global-color"> Login</span></a>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </div>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />

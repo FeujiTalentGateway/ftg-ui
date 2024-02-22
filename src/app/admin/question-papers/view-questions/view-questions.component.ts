@@ -14,6 +14,8 @@ import { QuestionsService } from 'src/app/services/questions.service';
 })
 export class ViewQuestionsComponent implements OnInit {
   // questions:{id:number,question:string,options:string[],correctAnswer:string}[]=[]
+  difficultLevelList: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  selectedLevel!: number;
   isDeleteModalOpen: boolean = false;
   delitingQuestion: string = '';
   delitableQuestionId: number = 0;
@@ -31,6 +33,7 @@ export class ViewQuestionsComponent implements OnInit {
   searchQuery: string = '';
   subjectsSubscription: Subscription = new Subscription();
   quesitonSubscirption: Subscription = new Subscription();
+  isDropdownOpen: boolean[] = [];
 
   // paginator!:Paginator
   constructor(
@@ -38,8 +41,11 @@ export class ViewQuestionsComponent implements OnInit {
     private questionRepository: QuestionRepository,
     private subjectRepository: SubjectRepositoryService,
     private activatedRoute: ActivatedRoute
-  ) {}
+  ) {
+    this.isDropdownOpen = Array(this.questions.length).fill(false);
+  }
   ngOnInit(): void {
+    this.selectedLevel=0;
     const subjectQueryParam =
       this.activatedRoute.snapshot.queryParamMap.get('subject');
     this.selectedSubject = subjectQueryParam !== null ? +subjectQueryParam : 0; // Use a default value (e.g., 0) if subjectQueryParam is null
@@ -72,6 +78,7 @@ export class ViewQuestionsComponent implements OnInit {
   }
 
   getQuesitonsBySubject() {
+    if(this.selectedLevel==0){
     this.quesitonSubscirption = this.questionRepository
       .getQuestionsBySubject(this.selectedSubject)
       .subscribe(
@@ -84,7 +91,25 @@ export class ViewQuestionsComponent implements OnInit {
           console.error('Error fetching questions:', error);
         }
       );
+    }
+    else{
+      this.quesitonSubscirption = this.questionRepository
+      .getQuestionsBySubject(this.selectedSubject)
+      .subscribe(
+        (questions: Question[]) => {
+          this.questions = questions.filter((question) =>
+          question.difficultyLevel==this.selectedLevel
+        );
+          // Initialize selectedSubject with the first subject
+        },
+        (error) => {
+          // Handle error if needed
+          console.error('Error fetching questions:', error);
+        }
+      );
+    }
   }
+
 
   get paginatedQuestions() {
     const startIndex = this.pageNumber * this.pageSize;
@@ -128,17 +153,54 @@ export class ViewQuestionsComponent implements OnInit {
     this.subjectsSubscription.unsubscribe();
     this.quesitonSubscirption.unsubscribe();
   }
-  setRightOptionOrNot(option : any, question : Question):Boolean{
-    console.log(option,question);
-    let optionFound = question.rightOptions?.find(opt => opt.id === option.id)
+  setRightOptionOrNot(option: any, question: Question): Boolean {
+    // console.log(option, question);
+    let optionFound = question.rightOptions?.find(
+      (opt) => opt.id === option.id
+    );
 
-
-    if(optionFound){
-      return true
+    if (optionFound) {
+      return true;
     }
     // option.optionName === question.rightOption.optionName
 
-    return false
+    return false;
+  }
 
+  toggleDropdown(index: number) {
+    if (!this.isDropdownOpen[index]) {
+      this.isDropdownOpen = Array(this.questions.length).fill(false);
+      this.isDropdownOpen[index] = !this.isDropdownOpen[index];
+    } else {
+      this.isDropdownOpen[index] = !this.isDropdownOpen[index];
+    }
+  }
+
+  getStatusButtonClass(level: number): string {
+    switch (level) {
+      case 1:
+        return 'level-1';
+      case 2:
+        return 'level-2';
+      case 3:
+        return 'level-3';
+      case 4:
+        return 'level-4';
+      case 5:
+        return 'level-5';
+      case 6:
+        return 'level-6';
+      case 7:
+        return 'level-7';
+      case 8:
+        return 'level-8';
+      case 9:
+        return 'level-9';
+      case 10:
+        return 'level-10';
+
+      default:
+        return 'difficultyLevel';
+    }
   }
 }

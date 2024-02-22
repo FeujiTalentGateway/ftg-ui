@@ -1,4 +1,4 @@
-<div class="main-div">
+<div class="container-fluid main-div">
   <div
     class="d-flex align-item-center justify-content-around flex-dir-column header"
   >
@@ -18,6 +18,23 @@
       </select>
     </div>
 
+    <div>
+      <select
+        id="subject"
+        class="form-select select header-child"
+        [(ngModel)]="selectedLevel"
+        (change)="getQuesitonsBySubject()"
+      >
+        <option value=0 disabled selected>Difficulty level</option>
+        <option
+          value="{{ difficultyLevel }}"
+          *ngFor="let difficultyLevel of difficultLevelList"
+        >
+          {{ difficultyLevel }}
+        </option>
+      </select>
+    </div>
+
     <input
       type="text"
       [(ngModel)]="searchQuery"
@@ -33,44 +50,60 @@
       >
         <div class="card">
           <div class="card-body">
-            <h2 class="card-title">
-              {{ pageNumber * pageSize + i + 1 + ". " + question.content }} 
-            </h2>
-            <span> difficultyLevel : {{question.difficultyLevel}}</span>
-           
+            <div class="content">
+              <h6 class="card-title">
+                {{ pageNumber * pageSize + i + 1 + ". " + question.content }}
+              </h6>
+              <div class="dropdown">
+                <span
+                  class="difficultyLevel"
+                  [ngClass]="getStatusButtonClass(question.difficultyLevel)"
+                  >level : {{ question.difficultyLevel }}</span
+                >
+                <!-- &nbsp;&nbsp;&nbsp; -->
+                <span
+                  id="ellipsisIcon"
+                  class="ellipsis-icon"
+                  (click)="toggleDropdown(question.id)"
+                >
+                  <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                </span>
+                <div
+                  class="dropdown-content"
+                  *ngIf="isDropdownOpen[question.id]"
+                >
+                  <ul>
+                    <li
+                      [routerLink]="[
+                        '/admin/questionPapers/addEditQuestion',
+                        question.id
+                      ]"
+                    >
+                      Edit
+                    </li>
+                    <li (click)="deleteQuestion(question.id)">Delete</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
 
-            <ol>
+            <ol type="A" class="options-list">
               <li
-                class="card-text mb-3"
+                class="card-text mb-2"
                 [ngClass]="{
-                  'text-success fw-700': setRightOptionOrNot(option ,question)
+                  'text-success fw-700': setRightOptionOrNot(option, question)
                 }"
                 *ngFor="let option of question.options; let i = index"
               >
-                {{ option.optionName }}
+                <p>{{ option.optionName }}</p>
               </li>
             </ol>
-
-            <button
-              class="btn btn-warning  btn-sm mr-20"
-              [routerLink]="[
-                '/admin/questionPapers/addEditQuestion',
-                question.id
-              ]"
-            >
-              Edit
-            </button>
-            <button
-              class="btn btn-danger btn-sm"
-              (click)="deleteQuestion(question.id)"
-            >
-              Delete
-            </button>
           </div>
         </div>
       </div>
     </div>
   </div>
+
   <ng-template #noQuestionsMessage>
     <div
       class="d-flex align-item-center justify-content-around mb-3 flex-dir-column"
@@ -81,7 +114,7 @@
     </div>
   </ng-template>
   <div class="bottom-container">
-    <div class="d-flex justify-content-around">
+    <div class="">
       <div style="width: fit-content">
         <mat-paginator
           [length]="questions.length"

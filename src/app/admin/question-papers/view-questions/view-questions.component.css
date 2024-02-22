@@ -542,6 +542,9 @@ input[type="text"]:focus {
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   z-index: 1;
 }
+.right-option{
+  background-color: rgba(226, 246, 239, 1);
+}
 .dropdown-content ul li {
   padding: 5px 8px;
   cursor: pointer;

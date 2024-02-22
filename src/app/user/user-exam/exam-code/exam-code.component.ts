@@ -38,17 +38,6 @@ export class ExamCodeComponent implements OnInit {
     );
 
     console.log(this.currentExam);
-    // if (this.currentExam === undefined) {
-    //   alert;
-    // } else {
-    //   if (this.currentExam) {
-    //     console.log(this.examCode);
-    //     this.router.navigate(['/user/exam/exam-instructions', this.examCode]);
-    //     const exampleCode = this.examCode;
-    //     this.router.navigate(['/user/exam/exam-instructions', exampleCode]);
-    //   }
-    // }
-
     //   on production
       this.examRepo.checkExamAvailableForUserOrNot(this.examCode).subscribe(
         (response) => {

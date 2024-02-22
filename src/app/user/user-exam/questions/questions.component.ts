@@ -49,7 +49,6 @@ export class QuestionsComponent implements OnInit {
   indexPositionOfSubject$: Observable<number> | undefined;
   nextSubjectLoading: boolean = false;
   updateSubjectIndex$: Observable<number> | undefined;
-  
 
   ngOnInit(): void {
     console.log(this.paper);
@@ -85,6 +84,7 @@ export class QuestionsComponent implements OnInit {
           console.log(this.currentQuestion);
           console.log(this.examAttemptID);
           this.isLoading = false;
+          this.listOfQuestion.push(response.question);
         },
         (error) => {
           console.log(error);
@@ -112,15 +112,8 @@ export class QuestionsComponent implements OnInit {
     private ExamRepo: ExamService,
     private sharedData: SharedDataService,
     private router: Router
-  ) {
-    this.currentQuestion = this.paper?.questions[0];
-  }
-  nextQuestion() {
-    if (this.currentQuestionIndex < this.paper.questions.length - 1) {
-      this.currentQuestionIndex++;
-      this.currentQuestion = this.paper.questions[this.currentQuestionIndex];
-    }
-  }
+  ) {}
+
   optionSelected(option: Option) {
     console.log(option);
     console.log(this.currentQuestion);
@@ -158,24 +151,32 @@ export class QuestionsComponent implements OnInit {
       endDate: this.checkThisQuestionLastOrNotForDate(),
       attemptId: this.examAttemptID,
     };
-    console.log(currentQuestionData);
-
-    this.question$ = this.ExamRepo.submitQuestion(currentQuestionData);
-    this.attemptedQuestions += 1;
-    this.checkQuestionsAvailableOrNot();
-    this.question$.subscribe((response) => {
-      if (response != null) {
-        this.currentQuestion = response;
-        this.currentQuestion.optionSelected = [];
-        console.log(response, '=================');
-      }
-    });
+    if (this.currentQuestionIndex < this.listOfQuestion.length - 1) {
+      this.currentQuestionIndex++;
+      this.currentQuestion = this.listOfQuestion[this.currentQuestionIndex];
+      console.log('updating the question with options');
+    } else {
+      console.log(currentQuestionData);
+      this.currentQuestionIndex += 1;
+      this.question$ = this.ExamRepo.submitQuestion(currentQuestionData);
+      this.attemptedQuestions += 1;
+      this.checkQuestionsAvailableOrNot();
+      this.question$.subscribe((response) => {
+        if (response != null) {
+          this.currentQuestion = response;
+          this.currentQuestion.optionSelected = [];
+          console.log(response, '=================');
+          this.listOfQuestion.push(response);
+        }
+      });
+      console.log(this.listOfQuestion);
+    }
   }
 
   previousQuestion() {
     if (this.currentQuestionIndex > 0) {
       this.currentQuestionIndex--;
-      this.currentQuestion = this.paper.questions[this.currentQuestionIndex];
+      this.currentQuestion = this.listOfQuestion[this.currentQuestionIndex];
     }
   }
   checkQuestionsAvailableOrNot() {
@@ -296,5 +297,24 @@ export class QuestionsComponent implements OnInit {
         this.router.navigateByUrl('/user/home');
       }
     );
+  }
+  nextQuestion() {
+    console.log('ok');
+    if (this.currentQuestionIndex < this.listOfQuestion.length - 1) {
+      this.currentQuestionIndex++;
+      this.currentQuestion = this.listOfQuestion[this.currentQuestionIndex];
+    } else {
+      console.log('getting the new question with same defiluclty level ');
+    }
+  }
+  isOptionSelected(option: Option): boolean {
+    let options = this.currentQuestion?.optionSelected?.[0];
+    if (options != undefined && options.id == option.id) {
+      return true;
+    }
+    return false;
+  }
+  isOptionsSelected(option: Option): boolean {
+    return false;
   }
 }

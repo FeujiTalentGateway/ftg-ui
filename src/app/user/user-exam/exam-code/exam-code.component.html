@@ -1,7 +1,9 @@
 <section>
-  <div class="container">
+  <div class="container shadow-lg p-3 mb-5 bg-white rounded">
     <form #examForm="ngForm" (ngSubmit)="submitForm()">
       <label for="examCode" class="heading-text">Exam Code:</label>
+      <br>
+      <small>please enter the exam</small>
       <div class="form-group">
         <input
           type="text"

@@ -2,7 +2,6 @@
   <div class="header">
     <h1>{{ isEditing ? "Update Exam" : "Schedule Exam" }}</h1>
   </div>
-  <!-- Schedule Exam Dialog -->
   <div class="schedule-exam-form mat-elevation-z8">
     <form [formGroup]="examForm" (ngSubmit)="onSubmit()" class="exam-form">
       <div class="form-row">
@@ -14,8 +13,8 @@
             formControlName="name"
             required
             class="form-control"
-            placeholder="enter exam name here"
-            aria-label="Exam Name"
+            placeholder="Exam name"
+            aria-label="Exam name"
           />
 
           <div
@@ -39,7 +38,7 @@
         </div>
 
         <div>
-          <label for="examCode">Exam Code:</label>
+          <label for="examCode">Exam Code</label>
           <input
             type="text"
             id="examCode"
@@ -69,7 +68,7 @@
         </div>
 
         <div>
-          <label for="duration">Exam Duration:</label>
+          <label for="duration">Exam Duration</label>
           <input
             type="text"
             readonly
@@ -99,7 +98,7 @@
           </div>
         </div>
         <div>
-          <label for="startDate">Start Date:</label>
+          <label for="startDate">Start Date</label>
           <input
             type="date"
             id="startDate"
@@ -131,7 +130,7 @@
         </div>
 
         <div>
-          <label for="endDate">End Date:</label>
+          <label for="endDate">End Date</label>
           <input
             type="date"
             id="endDate"
@@ -169,7 +168,7 @@
         <div class="active">
           <div></div>
           <div>
-            <label for="active">Active:</label> &nbsp; &nbsp;
+            <label for="active">Active</label> &nbsp; &nbsp;
             <mat-slide-toggle
               color="warn"
               id="active"
@@ -180,7 +179,7 @@
         <div></div>
       </div>
       <div>
-        <label for="description">Description:</label>
+        <label for="description">Description</label>
         <textarea
           id="description"
           formControlName="description"
@@ -220,7 +219,6 @@
           (selectionChange)="onSubjectSelected()"
           #subjectControl="ngModel"
         >
-          <!-- <mat-option [value]="null">Select Any Subject</mat-option> -->
           <mat-option *ngFor="let subject of subjects" [value]="subject.id">{{
             subject.name
           }}</mat-option>
@@ -278,7 +276,6 @@
               formControlName="startingDifficultyLevel"
               class="form-control"
             >
-              <!-- <mat-option [value]="null">Select Any Subject</mat-option> -->
               <mat-option
                 *ngFor="let difficultyLevel of difficultyLevelArray"
                 [value]="difficultyLevel"
@@ -296,40 +293,13 @@
             >
               Strting Difficulty Level is required.
             </div>
-            <!-- <input id="startingDifficultyLevel{{i}}" formControlName="startingDifficultyLevel" class="form-control" /> -->
           </div>
           <div>
-            <!-- <label for="duration{{ i }}">Duration</label>
-            <input
-              id="duration{{ i }}"
-              formControlName="duration"
-              (change)="updateExamDuration()"
-              class="form-control"
-            />
-            <div
-              *ngIf="
-                subjectGroup.get('duration')?.hasError('required') &&
-                subjectGroup.get('duration')?.touched
-              "
-              class="error-msg"
-            >
-              Duration is required.
-            </div>
-            <div
-              *ngIf="
-                subjectGroup.get('duration')?.hasError('pattern') &&
-                subjectGroup.get('duration')?.touched
-              "
-              class="error-msg"
-            >
-              Duration should be in the format HH:mm:ss.
-            </div> -->
             <label for="duration">Duration</label>
             <div
               class="d-flex align-item-center justify-content-even flex-dir-column form-control"
             >
               <div>
-                <!-- <label for="hours{{ i }}">:</label> -->
                 <select
                   id="hours{{ i }}"
                   formControlName="hours"
@@ -402,15 +372,20 @@
         >
       </p>
 
-      <button
-        mat-raised-button
-        color="primary"
-        class="submit-btn mb-4 mt-2"
-        [disabled]="examForm.invalid"
-        type="submit"
-      >
-        {{ isEditing ? "Update Exam" : "Schedule Exam" }}
-      </button>
+      <div class="d-flex justify-content-center">
+        <button
+          mat-raised-button
+          class="submit-btn mb-4 mt-2 btn-success"
+          [disabled]="examForm.invalid"
+          type="submit"
+        >
+          {{ isEditing ? "Update Exam" : "Schedule Exam" }}
+        </button>
+      </div>
     </form>
   </div>
+  <ngx-timepicker
+    [(ngModel)]="selectedTime"
+    [showMeridian]="true"
+  ></ngx-timepicker>
 </div>

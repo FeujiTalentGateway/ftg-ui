@@ -62,9 +62,13 @@
 }
 .add-user {
   width: 10%;
+  margin-bottom: 0;
 }
 
 .sub-duration {
   /* height: 170%; */
   border: none;
+}
+.submit-btn {
+  text-align: center;
 }

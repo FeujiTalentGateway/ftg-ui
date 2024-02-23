@@ -15,7 +15,7 @@ export class SnackBarService {
     });
   }
   openRedAlertSnackBar(message: string, action: string = 'Close') {
-    this.snackBar.open(message, action, {
+    this.snackBar.open(message, '', {
       duration: 2000,
       panelClass: 'centered-snackbar', // Apply a custom CSS class
       verticalPosition: 'top',

@@ -41,6 +41,10 @@ h3{
 .mt-3{
   margin-top: 0% !important;
 }
+.col-md-4{
+  margin-top: 3% !important;
+
+}
 .technical{
   font-family: 'Bold';
   font-size: 30px;
@@ -50,4 +54,10 @@ h3{
     margin: auto;
     margin-left: 50px;
     border: 1px solid rgba(0, 0, 0, 0.973); 
+}
+.last{
+  margin-bottom: 5% !important;
+}
+.main-home{
+  margin-top: 8%;
 }

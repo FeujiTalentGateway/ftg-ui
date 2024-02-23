@@ -1,7 +1,10 @@
 .side-nav {
     height: 100vh;
-    background-color: #ffe1d1;
+    background-color:#fff;
+    /* background-color: #ffe1d1; */
     /* overflow-y: auto; */
+  box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.264);
+
   }
 
 

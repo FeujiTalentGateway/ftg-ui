@@ -79,25 +79,33 @@
     border-color: #0bc279;
     color: white;
     font-family: 'SemiBold';
+    border-radius: 5px;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 3px 10px;
 }
 .btn-outline-success.active {
-    /* border-color: #0bc279; */
     font-family: 'SemiBold';
     background-color: #34C38F2E;
-    color: #f3752e;
     color: #0bc279;
     padding: 0px 12px;
-    cursor:pointer;
+    cursor:auto;
     border: none;
+    border-radius: 5px;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 3px 10px;
   }
   .btn-outline-success.inactive {
-    background-color: #f3752e;
     border-color: #f3752e;
-    color: white;
     background-color:#F46A6A2E;
     color: #F46A6A; 
-    padding: 0px 9px;
     border: none;
+    cursor:auto;
+    border-radius: 5px;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 3px 10px;
 
 
 }
@@ -126,9 +134,7 @@
     align-items: center;
     margin-top: 9%;
     padding-top: 7px;
-    font-size: 15px;
-
-    
+    font-size: 15px;    
 }
 .exam-users{
     background-color: #EFF2F7;

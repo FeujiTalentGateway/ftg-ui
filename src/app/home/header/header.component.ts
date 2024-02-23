@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
+  showButtons: boolean = false;
   constructor(private router: Router) {}
 
   ngOnInit() {}
@@ -19,5 +20,8 @@ export class HeaderComponent implements OnInit {
   }
   isLoginPage(): boolean {
     return this.router.isActive('/main/login', true) && this.router.url === '/main/login';
+  }
+  toggleButtons(): void {
+    this.showButtons = !this.showButtons;
   }
 }

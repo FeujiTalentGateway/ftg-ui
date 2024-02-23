@@ -62,15 +62,15 @@ h2{
   font-family: 'Regular';
   font-size: larger;
   font-weight: 500;
-  background-color: #eff2f7;
+  background-color: white;
 }
 .custom-card-one{
-  background-color: #eff2f7;
+  background-color:white;
   text-align: center;
 
 }
 .card{
-  background-color: #eff2f7 !important;
+  background-color: white !important;
 }
 .one{
   background-color: black !important;

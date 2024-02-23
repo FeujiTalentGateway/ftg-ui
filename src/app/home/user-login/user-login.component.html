@@ -1,5 +1,5 @@
-<div class="container-fluid">
-  <app-header></app-header>
+<app-header></app-header>
+<div class="container-fluid custom">
   <div class="row justify-content-center align-items-center">
     <div class="col-md-7">
       <div class="card login-card shadow p-3 rounded">
@@ -67,8 +67,8 @@
               OR
              
             </div>
-            <button class="signup">
-              <a [routerLink]="['/main/register']">Sign Up</a>
+            <button class="signup" [routerLink]="['/main/register']">
+              <a>Sign Up</a>
             </button>
           </form>
         </div>

@@ -1,47 +1,11 @@
-.container-fluid {
-  min-height: 80vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  /* background-color: #414F57; */
-}
-/* form */
-.register {
-  height: 60%;
-}
-.data {
-  padding-top: 0%;
-  padding-bottom: 0%;
-  padding-left: 5%;
-  padding-right: 3%;
-}
-.logo1 {
-  font-family: "Gurajada", sans-serif;
-  font-size: 2.5rem;
-  font-style: normal;
-  font-weight: bold;
-  line-height: normal;
-}
-.logo2 {
-  font-family: "Gilda Display";
-  font-size: 1.5rem;
-  padding-top: 2%;
-  padding-bottom: 2%;
-  font-style: normal;
-  font-weight: 100;
-  line-height: normal;
-}
-.firstname{
-    padding-right: 0.5%;
-}
-.lastname{
-    padding-left: 0.5%;
+.container{
+  margin-top: 6%;
 }
 .button {
   border: none;
-  width: 3 rem;
+  width: 3rem;
   color: white;
-  padding: 14px;
+  padding: 10px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -49,134 +13,51 @@
   margin: 4px 2px;
   cursor: pointer;
 }
+
 .reg-btn {
- 
   width: 60%;
   border-radius: 30px;
   margin-top: 6%;
   margin-left: 14%;
 }
+
 .input-fields {
   font-size: 0.9rem;
   line-height: 1.5rem;
   margin-bottom: 0.2rem;
-}
-.input-label {
-  font-size: 0.8rem;
-}
-.form-floating .input {
-  border: 0.1px solid #8399a3;
-  height: 40px;
-  padding: 8px;
-  font-size: 10px;
-  width: 100%;
-  margin-top: 2%;
-  /* border-radius: 10px; */
-}
-.form-floating .form-control {
-  border: 0.1px solid #8399a3;
-  height: 40px !important;
-  padding: 8px;
-  font-size: 10px;
-  width: 100%;
-  margin-top: 2%;
-  /* border-radius: 10px; */
-}
-.form-floating label {
-  font-size: 10px;
-  color: #414f57;
-  transition: transform 0.3s ease-in-out, font-size 0.3s ease-in-out,
-    color 0.3s ease-in-out;
-
-  /* Initial position */
-  transform: translateY(0);
-}
-
-.form-group .input-fields:focus {
-  border: 0px solid #f3752e;
-  outline: none;
-  box-shadow: 0 0 4px #414f57;
+  width: 70%;
 }
 
 .text-danger {
   font-size: 0.7rem;
 }
 
-/* Custom styles for the floating labels when input is focused */
 .login-link {
   font-size: 80%;
+  margin-top: 1%;
+  margin-right: 7%;
 }
 
-a {
-  text-decoration: none;
-}
 .disabled-button {
   cursor: not-allowed;
   opacity: 0.8;
 }
+
 ::placeholder {
-    color: #aaa; /* Change to your desired color */
+  color: #aaa; 
 }
 
 .input-container {
-    position: relative;
-  }
-  
-
+  position: relative;
+}
 
 #eye {
-position: absolute;
-top: 50%;
-right: 10px; /* Adjust the distance from the right side */
-transform: translateY(-50%);
-cursor: pointer;
-color: #bbb;
-}
-.no-border .form-control {
-  border: none;
-  border-bottom: 1px solid black;
-  border-radius: 0px;
-}
-
-.no-border .form-control:focus {
-  border-color: #80bdff;
-  box-shadow: none;
-}
-.inputs:focus,
-.inputs:not(:placeholder-shown) { 
-  border-bottom-color: #f3752e; 
-}
-input{
-  margin: 0%;
-}
-.input-line.focused {
-  border-bottom-color: #007bff; /* Change line color when focused */
-}
-
-.input-line.has-content {
-  border-bottom-color: #007bff; /* Change line color when input has content */
-}
-.form-group{
-  margin-top: 3% !important;
-
-}
-h2{
-  text-align: center;
-  font-family: 'SemiBold';
-}
-.col-md-6 {
-  max-width: 48%; /* Adjust as needed */
-}
-
-.input-fields {
-  width: 100%; /* Ensure input fields take full width */
-}
-.col-md-6 {
-  max-width: 48%; /* Adjust as needed */
-}
-
-.input-fields {
-  width: 100%; /* Ensure input fields take full width */
+  position: absolute;
+  top: 50%;
+  right: 30%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #bbb;
 }
 
 .no-border .form-control {
@@ -186,39 +67,45 @@ h2{
 }
 
 .no-border .form-control:focus {
-  border-color: #80bdff;
+  border-bottom:1px solid #f3752e;
   box-shadow: none;
 }
 
 .text-danger {
-  font-size: 0.7rem;
+  font-size: 0.9rem;
+  font-family: 'Regular';
+
 }
+
 .col-md-6 {
   max-width: 48%;
 }
 
-.input-fields {
-  width: 100%;
+.no-border{
+  margin-top: 3%;
+  margin-left: 15%;
+}
+.form-group {
+  position: relative;
 }
 
-.no-border .form-control {
-  border: none;
-  border-bottom: 1px solid black;
-  border-radius: 0px;
+.form-group label {
+  position: absolute;
+  left: 5px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
-.no-border .form-control:focus {
-  border-color: #80bdff;
-  box-shadow: none;
+.form-group input {
+  padding-left: 30px; 
+  padding-top: 14px; 
+  padding-bottom: 14px;
+}
+a{
+  text-decoration: none;
+}
+.password-fields{
+  margin-left: 15%;
 }
 
-.text-danger {
-  font-size: 0.7rem;
-}
 
-/* .button {
-  border: none;
-  width: 3rem;
-  color: white;
-  padding: 14px;
-} */

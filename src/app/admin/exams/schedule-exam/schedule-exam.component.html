@@ -387,20 +387,14 @@
           <!-- Add other form controls for the subject as needed -->
         </div>
       </ng-container>
-      <p
+      <button
         mat-raised-button
-        #tooltip="matTooltip"
-        matTooltip="Add Users"
-        [matTooltipPosition]="'right'"
-        matTooltipHideDelay="100"
-        aria-label="Button that displays a tooltip that hides when scrolled out of the container"
-        class="example-button btn btn-outline-secondary add-user"
+        color="warn"
+        class="add-user"
         (click)="addUsers($event)"
       >
-        <mat-icon aria-hidden="false" aria-label="Example plus icon"
-          >person_add</mat-icon
-        >
-      </p>
+        {{ isEditing ? "Update Users" : "Add Users" }}
+      </button>
 
       <button
         mat-raised-button

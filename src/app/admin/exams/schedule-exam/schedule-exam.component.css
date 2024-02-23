@@ -61,7 +61,7 @@
   grid-template-rows: repeat(3, 1fr);
 }
 .add-user {
-  width: 10%;
+  width: 20%;
 }
 
 .sub-duration {

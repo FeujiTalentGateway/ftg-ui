@@ -127,12 +127,9 @@
           ACTIVE
         </th>
         <td mat-cell *matCellDef="let exam">
-          <mat-slide-toggle
-            [checked]="exam.active"
-            color="warn"
-            (change)="toggleActive(exam)"
-          >
-          </mat-slide-toggle>
+          <span [ngClass]="getStatusButtonClass(exam.active)">
+            {{ exam.active ? "Active" : "Inactive" }}
+          </span>
         </td>
       </ng-container>
 
@@ -142,17 +139,10 @@
         <td mat-cell *matCellDef="let exam">
           <button
             mat-icon-button
-            color="accent"
+            color="#000000"
             [routerLink]="['/admin/exams/scheduleExam', exam.id]"
           >
             <mat-icon>edit</mat-icon>
-          </button>
-          <button
-            mat-icon-button
-            color="accent"
-            (click)="openViewExamDetailsModal(exam)"
-          >
-            <mat-icon>remove_red_eye</mat-icon>
           </button>
         </td>
       </ng-container>

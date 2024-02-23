@@ -8,6 +8,7 @@
 /* Styling for the logo */
 .logo {
   width: 70%;
+  mix-blend-mode: multiply;
 }
 
 /* Styling for navigation links*/

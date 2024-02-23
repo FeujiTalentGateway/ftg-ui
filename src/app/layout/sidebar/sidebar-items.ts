@@ -74,7 +74,7 @@ export const ROUTES: RouteInfo[] = [
   },
   {
     path: '',
-    title: 'Question Papers',
+    title: 'Subjects',
     modulename: 'questionPapers',
     iconType: 'feather',
     icon: 'fa-solid fa-pen',

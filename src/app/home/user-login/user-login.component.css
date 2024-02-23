@@ -72,6 +72,9 @@ p {
   cursor: pointer;
   color: lightgray;
 }
+.img-fluid{
+  mix-blend-mode: multiply;
+}
 
 .password-container {
   padding: 0px;

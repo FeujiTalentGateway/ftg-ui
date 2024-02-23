@@ -8,10 +8,10 @@
   </div>
   <div class="container shadow p-3 mb-5 bg-white rounded">
     <div class="heading"></div>
-    <div class="content" *ngIf="nextSubjectLoading; else loadingSubject">
+    <div class="content" *ngIf="nextSubjectLoading; else loadingSubject" >
       <h5>
-        Question : {{ attemptedQuestions }} /
-        {{ currentSubject?.maxQuestions }}
+        Question : {{ currentQuestionIndex + 1 }} /
+        {{ currentSubject?.maxQuestions }} 
       </h5>
       <br />
       <h4 class="question-name">
@@ -24,6 +24,7 @@
               type="radio"
               name="question.id"
               (change)="assignRightOption(option)"
+              [checked]="isOptionSelected(option)"
             />
             &nbsp; &nbsp;{{ option.optionName }}
           </span>
@@ -42,6 +43,13 @@
 
     <div class="footer">
       <button
+        (click)="previousQuestion()"
+        [disabled]="this.currentQuestionIndex == 0"
+        class="btn"
+      >
+        Previous
+      </button>
+      <button
         (click)="saveOption()"
         class="btn btn-sm btn-success btn-custom"
         [disabled]="this.currentQuestion?.optionSelected?.length == 0"
@@ -49,6 +57,16 @@
       >
         save & next
       </button>
+      <button
+        (click)="nextQuestion()"
+        [disabled]="
+          this.currentQuestionIndex == this.currentSubject?.maxQuestions 
+        "
+        class="btn"
+      >
+        Next
+      </button>
+
       <button
         (click)="saveAndSubmit()"
         class="btn btn-sm btn-success btn-custom"

@@ -21,26 +21,28 @@
 .status-button{
     border: none;
     background-color: #f3410be9;
+    border-radius: 5px;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 3px 10px;
 }
+
 .completed {
     background-color: #34C38F2E;
     color: #34C38F;
-    border-radius: 7px;
-    padding: 0px 9px;
+    
 }
 
 .in-progress {
     background-color: #F1B44C2E;
     color: #F1B44C;
-    border-radius: 7px;
-    padding: 0px 9px;
+   
 }
 
 .not-started {
     background-color:#F46A6A2E;
     color: #F46A6A; 
-    border-radius: 7px;
-    padding: 0px 9px;
+   
 }
 .filter-and-button {
     display: flex;

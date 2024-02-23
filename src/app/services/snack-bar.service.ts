@@ -14,4 +14,12 @@ export class SnackBarService {
       horizontalPosition: 'center',
     });
   }
+  openRedAlertSnackBar(message: string, action: string = 'Close') {
+    this.snackBar.open(message, action, {
+      duration: 2000,
+      panelClass: 'centered-snackbar', // Apply a custom CSS class
+      verticalPosition: 'top',
+      horizontalPosition: 'center',
+    });
+  }
 }

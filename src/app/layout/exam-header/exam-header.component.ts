@@ -147,7 +147,10 @@ export class ExamHeaderComponent {
       (response) => {
         this.router.navigateByUrl('/user/home');
       },
-      (error) => {}
+      (error) => {
+        console.log(error,"error i am getting");
+        
+      }
     );
   }
 }

@@ -1,0 +1,10 @@
+.mdc-dialog__actions {
+    padding: 0 24px 9px;
+}
+section{
+    padding: 10px 20px;
+}
+.btn-custom-primary {
+    background-color: #0bc279;
+    border: 1px solid #0bc279;
+  }

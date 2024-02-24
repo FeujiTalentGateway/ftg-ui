@@ -20,6 +20,8 @@ import { SharedDataService } from './services/shared-data.service';
 import { ConfirmationDialogComponent } from './utils/confirmation-dialog/confirmation-dialog.component';
 
 import { SharedModuleModule } from './shared-module/shared-module.module';
+import { RefreshDialogComponent } from './utils/refresh-dialog/refresh-dialog.component';
+import { ConfirmDialogforuserComponent } from './utils/confirm-dialogforuser/confirm-dialogforuser.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +33,8 @@ import { SharedModuleModule } from './shared-module/shared-module.module';
     ConfirmationDialogComponent,
     UserExamLayoutComponent,
     ExamHeaderComponent,
+    RefreshDialogComponent,
+    ConfirmDialogforuserComponent,
   ],
   imports: [
     BrowserModule,

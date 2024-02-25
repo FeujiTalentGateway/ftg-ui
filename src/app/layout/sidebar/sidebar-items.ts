@@ -74,7 +74,7 @@ export const ROUTES: RouteInfo[] = [
   },
   {
     path: '',
-    title: 'Question Papers',
+    title: 'Subjects',
     modulename: 'questionPapers',
     iconType: 'feather',
     icon: 'fa-solid fa-pen',
@@ -227,14 +227,14 @@ export const ROUTES: RouteInfo[] = [
     role: ['Admin', 'invigilator', 'user'],
     submenu: [],
   },
-  {
-    path: '',
-    title: 'Settings',
-    modulename: 'Settings',
-    iconType: 'father',
-    icon: 'fa-solid fa-wrench',
-    class: 'menu-toggle',
-    role: ['Admin', 'invigilator', 'user'],
-    submenu: [],
-  },
+  // {
+  //   path: '',
+  //   title: 'Settings',
+  //   modulename: 'Settings',
+  //   iconType: 'father',
+  //   icon: 'fa-solid fa-wrench',
+  //   class: 'menu-toggle',
+  //   role: ['Admin', 'invigilator', 'user'],
+  //   submenu: [],
+  // },
 ];

@@ -1,18 +1,27 @@
 <aside>
   <div class="row">
     <div class="side-nav">
-      <img class="image-logo" src="assets/images/feuji-logo-bg.png" />
+      <img class="image-logo" src="assets/images/Feuji-new-logo.jpg" />
       <div class="nav-list">
         <div *ngFor="let route of listOfRoutes" class="nav-item">
-          <span (click)="toggleSubmenu(route)" class="main-menu">
-            <i class="{{ route.icon }}"></i> &nbsp;<span>{{ route.title }}</span> &nbsp;
+          <!-- <div (click)="toggleActiveRoute(route)"  [class.active]="activeRoute === route"><i class="{{ route.icon }}"></i> &nbsp;&nbsp;{{ route.title }}</div>
+          <div>></div> -->
+          <span (click)="toggleActiveRoute(route)" class="main-menu" [class.active]="activeRoute === route">
+            <span class="nav-main-title"><i class="{{ route.icon }}"></i> &nbsp;&nbsp;{{ route.title }}</span> &nbsp; 
           </span>
-          <ul *ngIf="route.active && route.submenu.length > 0"  class="sub">
+          <ul
+            *ngIf="activeRoute === route && route.submenu.length > 0"
+            class="sub"
+          >
             <ng-container *ngFor="let submenu of route.submenu">
-              <li  class="submenu-link">
-                <a [routerLink]="submenu.path" routerLinkActive="active" class="submenu">
-                <i class="{{ submenu.icon }}"></i> &nbsp;
-                <span>{{ submenu.title }}</span> &nbsp;
+              <li class="submenu-link">
+                <a
+                  [routerLink]="submenu.path"
+                  routerLinkActive="active"
+                  class="submenu"
+                >
+                  <i class="{{ submenu.icon }}"></i> &nbsp;
+                  <span class="sub-nav-item">{{ submenu.title }}</span> &nbsp;
                 </a>
               </li>
             </ng-container>

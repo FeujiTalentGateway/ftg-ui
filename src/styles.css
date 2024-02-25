@@ -36,3 +36,7 @@ body {
 
 @import "~bootstrap/dist/css/bootstrap.min.css";
 
+.red-snackbar {
+  background-color: red;
+  color: white; /* Adjust text color for better visibility if needed */
+}

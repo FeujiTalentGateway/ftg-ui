@@ -10,6 +10,8 @@
 }
 
 .logo {
+  width: 70%;
+  mix-blend-mode: multiply;
   width: 40%;
 }
 

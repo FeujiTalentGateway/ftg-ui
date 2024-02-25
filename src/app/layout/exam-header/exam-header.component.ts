@@ -5,6 +5,7 @@ import { ExamSubject } from 'src/app/models/examSubject';
 import { Paper } from 'src/app/models/paper';
 import { ExamService } from 'src/app/repository/exam.service';
 import { SharedDataService } from 'src/app/services/shared-data.service';
+import { SnackBarService } from 'src/app/services/snack-bar.service';
 
 @Component({
   selector: 'app-exam-header',
@@ -30,7 +31,8 @@ export class ExamHeaderComponent {
     private sharedService: SharedDataService,
     private examService: ExamService,
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private snackBarService :SnackBarService
   ) {}
 
   ngOnInit() {
@@ -79,6 +81,10 @@ export class ExamHeaderComponent {
 
       if (this.countdownDuration >= 0) {
         this.updateCountdownDisplay();
+      }
+      else if(this.countdownDuration == 120){
+        this.snackBarService.openRedAlertSnackBar("you have only 2 min left")
+
       } else {
         this.countdownSubscription?.unsubscribe();
 
@@ -147,7 +153,10 @@ export class ExamHeaderComponent {
       (response) => {
         this.router.navigateByUrl('/user/home');
       },
-      (error) => {}
+      (error) => {
+        console.log(error,"error i am getting");
+        
+      }
     );
   }
 }

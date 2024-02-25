@@ -1,10 +1,10 @@
 <header class="row align-items-center header-nav">
     <div class="nav-bar">
-     <div class=""> <i class="fa-solid fa-bars"></i></div>
+     <div class=""> <i class="fa-solid fa-bars" (click)="onToggleLayout()"></i></div>
      <div class="nav-items">
          <div> <i class="fa-regular fa-bell"></i></div>
          <div> <div class="image-placeholder"> <img  class="img-fluid" src="assets/images/user.png" ></div> </div>
-         <div> {{userData.userName}}</div>
+         <div> {{userName}}</div>
          <div >
              <div>
               <i class="fa-sharp fa-solid fa-gear" (click)="toggleDropdown()"></i>

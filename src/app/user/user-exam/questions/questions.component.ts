@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { Exam } from 'src/app/models/exam.model';
 import { ExamStartResponse } from 'src/app/models/examStartresponce.model';
 import { ExamSubject } from 'src/app/models/examSubject';
@@ -49,7 +49,6 @@ export class QuestionsComponent implements OnInit {
   indexPositionOfSubject$: Observable<number> | undefined;
   nextSubjectLoading: boolean = false;
   updateSubjectIndex$: Observable<number> | undefined;
-  
 
   ngOnInit(): void {
     console.log(this.paper);
@@ -78,13 +77,15 @@ export class QuestionsComponent implements OnInit {
           this.nextSubjectLoading = true;
           console.log(response, '=================');
           response.question['optionSelected'] = [];
-          this.currentQuestion = response.question;
+          this.currentQuestion = response.question
           this.examAttemptID = response.attemptId;
-          this.sharedData.updateExamAttempt(this.examAttemptID as number);
-
+          this.sharedData.updateExamAttempt(this.examAttemptID as number)
+         
           console.log(this.currentQuestion);
           console.log(this.examAttemptID);
           this.isLoading = false;
+          this.listOfQuestion.push(response.question);
+          
         },
         (error) => {
           console.log(error);
@@ -112,15 +113,8 @@ export class QuestionsComponent implements OnInit {
     private ExamRepo: ExamService,
     private sharedData: SharedDataService,
     private router: Router
-  ) {
-    this.currentQuestion = this.paper?.questions[0];
-  }
-  nextQuestion() {
-    if (this.currentQuestionIndex < this.paper.questions.length - 1) {
-      this.currentQuestionIndex++;
-      this.currentQuestion = this.paper.questions[this.currentQuestionIndex];
-    }
-  }
+  ) {}
+
   optionSelected(option: Option) {
     console.log(option);
     console.log(this.currentQuestion);
@@ -150,32 +144,60 @@ export class QuestionsComponent implements OnInit {
     console.log(this.currentQuestion?.optionSelected);
   }
 
-  saveOption() {
+  saveOption(isSkipped:boolean = false) {
+    console.log(isSkipped);
+    
     let currentQuestionData = {
       questionId: this.currentQuestion?.id,
       selectedOptions: this.getSelectedOptions(),
       isLast: this.checkThisQuestionLastOrNot(),
       endDate: this.checkThisQuestionLastOrNotForDate(),
       attemptId: this.examAttemptID,
+      isUpdating:false,
+      isSkipped:isSkipped
     };
-    console.log(currentQuestionData);
+    if (this.currentQuestionIndex < this.listOfQuestion.length - 1) {
+      this.currentQuestion = this.listOfQuestion[this.currentQuestionIndex];
+      console.log('updating the question with options');
+      currentQuestionData.isUpdating =true
+      console.log(currentQuestionData);
+      this.currentQuestionIndex++;
+      this.question$ = this.ExamRepo.submitQuestion(currentQuestionData);
+      this.question$.subscribe((response) => {
+        if (response != null) {
+          this.currentQuestion = response;
+          this.currentQuestion.optionSelected = [];
+          console.log(response, '=================');
+          this.listOfQuestion.push(response);
+        }
+        this.currentQuestion = this.listOfQuestion[this.currentQuestionIndex]
 
-    this.question$ = this.ExamRepo.submitQuestion(currentQuestionData);
-    this.attemptedQuestions += 1;
-    this.checkQuestionsAvailableOrNot();
-    this.question$.subscribe((response) => {
-      if (response != null) {
-        this.currentQuestion = response;
-        this.currentQuestion.optionSelected = [];
-        console.log(response, '=================');
-      }
-    });
+      });
+      
+    } else {
+      console.log(currentQuestionData);
+      
+      this.question$ = this.ExamRepo.submitQuestion(currentQuestionData);
+      this.attemptedQuestions += 1;
+      this.checkQuestionsAvailableOrNot();
+      this.question$.subscribe((response) => {
+        if (response != null) {
+          this.currentQuestion = response;
+          this.currentQuestion.optionSelected = [];
+          console.log(response, '=================');
+          this.listOfQuestion.push(response);
+          this.currentQuestionIndex++;
+        }
+      });
+      
+      console.log(this.listOfQuestion);
+    }
   }
 
   previousQuestion() {
     if (this.currentQuestionIndex > 0) {
       this.currentQuestionIndex--;
-      this.currentQuestion = this.paper.questions[this.currentQuestionIndex];
+      this.currentQuestion = this.listOfQuestion[this.currentQuestionIndex];
     }
   }
   checkQuestionsAvailableOrNot() {
@@ -251,7 +273,6 @@ export class QuestionsComponent implements OnInit {
     this.ExamRepo.changeSubjectAndGetFirstQuestion(data).subscribe(
       (response) => {
         this.nextSubjectLoading = true;
-
         this.currentQuestion = response;
         console.log(this.currentQuestion);
         console.log(response, '------------------');
@@ -296,5 +317,27 @@ export class QuestionsComponent implements OnInit {
         this.router.navigateByUrl('/user/home');
       }
     );
+  }
+  nextQuestion() {
+    console.log('ok');
+    if (this.currentQuestionIndex < this.listOfQuestion.length - 1) {
+      this.currentQuestionIndex++;
+      this.currentQuestion = this.listOfQuestion[this.currentQuestionIndex];
+      console.log("change the question not new");
+      
+    } else {
+      this.saveOption(true)
+      console.log('getting the new question with same defiluclty level ');
+    }
+  }
+  isOptionSelected(option: Option): boolean {
+    let options = this.currentQuestion?.optionSelected?.[0];
+    if (options != undefined && options.id == option.id) {
+      return true;
+    }
+    return false;
+  }
+  isOptionsSelected(option: Option): boolean {
+    return false;
   }
 }

@@ -1,16 +1,15 @@
-@import  "./assets/css/custome-font.css";
+@import "./assets/css/custome-font.css";
 /* You can add global styles to this file, and also import other style files */
 body {
-  font-family: 'SemiBold';
+  font-family: "SemiBold";
   background-color: var(--home-background-color);
-  background-color: #f8f8f8;
+  /* background-color: #f8f8f8; */
   box-sizing: border-box;
   padding: 0;
   margin: 0;
 }
 .global-color {
   color: #f3752e !important;
-  
 }
 .global-background-color {
   background-color: #f3752e !important;
@@ -29,9 +28,13 @@ body {
 }
 
 :root {
+  --font-family: "Roboto", sans-serif;
   --primary-color: #f3752e !important;
   --secondary-color: #ffe1d1 !important;
-  --home-background-color: #eff2f7 !important;
+  /* --home-background-color: #eff2f7 !important; */
+  --home-background-color: #b9c6d44a !important;
+  --label-font-weight: 400;
+  --label-font-size: 14px;
 }
 
 @import "~bootstrap/dist/css/bootstrap.min.css";

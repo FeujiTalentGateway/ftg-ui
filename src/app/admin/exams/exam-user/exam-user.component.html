@@ -1,23 +1,24 @@
 <div class="main">
   <div
-    class="d-flex align-items-center justify-content-around flex-dir-column header"
+    class="d-flex align-items-center justify-content-between flex-dir-column header"
   >
     <h1>Select Users</h1>
-    <div>
+    <div class="search-container">
       <input
         type="text"
         (keyup)="applyFilter($event)"
-        placeholder="search user "
+        placeholder="Search"
         #input
       />
+      <mat-icon class="search-icon">search</mat-icon>
     </div>
     <button
       mat-raised-button
-      color="primary"
+      color="warn"
       type="submit"
       (click)="ScheduleExamWithUsers()"
     >
-      Add Users
+      <mat-icon>exit_to_app</mat-icon>
     </button>
   </div>
 

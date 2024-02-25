@@ -4,14 +4,15 @@
 
 <ng-template #examDetails>
   <div class="shadow p-2 bg-white rounded subject-name">
-    {{ this.exam.examSubjects[this.indexPositionOfSubject].subject.name }}
+    {{this.getSubjectName()}} 
+    <button (click)="changeSubject()">change Subject</button>
   </div>
   <div class="container shadow p-3 mb-5 bg-white rounded">
     <div class="heading"></div>
-    <div class="content" *ngIf="nextSubjectLoading; else loadingSubject" >
+    <div class="content" *ngIf="nextSubjectLoading; else loadingSubject">
       <h5>
         Question : {{ currentQuestionIndex + 1 }} /
-        {{ currentSubject?.maxQuestions }} 
+        {{ currentSubject?.maxQuestions }}
       </h5>
       <br />
       <h4 class="question-name">
@@ -24,7 +25,7 @@
               type="radio"
               name="question.id"
               (change)="assignRightOption(option)"
-              [checked]="isOptionSelected(option)"
+              [checked]="isOptionsSelected(option)"
             />
             &nbsp; &nbsp;{{ option.optionName }}
           </span>
@@ -34,6 +35,7 @@
               type="checkbox"
               name="question.id"
               (change)="assignRightOption(option)"
+              [checked]="isOptionsSelected(option)"
             />
             &nbsp; &nbsp;{{ option.optionName }}
           </span>
@@ -53,27 +55,33 @@
         (click)="saveOption()"
         class="btn btn-sm btn-success btn-custom"
         [disabled]="this.currentQuestion?.optionSelected?.length == 0"
-        *ngIf="!checkLastAndSubjectAndFinalQuestionOrNot()"
+        *ngIf="!checkLastQuestionOrNot()"
       >
         save & next
       </button>
       <button
+        (click)="saveOption()"
+        class="btn btn-sm btn-success btn-custom"
+        [disabled]="this.currentQuestion?.optionSelected?.length == 0"
+        *ngIf="checkLastQuestionOrNot()"
+      >
+        save
+      </button>
+      <button
         (click)="nextQuestion()"
-        [disabled]="
-          this.currentQuestionIndex == this.currentSubject?.maxQuestions 
-        "
+        [disabled]="this.checkLastQuestionOrNot()"
         class="btn"
       >
         Next
       </button>
 
       <button
-        (click)="saveAndSubmit()"
+        (click)="saveOption(false,false,true)"
         class="btn btn-sm btn-success btn-custom"
         [disabled]="this.currentQuestion?.optionSelected?.length == 0"
-        *ngIf="checkLastAndSubjectAndFinalQuestionOrNot()"
+        *ngIf="currentQuestionIndex == listOfQuestion.length"
       >
-        save & submit
+        save
       </button>
     </div>
   </div>

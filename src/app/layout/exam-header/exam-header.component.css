@@ -23,10 +23,11 @@
   justify-content: space-around;
 }
 .logo-image {
-  margin-top: -5px;
+  margin-top: -15px;
+  height: 4rem;
 }
 .sub-items {
-  width: 30%;
+  width: auto;
   height: auto;
   text-align: center;
 }

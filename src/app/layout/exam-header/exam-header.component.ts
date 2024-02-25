@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subscription, interval } from 'rxjs';
 import { ExamSubject } from 'src/app/models/examSubject';
@@ -6,6 +7,8 @@ import { Paper } from 'src/app/models/paper';
 import { ExamService } from 'src/app/repository/exam.service';
 import { SharedDataService } from 'src/app/services/shared-data.service';
 import { SnackBarService } from 'src/app/services/snack-bar.service';
+import { ConfirmDialogforuserComponent } from 'src/app/utils/confirm-dialogforuser/confirm-dialogforuser.component';
+import { MassageboxComponent } from 'src/app/utils/massagebox/massagebox.component';
 
 @Component({
   selector: 'app-exam-header',
@@ -32,7 +35,8 @@ export class ExamHeaderComponent {
     private examService: ExamService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private snackBarService :SnackBarService
+    private snackBarService :SnackBarService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -145,18 +149,30 @@ export class ExamHeaderComponent {
   }
 
   submitExam() {
-    console.log(
-      this.examAttemptId,
-      this.examCode,
-    );
-    this.examService.submitExam(this.examAttemptId as number).subscribe(
-      (response) => {
-        this.router.navigateByUrl('/user/home');
-      },
-      (error) => {
-        console.log(error,"error i am getting");
+    console.log(this.examAttemptId, this.examCode);
+
+    let messages = 'sure are you want to submit Exam';
+    let title = 'Submit Exam ?';
+    const dialogRef = this.dialog.open(ConfirmDialogforuserComponent, {
+      data: { title: title, message: messages + '', note: 'ok' },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.examService.submitExam(this.examAttemptId as number).subscribe(
+          (response) => {
+            const dialogRef = this.dialog.open(MassageboxComponent  , {
+              data: { title: "Completed !", message: "Your answers have been submitted successfully ." + '', note: 'ok' },
+            });
+            this.router.navigateByUrl('/user/home');
+          },
+          (error) => {
+            console.log(error, 'error i am getting');
+          }
+        );
+      } else {
         
+        console.log('cancel');
       }
-    );
+    });
   }
 }

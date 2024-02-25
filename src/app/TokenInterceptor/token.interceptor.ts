@@ -16,8 +16,6 @@ export class TokenInterceptor implements HttpInterceptor {
     request: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
-    console.log('inde the token');
-
     const jwtToken = this.authGuard.getJwtToken();
 
     // Define an array of URLs to exclude from adding the Authorization header

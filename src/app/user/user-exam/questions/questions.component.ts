@@ -260,8 +260,7 @@ export class QuestionsComponent implements OnInit {
     this.ExamRepo.changeSubjectAndGetFirstQuestion(data).subscribe(
       (response) => {
         this.nextSubjectLoading = true;
-        // this.sharedData.updateExamTime(this.currentSubject?.duration)
-        this.updateTime()
+        this.updateTime();
         this.currentQuestion = response;
         this.listOfQuestion = [];
         this.listOfQuestion.push(this.currentQuestion);
@@ -283,6 +282,13 @@ export class QuestionsComponent implements OnInit {
       console.log('getting the new question with same defiluclty level ');
     }
   }
+
+  /**
+   *
+   * @param option this is option we are checking wether this is selected ot not
+   * @returns  it will return the true are false
+   * @method isOptionsSelected() will check the this option selected or not in the current question options selected
+   */
   isOptionsSelected(option: Option): boolean {
     let options = this.currentQuestion?.optionSelected as Option[]; // Assuming optionSelected is an array of Option objects
     if (options === undefined) {
@@ -306,8 +312,13 @@ export class QuestionsComponent implements OnInit {
   }
 
   changeSubject() {
-    const dialogRef = this.dialog.open(ConfirmDialogforuserComponent);
+    let messages = 'sure are you want to change the Subject ';
+    let title = 'Confirmation';
+    const dialogRef = this.dialog.open(ConfirmDialogforuserComponent, {
+      data: { title: title, message: messages + '', note: '' },
+    });
     console.log('ok');
+
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         console.log(result, '000000000000');

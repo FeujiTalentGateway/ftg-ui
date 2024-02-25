@@ -2,14 +2,14 @@ import { Component, EventEmitter, Inject, Output } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-confirm-dialogforuser',
-  templateUrl: './confirm-dialogforuser.component.html',
-  styleUrls: ['./confirm-dialogforuser.component.css'],
+  selector: 'app-massagebox',
+  templateUrl: './massagebox.component.html',
+  styleUrls: ['./massagebox.component.css'],
 })
-export class ConfirmDialogforuserComponent {
+export class MassageboxComponent {
   @Output() confirmBox = new EventEmitter<boolean>();
   constructor(
-    public dialogRef: MatDialogRef<ConfirmDialogforuserComponent>,
+    public dialogRef: MatDialogRef<MassageboxComponent>,
     @Inject(MAT_DIALOG_DATA)
     public data: { title: string; message: string; note: string }
   ) {}

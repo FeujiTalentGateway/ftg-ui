@@ -1,0 +1,22 @@
+<section>
+  <section>
+    <div class="container">
+      <div class="heading"></div>
+      <div class="content">
+        <img
+          src="../../../../assets/images/submitted.svg"
+          alt="nothing"
+          class="submited-image"
+        />
+        <h1 class="completed">{{ data.title}}</h1>
+      </div>
+      <h4 class="text">
+       Yahoooo ! {{data.message }} 
+      </h4>
+
+      <div class="footer">
+        <button class="btn btn-success" (click)="this.dialogRef.close();">OK</button>
+      </div>
+    </div>
+  </section>
+</section>

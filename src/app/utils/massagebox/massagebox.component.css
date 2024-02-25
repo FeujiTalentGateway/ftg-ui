@@ -1,0 +1,55 @@
+.heading {
+  background-color: aquamarine;
+}
+.heading h2 {
+  font-family: "Regular";
+}
+li {
+  list-style: none;
+  padding: 20px;
+}
+.question-name {
+  margin-left: 20px;
+  margin-top: -5px;
+}
+h5 {
+  padding-top: 10px;
+  margin-left: 20px;
+}
+.footer {
+  display: flex;
+  padding: 20px;
+  margin-left: 5%;
+  justify-content: center;
+}
+
+.submited-image {
+    margin-left: 3%;
+    margin-top: 5%;
+}
+
+.content {
+  display: flex;
+}
+.completed {
+    margin-left: 10%;
+    margin-top: auto;
+    font-family: "SemiBold";
+    font-size: 53px;
+}
+.text {
+    font-family: "Regular";
+    margin-top: 5%;
+    margin-left: 2%;
+    width: 100%;
+    font-size: large;
+    text-align: center;
+}
+.btn-success {
+  background-color: #34c38f;
+  border: none;
+  margin: 20px;
+}
+section{
+    width: 100%;
+}

@@ -22,6 +22,7 @@ import { ConfirmationDialogComponent } from './utils/confirmation-dialog/confirm
 import { SharedModuleModule } from './shared-module/shared-module.module';
 import { RefreshDialogComponent } from './utils/refresh-dialog/refresh-dialog.component';
 import { ConfirmDialogforuserComponent } from './utils/confirm-dialogforuser/confirm-dialogforuser.component';
+import { MassageboxComponent } from './utils/massagebox/massagebox.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { ConfirmDialogforuserComponent } from './utils/confirm-dialogforuser/con
     ExamHeaderComponent,
     RefreshDialogComponent,
     ConfirmDialogforuserComponent,
+    MassageboxComponent,
   ],
   imports: [
     BrowserModule,

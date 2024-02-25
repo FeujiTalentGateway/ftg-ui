@@ -1,11 +1,11 @@
-<section>
-  <h1 mat-dialog-title>Confirm Change</h1>
+<section class="shadow rounded">
+  <h1 mat-dialog-title> {{data.title}}</h1>
   <div mat-dialog-content>
-    <p> Sure are you want to change the subject</p>
+    <p>Sure are you want to change the subject</p>
     <small class="text-danger">Note: if you change the subject </small>
   </div>
   <div mat-dialog-actions>
     <button mat-button [mat-dialog-close]="false"  class="btn btn-secondary btn-sm m-2">Cancel</button>
-    <button mat-button [mat-dialog-close]="true" class="btn btn-success  btn-sm m-2 btn-custom">change</button>
+    <button mat-button [mat-dialog-close]="true" class="btn btn-success  btn-sm m-2 btn-custom">Confirm</button>
   </div>
 </section>

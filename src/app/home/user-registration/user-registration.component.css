@@ -1,4 +1,4 @@
-.container{
+.container {
   margin-top: 6%;
 }
 .button {
@@ -44,7 +44,7 @@
 }
 
 ::placeholder {
-  color: #aaa; 
+  color: #aaa;
 }
 
 .input-container {
@@ -67,23 +67,22 @@
 }
 
 .no-border .form-control:focus {
-  border-bottom:1px solid #f3752e;
+  border-bottom: 1px solid #f3752e;
   box-shadow: none;
 }
 
 .text-danger {
   font-size: 0.9rem;
-  font-family: 'Regular';
-
+  font-family: "Regular";
 }
 
 .col-md-6 {
   max-width: 48%;
 }
 
-.no-border{
+.no-border {
   margin-top: 3%;
-  margin-left: 15%;
+  margin-left: 14%;
 }
 .form-group {
   position: relative;
@@ -97,15 +96,19 @@
 }
 
 .form-group input {
-  padding-left: 30px; 
-  padding-top: 14px; 
+  padding-left: 30px;
+  padding-top: 14px;
   padding-bottom: 14px;
 }
-a{
+a {
   text-decoration: none;
 }
-.password-fields{
+.password-fields {
   margin-left: 15%;
 }
-
-
+input {
+  font-family: "Medium" !important;
+}
+.img > img {
+  margin-left: -17%;
+}

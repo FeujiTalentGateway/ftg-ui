@@ -1,9 +1,8 @@
 .project-name {
-  font-family: 'ExtraBold';
+  font-family: "Bold";
   font-size: 2.8rem;
-  font-style: normal;
-  font-weight: 750;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
+  margin-left: -17%;
 }
 
 .submit-button {
@@ -13,9 +12,9 @@
   width: 50%;
   margin-left: auto;
   margin-right: auto;
-  padding: 20px;
+  padding: 10px 5px;
   border-radius: 30px;
-  font-family: 'Bold';
+  font-family: "Bold";
 }
 
 .submit-button:hover {
@@ -23,41 +22,60 @@
   opacity: 1;
   color: white;
 }
-.img-fluid{
+.img-fluid {
   mix-blend-mode: multiply;
 }
-.features{
+.features {
   background-color: #fff !important;
 }
 
-p{
-  font-family: 'Regular';
+p {
+  font-family: "Regular";
 }
-h3{
-  font-family: 'SemiBold';
+h3 {
+  font-family: "SemiBold";
   font-size: 18px;
   margin-top: 10%;
 }
-.mt-3{
+.mt-3 {
   margin-top: 0% !important;
 }
-.col-md-4{
+.col-md-4 {
   margin-top: 3% !important;
-
 }
-.technical{
-  font-family: 'Bold';
+.technical {
+  font-family: "Bold";
   font-size: 30px;
 }
 .line {
-    width: 50%;
-    margin: auto;
-    margin-left: 50px;
-    border: 1px solid rgba(0, 0, 0, 0.973); 
+  width: 50%;
+  margin: auto;
+  margin-left: 50px;
+  border: 1px solid rgba(0, 0, 0, 0.973);
 }
-.last{
+.last {
   margin-bottom: 5% !important;
 }
-.main-home{
-  margin-top: 8%;
+.main-home {
+  margin-top: 3%;
+}
+.col-md-4 {
+  padding: 0px 30px;
+}
+.welcome {
+  margin-top: 2%;
+}
+.paragraph {
+  font-family: "Medium";
+  font-weight: 500;
+}
+
+i{
+  color: #f3752e;
+}
+
+@media (max-width: 768px) {
+  .project-name {
+    font-size: 2rem; 
+  }
 }

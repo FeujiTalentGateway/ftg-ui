@@ -7,7 +7,8 @@
           <h1 class="project-name global-color">SIGN IN</h1>
           <form (ngSubmit)="onLogin()" [formGroup]="userForm!">
             <label for="username">
-              <i class="fas fa-user"></i>&nbsp;&nbsp;Username</label>
+              <i class="fas fa-user"></i>&nbsp;&nbsp;Username</label
+            >
             <input
               id="username"
               type="text"
@@ -20,14 +21,21 @@
               *ngIf="
                 (userForm?.get('userName')?.hasError('required') &&
                   userForm?.get('userName')?.touched) ||
-                (formSubmitted && userForm?.get('userName')?.hasError('required'))
+                (formSubmitted &&
+                  userForm?.get('userName')?.hasError('required'))
               "
             >
               Username is required.
             </div>
             <div class="password">
-              <label for="password"><i class="fas fa-lock"></i>&nbsp;&nbsp;Password</label>
-              <a routerLink="/main/forgot-password" class="forgot-password">Forgot Password?</a>
+              <label for="password"
+                ><i class="fas fa-lock"></i>&nbsp;&nbsp;Password</label
+              >
+              <a
+                routerLink="/main/forgot-password"
+                class="forgot-password global-color"
+                >Forgot Password?</a
+              >
             </div>
             <div class="password-container">
               <input
@@ -38,7 +46,9 @@
                 formControlName="password"
               />
               <i
-                class="fa-solid {{ isPasswordVisible ? 'fa-eye-slash' : 'fa-eye' }}"
+                class="fa-solid {{
+                  isPasswordVisible ? 'fa-eye-slash' : 'fa-eye'
+                }}"
                 id="eye"
                 (click)="ToggleEye()"
               ></i>
@@ -48,7 +58,8 @@
               *ngIf="
                 (userForm?.get('password')?.hasError('required') &&
                   userForm?.get('password')?.touched) ||
-                (formSubmitted && userForm?.get('password')?.hasError('required'))
+                (formSubmitted &&
+                  userForm?.get('password')?.hasError('required'))
               "
             >
               Password is required.
@@ -63,10 +74,7 @@
             >
               Submit
             </button>
-            <div class="row or">
-              OR
-             
-            </div>
+            <div class="row middle-or">OR</div>
             <button class="signup" [routerLink]="['/main/register']">
               <a>Sign Up</a>
             </button>

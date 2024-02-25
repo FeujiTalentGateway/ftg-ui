@@ -83,4 +83,5 @@ h2{
 .container-fluid{
   width: 100% !important;
   box-sizing: border-box;
+  margin-top: 5% !important;
 }

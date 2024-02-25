@@ -1,7 +1,7 @@
 .custom-buttons {
   padding: 2px;
   border: none;
-  color: #f3752e !important;
+  color: black !important;
 }
 
 .custom-card {
@@ -35,12 +35,6 @@ font-family: 'SemiBold';
   transition: background-color 0.3s ease;
 }
 
-.custom-card:hover {
-  background-color:#EFF2F7;
-  background-color: black;
-  color: white;
-  
-}
 h1{
   margin-bottom: 1.5rem;
 }
@@ -63,5 +57,8 @@ h2{
 
 .zoom-effect:hover {
   transform: scale(1.05);
+}
+.one{
+  margin-top: 7% !important;
 }
 

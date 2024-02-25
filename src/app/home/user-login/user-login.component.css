@@ -5,11 +5,9 @@
   justify-content: space-between;
 }
 
-h1{
+h1 {
   text-align: center;
-  font-family: 'SemiBold';
-
-
+  font-family: "SemiBold";
 }
 label {
   display: block;
@@ -26,19 +24,18 @@ form {
   width: 100%;
   padding: 10px;
   box-sizing: border-box;
-  font-family: 'Light';
+  font-family: "Light";
   border: none;
   border-bottom: 1px solid #333;
-  outline: none; 
+  outline: none;
 }
 .inputs:focus,
-.inputs:not(:placeholder-shown) { 
-  border-bottom-color: #f3752e; 
+.inputs:not(:placeholder-shown) {
+  border-bottom-color: #f3752e;
 }
 .password-container {
   position: relative;
 }
-
 
 .error-message {
   color: red;
@@ -58,27 +55,24 @@ form {
   border: none;
   border-radius: 20px;
   margin-top: 7px;
-
 }
 a {
   text-decoration: none;
   font-size: 15px;
-
 }
 p {
   margin-top: 15px;
   margin-left: 30px;
   font-size: 13px;
-
 }
 .password {
   display: flex;
   justify-content: space-between;
- 
 }
-.forgot-password{
-  font-family: 'Regular';
+.forgot-password {
+  font-family: "Regular";
   font-size: 13px;
+  font-weight: 600;
   color: black;
 }
 
@@ -90,7 +84,7 @@ p {
   cursor: pointer;
   color: lightgray;
 }
-.img-fluid{
+.img-fluid {
   mix-blend-mode: multiply;
 }
 
@@ -101,13 +95,13 @@ p {
 }
 .error-message {
   color: red;
-  font-family: 'Light';
+  font-family: "Light";
   margin-top: -25px;
   font-size: 15px;
 }
 .login-card {
-  max-width: 600px; 
-  margin: auto; 
+  max-width: 600px;
+  margin: auto;
   margin-top: 10px;
   height: 500px;
 }
@@ -116,10 +110,9 @@ p {
   width: 100%;
   padding: 10px;
   margin-bottom: 30px;
- 
 }
-.or{
-  font-family: 'Bold';
+.middle-or{
+  font-family: "Bold";
   align-items: center;
   font-size: 13px;
   font-weight: 600;
@@ -131,7 +124,7 @@ p {
   color: #a0a7b3;
 }
 
-.signup{
+.signup {
   opacity: 0.9;
   cursor: pointer;
   width: 100%;
@@ -140,30 +133,26 @@ p {
   border-radius: 20px;
   margin-top: 7px;
 }
-.signup>a{
+.signup > a {
   color: black;
   font-size: 15px;
   font-weight: 500;
-
-  
 }
-.signup:hover{
+.signup:hover {
   border: 1px solid #f3752e;
 }
-.signup:hover a{
+.signup:hover a {
   opacity: 1;
   color: #f3752e;
   font-size: 15px;
   font-weight: 500;
-
-
 }
-.custom{
-  margin-top: 5%
+.custom {
+  margin-top: 5%;
 }
 
 @media (max-width: 768px) {
   .login-card {
-    margin-top: 20px; 
+    margin-top: 20px;
   }
 }

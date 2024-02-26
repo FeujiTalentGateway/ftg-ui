@@ -7,6 +7,9 @@
     padding: 10px;
     font-family: 'Roboto', sans-serif;
 }
+.shadow-custom{
+    box-shadow: 10px 14px 16px   #A89F97; 
+}
 .input-box{
     width: 100%;
     position: relative;

@@ -6,10 +6,10 @@
   <div class="schedule-exam-form mat-elevation-z8">
     <form [formGroup]="questionForm" (ngSubmit)="onSubmit()">
       <div class="form-row">
-        <label for="subject">Subject<sup style="color: black;">*</sup></label>
+        <label for="subject">Subject<sup class="required-field">*</sup></label>
         <div>
           <select id="subject" class="form-select" formControlName="subject">
-            <option value="{{ subject.id }}" *ngFor="let subject of subjects">
+            <option class="select-option" value="{{ subject.id }}" *ngFor="let subject of subjects">
               {{ subject.name }}
             </option>
           </select>
@@ -25,7 +25,7 @@
         </div>
       </div>
       <div class="form-row">
-        <label for="content">Question<sup style="color: black;">*</sup></label>
+        <label for="content">Question<sup class="required-field">*</sup></label>
         <div>
           <input
             id="content"
@@ -45,7 +45,7 @@
         </div>
       </div>
       <div class="form-row">
-        <label for="content">Question Type<sup style="color: black;">*</sup></label>
+        <label for="content">Question Type<sup class="required-field">*</sup></label>
         <div class="form-group mt-2">
           <span
             *ngFor="let questionType1 of questionTypes"
@@ -68,7 +68,7 @@
           class="form-row"
           *ngFor="let skillControl of OptionsArray.controls; let i = index"
         >
-          <label for="{{ i }}">Option {{ i + 1 }}<sup style="color: black;">*</sup></label>
+          <label for="{{ i }}">Option {{ i + 1 }}<sup class="required-field">*</sup></label>
           <div class="input-group">
             <span *ngIf="this.questionType == 'multiple choices'">
               <input
@@ -135,7 +135,7 @@
         <label
           for="rightOptionName"
           *ngIf="this.questionType == 'single choice'"
-          >Correct Option<sup style="color: black;">*</sup></label
+          >Correct Option<sup class="required-field">*</sup></label
         >
         <div *ngIf="this.questionType == 'single choice'">
           <select
@@ -166,7 +166,7 @@
         </div>
       </div>
       <div class="form-row">
-        <label for="difficultyLevel">Difficulty Level<sup style="color: black;">*</sup></label>
+        <label for="difficultyLevel">Difficulty Level<sup class="required-field">*</sup></label>
         <div>
           <select
             id="difficultyLevel"

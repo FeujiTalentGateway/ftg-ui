@@ -32,10 +32,10 @@ h5 {
   display: flex;
 }
 .completed {
-    margin-left: 10%;
-    margin-top: auto;
-    font-family: "SemiBold";
-    font-size: 53px;
+  margin-left: 4%;
+  margin-top: 27px;
+  font-family: "SemiBold";
+  font-size: 45px;
 }
 .text {
     font-family: "Regular";
@@ -49,6 +49,7 @@ h5 {
   background-color: #34c38f;
   border: none;
   margin: 20px;
+  width: 100%;
 }
 section{
     width: 100%;

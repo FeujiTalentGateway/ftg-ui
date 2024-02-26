@@ -4,12 +4,19 @@
 
 <ng-template #examDetails>
   <div class="shadow p-2 bg-white rounded subject-name">
-    {{this.getSubjectName()}} 
-    <button (click)="changeSubject()">change Subject</button>
+    <div class="exam-header">
+      <div></div>
+      <div>
+        <span>{{ this.getSubjectName() }}</span>
+      </div>
+      <div>
+        <button (click)="changeSubject()" class="btn btn-sm btn-outline-primary" *ngIf="checkLastSubjectOrNot()">change Subject</button>
+      </div>
+    </div>
   </div>
   <div class="container shadow p-3 mb-5 bg-white rounded">
     <div class="heading"></div>
-    <div class="content" *ngIf="nextSubjectLoading; else loadingSubject" >
+    <div class="content" *ngIf="nextSubjectLoading; else loadingSubject">
       <h5>
         Question : {{ currentQuestionIndex + 1 }} /
         {{ currentSubject?.maxQuestions }}
@@ -60,7 +67,7 @@
         save & next
       </button>
       <button
-        (click)="saveOption(false,false,true)"
+        (click)="saveOption(false, false, true)"
         class="btn btn-sm btn-success btn-custom"
         [disabled]="this.currentQuestion?.optionSelected?.length == 0"
         *ngIf="checkLastQuestionOrNot()"
@@ -73,7 +80,7 @@
         class="btn"
       >
         Next
-      </button>     
+      </button>
     </div>
   </div>
   <ng-template #loadingSubject></ng-template>

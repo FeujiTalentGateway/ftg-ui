@@ -21,6 +21,7 @@ import { ConfirmDialogforuserComponent } from 'src/app/utils/confirm-dialogforus
   styleUrls: ['./questions.component.css'],
 })
 export class QuestionsComponent implements OnInit {
+
   @Input() paper: Paper = { id: 0, name: '', active: false, questions: [] };
   @Input() exam: Exam = {
     id: 0,
@@ -355,4 +356,10 @@ export class QuestionsComponent implements OnInit {
     }
     return false;
   }
+  checkLastSubjectOrNot(): any {
+    if (this.indexPositionOfSubject+1 == this.exam.examSubjects.length){
+      return false
+    }
+    return true
+    }
 }

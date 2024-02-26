@@ -13,13 +13,40 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {}
 
   isSignupPage(): boolean {
-    return this.router.isActive('/main/register', true) && this.router.url === '/main/register';
+    return (
+      this.router.isActive('/main/register', true) &&
+      this.router.url === '/main/register'
+    );
   }
   isHomePage(): boolean {
-    return this.router.isActive('/main/home', true) && this.router.url === '/main/home';
+    return (
+      this.router.isActive('/main/home', true) &&
+      this.router.url === '/main/home'
+    );
   }
   isLoginPage(): boolean {
-    return this.router.isActive('/main/login', true) && this.router.url === '/main/login';
+    return (
+      this.router.isActive('/main/login', true) &&
+      this.router.url === '/main/login'
+    );
+  }
+  isContactPage(): boolean {
+    return (
+      this.router.isActive('/main/contact', true) &&
+      this.router.url === '/main/contact'
+    );
+  }
+  isAboutPage(): boolean {
+    return (
+      this.router.isActive('/main/about', true) &&
+      this.router.url === '/main/about'
+    );
+  }
+  isForgotPasswordPage(): boolean {
+    return (
+      this.router.isActive('/main/forgot-password', true) &&
+      this.router.url === '/main/forgot-password'
+    );
   }
   toggleButtons(): void {
     this.showButtons = !this.showButtons;

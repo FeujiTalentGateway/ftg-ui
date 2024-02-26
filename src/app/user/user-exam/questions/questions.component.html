@@ -9,7 +9,7 @@
   </div>
   <div class="container shadow p-3 mb-5 bg-white rounded">
     <div class="heading"></div>
-    <div class="content" *ngIf="nextSubjectLoading; else loadingSubject">
+    <div class="content" *ngIf="nextSubjectLoading; else loadingSubject" >
       <h5>
         Question : {{ currentQuestionIndex + 1 }} /
         {{ currentSubject?.maxQuestions }}

@@ -1,7 +1,7 @@
-@import  "./assets/css/custome-font.css";
+@import "./assets/css/custome-font.css";
 /* You can add global styles to this file, and also import other style files */
 body {
-  font-family: 'SemiBold';
+  font-family: "SemiBold";
   background-color: var(--home-background-color);
   background-color: #f8f8f8;
   box-sizing: border-box;
@@ -10,7 +10,6 @@ body {
 }
 .global-color {
   color: #f3752e !important;
-  
 }
 .global-background-color {
   background-color: #f3752e !important;
@@ -36,7 +35,19 @@ body {
 
 @import "~bootstrap/dist/css/bootstrap.min.css";
 
-.red-snackbar {
+/* .red-snackbar {
   background-color: red;
-  color: white; /* Adjust text color for better visibility if needed */
+  color: white; 
+} */
+::ng-deep .red-snackbar {
+  background-color: red !important;
+  color: white !important; /* Text color */
+}
+.mat-snack-bar-container.red-snackbar {
+  background-color: red !important;
+  color: white !important; /* Text color */
+}
+.red-snackbar {
+  background-color: red !important;
+  color: white !important;
 }

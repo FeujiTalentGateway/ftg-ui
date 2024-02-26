@@ -35,11 +35,12 @@ export class ExamHeaderComponent {
     private examService: ExamService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private snackBarService :SnackBarService,
+    private snackBarService: SnackBarService,
     private dialog: MatDialog
   ) {}
 
   ngOnInit() {
+    this.snackBarService.openRedAlertSnackBar("all the best ")
     this.examTime$ = this.sharedService.examTime$;
     this.examAttempt$ = this.sharedService.examAttempt$;
     this.currentSubjects$ = this.sharedService.currentExamSubjects$;
@@ -85,10 +86,8 @@ export class ExamHeaderComponent {
 
       if (this.countdownDuration >= 0) {
         this.updateCountdownDisplay();
-      }
-      else if(this.countdownDuration == 120){
-        this.snackBarService.openRedAlertSnackBar("you have only 2 min left")
-
+      } else if (this.countdownDuration == 120) {
+        this.snackBarService.showSnackbar('you have only 2 min left');
       } else {
         this.countdownSubscription?.unsubscribe();
 
@@ -103,7 +102,7 @@ export class ExamHeaderComponent {
           this.startCountdown();
           this.sharedService.updateSubjectIndex(this.updateSubjectIndex);
         } else {
-          this.submitExam();
+          this.submitExam(true);
         }
       }
     });
@@ -148,31 +147,62 @@ export class ExamHeaderComponent {
     return time;
   }
 
-  submitExam() {
+  submitExam(isSystemSubmitted: boolean = false) {
     console.log(this.examAttemptId, this.examCode);
 
     let messages = 'sure are you want to submit Exam';
     let title = 'Submit Exam ?';
-    const dialogRef = this.dialog.open(ConfirmDialogforuserComponent, {
-      data: { title: title, message: messages + '', note: 'ok' },
-    });
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        this.examService.submitExam(this.examAttemptId as number).subscribe(
-          (response) => {
-            const dialogRef = this.dialog.open(MassageboxComponent  , {
-              data: { title: "Completed !", message: "Your answers have been submitted successfully ." + '', note: 'ok' },
-            });
-            this.router.navigateByUrl('/user/home');
+    if (!isSystemSubmitted) {
+      const dialogRef = this.dialog.open(ConfirmDialogforuserComponent, {
+        data: { title: title, message: messages + '', note: 'ok' },
+      });
+      dialogRef.afterClosed().subscribe((result) => {
+        if (result) {
+          this.performSubmit()          
+        } else {
+          console.log('cancel');
+        }
+      });
+    } else {
+      this.performSubmit()
+    }
+  }
+
+  performSubmit(){
+    this.examService.submitExam(this.examAttemptId as number).subscribe(
+      (response) => {
+        const dialogRef = this.dialog.open(MassageboxComponent, {
+          data: {
+            title: 'Completed !',
+            message: 'Your answers have been submitted successfully .' + '',
+            note: 'ok',
           },
-          (error) => {
-            console.log(error, 'error i am getting');
-          }
-        );
-      } else {
-        
-        console.log('cancel');
+        });
+        this.toggleFullscreen()
+        this.router.navigateByUrl('/user/home');
+      },
+      (error) => {
+        console.log(error, 'error i am getting');
       }
-    });
+    );
+    this.countdownSubscription?.unsubscribe();
+   
+  }
+  toggleFullscreen() {
+    const element = document.documentElement;
+
+    if (!document.fullscreenElement) {
+      // Request fullscreen
+      if (element.requestFullscreen) {
+        element.requestFullscreen();
+      }
+    } else {
+      // Exit fullscreen
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      } else if (document.exitFullscreen) {
+        document.exitFullscreen();
+      }
+    }
   }
 }

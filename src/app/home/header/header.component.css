@@ -54,8 +54,41 @@ ul{
 }
 
 .login:hover {
-  background: #f37730;
+  background-color: white !important;
+}
+li > a {
+  font-family: "SemiBold" !important;
+  color: black !important;
+}
+li > a:hover {
+  color: #f3752e !important;
+}
+.container-fluid {
+  padding-left: 0%;
+}
+
+.signup {
+  opacity: 0.9;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  background-color: #f3752e;
   color: white;
+  margin-top: 7px;
+}
+button {
+  padding: 1px 10px !important;
+  font-family: "Medium";
+}
+.signup > a {
+  color: black;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.navbar-nav {
+  width: 42% !important;
+  justify-content: space-evenly !important;
 }
 /* @media (min-width: 460px) and (max-width: 680px) {
   .navbar-toggler {

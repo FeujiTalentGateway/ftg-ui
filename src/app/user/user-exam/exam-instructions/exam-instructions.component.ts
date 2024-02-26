@@ -8,6 +8,8 @@ import { ExamService } from 'src/app/repository/exam.service';
 import { ExamServiceForLogic } from 'src/app/services/ExamServiceForLogic';
 import { SharedDataService } from 'src/app/services/shared-data.service';
 import 'ldrs/ring'
+import { SnackBarService } from 'src/app/services/snack-bar.service';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-exam-instructions',
@@ -25,7 +27,9 @@ export class ExamInstructionsComponent implements OnInit {
     private route: Router,
     private examService: ExamServiceForLogic,
     private examRepo: ExamService,
-    private sharedDataService: SharedDataService
+    private sharedDataService: SharedDataService,
+    private snackBarService: SnackBarService,
+    private dialog: MatDialog
   ) {}
   ngOnInit(): void {
     this.examCode = this.activatedRoute.snapshot.paramMap.get('examCode');
@@ -37,6 +41,7 @@ export class ExamInstructionsComponent implements OnInit {
 
       this.examDetails = response;
     });
+    this.snackBarService.showSnackbar('you have only 2 min left');
 
     //  on production
 

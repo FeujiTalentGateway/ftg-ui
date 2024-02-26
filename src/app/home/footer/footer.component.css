@@ -7,3 +7,40 @@
 
 
 }
+.no-border .form-control {
+    border: none !important;
+    border-bottom: 1px solid black !important;
+    border-radius: 0px !important;
+  }
+  
+  .no-border .form-control:focus {
+    border-bottom:1px solid #f3752e !important;
+    box-shadow: none !important ;
+  }
+  .input-fields {
+    font-size: 0.9rem;
+    line-height: 1.5rem;
+    margin-bottom: 0.2rem;
+    width: 70%;
+  }
+  .no-border{
+    margin-top: 3%;
+    margin-left: 14%;
+  }
+  .form-group {
+    position: relative;
+  }
+  
+  .form-group label {
+    position: absolute;
+    left: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  
+  .form-group input {
+    padding-left: 30px; 
+    padding-top: 14px; 
+    padding-bottom: 14px;
+  }
+  

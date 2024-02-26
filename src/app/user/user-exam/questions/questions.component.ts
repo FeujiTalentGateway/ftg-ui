@@ -79,7 +79,7 @@ export class QuestionsComponent implements OnInit {
           this.nextSubjectLoading = true;
           console.log(response, '=================');
           response.question['optionSelected'] = [];
-          this.currentQuestion = response.question;
+          this.currentQuestion = response.question
           this.examAttemptID = response.attemptId;
           this.sharedData.updateExamAttempt(this.examAttemptID as number);
           console.log(this.currentQuestion);
@@ -271,18 +271,6 @@ export class QuestionsComponent implements OnInit {
       }
     );
   }
-  nextQuestion() {
-    console.log('ok');
-    if (this.currentQuestionIndex < this.listOfQuestion.length - 1) {
-      this.currentQuestionIndex++;
-      this.currentQuestion = this.listOfQuestion[this.currentQuestionIndex];
-      console.log('change the question not new');
-    } else {
-      this.saveOption(true);
-      console.log('getting the new question with same defiluclty level ');
-    }
-  }
-
   /**
    *
    * @param option this is option we are checking wether this is selected ot not
@@ -329,5 +317,24 @@ export class QuestionsComponent implements OnInit {
         console.log('okkkkkkkkkkk');
       }
     });
+  }
+  nextQuestion() {
+    console.log('ok');
+    if (this.currentQuestionIndex < this.listOfQuestion.length - 1) {
+      this.currentQuestionIndex++;
+      this.currentQuestion = this.listOfQuestion[this.currentQuestionIndex];
+      console.log("change the question not new");
+      
+    } else {
+      this.saveOption(true)
+      console.log('getting the new question with same defiluclty level ');
+    }
+  }
+  isOptionSelected(option: Option): boolean {
+    let options = this.currentQuestion?.optionSelected?.[0];
+    if (options != undefined && options.id == option.id) {
+      return true;
+    }
+    return false;
   }
 }

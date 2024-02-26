@@ -87,7 +87,7 @@ export class AuthService {
             )
           );
           if (roles.includes('USER')) {
-            this.route.navigateByUrl('/user/home');
+            this.route.navigateByUrl('/user/exam/exam-code');
           } else {
             this.route.navigateByUrl('/admin/home');
           }

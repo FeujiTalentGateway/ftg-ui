@@ -20,8 +20,9 @@ body {
 
 
 
+
 .inactive-button,.active-button {
-  height:45px;
+  height:36px;
   border: none;
   border-radius: 6px;
   font-size: 13px;
@@ -34,7 +35,16 @@ body {
 }
 .inactive-button:hover, .active-button:hover {
   font-weight: bold;
-  transform: scale(1.1);
+  /* transform: scale(1.1); */
+}
+.active-span {
+  background-color: rgb(173, 228, 173);
+  color: green;
+}
+
+.inactive-span {
+  background-color: rgb(240, 171, 171);
+  color: red;
 }
 
 .select {
@@ -65,14 +75,16 @@ th{
   transition: 0.2s, width 0.2s;
 }
 .fa {
-  /* font-size: 3px; */
-  color: #ffff;
+  color: #6979ef;
   cursor: pointer;
   margin-left: 10px;
+  background-color: white;
+  border-radius: 23px;
+  border: none;
 }
-.fa:hover{
+/* .fa:hover{
   transform: scale(1.1);
-}
+} */
 .header-child {
   margin: 0 10px;
 }

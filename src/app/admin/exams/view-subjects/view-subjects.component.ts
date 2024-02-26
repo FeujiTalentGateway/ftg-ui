@@ -16,6 +16,7 @@ import { SubjectService } from 'src/app/services/subject.service';
 export class ViewSubjectsComponent implements OnInit {
   subjects: Subject[] = [];
   isDeleteModalOpen: boolean = false;
+  isActive:boolean=true;
   subjectsSubscription: Subscription = new Subscription();
   displayedColumns: string[] = ['serialNumber', 'name', 'action'];
   modifyingMessage: string = '';
@@ -46,9 +47,18 @@ export class ViewSubjectsComponent implements OnInit {
     });
   }
   toggle(value:boolean){
-    this.toggleValue=value;
-    console.log(this.toggleValue);
-    this.getAllSubjects();
+    if(value){
+      this.toggleValue=value;
+      this.isActive=true;
+      this.getAllSubjects();
+    }
+    else{
+      this.toggleValue=value;
+      this.isActive=false;
+      this.getAllSubjects();
+    }
+
+
   }
 
   getAllSubjects() {

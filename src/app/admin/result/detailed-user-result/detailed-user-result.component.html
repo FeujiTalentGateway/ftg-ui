@@ -1,6 +1,8 @@
 <section *ngIf="examObject$ | async as exam ;else template">
   <ng-container *ngIf="handleExamObject(exam)"></ng-container>
-<div class="exam-name">{{ exam.name }}</div>
+<div class="exam-name">
+  <h2>{{ exam.name }}</h2>
+</div>
 <div class="user-name" *ngIf="detailedUserResultObject$ | async as detailedUserResult ;else template">
   <ng-container *ngIf="handleDetailedUserResultObject(detailedUserResult)"></ng-container>
     <div class="user-data">

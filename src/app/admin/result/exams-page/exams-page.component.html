@@ -1,5 +1,5 @@
 <div class="exams-label">
-<h1 class="heading">Exams</h1>
+<h2 class="heading text-center">Exams</h2>
 </div>
 <div class="filters">
   <input type="text" [(ngModel)]="filterQuery" (ngModelChange)="applyFilter()" placeholder="Search...">
@@ -23,7 +23,6 @@
           <div class="exam-users"><span class="date">Total Users : </span>{{ exam.users.length }}</div>
             <div>
             <button type="button" class="btn btn-outline-success btn-sm result"
-            [disabled]="!exam.active" 
             (click)="viewResultByExamId(exam.examCode)">
                 View Result
               </button>

@@ -1,59 +1,4 @@
-.header-fileds {
-  background-color: #fff !important;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 11vh;
-    z-index: 1000; 
-  
-}
-
-.logo {
-  width: 70%;
-  mix-blend-mode: multiply;
-  width: 40%;
-}
-
-.navi {
-  color: #576368;
-}
-
-.navi:hover {
-  color: #f37730;
-  transition: color 0.3s ease-in-out;
-}
-
-
-
-.login:hover {
-  background: #f37730;
-  color: black;
-}
-ul{
-  margin-left: 65% !important;
-}
-.home{
-  margin-left: -42%;
-  margin-right: 12%;
-}
-
-.about{
-  margin-left: 0%;
-  margin-right: 8%;
-}
-.contact{
-  margin-right: 10%;
-
-}
-.login {
- margin-top: 10%;
-  color: #f37730;
-  border: 1px solid #f37730;
-  padding: 0px 15px;
-}
-
-.login:hover {
+header {
   background-color: white !important;
 }
 li > a {
@@ -90,14 +35,3 @@ button {
   width: 42% !important;
   justify-content: space-evenly !important;
 }
-/* @media (min-width: 460px) and (max-width: 680px) {
-  .navbar-toggler {
-    display: none !important;
-  }
-  
-  .navbar-nav {
-    display: flex !important;
-  }
-} */
-
-

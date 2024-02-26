@@ -1,11 +1,15 @@
 .exam-name{
-    background-color: var(--secondary-color);
+    background-color: white;
     color: var(--primary-color);
-    font-family: 'Bold';
     margin-top: 1%;
-    padding: 10px;
     position: sticky;
+    height: 38px;
     top: 12%;
+}
+.exam-name>h2{
+    font-family: 'SemiBold';
+    text-align: center;
+    font-size: 28px;
 }
 .test{
     font-family: 'Regular';

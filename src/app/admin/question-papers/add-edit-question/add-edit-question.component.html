@@ -1,4 +1,272 @@
-<div class="main-div">
+<div class="container-fluid">
+  <div><h1 class="add-quesiton-header">
+    {{ operation }}
+  </h1></div>
+
+  <div class="schedule-exam-form mat-elevation-z8">
+    <form [formGroup]="questionForm" (ngSubmit)="onSubmit()">
+      <div class="form-row">
+        <label for="subject">Subject<sup style="color: black;">*</sup></label>
+        <div>
+          <select id="subject" class="form-select" formControlName="subject">
+            <option value="{{ subject.id }}" *ngFor="let subject of subjects">
+              {{ subject.name }}
+            </option>
+          </select>
+        </div>
+        <div
+          class="error-div"
+          *ngIf="
+            (questionForm?.get('subject')?.touched || isFormSubmitted) &&
+            questionForm?.get('subject')?.hasError('required')
+          "
+        >
+          <span class="text-danger">Subject is required</span>
+        </div>
+      </div>
+      <div class="form-row">
+        <label for="content">Question<sup style="color: black;">*</sup></label>
+        <div>
+          <input
+            id="content"
+            class="form-control"
+            type="text"
+            formControlName="content"
+          />
+          <div
+            class="error-div"
+            *ngIf="
+              (questionForm?.get('content')?.touched || isFormSubmitted) &&
+              questionForm?.get('content')?.invalid
+            "
+          >
+            <span class="text-danger">Question is required</span>
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <label for="content">Question Type<sup style="color: black;">*</sup></label>
+        <div class="form-group mt-2">
+          <span
+            *ngFor="let questionType1 of questionTypes"
+            class="question-type"
+          >
+            <input
+              type="radio"
+              name="questionType"
+              id="{{ questionType1 }}"
+              class="question-type-option"
+              (click)="setQuestionType(questionType1)"
+              [checked]="questionType1 === questionType"
+            />
+            <label for="{{ questionType1 }}">{{ questionType1 }}</label>
+          </span>
+        </div>
+      </div>
+      <div formArrayName="optionNames">
+        <div
+          class="form-row"
+          *ngFor="let skillControl of OptionsArray.controls; let i = index"
+        >
+          <label for="{{ i }}">Option {{ i + 1 }}<sup style="color: black;">*</sup></label>
+          <div class="input-group">
+            <span *ngIf="this.questionType == 'multiple choices'">
+              <input
+                type="checkbox"
+                name=""
+                id=""
+                class="option-type"
+                (click)="setRightOption(skillControl)"
+                [disabled]="skillControl.value == null"
+                [checked]="getRightOrnot(skillControl)"
+              />
+            </span>
+            <input
+              type="text"
+              class="form-control option-input"
+              [formControlName]="i"
+              id="{{ i }}"
+              placeholder="Add Option "
+            />
+
+            <button
+              class="btn btn-outline-secondary"
+              type="button"
+              pInputText
+              pTooltip="Remove Option"
+              tooltipPosition="bottom"
+              *ngIf="OptionsArray.length > 2"
+              (click)="removeOption(i)"
+            >
+              <mat-icon aria-hidden="false" aria-label="Example minus icon"
+                >remove</mat-icon
+              >
+            </button>
+          </div>
+          <div
+            class="error-div"
+            *ngIf="
+              (OptionsArray.at(i)?.touched || isFormSubmitted) &&
+              OptionsArray.at(i).hasError('required')
+            "
+          >
+            <span class="text-danger">Option {{ i + 1 }} is required</span>
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+
+        <p
+          mat-raised-button
+          #tooltip="matTooltip"
+          matTooltip="Add Option"
+          [matTooltipPosition]="'right'"
+          matTooltipHideDelay="100000"
+          aria-label="Button that displays a tooltip that hides when scrolled out of the container"
+          class="example-button btn btn-outline-secondary"
+          (click)="addAdditionalOption()"
+        >
+          <mat-icon aria-hidden="false" aria-label="Example plus icon"
+            >add</mat-icon
+          >
+        </p>
+      </div>
+      <div class="form-row">
+        <label
+          for="rightOptionName"
+          *ngIf="this.questionType == 'single choice'"
+          >Correct Option<sup style="color: black;">*</sup></label
+        >
+        <div *ngIf="this.questionType == 'single choice'">
+          <select
+            id="rightOptionName"
+            class="form-select"
+            (change)="setRightOption($event.target)"
+          >
+            <option
+              value="{{ option.value }}"
+              *ngFor="let option of OptionsArray.controls"
+              (change)="setRightOption(option)"
+            >
+              {{ option.value }}
+            </option>
+          </select>
+
+        </div>
+        <div
+          class="error-div"
+          *ngIf="
+            this.questionType == 'single choice' &&
+            (questionForm?.get('rightOptionName')?.touched ||
+              isFormSubmitted) &&
+            questionForm?.get('rightOptionName')?.hasError('required')
+          "
+        >
+          <span class="text-danger" *ngIf="">Correct answer is required</span>
+        </div>
+      </div>
+      <div class="form-row">
+        <label for="difficultyLevel">Difficulty Level<sup style="color: black;">*</sup></label>
+        <div>
+          <select
+            id="difficultyLevel"
+            class="form-select"
+            formControlName="difficultyLevel"
+          >
+            <option
+              value="{{ difficultyLevel }}"
+              *ngFor="let difficultyLevel of difficultLevelList"
+            >
+              {{ difficultyLevel }}
+            </option>
+          </select>
+        </div>
+        <div
+          class="error-div"
+          *ngIf="
+            (questionForm?.get('difficultyLevel')?.touched ||
+              isFormSubmitted) &&
+            questionForm?.get('difficultyLevel')?.hasError('required')
+          "
+        >
+          <span class="text-danger">Difficulty level is required</span>
+        </div>
+      </div>
+      <div
+        class="d-flex flex-row justify-content-around align-items-center mb-2"
+      >
+        <button
+          [disabled]="questionForm.invalid || questionForm.get('difficultyLevel')?.value === 0"
+          class="btn"
+          [ngClass]="{ 'btn-success': !questionForm.invalid && questionForm.get('difficultyLevel')?.value != 0}"
+        >
+          Submit
+        </button>
+        <button
+          *ngIf="isEditForm"
+          class="btn btn-secondary"
+          [routerLink]="['/admin/questionPapers/viewQuestions']"
+          [queryParams]="{ subject: selectedSubject }"
+        >
+          Cancel
+        </button>
+      </div>
+    </form>
+
+</div>
+
+
+<div
+  class="modal fade"
+  [ngClass]="{ 'show modal-open': isEditModalOpen }"
+  role="dialog"
+  id="staticBackdrop"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Edit Question</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+          (click)="closeEditModal()"
+        ></button>
+      </div>
+      <div class="modal-body">
+        {{ editingQuestion }}
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-bs-dismiss="modal"
+          (click)="closeEditModal()"
+        >
+          NO
+        </button>
+        <button
+          type="button"
+          class="btn btn-success"
+          (click)="editQuestionAfterConfirmation()"
+        >
+          Yes
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!--
+ <div class="main-div">
   <div class="question-form mat-elevation">
     <form [formGroup]="questionForm" (ngSubmit)="onSubmit()">
       <div class="form-row">
@@ -101,7 +369,6 @@
                 >remove</mat-icon
               >
             </button>
-            <!-- [tooltipOptions]="{positionStyle: 'fixed'}" tooltipStyleClass="custom-tooltip" -->
           </div>
           <div
             class="error-div"
@@ -115,15 +382,7 @@
         </div>
       </div>
       <div class="form-row">
-        <!-- <p
-        (click)="addAdditionalOption()"
-        class="btn btn-outline-secondary"
-        pButton
-        pTooltip="Add Option"
-        tooltipPosition="right"
-      >
-        <i class="pi pi-plus-circle"></i>
-      </p> -->
+
         <p
           mat-raised-button
           #tooltip="matTooltip"
@@ -159,11 +418,7 @@
               {{ option.value }}
             </option>
           </select>
-          <!-- <ul>
-        <li *ngFor="let option of OptionsArray.controls">
-          <input type="checkbox" name="" id="" />{{ option.value }}
-        </li>
-      </ul> -->
+
         </div>
         <div
           class="error-div"
@@ -272,4 +527,4 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->

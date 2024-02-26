@@ -13,35 +13,14 @@
   <div class="container">
     <div class="row">
       <div class="col">
-        <svg width="200" height="200">
-            <circle
-              cx="100"
-              cy="100"
-              r="90"
-              fill="none"
-              stroke="rgb(11, 194, 121)"
-              [attr.stroke-width]="strokeWidth"
-              [attr.stroke-dasharray]="circumference"
-              [attr.stroke-dashoffset]="0"
-            ></circle>
-            <circle
-              cx="100"
-              cy="100"
-              r="90"
-              fill="none"
-              stroke="#ccc"
-              [attr.stroke-width]="strokeWidth"
-              [attr.stroke-dasharray]="circumference"
-              [attr.stroke-dashoffset]="calculatePercentage().completedPercentage * circumference / 100"
-            ></circle>
-            <text
-              x="50%"
-              y="50%"
-              fill="#333"
-              text-anchor="middle"
-              alignment-baseline="central"
-            >{{ calculatePercentage().completedPercentage }}%</text>
-          </svg>
+        <div *ngIf="pieChartOptions">
+          <highcharts-chart 
+            [Highcharts]="Highcharts"
+            [options]="pieChartOptions"
+            style="width: 80%; height: 350px; display: block;"
+          >
+        </highcharts-chart>
+        </div>
       </div>
       <div class="col average">
         <i class="fa-solid fa-plus-minus icons"></i>&nbsp;&nbsp; Average Time :

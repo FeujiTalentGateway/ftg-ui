@@ -320,10 +320,10 @@ export class QuestionsComponent implements OnInit {
   }
 
   changeSubject() {
-    let messages = 'sure are you want to change the Subject ';
+    let messages = 'Are you sure to change the subject? ';
     let title = 'Confirmation';
     const dialogRef = this.dialog.open(ConfirmDialogforuserComponent, {
-      data: { title: title, message: messages + '', note: '' },
+      data: { title: title, message: messages + '', note: 'If you change the subject.You cannot be able to comeback to this subject' },
     });
     console.log('ok');
 

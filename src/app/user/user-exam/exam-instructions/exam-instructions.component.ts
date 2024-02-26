@@ -41,7 +41,6 @@ export class ExamInstructionsComponent implements OnInit {
 
       this.examDetails = response;
     });
-    this.snackBarService.showSnackbar('you have only 2 min left');
 
     //  on production
 

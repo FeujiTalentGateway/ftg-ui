@@ -7,7 +7,7 @@
           <!-- <div (click)="toggleActiveRoute(route)"  [class.active]="activeRoute === route"><i class="{{ route.icon }}"></i> &nbsp;&nbsp;{{ route.title }}</div>
           <div>></div> -->
           <span (click)="toggleActiveRoute(route)" class="main-menu" [class.active]="activeRoute === route">
-            <span class="nav-main-title"><i class="{{ route.icon }}"></i> &nbsp;&nbsp;{{ route.title }}</span> &nbsp; 
+            <span class="nav-main-title"><i class="{{ route.icon }}"></i></span> &nbsp;&nbsp;{{ route.title }} &nbsp; 
           </span>
           <ul
             *ngIf="activeRoute === route && route.submenu.length > 0"

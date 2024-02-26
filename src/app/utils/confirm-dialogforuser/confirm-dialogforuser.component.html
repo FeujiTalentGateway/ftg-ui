@@ -1,8 +1,8 @@
 <section class="shadow rounded">
   <h1 mat-dialog-title> {{data.title}}</h1>
   <div mat-dialog-content>
-    <p>Sure are you want to change the subject</p>
-    <small class="text-danger">Note: if you change the subject </small>
+    <p>{{data.message}}</p>
+    <small class="text-danger" *ngIf="data.note !=''">Note: {{data.note}}</small>
   </div>
   <div mat-dialog-actions>
     <button mat-button [mat-dialog-close]="false"  class="btn btn-secondary btn-sm m-2">Cancel</button>

@@ -13,6 +13,7 @@ import { DetailedUserResultComponent } from './detailed-user-result/detailed-use
 import { SharedModuleModule } from 'src/app/shared-module/shared-module.module';
 import { DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { HighchartsChartModule } from 'highcharts-angular';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ export class YourModule { }
     MatSortModule,
     MatFormFieldModule,
     SharedModuleModule,
-    FormsModule
+    FormsModule,
+    HighchartsChartModule
 
   ],
   providers: [

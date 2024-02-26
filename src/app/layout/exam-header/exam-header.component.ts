@@ -40,7 +40,6 @@ export class ExamHeaderComponent {
   ) {}
 
   ngOnInit() {
-    this.snackBarService.openRedAlertSnackBar("all the best ")
     this.examTime$ = this.sharedService.examTime$;
     this.examAttempt$ = this.sharedService.examAttempt$;
     this.currentSubjects$ = this.sharedService.currentExamSubjects$;
@@ -150,11 +149,11 @@ export class ExamHeaderComponent {
   submitExam(isSystemSubmitted: boolean = false) {
     console.log(this.examAttemptId, this.examCode);
 
-    let messages = 'sure are you want to submit Exam';
-    let title = 'Submit Exam ?';
+    let messages = 'Are you sure to submit the exam?';
+    let title = 'Submit Exam';
     if (!isSystemSubmitted) {
       const dialogRef = this.dialog.open(ConfirmDialogforuserComponent, {
-        data: { title: title, message: messages + '', note: 'ok' },
+        data: { title: title, message: messages + '', note: '' },
       });
       dialogRef.afterClosed().subscribe((result) => {
         if (result) {

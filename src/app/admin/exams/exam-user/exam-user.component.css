@@ -8,6 +8,9 @@
   padding: 8px;
   /* margin: 10px 0 10px 0; */
 }
+.header-cell{
+  background-color: #ebebeb;
+}
 
 input[type="text"] {
   padding: 5px;

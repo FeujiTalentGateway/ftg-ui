@@ -10,7 +10,7 @@
         <span>{{ this.getSubjectName() }}</span>
       </div>
       <div>
-        <button (click)="changeSubject()" class="btn btn-sm btn-outline-primary" *ngIf="checkLastSubjectOrNot()">change Subject</button>
+        <button (click)="changeSubject()" class="btn btn-sm btn-outline-secondary" *ngIf="checkLastSubjectOrNot()">Next Subject</button>
       </div>
     </div>
   </div>
@@ -54,13 +54,13 @@
       <button
         (click)="previousQuestion()"
         [disabled]="this.currentQuestionIndex == 0"
-        class="btn"
+        class="btn btn-outline-secondary btn-sm"
       >
         Previous
       </button>
       <button
         (click)="saveOption()"
-        class="btn btn-sm btn-success btn-custom"
+        class="btn btn-sm btn-success btn-custom btn-sm"
         [disabled]="this.currentQuestion?.optionSelected?.length == 0"
         *ngIf="!checkLastQuestionOrNot()"
       >
@@ -68,7 +68,7 @@
       </button>
       <button
         (click)="saveOption(false, false, true)"
-        class="btn btn-sm btn-success btn-custom"
+        class="btn btn-sm btn-success btn-custom btn-sm"
         [disabled]="this.currentQuestion?.optionSelected?.length == 0"
         *ngIf="checkLastQuestionOrNot()"
       >
@@ -77,7 +77,7 @@
       <button
         (click)="nextQuestion()"
         [disabled]="this.checkLastQuestionOrNot()"
-        class="btn"
+        class="btn btn-outline-secondary btn-sm"
       >
         Next
       </button>

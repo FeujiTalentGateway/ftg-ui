@@ -1,7 +1,49 @@
+.header {
+  margin-top: 10px;
+  /* background-color: #dddedf; */
+  border-color: #e6e9ed;
+  background-color: #ebebee;
+  padding: 0.5rem 1rem;
+  margin-bottom: 4px;
+  column-gap: 5rem;
+}
+.header h1 {
+  margin-bottom: 0;
+  color: #5b626b;
+  font-weight: 600;
+  font-size: x-large;
+}
+.search-container {
+  position: relative;
+}
+
+.search-icon {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer; /* Add this if you want the icon to be clickable */
+}
+
+input[type="text"] {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 300px;
+  min-height: 40px;
+  height: 100%;
+}
+
+input[type="text"]:focus {
+  outline: none;
+  border-color: #d8dadb;
+  box-shadow: 0 0 5px #8c8d8e;
+}
+
 .exam-table .header-cell {
   padding-top: 10px;
   padding-bottom: 2px;
-  background-color: #ffe2d1;
+  background-color: #ebebee;
 }
 table {
   width: 100%;
@@ -50,3 +92,27 @@ table {
 .filter {
   width: 60%;
 }
+.status-button {
+  border: none;
+  background-color: #f3410be9;
+  border-radius: 5px;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 3px 10px;
+  /* cursor: pointer; */
+}
+
+.active {
+  background-color: #34c38f2e;
+  color: #34c38f;
+}
+
+.in-active {
+  background-color: #fddce3;
+  color: #f82e13;
+}
+
+/* .not-started {
+  background-color: #f46a6a2e;
+  color: #f46a6a;
+} */

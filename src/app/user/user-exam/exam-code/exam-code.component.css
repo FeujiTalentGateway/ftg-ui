@@ -5,6 +5,10 @@
     margin-top: 10%;
     box-sizing: border-box;
     padding: 10px;
+    font-family: 'Roboto', sans-serif;
+}
+.shadow-custom{
+    box-shadow: 10px 14px 16px   #A89F97; 
 }
 .input-box{
     width: 100%;
@@ -23,20 +27,54 @@ input:focus{
 
 }
 .heading-text{
-    font-family: "Bold";
-    color: var(--primary-color);
+    font-family: 'Roboto', sans-serif, "Bold";
+    font-weight: 1000;
+    font-size: 30px;
+    /* color: var(--primary-color); */
+    color:rgb(90, 88, 88);
 }
 .text-danger{
     font-family: 'SemiBold';
 }
 .submit-button {
     cursor: pointer;
-    width: 100%;
+    width: 50%;
     padding: 10px;
     border: none;
     border-radius: 20px;
-    margin-top: 5dvh;
+    margin-top: 100dvh;
   }
 .text-danger{
     font-family: 'Regular';
+}
+.inputs {
+    width: 70%;
+    padding: 10px;
+    box-sizing: border-box;
+
+    border: none;
+    border-bottom: 1px solid #333;
+    outline: none; 
+}
+
+.empty-space{
+    height:24px;
+  }
+
+.submit-text{
+font-size: 18px;
+}
+
+.exam-code{
+    text-align: center;
+}
+
+.submit{
+    text-align: center;
+    margin-top: 5%;
+}
+
+.exam-code-input{
+    text-align: center;
+    font-size: 1.1rem;
 }

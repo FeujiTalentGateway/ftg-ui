@@ -1,10 +1,11 @@
 <section>
-  <div class="container shadow-lg p-3 mb-5 bg-white rounded">
+  <div class="container shadow-custom p-5 mb-5 bg-white rounded">
     <form #examForm="ngForm" (ngSubmit)="submitForm()">
-      <label for="examCode" class="heading-text">Exam Code:</label>
+      <div class="exam-code">
+        <label for="examCode" class="heading-text">Exam Code</label>
+      </div>
       <br>
-      <small>please enter the exam</small>
-      <div class="form-group">
+      <div class="form-group exam-code">
         <input
           type="text"
           id="examCode"
@@ -12,8 +13,8 @@
           [(ngModel)]="examCode"
           #examCodeInput="ngModel"
           required
-          class="input-box"
-          placeholder="Please enter the Exam code "
+          class="inputs border-none exam-code-input"
+          placeholder="Enter the Exam Code here"
         />
 
         <div
@@ -29,15 +30,23 @@
             Exam Code is required.
           </small>
         </div>
+        <div *ngIf="!(examCodeInput.invalid &&
+        (examCodeInput.dirty || examCodeInput.touched))">
+          <div class="empty-space"></div>
+        </div>
+      </div>
+      <div class="submit">
+        <button
+          type="submit"
+          [disabled]="examForm.invalid"
+          class="btn btn-primary submit-button global-background-color global-white-color"
+          style="margin: 0 auto;"
+        >
+          <div class="exam-code submit-text">Submit</div>
+        </button>
       </div>
 
-      <button
-        type="submit"
-        [disabled]="examForm.invalid"
-        class="btn btn-primary submit-button global-background-color global-white-color"
-      >
-        Submit
-      </button>
     </form>
   </div>
 </section>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">

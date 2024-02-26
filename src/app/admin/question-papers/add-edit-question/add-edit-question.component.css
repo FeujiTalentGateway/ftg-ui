@@ -1,7 +1,6 @@
 
 .question-form {
   background-color: rgb(241, 243, 245);
-
   padding-bottom: 0.1rem;
 }
 .schedule-exam-form {
@@ -67,7 +66,7 @@ input {
 .modal-open {
   overflow-x: hidden;
   overflow-y: auto;
-  background-color: rgba(0, 0, 0, 0.5); /* Adjust the opacity as needed */
+  background-color: rgba(0, 0, 0, 0.5);
 }
 .option-input {
   z-index: 0;

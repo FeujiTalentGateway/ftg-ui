@@ -31,8 +31,8 @@ body {
   --font-family: "Roboto", sans-serif;
   --primary-color: #f3752e !important;
   --secondary-color: #ffe1d1 !important;
-  /* --home-background-color: #eff2f7 !important; */
-  --home-background-color: #b9c6d44a !important;
+  --home-background-color: #eff2f7 !important;
+  /* --home-background-color: #b9c6d44a !important; */
   --label-font-weight: 400;
   --label-font-size: 14px;
 }

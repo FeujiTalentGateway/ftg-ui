@@ -1,11 +1,12 @@
 .header {
   margin-top: 10px;
-  /* background-color: #dddedf; */
+  background-color: #fff;
   border-color: #e6e9ed;
-  background-color: #ebebee;
+  /* background-color: #ebebee; */
   padding: 0.5rem 1rem;
   margin-bottom: 4px;
   column-gap: 5rem;
+  margin-bottom: 1rem;
 }
 .header h1 {
   margin-bottom: 0;

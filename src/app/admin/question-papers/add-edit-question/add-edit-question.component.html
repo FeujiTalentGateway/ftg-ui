@@ -1,13 +1,11 @@
 <div class="main-div">
-  <div class="header">
-    <h1 class="add-quesiton-header">
-      {{ operation }}
-    </h1>
-  </div>
-  <div class="question-form mat-elevation-z8">
+  <div class="question-form mat-elevation">
     <form [formGroup]="questionForm" (ngSubmit)="onSubmit()">
       <div class="form-row">
-        <label for="subject">Subject</label>
+        <h1 class="add-quesiton-header">
+          {{ operation }}
+        </h1>
+        <label for="subject">Subject<sup style="color: black;">*</sup></label>
         <div>
           <select id="subject" class="form-select" formControlName="subject">
             <option value="{{ subject.id }}" *ngFor="let subject of subjects">
@@ -26,7 +24,7 @@
         </div>
       </div>
       <div class="form-row">
-        <label for="content">Question</label>
+        <label for="content">Question<sup style="color: black;">*</sup></label>
         <div>
           <input
             id="content"
@@ -46,7 +44,7 @@
         </div>
       </div>
       <div class="form-row">
-        <label for="content">Question Type</label>
+        <label for="content">Question Type<sup style="color: black;">*</sup></label>
         <div class="form-group mt-2">
           <span
             *ngFor="let questionType1 of questionTypes"
@@ -69,7 +67,7 @@
           class="form-row"
           *ngFor="let skillControl of OptionsArray.controls; let i = index"
         >
-          <label for="{{ i }}">Option {{ i + 1 }}</label>
+          <label for="{{ i }}">Option {{ i + 1 }}<sup style="color: black;">*</sup></label>
           <div class="input-group">
             <span *ngIf="this.questionType == 'multiple choices'">
               <input
@@ -145,7 +143,7 @@
         <label
           for="rightOptionName"
           *ngIf="this.questionType == 'single choice'"
-          >Correct Option</label
+          >Correct Option<sup style="color: black;">*</sup></label
         >
         <div *ngIf="this.questionType == 'single choice'">
           <select
@@ -180,7 +178,7 @@
         </div>
       </div>
       <div class="form-row">
-        <label for="difficultyLevel">Difficulty Level</label>
+        <label for="difficultyLevel">Difficulty Level<sup style="color: black;">*</sup></label>
         <div>
           <select
             id="difficultyLevel"
@@ -210,9 +208,9 @@
         class="d-flex flex-row justify-content-around align-items-center mb-2"
       >
         <button
-          [disabled]="questionForm.invalid"
+          [disabled]="questionForm.invalid || questionForm.get('difficultyLevel')?.value === 0"
           class="btn"
-          [ngClass]="{ 'btn-success': !questionForm.invalid }"
+          [ngClass]="{ 'btn-success': !questionForm.invalid && questionForm.get('difficultyLevel')?.value != 0}"
         >
           Submit
         </button>

@@ -25,7 +25,7 @@
         [(ngModel)]="selectedLevel"
         (change)="getQuesitonsBySubject()"
       >
-        <option value=0 disabled selected>Difficulty level</option>
+        <option value="0" disabled selected>Difficulty level</option>
         <option
           value="{{ difficultyLevel }}"
           *ngFor="let difficultyLevel of difficultLevelList"
@@ -79,9 +79,12 @@
                         question.id
                       ]"
                     >
-                      Edit
+
+                      Edit &nbsp;<i class="far fa-edit" style="color: #6979ef;"></i>
                     </li>
-                    <li (click)="deleteQuestion(question.id)">Delete</li>
+                    <li (click)="deleteQuestion(question.id)">
+                      Delete &nbsp;<i class="far fa-trash-alt"style="color: #ff5f19;"></i>
+                    </li>
                   </ul>
                 </div>
               </div>
@@ -95,9 +98,12 @@
                 }"
                 *ngFor="let option of question.options; let i = index"
               >
-                <span  [ngClass]="{
-                  'right-option fw-700': setRightOptionOrNot(option, question)
-                }">{{ option.optionName }}</span>
+                <span
+                  [ngClass]="{
+                    'right-option fw-700': setRightOptionOrNot(option, question)
+                  }"
+                  >{{ option.optionName }}</span
+                >
               </li>
             </ol>
           </div>
@@ -115,7 +121,7 @@
       </p>
     </div>
   </ng-template>
-  <div class="bottom-container">
+  <div class="bottom-container" *ngIf="paginatedQuestions.length > 0">
     <div class="">
       <div style="width: fit-content">
         <mat-paginator

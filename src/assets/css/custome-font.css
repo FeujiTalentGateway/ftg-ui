@@ -42,7 +42,8 @@
     font-family: 'LightItalic';
     src: url('./../font/Montserrat-LightItalic.ttf');
   }
-  
+
+
   @font-face {
     font-family: 'Medium';
     src: url('./../font/Montserrat-Medium.ttf');
@@ -71,4 +72,3 @@
     font-family: 'ThinItalic';
     src: url('./../font/Montserrat-ThinItalic.ttf');
   }
-  

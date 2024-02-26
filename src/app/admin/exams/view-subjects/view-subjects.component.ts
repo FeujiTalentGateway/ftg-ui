@@ -45,7 +45,14 @@ export class ViewSubjectsComponent implements OnInit {
       this.getAllSubjects();
     });
   }
+  toggle(value:boolean){
+    this.toggleValue=value;
+    console.log(this.toggleValue);
+    this.getAllSubjects();
+  }
+
   getAllSubjects() {
+    console.log(this.toggleValue);
     this.subjectsSubscription = this.subjectService
       .getUnSubscribedSubjectsByActiveStatus(this.toggleValue)
       .subscribe({
@@ -54,7 +61,7 @@ export class ViewSubjectsComponent implements OnInit {
             ...subject,
             serialNumber: index + 1,
           }));
-          console.log('refreshing.......');
+          // console.log('refreshing.......');
           // Initialize MatTableDataSource with the data
           this.dataSource = new MatTableDataSource(this.subjects);
           this.dataSource.paginator = this.paginator;

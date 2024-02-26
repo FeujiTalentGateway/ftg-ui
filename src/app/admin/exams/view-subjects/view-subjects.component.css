@@ -48,6 +48,9 @@ body {
   font-weight: 100;
   font-family: "Regular";
 }
+th{
+  background-color: #f8f8f8 !important;
+}
 
 .styled-input {
   font-family: "Regular";
@@ -62,8 +65,8 @@ body {
   transition: 0.2s, width 0.2s;
 }
 .fa {
-  font-size: 45px;
-  color: #fff;
+  /* font-size: 3px; */
+  color: #ffff;
   cursor: pointer;
   margin-left: 10px;
 }

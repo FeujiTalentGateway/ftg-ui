@@ -119,7 +119,7 @@ input[type="text"] {
   width: 400px;
   box-shadow: none;
   font-weight: 100;
-  font-family: "Regular";
+  font-family: "Medium";
 }
 
 input[type="text"]:focus {
@@ -226,7 +226,8 @@ input[type="text"]:focus {
   margin-bottom: 0;
   box-shadow: none;
   font-weight: 100;
-  font-family: "Regular";
+  font-family: 'Medium';
+
 }
 
 .mr-20 {

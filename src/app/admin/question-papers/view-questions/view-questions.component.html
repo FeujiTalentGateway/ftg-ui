@@ -121,7 +121,7 @@
       </p>
     </div>
   </ng-template>
-  <div class="bottom-container">
+  <div class="bottom-container" *ngIf="paginatedQuestions.length > 0">
     <div class="">
       <div style="width: fit-content">
         <mat-paginator

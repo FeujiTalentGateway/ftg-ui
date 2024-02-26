@@ -1,8 +1,81 @@
+body {
+  font-size: 14px;
+  color: #ebebee;
+  padding: 15px;
+}
 .header {
-  background-color: #e6864b;
-  padding: 15px 0;
-  margin-top: 8px;
-  margin-bottom: 8px;
+  border-color: #e6e9ed;
+  background-color: #ebebee;
+  padding: 5px 10px;
+  color: white;
+  height: 70px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  align-items: center;
+}
+
+.header-child {
+  margin: 0 10px;
+}
+
+
+
+.inactive-button,.active-button {
+  height:45px;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 3px 10px;
+  margin-left: 10px;
+  background-color: #fff;
+  color: black;
+  font-family: 'Regular';
+}
+.inactive-button:hover, .active-button:hover {
+  font-weight: bold;
+  transform: scale(1.1);
+}
+
+.select {
+  font-weight: 500;
+  font-size: 14px;
+  height: 40px;
+  cursor: pointer;
+  min-width: 150px;
+  margin-bottom: 0;
+  box-shadow: none;
+  font-weight: 100;
+  font-family: "Regular";
+}
+
+.styled-input {
+  font-family: "Regular";
+  font-weight: 500;
+  color: #0000008a;
+  border-radius: 25px;
+  border: 0;
+  height: 45px;
+  padding: 8px 8px 8px 50px;
+  width: 250px;
+  background: #ffffff;
+  transition: 0.2s, width 0.2s;
+}
+.fa {
+  font-size: 45px;
+  color: #fff;
+  cursor: pointer;
+  margin-left: 10px;
+}
+.header-child {
+  margin: 0 10px;
+}
+
+.styled-input {
+  padding: 5px;
+  border: 1px solid #ccc; /* Set your preferred border color */
+  border-radius: 5px;
+  outline: none;
 }
 
 input[type="text"] {

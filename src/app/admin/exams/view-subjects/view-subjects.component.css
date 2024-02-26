@@ -67,6 +67,9 @@ body {
   cursor: pointer;
   margin-left: 10px;
 }
+.fa:hover{
+  transform: scale(1.1);
+}
 .header-child {
   margin: 0 10px;
 }

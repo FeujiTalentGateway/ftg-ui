@@ -2,7 +2,7 @@
     <div class="nav-bar">
      <div class=""> <i class="fa-solid fa-bars" (click)="onToggleLayout()"></i></div>
      <div class="nav-items">
-         <div> <i class="fa-regular fa-bell"></i></div>
+         <!-- <div> <i class="fa-regular fa-bell"></i></div> -->
          <div> <div class="image-placeholder"> <img  class="img-fluid" src="assets/images/user.png" ></div> </div>
          <div> {{userName}}</div>
          <div >
@@ -11,7 +11,7 @@
               <div>
               <div *ngIf="showDropdown" class="menu-dropdown">
                <ul>
-                  <li class="drop-item"><i class="fa-solid fa-user"></i> &nbsp;<span>Profile</span></li>
+                  <li class="drop-item"><i class="fa-solid fa-user"></i> &nbsp;<span class="profile">Profile</span></li>
                   <li class="drop-item logout" (click)="logOut()"> <i class="fa-solid fa-right-from-bracket fa-sm" style="color: #ff0000;"></i> &nbsp;<span class="logout">Logout</span></li>
               </ul>
               </div>

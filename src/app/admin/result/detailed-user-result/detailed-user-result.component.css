@@ -1,11 +1,14 @@
 .exam-name{
-    background-color: var(--secondary-color);
+    background-color: white;
     color: var(--primary-color);
-    font-family: 'Bold';
+    font-family: 'SemiBold';
     margin-top: 1%;
     padding: 10px;
     position: sticky;
     top: 12%;
+}
+.exam-name>h2{
+    text-align: center;
 }
 .user-name{
     background-color: #FFFFFF;
@@ -39,7 +42,6 @@
     font-size: x-large;
 }
 .user-data{
-    /* margin-top:; */
     padding: 15px;
     font-family: 'Regular';
     font-size: medium;
@@ -105,7 +107,7 @@
     justify-content: space-between;
   }
   .timer-content {
-    overflow: hidden; /* Ensures that content doesn't overflow */
+    overflow: hidden; 
 }
 
 .subject1 {

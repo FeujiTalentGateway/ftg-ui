@@ -1,13 +1,15 @@
 .exam-name{
-    background-color: var(--secondary-color);
+    background-color:white;
     color: var(--primary-color);
-    font-family: 'Bold';
+    font-family: 'SemiBold';
     margin-top: 1%;
     padding: 10px;
     position: sticky;
     top: 12%;
     z-index: 1;
 }
+.exam-name>h2{
+text-align: center;}
 .icons{
     text-align: center;
 
@@ -54,15 +56,20 @@
   }
   
   .filter-and-button .filter input {
-    border-radius: 20px; /* Adjust border radius to your preference */
-    border: 1px solid #ccc; 
-    padding: 8px 12px; /* Add padding */
-    width: 60%; /* Make the input fill the available space */
+    width: 30%; 
   }
   
  
   .disabled {
-    opacity: 0.5; /* or any other style to visually indicate the icon is disabled */
-    pointer-events: none; /* disable pointer events to prevent click actions */
+    opacity: 0.5; 
+    pointer-events: none; 
+  }
+  .filter>input{
+    background-color: white;
+  }
+  mat-mdc-text-field-wrapper{
+    background-color: white;
+
+
   }
   

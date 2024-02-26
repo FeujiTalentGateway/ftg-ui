@@ -1,5 +1,5 @@
-<!-- <header class="d-flex flex-row align-items-center header-fileds">
-  <div class="col-2 col-md-2">
+<header class="navbar navbar-expand-md navbar-light bg-light fixed-top">
+  <div class="container-fluid">
     <a class="navbar-brand" href="#">
       <img src="assets/images/Feuji-new-logo.jpg" alt="Logo" height="40" />
     </a>
@@ -83,65 +83,5 @@
         </li>
       </ul>
     </div>
-    <button class="toggle-btn" (click)="toggleButtons()" *ngIf="!showButtons">
-      <i class="fas fa-bars"></i> 
-    </button>  </div>
-</header> -->
-
-
-<header class="navbar navbar-expand-md navbar-light bg-light header-fileds">
-  <div class="container-fluid">
-    <div class="col-2 col-md-2">
-      <a class="navbar-brand" href="#">
-        <img
-          src="assets/images/Feuji-new-logo.jpg"
-          class="img-fluid logo"
-          alt="feuji-logo"
-        />
-      </a>
-    </div>
-
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item home">
-          <a
-        [routerLink]="['/main/home']"
-        class="nav-link col-sm-2 offset-sm-3 navi"
-        >Home</a
-      >
-        </li>
-        <li class="nav-item about">
-          <a
-        [routerLink]="['/main/about']"
-        class="nav-link col-sm-2 navi"
-        >About</a
-      >
-        </li>
-        <li class="nav-item contact">
-          <a
-        [routerLink]="['/main/contact']"
-        class="nav-link col-sm-2 navi"
-        >Contact</a
-      >
-        </li>
-        <li class="nav-item">
-          <ng-container *ngIf="isSignupPage()">
-            <button [routerLink]="['/main/login']" id="login-button" class="btn btn-outline-dark login">Login</button>
-          </ng-container>
-          <ng-container *ngIf="isLoginPage()">
-            <button [routerLink]="['/main/register']" id="login-button" class="btn btn-outline-dark login">Signup</button>
-          </ng-container>
-          <ng-container *ngIf="isHomePage()">
-            <button [routerLink]="['/main/register']" id="login-button" class="btn btn-outline-dark login">Login</button>
-          </ng-container>
-        </li>
-      </ul>
-    </div>
   </div>
 </header>
-

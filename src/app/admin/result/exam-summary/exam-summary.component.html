@@ -1,7 +1,9 @@
 
 <div  *ngIf="examObject$ | async as exam">
   <ng-container *ngIf="handleExamObject(exam)"></ng-container>
-  <div class="exam-name">{{ exam.name }}</div>
+  <div class="exam-name">
+    <h2>{{ exam.name }}</h2>
+  </div>
 </div>
 <section *ngIf="examStatObject$ | async as examStat; else loadingTemplate">
   <ng-container *ngIf="handleExamStatObject(examStat)"></ng-container>

@@ -79,7 +79,7 @@ export class QuestionsComponent implements OnInit {
           this.nextSubjectLoading = true;
           console.log(response, '=================');
           response.question['optionSelected'] = [];
-          this.currentQuestion = response.question
+          this.currentQuestion = response.question;
           this.examAttemptID = response.attemptId;
           this.sharedData.updateExamAttempt(this.examAttemptID as number);
           console.log(this.currentQuestion);
@@ -148,6 +148,22 @@ export class QuestionsComponent implements OnInit {
     }
     console.log(this.currentQuestion?.optionSelected);
   }
+  getCurrentQuestionData(
+    isSkipped: boolean = false,
+    isLast: boolean = false,
+    isUpdating: boolean = false
+  ): any {
+    let currentQuestionData = {
+      questionId: this.currentQuestion?.id,
+      selectedOptions: this.getSelectedOptions(),
+      isLast: isLast,
+      endDate: new Date().toISOString().slice(0, 23),
+      attemptId: this.examAttemptID,
+      isUpdating: isUpdating,
+      isSkipped: isSkipped,
+    };
+    return currentQuestionData;
+  }
 
   /**
    *
@@ -162,61 +178,64 @@ export class QuestionsComponent implements OnInit {
     isLast: boolean = false,
     isUpdating: boolean = false
   ) {
-    console.log(isSkipped, isLast, isUpdating);
-
-    console.log(isSkipped);
-    let currentQuestionData = {
-      questionId: this.currentQuestion?.id,
-      selectedOptions: this.getSelectedOptions(),
-      isLast: isLast,
-      endDate: new Date().toISOString().slice(0, 23),
-      attemptId: this.examAttemptID,
-      isUpdating: isUpdating,
-      isSkipped: isSkipped,
-    };
-    console.log(currentQuestionData);
-    if (this.currentQuestionIndex == this.listOfQuestion.length - 1) {
-      this.question$ = this.ExamRepo.submitQuestion(currentQuestionData);
-      this.question$.subscribe((response) => {
-        if (response != null) {
-          this.currentQuestion = response;
-          this.currentQuestion.optionSelected = [];
-          console.log(response, '=================');
-          this.listOfQuestion.push(response);
-        }
-        this.currentQuestion = this.listOfQuestion[this.currentQuestionIndex];
-      });
+    let currentQuestionData = this.getCurrentQuestionData(
+      isSkipped,
+      isLast,
+      isUpdating
+    );
+    if (isSkipped) {
+      this.skipTheCurrentQuestionAndGetNewQuestion(currentQuestionData);
     } else if (this.currentQuestionIndex < this.listOfQuestion.length - 1) {
       this.currentQuestion = this.listOfQuestion[this.currentQuestionIndex];
-      console.log('updating the question with options');
       currentQuestionData.isUpdating = true;
-      console.log(currentQuestionData);
       this.currentQuestionIndex++;
       this.question$ = this.ExamRepo.submitQuestion(currentQuestionData);
-      this.question$.subscribe((response) => {
-        if (response != null) {
-          this.currentQuestion = response;
-          this.currentQuestion.optionSelected = [];
-          console.log(response, '=================');
-          this.listOfQuestion.push(response);
-        }
-        this.currentQuestion = this.listOfQuestion[this.currentQuestionIndex];
-      });
-    } else {
+      this.updateOption(currentQuestionData);
+    } else if (isUpdating) {
+      this.currentQuestion = this.listOfQuestion[this.currentQuestionIndex];
+      console.log('saving the last question');
       console.log(currentQuestionData);
-
       this.question$ = this.ExamRepo.submitQuestion(currentQuestionData);
-      this.question$.subscribe((response) => {
-        if (response != null) {
-          this.currentQuestion = response;
-          this.currentQuestion.optionSelected = [];
-          console.log(response, '=================');
-          this.listOfQuestion.push(response);
-          this.currentQuestionIndex++;
-        }
-      });
-      console.log(this.listOfQuestion);
+      this.updateOption(currentQuestionData);
+    } else {
+      this.saveOptionAndGetNewQuestion(currentQuestionData);
     }
+  }
+
+  saveOptionAndGetNewQuestion(currentQuestionData: any) {
+    this.question$ = this.ExamRepo.submitQuestion(currentQuestionData);
+    this.question$.subscribe((response) => {
+      if (response != null) {
+        this.currentQuestion = response;
+        this.currentQuestion.optionSelected = [];
+        console.log(response, '=================');
+        this.listOfQuestion.push(response);
+        this.currentQuestionIndex++;
+      }
+    });
+  }
+  updateOption(currentQuestionData: any) {
+    this.question$ = this.ExamRepo.submitQuestion(currentQuestionData);
+    this.question$.subscribe((response) => {
+      if (response != null) {
+        this.currentQuestion = response;
+        this.currentQuestion.optionSelected = [];
+        this.listOfQuestion.push(response);
+      }
+      this.currentQuestion = this.listOfQuestion[this.currentQuestionIndex];
+    });
+  }
+  skipTheCurrentQuestionAndGetNewQuestion(currentQuestionData: any) {
+    this.question$ = this.ExamRepo.submitQuestion(currentQuestionData);
+    this.question$.subscribe((response) => {
+      if (response != null) {
+        this.currentQuestion = response;
+        this.currentQuestion.optionSelected = [];
+        this.listOfQuestion.push(response);
+      }
+      this.currentQuestionIndex++;
+      this.currentQuestion = this.listOfQuestion[this.currentQuestionIndex];
+    });
   }
 
   previousQuestion() {
@@ -323,10 +342,9 @@ export class QuestionsComponent implements OnInit {
     if (this.currentQuestionIndex < this.listOfQuestion.length - 1) {
       this.currentQuestionIndex++;
       this.currentQuestion = this.listOfQuestion[this.currentQuestionIndex];
-      console.log("change the question not new");
-      
+      console.log('change the question not new');
     } else {
-      this.saveOption(true)
+      this.saveOption(true);
       console.log('getting the new question with same defiluclty level ');
     }
   }

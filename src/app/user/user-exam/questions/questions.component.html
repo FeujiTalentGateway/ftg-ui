@@ -60,7 +60,7 @@
         save & next
       </button>
       <button
-        (click)="saveOption()"
+        (click)="saveOption(false,false,true)"
         class="btn btn-sm btn-success btn-custom"
         [disabled]="this.currentQuestion?.optionSelected?.length == 0"
         *ngIf="checkLastQuestionOrNot()"
@@ -73,16 +73,7 @@
         class="btn"
       >
         Next
-      </button>
-
-      <button
-        (click)="saveOption(false,false,true)"
-        class="btn btn-sm btn-success btn-custom"
-        [disabled]="this.currentQuestion?.optionSelected?.length == 0"
-        *ngIf="currentQuestionIndex == listOfQuestion.length"
-      >
-        save
-      </button>
+      </button>     
     </div>
   </div>
   <ng-template #loadingSubject></ng-template>

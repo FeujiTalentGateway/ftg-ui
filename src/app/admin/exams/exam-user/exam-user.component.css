@@ -3,10 +3,14 @@
 }
 
 .header {
-  /* background-color: #ffe2d1; */
-  background-color: #dddedf;
-  padding: 8px;
-  /* margin: 10px 0 10px 0; */
+  margin-top: 10px;
+  background-color: #fff;
+  border-color: #e6e9ed;
+  /* background-color: #ebebee; */
+  padding: 0.5rem 1rem;
+  margin-bottom: 4px;
+  column-gap: 5rem;
+  margin-bottom: 0.5rem;
 }
 
 input[type="text"] {
@@ -47,4 +51,9 @@ table {
   font-weight: 600;
   font-size: x-large;
   margin-bottom: 0;
+}
+table th {
+  padding-top: 10px;
+  padding-bottom: 2px;
+  background-color: #ebebee;
 }

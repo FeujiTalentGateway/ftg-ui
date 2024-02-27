@@ -48,7 +48,11 @@ export class HeaderComponent implements OnInit {
       this.router.url === '/main/forgot-password'
     );
   }
-  toggleButtons(): void {
-    this.showButtons = !this.showButtons;
+  isResetPasswordPage(): boolean {
+    return (
+      this.router.isActive('/main/reset-password', true) &&
+      this.router.url === '/main/reset-password'
+    );
   }
+  
 }

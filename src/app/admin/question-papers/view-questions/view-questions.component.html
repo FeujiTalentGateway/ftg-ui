@@ -48,7 +48,7 @@
         class="col-sm-12 m-b-20"
         *ngFor="let question of paginatedQuestions; let i = index"
       >
-        <div class="card">
+        <div class="card shadow-sm mb-2  rounded">
           <div class="card-body">
             <div class="content">
               <h6 class="card-title">
@@ -58,7 +58,7 @@
                 <span
                   class="common-level"
                   [ngClass]="getStatusButtonClass(question.difficultyLevel)"
-                  >level : {{ question.difficultyLevel }}</span
+                  >Level : {{ question.difficultyLevel }}</span
                 >
                 <span
                   id="ellipsisIcon"
@@ -91,7 +91,7 @@
 
             <ol type="A" class="options-list">
               <li
-                class="card-text mb-2"
+                class="card-text mb-3"
                 [ngClass]="{
                   'text-success fw-700': setRightOptionOrNot(option, question)
                 }"

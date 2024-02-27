@@ -200,7 +200,7 @@ export class ViewQuestionsComponent implements OnInit {
         return 'level-10';
 
       default:
-        return 'difficultyLevel';
+        return 'common-level';
     }
   }
 }

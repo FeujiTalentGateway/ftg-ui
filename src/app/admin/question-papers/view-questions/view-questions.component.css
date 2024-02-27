@@ -41,43 +41,43 @@
 }
 
 .level-3 {
-  color: #4682b4;
-  background-color: rgba(70, 130, 180, 0.18);
+  color: #ffff;
+  background-color: #7a7574;
 }
 
 .level-4 {
-  color: #9932cc;
-  background-color: rgba(153, 50, 204, 0.18);
+  color: #5d5a58;
+  background-color: #e5e4e3;
 }
 
 .level-5 {
-  color: #ff6347;
-  background-color: rgba(255, 99, 71, 0.18);
+  color: #ffffff;
+  background-color: #003966;
 }
 
 .level-6 {
-  color: #20b2aa;
-  background-color: rgba(32, 178, 170, 0.18);
+  color: #4d291c;
+  background-color: #e2d1cb;
 }
 
 .level-7 {
-  color: #9370db;
-  background-color: rgba(147, 112, 219, 0.18);
+  color: #006666;
+  background-color: #c2e7e7;
 }
 
 .level-8 {
-  color: #cd5c5c;
-  background-color: rgba(205, 92, 92, 0.18);
+  color: #ffff;
+  background-color: #0078d4;
 }
 
 .level-9 {
-  color: #2e8b57;
-  background-color: rgba(46, 139, 87, 0.18);
+  color: #ac2d7e;
+  background-color: #fbddf0;
 }
 
 .level-10 {
-  color: #ff8c00;
-  background-color: rgba(255, 140, 0, 0.18);
+  color: #000000;
+  background-color: #ff8c00;
 }
 
 .header-child {

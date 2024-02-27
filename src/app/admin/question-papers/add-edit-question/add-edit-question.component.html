@@ -1,14 +1,15 @@
-<div class="main-div">
-  <div class="question-form mat-elevation">
+<div class="container-fluid mt-10px">
+  <div class="header"><h1 class="add-quesiton-header">
+    {{ operation }}
+  </h1></div>
+
+  <div class="schedule-exam-form mat-elevation-z8">
     <form [formGroup]="questionForm" (ngSubmit)="onSubmit()">
       <div class="form-row">
-        <h1 class="add-quesiton-header">
-          {{ operation }}
-        </h1>
-        <label for="subject">Subject<sup style="color: black;">*</sup></label>
+        <label for="subject">Subject<sup class="required-field">*</sup></label>
         <div>
           <select id="subject" class="form-select" formControlName="subject">
-            <option value="{{ subject.id }}" *ngFor="let subject of subjects">
+            <option class="select-option" value="{{ subject.id }}" *ngFor="let subject of subjects">
               {{ subject.name }}
             </option>
           </select>
@@ -24,7 +25,7 @@
         </div>
       </div>
       <div class="form-row">
-        <label for="content">Question<sup style="color: black;">*</sup></label>
+        <label for="content">Question<sup class="required-field">*</sup></label>
         <div>
           <input
             id="content"
@@ -44,7 +45,7 @@
         </div>
       </div>
       <div class="form-row">
-        <label for="content">Question Type<sup style="color: black;">*</sup></label>
+        <label for="content">Question Type<sup class="required-field">*</sup></label>
         <div class="form-group mt-2">
           <span
             *ngFor="let questionType1 of questionTypes"
@@ -67,7 +68,7 @@
           class="form-row"
           *ngFor="let skillControl of OptionsArray.controls; let i = index"
         >
-          <label for="{{ i }}">Option {{ i + 1 }}<sup style="color: black;">*</sup></label>
+          <label for="{{ i }}">Option {{ i + 1 }}<sup class="required-field">*</sup></label>
           <div class="input-group">
             <span *ngIf="this.questionType == 'multiple choices'">
               <input
@@ -101,7 +102,6 @@
                 >remove</mat-icon
               >
             </button>
-            <!-- [tooltipOptions]="{positionStyle: 'fixed'}" tooltipStyleClass="custom-tooltip" -->
           </div>
           <div
             class="error-div"
@@ -115,15 +115,7 @@
         </div>
       </div>
       <div class="form-row">
-        <!-- <p
-        (click)="addAdditionalOption()"
-        class="btn btn-outline-secondary"
-        pButton
-        pTooltip="Add Option"
-        tooltipPosition="right"
-      >
-        <i class="pi pi-plus-circle"></i>
-      </p> -->
+
         <p
           mat-raised-button
           #tooltip="matTooltip"
@@ -143,7 +135,7 @@
         <label
           for="rightOptionName"
           *ngIf="this.questionType == 'single choice'"
-          >Correct Option<sup style="color: black;">*</sup></label
+          >Correct Option<sup class="required-field">*</sup></label
         >
         <div *ngIf="this.questionType == 'single choice'">
           <select
@@ -159,11 +151,7 @@
               {{ option.value }}
             </option>
           </select>
-          <!-- <ul>
-        <li *ngFor="let option of OptionsArray.controls">
-          <input type="checkbox" name="" id="" />{{ option.value }}
-        </li>
-      </ul> -->
+
         </div>
         <div
           class="error-div"
@@ -178,7 +166,7 @@
         </div>
       </div>
       <div class="form-row">
-        <label for="difficultyLevel">Difficulty Level<sup style="color: black;">*</sup></label>
+        <label for="difficultyLevel">Difficulty Level<sup class="required-field">*</sup></label>
         <div>
           <select
             id="difficultyLevel"
@@ -224,8 +212,9 @@
         </button>
       </div>
     </form>
-  </div>
+
 </div>
+
 
 <div
   class="modal fade"
@@ -273,3 +262,4 @@
     </div>
   </div>
 </div>
+

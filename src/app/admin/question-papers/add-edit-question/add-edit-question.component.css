@@ -1,44 +1,53 @@
-.main-div{
-  background-color: rgb(241, 243, 245);
-}
 .question-form {
   background-color: rgb(241, 243, 245);
-  /* margin: auto;
-  margin-bottom: 10px;
-  margin-top: 10px; */
-  /* padding: 1rem 0.3rem 0.1rem 0.3rem; */
-  /* max-width: 100%;
-  margin: 0 auto;
-  padding: 30px; */
   padding-bottom: 0.1rem;
 }
-form {
-  margin: -1px 20px 2px 25px;
+.schedule-exam-form {
+  background-color: rgb(241, 243, 245);
+  margin: auto;
+  margin-bottom: 10px;
+  padding: 1rem 0.3rem;
 }
-/* .header {
+label {
+  font-family: var(--font-family);
+  font-weight: var(--label-font-weight);
+  font-size: var(--label-font-size);
+  color: rgb(40, 36, 36);
+}
+.required-field {
+  color: red;
+}
+form {
+  background-color: rgb(241, 243, 245);
+  margin: -1px 20px 2px 25px;
+  padding: 0.5rem 0.3rem;
+}
+.header {
   margin-top: 10px;
-  background-color: #ffe2d1;
-} */
-.header h1 {
-  color:#f3752e;
-  font-size: 35px;
+  border-color: #e6e9ed;
+  background-color: #ebebee;
+}
+
+.add-quesiton-header {
+  margin-bottom: 0;
+  color: #5b626b;
+  font-weight: 600;
+  font-size: x-large;
   padding: 0.5rem 1rem;
 }
-.add-quesiton-header {
-  color: #f3752e;
-  text-align: center;
-}
 .form-row {
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 input {
   width: 100%;
   padding: 10px;
+  margin: 0;
+  font: normal 450 14px/21px var(--font-family);
 }
-.error-div {
-  position: relative;
-  font-size: medium;
-  min-height: 24px;
+.text-danger {
+  color: red;
+  font-size: 12px;
+  margin-top: 4px;
 }
 
 .example-button {
@@ -59,6 +68,10 @@ input {
   border: none;
   cursor: none;
 }
+.select-option, .form-select{
+  margin: 0;
+  font: normal 450 14px/21px var(--font-family);
+}
 
 .show {
   display: block;
@@ -66,7 +79,7 @@ input {
 .modal-open {
   overflow-x: hidden;
   overflow-y: auto;
-  background-color: rgba(0, 0, 0, 0.5); /* Adjust the opacity as needed */
+  background-color: rgba(0, 0, 0, 0.5);
 }
 .option-input {
   z-index: 0;

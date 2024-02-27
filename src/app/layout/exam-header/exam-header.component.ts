@@ -157,6 +157,7 @@ export class ExamHeaderComponent {
       });
       dialogRef.afterClosed().subscribe((result) => {
         if (result) {
+         
           this.performSubmit()          
         } else {
           console.log('cancel');
@@ -168,6 +169,7 @@ export class ExamHeaderComponent {
   }
 
   performSubmit(){
+    this.sharedService.updateLastQuestionAndSave(true)
     this.examService.submitExam(this.examAttemptId as number).subscribe(
       (response) => {
         const dialogRef = this.dialog.open(MassageboxComponent, {

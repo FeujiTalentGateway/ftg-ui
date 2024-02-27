@@ -91,8 +91,6 @@ export class ExamSummaryComponent implements OnInit {
     this.totalAssignedUsers = exam.users.length
     return true
     }
-
-
   navigateToUserResult() {
     this.router.navigate(['admin/result/users-result', this.examCode]);
   }

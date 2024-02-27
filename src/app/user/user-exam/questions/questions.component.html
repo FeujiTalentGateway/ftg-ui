@@ -10,7 +10,13 @@
         <span>{{ this.getSubjectName() }}</span>
       </div>
       <div>
-        <button (click)="changeSubject()" class="btn btn-sm btn-outline-secondary" *ngIf="checkLastSubjectOrNot()">Next Subject</button>
+        <button
+          (click)="changeSubject()"
+          class="btn btn-sm btn-outline-secondary"
+          *ngIf="checkLastSubjectOrNot()"
+        >
+          Next Subject
+        </button>
       </div>
     </div>
   </div>
@@ -53,11 +59,12 @@
     <div class="footer">
       <button
         (click)="previousQuestion()"
-        [disabled]="this.currentQuestionIndex == 0"
+        *ngIf="!(this.currentQuestionIndex == 0)"
         class="btn btn-outline-secondary btn-sm"
       >
         Previous
       </button>
+      <span *ngIf="this.currentQuestionIndex == 0"></span>
       <button
         (click)="saveOption()"
         class="btn btn-sm btn-success btn-custom btn-sm"
@@ -76,11 +83,12 @@
       </button>
       <button
         (click)="nextQuestion()"
-        [disabled]="this.checkLastQuestionOrNot()"
+        *ngIf="!this.checkLastQuestionOrNot()"
         class="btn btn-outline-secondary btn-sm"
       >
         Next
       </button>
+      <span *ngIf="this.checkLastQuestionOrNot()"> </span>
     </div>
   </div>
   <ng-template #loadingSubject></ng-template>

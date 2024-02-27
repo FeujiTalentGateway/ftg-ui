@@ -9,12 +9,13 @@
 
 }
 .heading {
-  background-color: #ffe1d1;
-  color: var(--primary-color);
-
+    /* background-color: var(--home-background-color); */
+    color: var(--primary-color);
+    text-align: center;
 }
 .heading h2 {
-    font-family: 'Regular';
+    font-family: 'SemiBold';
+
 }
 .exam-name{
   font-family: 'SemiBold' !important;
@@ -50,3 +51,18 @@ ul > li{
 .subject-table{
   margin:0% 10%;
 }
+.subject-table th{
+  font-family: 'SemiBold';
+  text-align: center;
+  padding: 10px;
+}
+.subject-table td{
+  font-family: 'Regular';
+  text-align: center;
+  padding: 10px;
+}
+.btn-custom {
+  background-color: #0bc279;
+  border: 1px solid #0bc279;
+}
+

@@ -21,6 +21,7 @@ export class ExamInstructionsComponent implements OnInit {
   examDetails: Exam | any;
   examDetails1$: Observable<any> | undefined;
   examDetailObject$: Observable<any> | undefined;
+  isReaded: boolean = false;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -91,6 +92,8 @@ export class ExamInstructionsComponent implements OnInit {
     const newData = { exam_time: 'nothing' };
     this.sharedDataService.updateExamTime(newData);
   }
-
+  updateIsreaded(){
+    this.isReaded = !(this.isReaded)
+  }
   // timeFormat(time: string) {}
 }

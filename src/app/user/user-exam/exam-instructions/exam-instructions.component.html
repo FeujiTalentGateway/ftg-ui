@@ -1,19 +1,45 @@
 <section *ngIf="examDetailObject$ | async as questions; else loadingTemplate">
   <div class="container shadow p-5">
     <div class="heading">
-      <h2 class="exam-name">{{ examDetails.name }} - Instructions</h2>
+      <h2 class="exam-name">{{ examDetails.name }}</h2>
     </div>
     <div class="content">
       <ul>
         <li><b>Exam Description :</b>{{ examDetails.description }}</li>
         <li>
-          Total duration of examination
-          <span class="time">{{ examDetails.duration | timeFormat }}</span
-          >.
+          <small>
+            Total duration of examination
+            <span class="time">{{ examDetails.duration | timeFormat }}</span
+            >.
+          </small>
         </li>
         <li>
-          In this Exam total
-          <strong>{{ getTotalSubjects(examDetails) }}</strong> subjects
+          <small>In this Exam total</small>
+          <strong> &nbsp;{{ getTotalSubjects(examDetails) }} </strong>
+          <small>subjects </small>
+        </li>
+        <li>
+          <small>
+            For each subject, there is a particular time allocated, and once you
+            navigate to the next subject, you cannot return to the previous one
+          </small>
+        </li>
+        <li>
+          <small>
+            To save your answer, you must press the 'Save and Next' button.
+          </small>
+        </li>
+        <li>
+          <small>
+            You can see the number of questions for each subject in the table
+            below
+          </small>
+        </li>
+        <li>
+          <small>
+            make sure you have a good internet connection before starting the
+            exam
+          </small>
         </li>
       </ul>
       <div class="subject-table">
@@ -37,17 +63,19 @@
         </table>
       </div>
     </div>
+    <input type="checkbox" name="" id="" (click)="updateIsreaded()" class="ml-2">
+    <small for="">I have read and understood the instructions</small>
     <div class="footer">
       <div>
         <button
           routerLink="/user/exam/exam-code"
-          class="btn btn-primary back-button"
+          class="btn btn-secondary "
         >
           Back
         </button>
       </div>
       <div>
-        <button (click)="startExam()" class="btn btn-success submitt-button">
+        <button (click)="startExam()" class="btn btn-success submitt-button btn-custom" [disabled]="!this.isReaded">
           Start Exam
         </button>
       </div>

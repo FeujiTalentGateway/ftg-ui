@@ -18,6 +18,10 @@ export class SharedDataService {
 
   private currentExamSubjects = new BehaviorSubject<ExamSubject[]>([]);
   currentExamSubjects$ = this.currentExamSubjects.asObservable();
+
+  private updateLastQuestion = new BehaviorSubject<any>(null);
+  updateLastQuestion$ = this.updateLastQuestion.asObservable();
+
   updateSubjectIndex$: Observable<number> | undefined;
 
   updateExamTime(time: any) {
@@ -35,5 +39,9 @@ export class SharedDataService {
   updateSubjectIndex(indexPositionOfSubject: number) {
     this.indexPositionOfSubject.next(indexPositionOfSubject);
     console.log(indexPositionOfSubject);
+  }
+  updateLastQuestionAndSave(lastQuestion: any) {
+    this.updateLastQuestion.next(lastQuestion);
+    console.log(lastQuestion);
   }
 }

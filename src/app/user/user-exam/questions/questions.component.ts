@@ -21,7 +21,6 @@ import { ConfirmDialogforuserComponent } from 'src/app/utils/confirm-dialogforus
   styleUrls: ['./questions.component.css'],
 })
 export class QuestionsComponent implements OnInit {
-
   @Input() paper: Paper = { id: 0, name: '', active: false, questions: [] };
   @Input() exam: Exam = {
     id: 0,
@@ -53,6 +52,7 @@ export class QuestionsComponent implements OnInit {
   indexPositionOfSubject$: Observable<number> | undefined;
   nextSubjectLoading: boolean = false;
   updateSubjectIndex$: Observable<number> | undefined;
+  lastQuestionOfExam$: Observable<any> | undefined;
 
   ngOnInit(): void {
     console.log(this.exam, '==========');
@@ -60,14 +60,6 @@ export class QuestionsComponent implements OnInit {
     console.log(this.currentSubject);
     this.indexPositionOfSubject$ = this.sharedData.indexPositionOfSubject$;
     this.totalSubjects = this.exam.examSubjects.length;
-    // this.startExam$ = this.ExamRepo.startExam(
-    //   this.exam.examCode,
-    //   this.currentSubject.startingDifficultyLevel,
-    //   this.currentSubject.subject.id
-    // ).pipe(take(1));
-    // console.log(this.totalSubjects);
-    // console.log(this.startExam);
-
     this.isLoading = true;
     this.ExamRepo.startExam(
       this.exam.examCode,
@@ -108,7 +100,25 @@ export class QuestionsComponent implements OnInit {
     window.onbeforeunload = () => {
       return 'Your custom message here';
     };
+    this.lastQuestionOfExam$ = this.sharedData.updateLastQuestion$;
+    this.lastQuestionOfExam$.subscribe((response) => {
+      if (response != null) {
+        console.log(response);
+        this.saveOption(false, true, true);
+      }
+    });
   }
+  constructor(
+    private authRepo: AuthService,
+    private ExamRepo: ExamService,
+    private sharedData: SharedDataService,
+    private router: Router,
+    private dialog: MatDialog
+  ) {}
+  /**
+   * @method updateQuestions() this method is for updating the questions
+   * @description this method is for updating the questions
+   */
   updateQuestions() {
     console.log('updating the questions');
 
@@ -118,13 +128,12 @@ export class QuestionsComponent implements OnInit {
       this.changeSubjectAndGetFirstQuestion();
     }
   }
-  constructor(
-    private authRepo: AuthService,
-    private ExamRepo: ExamService,
-    private sharedData: SharedDataService,
-    private router: Router,
-    private dialog: MatDialog
-  ) {}
+
+  /**
+   *
+   * @param userOptionSelected this is the option selected by the user
+   * @method assignRightOption() this method is for assigning the right option to the current question
+   */
 
   assignRightOption(userOptionSelected: Option) {
     console.log(userOptionSelected, '----------');
@@ -149,6 +158,15 @@ export class QuestionsComponent implements OnInit {
     }
     console.log(this.currentQuestion?.optionSelected);
   }
+
+  /**
+   *
+   * @param isSkipped  is fot checking wether the is user is skipping this question or not
+   * @param isLast    is for giving the this is last question or not fot the backend to store the end time of the subject
+   * @param isUpdating  is for to update the question not to skip the getting next question
+   * @returns   it will return the current question data
+   * @method getCurrentQuestionData() this method is for getting the current question data
+   */
   getCurrentQuestionData(
     isSkipped: boolean = false,
     isLast: boolean = false,
@@ -168,10 +186,10 @@ export class QuestionsComponent implements OnInit {
 
   /**
    *
-   * @param isSkipped  is fot checking wether the is user is skipping this question or not
-   * @param isLast     is for giving the this is last question or not fot the backend to store the end time of the subject
-   * @param isUpdating is for to update the question not to skip the getting next question
-   * @method saveOption for saving the Option based on above conditions
+   * @param isSkipped   is fot checking wether the is user is skipping this question or not
+   * @param isLast    is for giving the this is last question or not fot the backend to store the end time of the subject
+   * @param isUpdating    is for to update the question not to skip the getting next question
+   * @`method saveOption` this method is for saving the option based on the above conditions
    */
 
   saveOption(
@@ -203,6 +221,12 @@ export class QuestionsComponent implements OnInit {
     }
   }
 
+  /**
+   *
+   * @param currentQuestionData this is the current question data
+   * @returns  it will return the new question
+   * @method saveOptionAndGetNewQuestion() this method is for saving the option and getting the new question
+   */
   saveOptionAndGetNewQuestion(currentQuestionData: any) {
     this.question$ = this.ExamRepo.submitQuestion(currentQuestionData);
     this.question$.subscribe((response) => {
@@ -215,6 +239,12 @@ export class QuestionsComponent implements OnInit {
       }
     });
   }
+  /**
+   *
+   * @param currentQuestionData this is the current question data
+   * @returns  it will return the updated question
+   * @method updateOption() this method is for updating the option
+   */
   updateOption(currentQuestionData: any) {
     this.question$ = this.ExamRepo.submitQuestion(currentQuestionData);
     this.question$.subscribe((response) => {
@@ -226,6 +256,13 @@ export class QuestionsComponent implements OnInit {
       this.currentQuestion = this.listOfQuestion[this.currentQuestionIndex];
     });
   }
+  /**
+   *
+   * @param currentQuestionData this is the current question data
+   * @returns  it will return the new question
+   * @method skipTheCurrentQuestionAndGetNewQuestion() this method is for skipping the current question and getting the new question
+   */
+
   skipTheCurrentQuestionAndGetNewQuestion(currentQuestionData: any) {
     this.question$ = this.ExamRepo.submitQuestion(currentQuestionData);
     this.question$.subscribe((response) => {
@@ -239,12 +276,16 @@ export class QuestionsComponent implements OnInit {
     });
   }
 
+  /**
+   *  @method previousQuestion() this method is for getting the previous question
+   */
   previousQuestion() {
     if (this.currentQuestionIndex > 0) {
       this.currentQuestionIndex--;
       this.currentQuestion = this.listOfQuestion[this.currentQuestionIndex];
     }
   }
+
   updateTime() {
     const newData = {
       exam_time: this.currentSubject?.duration,
@@ -253,10 +294,17 @@ export class QuestionsComponent implements OnInit {
     this.sharedData.updateExamTime(newData);
   }
 
+  /**
+   *  @method updateSubjectIndex() this method is for updating the subject index
+   */
   updateSubjectIndex() {
     this.sharedData.updateSubjectIndex(this.indexPositionOfSubject);
   }
 
+  /**
+   * @returns it will return the selected options
+   * @method getSelectedOptions() this method is for getting the selected options
+   */
   getSelectedOptions(): [] {
     let optionArray = [];
     optionArray = this.currentQuestion?.optionSelected?.map(
@@ -265,7 +313,9 @@ export class QuestionsComponent implements OnInit {
     console.log(optionArray);
     return optionArray;
   }
-
+  /**
+   *  @method changeSubjectAndGetFirstQuestion() this method is for changing the subject and getting the first question
+   */
   changeSubjectAndGetFirstQuestion() {
     this.nextSubjectLoading = false;
     console.log(this.currentSubject);
@@ -305,6 +355,13 @@ export class QuestionsComponent implements OnInit {
     const isPresent = options.some((item) => item.id === option.id);
     return isPresent;
   }
+
+  /**
+  
+   * @returns it will return the true or false
+   * @method checkLastQuestionOrNot() this method is for checking the last question or not
+   */
+
   checkLastQuestionOrNot(): boolean {
     if (
       this.currentQuestionIndex ==
@@ -315,15 +372,24 @@ export class QuestionsComponent implements OnInit {
     return false;
   }
 
-  getSubjectName() {
+  getSubjectName(): string | undefined {
     return this.exam.examSubjects[this.indexPositionOfSubject].subject.name;
   }
 
+  /**
+   * @method changeSubject() this method is for changing the subject
+   * @returns it will return the confirmation dialog
+   * @description this method is for changing the subject
+   */
   changeSubject() {
     let messages = 'Are you sure to change the subject? ';
     let title = 'Confirmation';
     const dialogRef = this.dialog.open(ConfirmDialogforuserComponent, {
-      data: { title: title, message: messages + '', note: 'If you change the subject.You cannot be able to comeback to this subject' },
+      data: {
+        title: title,
+        message: messages + '',
+        note: 'If you change the subject.You cannot be able to comeback to this subject',
+      },
     });
     console.log('ok');
 
@@ -338,6 +404,11 @@ export class QuestionsComponent implements OnInit {
       }
     });
   }
+  /**
+   * @method submitExam() this method is for submitting the exam
+   * @returns it will return the confirmation dialog
+   * @description this method is for submitting the exam
+   */
   nextQuestion() {
     console.log('ok');
     if (this.currentQuestionIndex < this.listOfQuestion.length - 1) {
@@ -349,6 +420,7 @@ export class QuestionsComponent implements OnInit {
       console.log('getting the new question with same defiluclty level ');
     }
   }
+
   isOptionSelected(option: Option): boolean {
     let options = this.currentQuestion?.optionSelected?.[0];
     if (options != undefined && options.id == option.id) {
@@ -356,10 +428,17 @@ export class QuestionsComponent implements OnInit {
     }
     return false;
   }
+
+  /**
+   *
+   * @returns it will return the true or false
+   * @method checkLastSubjectOrNot() this method is for checking the last subject or not
+   * @description this method is for checking the last subject or not
+   */
   checkLastSubjectOrNot(): any {
-    if (this.indexPositionOfSubject+1 == this.exam.examSubjects.length){
-      return false
+    if (this.indexPositionOfSubject + 1 == this.exam.examSubjects.length) {
+      return false;
     }
-    return true
-    }
+    return true;
+  }
 }

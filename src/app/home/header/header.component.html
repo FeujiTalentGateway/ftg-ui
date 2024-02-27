@@ -80,6 +80,15 @@
               Login
             </button>
           </ng-container>
+          <ng-container *ngIf="isResetPasswordPage()">
+            <button
+              [routerLink]="['/main/login']"
+              id="login-button"
+              class="signup"
+            >
+              Login
+            </button>
+          </ng-container>
         </li>
       </ul>
     </div>

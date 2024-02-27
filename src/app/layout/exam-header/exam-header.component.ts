@@ -180,7 +180,7 @@ export class ExamHeaderComponent {
           },
         });
         this.toggleFullscreen()
-        this.router.navigateByUrl('/user/home');
+        this.router.navigateByUrl('/user/exam/exam-code');
       },
       (error) => {
         console.log(error, 'error i am getting');

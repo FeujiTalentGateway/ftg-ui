@@ -67,8 +67,7 @@
             Maximum length is 50 characters.
           </div>
         </div>
-        <div class="active">
-          <div></div>
+        <div class="active d-flex align-items-center">
           <div>
             <label for="active"
               >Active<span class="required-field">*</span></label
@@ -209,8 +208,7 @@
             At least one subject is required.
           </div>
         </div>
-        <div>
-          <div class="hide">Something</div>
+        <div class="d-flex align-items-center justify-content-start mt-2">
           <span class="total-duration">Total Duration : </span>
           <span class="total-duration-value">{{
             examForm.get("duration")?.value || "00:00:00"

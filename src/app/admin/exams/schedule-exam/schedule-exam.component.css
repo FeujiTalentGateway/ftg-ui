@@ -114,14 +114,9 @@ label,
   margin: 10px;
 }
 .subject-duration {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-}
-
-.subject-duration div {
-  width: 50%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 1rem;
 }
 
 button {
@@ -172,4 +167,51 @@ button {
   box-sizing: border-box;
   border: 1px solid #ccc;
   border-radius: 4px;
+}
+
+@media (max-width: 600px) {
+  .exam-form {
+    grid-template-columns: 1fr;
+  }
+  .main-fields {
+    grid-template-columns: 1fr;
+    row-gap: 0.5rem;
+  }
+  .exam-subject-item {
+    grid-template-columns: 1fr;
+    row-gap: 0.5rem;
+  }
+  /* .sub-duration {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 10px;
+  } */
+  .sub-duration div {
+    width: 100%;
+  }
+  .subject-duration {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+  /* .btn-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  } */
+  .remove-subject {
+    margin-top: 0;
+    height: auto;
+    width: fit-content;
+  }
+  .add-user {
+    width: 30%;
+    margin: 20px 0;
+  }
+  .btn-div {
+    column-gap: 1rem;
+  }
+  .btn-div button {
+    margin: 10px 0;
+  }
 }

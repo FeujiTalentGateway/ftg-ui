@@ -5,6 +5,8 @@ export interface DetailedUserResult{
     examStartedAt:string;
     examCompletedAt:string;
     examDuration:string;
+    totalMarks:number;
+    marksObtain:number;
     subjectWiseResult:SubjectDuration[]
 
 }

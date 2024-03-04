@@ -143,8 +143,8 @@ export const ROUTES: RouteInfo[] = [
     role: ['invigilator','admin'],
     submenu: [
       {
-        path: '/admin/result/home',
-        title: 'Home',
+        path: '/admin/result/view-results',
+        title: 'View Results',
         modulename: 'exams',
         iconType: '',
         icon: '',

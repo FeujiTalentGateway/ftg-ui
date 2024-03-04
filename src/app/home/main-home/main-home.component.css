@@ -58,12 +58,13 @@ h3 {
 }
 .main-home {
   margin-top: 3%;
+  background-color: #f8f8f8 !important;
 }
 .col-md-4 {
   padding: 0px 30px;
 }
 .welcome {
-  margin-top: 2%;
+margin-top: 2%;
 }
 .paragraph {
   font-family: "Medium";

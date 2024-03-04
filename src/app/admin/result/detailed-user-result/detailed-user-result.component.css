@@ -47,8 +47,9 @@
     font-size: medium;
 }
 .card-title{
-    font-family: 'Regular' !important;
-    font-size: medium;
+    font-family: 'Medium' !important;
+    font-size: 20px;
+    color: #f3752e !important;
 }
 .progress{
     height: 8px !important;
@@ -127,6 +128,13 @@
     margin: auto;
     margin-left: 2%;
 }
+.score-card{
+    margin-top: 2%;
+    margin-left: -5%;
+    /* margin-right: 2%; */
+    margin-bottom: 2%;
+}
+
 
 
   @media (max-width: 900px) {

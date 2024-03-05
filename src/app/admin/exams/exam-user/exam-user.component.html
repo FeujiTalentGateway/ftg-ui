@@ -1,8 +1,6 @@
 <div class="main">
-  <div
-    class="d-flex align-items-center justify-content-between flex-dir-column header shadow"
-  >
-    <h1 class="heading">Select Users</h1>
+  <div class="header shadow">
+    <h1 class="heading no-wrap">Select Users</h1>
     <div class="search-container">
       <input
         type="text"
@@ -14,6 +12,7 @@
     </div>
     <button
       mat-raised-button
+      class="exit"
       color="primary"
       type="submit"
       (click)="ScheduleExamWithUsers()"

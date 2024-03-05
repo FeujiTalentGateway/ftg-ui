@@ -1,15 +1,20 @@
 .main {
   margin: 10px;
 }
+.no-wrap {
+  white-space: nowrap;
+}
 
 .header {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
   margin-top: 10px;
   background-color: #fff;
   border-color: #e6e9ed;
+  justify-content: space-between;
   /* background-color: #ebebee; */
   padding: 0.5rem 1rem;
-  margin-bottom: 4px;
-  column-gap: 5rem;
   margin-bottom: 0.5rem;
 }
 .header-cell {
@@ -19,6 +24,7 @@
 .search-container {
   position: relative;
   min-width: 30%;
+  max-width: 80%;
   /* display: none; */
 }
 
@@ -68,9 +74,11 @@ table th {
 @media (max-width: 600px) {
   .header {
     margin-bottom: 4px;
-    column-gap: 2rem;
+    justify-content: space-between;
+    column-gap: 0;
   }
   .header .heading {
+    display: none;
     font-size: large;
   }
   table .mat-mdc-header-row {
@@ -90,7 +98,7 @@ table th {
     overflow: hidden;
     word-wrap: break-word;
     min-height: inherit;
-    padding: 13px 0px 13px 20px;
+    padding: 13px 0px 13px 5px;
   }
 
   .mobile-label {
@@ -108,8 +116,11 @@ table th {
     letter-spacing: var(--mat-table-row-item-label-text-tracking);
     line-height: inherit;
   }
-  .mdc-data-table__row .mat-mdc-cell:last-child {
-    border-bottom: none;
-    padding: 0 0 0 20px;
+  .mdc-button {
+    min-width: fit-content;
+    padding: 5px;
+  }
+  .mat-mdc-raised-button > .mat-icon {
+    margin: 0;
   }
 }

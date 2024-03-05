@@ -55,7 +55,7 @@
 .main-fields {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-column-gap: 10px;
+  gap: 10px;
 }
 .form-row {
   margin-top: 10px;

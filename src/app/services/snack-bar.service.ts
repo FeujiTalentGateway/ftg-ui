@@ -30,6 +30,6 @@ export class SnackBarService {
         panelClass: ['red-snackbar'] // Add a custom CSS class for red color
     };
 
-    this.snackBar.open(message, 'Close', config);
+    this.snackBar.open(message,'', config);
 }
 }

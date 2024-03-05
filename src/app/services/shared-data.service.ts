@@ -7,6 +7,7 @@ import { ExamSubject } from '../models/examSubject';
   providedIn: 'root',
 })
 export class SharedDataService {
+  
   private examTime = new BehaviorSubject<any>(null);
   examTime$ = this.examTime.asObservable();
 
@@ -22,6 +23,15 @@ export class SharedDataService {
   private updateLastQuestion = new BehaviorSubject<any>(null);
   updateLastQuestion$ = this.updateLastQuestion.asObservable();
 
+  private remainingTime = new BehaviorSubject<any>(null);
+  remainingTime$ = this.remainingTime.asObservable();
+
+  private subjectStatus = new BehaviorSubject<any>(null);
+  subjectStatus$ = this.subjectStatus.asObservable();
+
+  private callSystemSubmitExam = new BehaviorSubject<any>(null);
+  callSubmitExam$ = this.callSystemSubmitExam.asObservable();
+
   updateSubjectIndex$: Observable<number> | undefined;
 
   updateExamTime(time: any) {
@@ -29,19 +39,37 @@ export class SharedDataService {
   }
   updateExamAttempt(examAttemptID: number) {
     this.examAttempt.next(examAttemptID);
-    console.log(examAttemptID);
   }
 
   updateSubjects(examSubject: ExamSubject[]) {
     this.currentExamSubjects.next(examSubject);
-    console.log(examSubject);
   }
   updateSubjectIndex(indexPositionOfSubject: number) {
     this.indexPositionOfSubject.next(indexPositionOfSubject);
-    console.log(indexPositionOfSubject);
   }
   updateLastQuestionAndSave(lastQuestion: any) {
     this.updateLastQuestion.next(lastQuestion);
-    console.log(lastQuestion);
+  }
+  getRemainingTime(): any {
+    let reamingTime = 0;
+    this.remainingTime$.subscribe((response) => {
+      if (response != null) {
+        reamingTime = response;
+      } else {
+        reamingTime = 0;
+      }
+    });
+    return reamingTime;
+  }
+  updateRemainingTime(time: any) {
+    this.remainingTime.next(time);
+  }
+  updateSubjectStatus(status: any) {
+    console.log(status, 'status');
+    
+    this.subjectStatus.next(status);
+  }
+  callSubmitExam(isSystemSubmitted: boolean) {
+    this.callSystemSubmitExam.next(isSystemSubmitted);
   }
 }

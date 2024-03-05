@@ -34,7 +34,6 @@ export class ExamComponent implements OnInit {
 
   ngOnInit(): void {
     this.examCode = this.activatedRoute.snapshot.paramMap.get('examCode');
-    // console.log(this.examCode);
     // this.questions$ = this.examService.getPaperByExamCode(
     //   this.examCode as string
     // );
@@ -48,16 +47,13 @@ export class ExamComponent implements OnInit {
         this.examObjet = response
       },
       (error)=>{
-        console.log(error);
         
       }
     )
     this.examService
       .getExamByCode(this.examCode as string)
       .subscribe((response) => {
-        console.log(response);
         this.examDuration = response.examSubjects[0].duration;
-        console.log(this.examDuration);
         const newData = { exam_time: this.examDuration ,examCode :this.examCode};
         this.sharedDataService.updateExamTime(newData);
       });

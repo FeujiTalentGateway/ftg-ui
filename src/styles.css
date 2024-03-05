@@ -27,6 +27,10 @@ body {
   color: white !important;
 }
 
+.cdk-overlay-container {
+  position: fixed ;
+  z-index: 1223 !important;
+}
 :root {
   --font-family: "Roboto", sans-serif;
   --primary-color: #f3752e !important;

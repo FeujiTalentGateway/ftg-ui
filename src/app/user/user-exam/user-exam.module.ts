@@ -13,6 +13,8 @@ import { ResultChartComponent } from './result-chart/result-chart.component';
 import { UserExamRoutingModule } from './user-exam-routing.module';
 import { ViewExamsComponent } from './view-exams/view-exams.component';
 import { ViewResultComponent } from './view-result/view-result.component';
+import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
+import { MatOptionModule } from '@angular/material/core';
 
 
 @NgModule({
@@ -29,6 +31,8 @@ import { ViewResultComponent } from './view-result/view-result.component';
   ],
   imports: [
     CommonModule,
+    MatFormFieldModule,
+    MatOptionModule,
     UserExamRoutingModule,
     FormsModule,
     SharedModuleModule,

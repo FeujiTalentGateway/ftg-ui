@@ -7,6 +7,6 @@ export interface ExamSubject {
   maxQuestions: number;
   startingDifficultyLevel:number
   subject: Subject;
-
+  isTimeUp : boolean;
 }
   

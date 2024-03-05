@@ -10,13 +10,19 @@
         <span>{{ this.getSubjectName() }}</span>
       </div>
       <div>
-        <button
-          (click)="changeSubject()"
-          class="btn btn-sm btn-outline-secondary"
-          *ngIf="checkLastSubjectOrNot()"
-        >
-          Next Subject
-        </button>
+        <div>
+          <label for="subject">Select a subject:</label>
+          <select id="subject" (change)="changeSubject($event.target)">
+            <option
+              *ngFor="let subject of exam.examSubjects;index as i"
+              [value]="i"
+              [selected]="subject.id === this.currentSubject?.id"
+              [disabled]="(exam.examSubjects[i].isTimeUp)"
+            >
+              {{ subject.subject.name }}
+            </option>
+          </select>
+        </div>
       </div>
     </div>
   </div>

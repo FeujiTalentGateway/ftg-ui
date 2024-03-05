@@ -73,7 +73,7 @@ h2{
   background-color: white !important;
 }
 .one{
-  background-color: black !important;
+  background-color: white !important;
   color: white !important;
   
 }
@@ -83,5 +83,10 @@ h2{
 .container-fluid{
   width: 100% !important;
   box-sizing: border-box;
-  margin-top: 5% !important;
-}
+  margin-top: 7% !important;
+}   
+input,textarea{
+  border: none !important;
+  border-radius: 0px !important;
+  border-bottom: 1px solid #f3752e !important;
+}              

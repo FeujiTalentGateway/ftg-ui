@@ -4,4 +4,5 @@ export interface UsersResult{
     examStartedAt:string;
     examCompletedAt:string;
     examStatus:string;
+    examOutCome:string;
 }

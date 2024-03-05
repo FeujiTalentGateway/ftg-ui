@@ -7,7 +7,7 @@ import { DetailedUserResultComponent } from './detailed-user-result/detailed-use
 
 const routes: Routes = [
   {
-    path: "home",
+    path: "view-results",
     component:ExamsPageComponent
   },
   {

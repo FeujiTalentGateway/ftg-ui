@@ -24,7 +24,7 @@ form {
   width: 100%;
   padding: 10px;
   box-sizing: border-box;
-  font-family: "Light";
+  font-family: "Medium";
   border: none;
   border-bottom: 1px solid #333;
   outline: none;
@@ -148,7 +148,7 @@ p {
   font-weight: 500;
 }
 .custom {
-  margin-top: 5%;
+  margin-top: 7%;
 }
 
 @media (max-width: 768px) {

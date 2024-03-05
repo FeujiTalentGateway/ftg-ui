@@ -1,5 +1,17 @@
 header {
   background-color: white !important;
+  width: 100%;
+  z-index: 1;
+  margin-top: 1%;
+  margin-right: 10%;   
+  margin-left: 1%;
+  border-radius: 10px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  /* z-index: 100; */
+
 }
 li > a {
   font-family: "SemiBold" !important;

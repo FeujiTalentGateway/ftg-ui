@@ -3,15 +3,24 @@
   "totalTimeTakenForExam": "00:30:58",
   "examStartedAt": "2024-02-14T08:00:00",
   "examCompletedAt": "2024-02-14T10:00:00",
+  "totalScore":50,
   "subjectDuration": [
     {
       "subjectName": "java",
       "subjectDuration": "00:30:00",
+      "subjectMarks": 20,
       "totalTimeTakenForSubject": "00:25:00"
     },
     {
       "subjectName": "python",
       "subjectDuration": "00:45:00",
+      "subjectMarks": 20,
+      "totalTimeTakenForSubject": "00:35:00"
+    },
+    {
+      "subjectName": "Angular",
+      "subjectDuration": "00:45:00",
+      "subjectMarks": 20,
       "totalTimeTakenForSubject": "00:35:00"
     }
   ]

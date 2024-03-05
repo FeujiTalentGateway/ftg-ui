@@ -20,10 +20,21 @@
     padding: 20px;
     /* background-color: #ebebee; */
   }
+  label {
+    font-family: var(--font-family);
+    font-weight: var(--label-font-weight);
+    font-size: var(--label-font-size);
+    color: rgb(40, 36, 36);
+  }
+  .required-field {
+    color: red;
+  }
 
   input {
     width: 100%;
     padding: 10px;
+    margin: 0;
+    font: normal 450 14px/21px var(--font-family);
   }
   .error-div {
     position: relative;

@@ -14,7 +14,7 @@ import { QuestionsService } from 'src/app/services/questions.service';
 })
 export class ViewQuestionsComponent implements OnInit {
   // questions:{id:number,question:string,options:string[],correctAnswer:string}[]=[]
-  difficultLevelList: number[] = Array.from({ length: 100 }, (_, index) => index + 1);
+  difficultLevelList: number[] = Array.from({ length: 10 }, (_, index) => index + 1);
   selectedLevel!: number;
   isDeleteModalOpen: boolean = false;
   delitingQuestion: string = '';

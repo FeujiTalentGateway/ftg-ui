@@ -45,7 +45,7 @@ body {
 
 /* .red-snackbar {
   background-color: red;
-  color: white; 
+  color: white;
 } */
 ::ng-deep .red-snackbar {
   background-color: red !important;

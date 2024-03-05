@@ -70,7 +70,7 @@ export class AuthService {
       next: (response: any) => {
         console.log(response.message);
         if (response.message == 'Successfully logged in') {
-          // this.openSnackBar('Login successfully', 'Close');
+          this.openSnackBar('Login successfully', 'Close');
           this.setJwtToken(response.token);
           this.decodedToken();
           localStorage.setItem('userName', this.userPayload.sub);
@@ -79,7 +79,6 @@ export class AuthService {
           let roles: string[] = this.userPayload.authorities.map(
             (e: { authority: any }) => e.authority
           );
-          console.log(roles);
           sessionStorage.setItem(
             'roles',
             this.userPayload.authorities.map(
@@ -94,7 +93,10 @@ export class AuthService {
         }
       },
       error: (error: any) => {
-        if (error.status == 401) {
+        console.log(error.error.message);
+        console.log(error.status);
+        if (error.status===400) {
+          console.log(error.error.message);
           this.openSnackBar(error.error.message, 'Close');
         } else {
           this.openSnackBar('Something went wrong', 'Close');
@@ -131,7 +133,7 @@ export class AuthService {
   openSnackBar(message: string, action: string) {
     this.snackBar.open(message, action, {
       duration: 3000,
-      panelClass: 'centered-snackbar', // Apply a custom CSS class
+      panelClass: 'centered-snackbar',
       verticalPosition: 'top',
       horizontalPosition: 'center',
     });

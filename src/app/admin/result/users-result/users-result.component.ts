@@ -102,6 +102,19 @@ export class UsersResultComponent implements OnInit {
     }
   }
 
+  getExamOutcome(status: string): string {
+    switch (status) {
+      case 'Pass':
+        return 'status-button-outcome pass';
+      case '-':
+        return 'status-button-outcome no-outcome';
+      case 'Fail':
+        return 'status-button-outcome fail';
+      default:
+        return 'status-button-outcome';
+    }
+  }
+
   /**
    * Navigates to the detailed user result page.
    * @param userId The ID of the user.

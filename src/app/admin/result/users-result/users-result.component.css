@@ -46,6 +46,33 @@ text-align: center;}
     color: #F46A6A; 
    
 }
+.status-button-outcome{
+  border: none;
+  background-color: #f3410be9;
+  border-radius: 5px;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 3px 10px;
+}
+
+.pass {
+  background-color: #34C38F2E;
+  color: #34C38F;
+  
+}
+
+.no-outcome {
+  background-color: #F1B44C2E;
+  color: #F1B44C;
+ 
+}
+
+.fail {
+  background-color:#F46A6A2E;
+  color: #F46A6A; 
+  padding: 3px 10px;
+ 
+}
 .filter-and-button {
     display: flex;
     align-items: center;

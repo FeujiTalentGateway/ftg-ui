@@ -1,0 +1,32 @@
+<div class="container-fluid navigation-border">
+  <div class="instructions">
+    <div class="instruction-item">
+      <div class="info"></div>
+      <p>Not visited</p>
+    </div>
+    <div class="instruction-item">
+      <div class="info" style="background-color: #ED4907;"></div>
+      <p>Not answered</p>
+    </div>
+    <div class="instruction-item">
+      <div class="info" style="background-color: #76BE20;"></div>
+      <p>Answered</p>
+    </div>
+    <div class="instruction-item">
+      <div class="info" style="background-color: #815DA4;"></div>
+      <p>Not saved</p>
+    </div>
+
+  </div>
+  <div class="option-info">
+      <h6>Choose a question</h6>
+  </div>
+  <div class="navigation-style" *ngFor="let questionNumber of getQuestionNumbers(); let i = index">
+
+    <div class="navigation-numbers">
+      <p>{{questionNumber}}</p>
+    </div>
+
+  </div>
+
+</div>

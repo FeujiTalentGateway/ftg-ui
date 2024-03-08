@@ -46,3 +46,9 @@ h5 {
 .exam-header div{
   padding: 0px 10px;
 }
+.question-navigation
+{
+width: 42%;
+height: 420px;
+overflow-y: auto;
+}

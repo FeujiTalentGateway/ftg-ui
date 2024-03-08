@@ -26,7 +26,8 @@
       </div>
     </div>
   </div>
-  <div class="container shadow p-3 mb-5 bg-white rounded">
+  <div class="container shadow p-3 mb-5 bg-white rounded d-flex">
+    <div style="width: 100%;">
     <div class="heading"></div>
     <div class="content" *ngIf="nextSubjectLoading; else loadingSubject">
       <h5>
@@ -61,7 +62,6 @@
         </li>
       </ul>
     </div>
-
     <div class="footer">
       <button
         (click)="previousQuestion()"
@@ -95,6 +95,10 @@
         Next
       </button>
       <span *ngIf="this.checkLastQuestionOrNot()"> </span>
+    </div>
+    </div>
+    <div class="question-navigation">
+      <app-question-navigation [listOfQuestion]="listOfQuestion" [totalQuestion]="currentSubject?.maxQuestions" ></app-question-navigation>
     </div>
   </div>
   <ng-template #loadingSubject></ng-template>

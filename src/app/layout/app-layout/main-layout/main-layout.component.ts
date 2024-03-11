@@ -27,19 +27,6 @@ export class MainLayoutComponent implements OnInit {
     );
   }
 
-  userObject: User = {
-    id_i: 1,
-    userName: 'exampleUser',
-    emailId: 'example@example.com',
-    firstName: 'John',
-    lastName: 'Doe',
-    password: 'password123',
-    created_at_ts: new Date(),
-    updated_at_ts: new Date(),
-    updated_by_i: 1,
-    is_active_sw: true,
-    roles_list_: 1,
-  };
   toggleLayout() {
     this.layoutCollapsed = !this.layoutCollapsed;
   }

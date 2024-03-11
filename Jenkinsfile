@@ -12,6 +12,7 @@ pipeline {
                                     sh "printf '%s' ${DOCKER_PASSWORD} | docker login -u ${DOCKER_USERNAME} --password-stdin"
 
                                     // Build and push Docker image
+                                    sh "docker rm -f ftg-ui || true"
                                     sh "docker build -t sivasankar99/ftg-ui ."
                                     sh "docker push sivasankar99/ftg-ui"
                                 }

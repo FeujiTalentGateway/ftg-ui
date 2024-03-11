@@ -16,6 +16,7 @@ export class ExamServiceForLogic {
   checkExamAvailableForUserOrNot(examCode: string) {
     this.examRepo.checkExamAvailableForUserOrNot(examCode).subscribe(
       (response) => {
+        console.log(response);
         return response;
       },
       (error) => {

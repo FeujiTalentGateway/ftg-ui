@@ -1,13 +1,10 @@
-import { HttpResponse } from '@angular/common/http';
-import { Component, HostListener, OnInit } from '@angular/core';
-import { SafeResourceUrl } from '@angular/platform-browser';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Exam } from 'src/app/models/exam.model';
 import { ExamService } from 'src/app/repository/exam.service';
 import { ExamServiceForLogic } from 'src/app/services/ExamServiceForLogic';
 import { SharedDataService } from 'src/app/services/shared-data.service';
-import 'ldrs/ring'
 import { SnackBarService } from 'src/app/services/snack-bar.service';
 import { MatDialog } from '@angular/material/dialog';
 
@@ -28,38 +25,19 @@ export class ExamInstructionsComponent implements OnInit {
     private route: Router,
     private examService: ExamServiceForLogic,
     private examRepo: ExamService,
-    private sharedDataService: SharedDataService,
-    private snackBarService: SnackBarService,
-    private dialog: MatDialog
+    private sharedDataService: SharedDataService
   ) {}
   ngOnInit(): void {
     this.examCode = this.activatedRoute.snapshot.paramMap.get('examCode');
     this.examDetailObject$ = this.examRepo.getExamByCode(
       this.examCode as string
     );
-    this.examDetailObject$.subscribe((response) => {
-      console.log(response);
 
-      this.examDetails = response;
-    });
-
-    //  on production
 
     this.examCode = this.activatedRoute.snapshot.paramMap.get('examCode');
     this.examDetails = this.examService.checkExamAvailableForUserOrNot(
       this.examCode as string
     );
-    // this.examDetailsob$ = this.examRepo.checkExamByCode(this.examCode as string)
-    // this.examRepo.checkExamByCode(this.examCode as string).subscribe(
-    //   (response) => {
-    //     this.examDetails = response;
-    //     console.log(this.examDetails);
-
-    //   },
-    //   (error) => {
-    //     console.error('not found');
-    //   }
-    // );
   }
   startExam() {
     this.toggleFullscreen();
@@ -92,8 +70,7 @@ export class ExamInstructionsComponent implements OnInit {
     const newData = { exam_time: 'nothing' };
     this.sharedDataService.updateExamTime(newData);
   }
-  updateIsreaded(){
-    this.isReaded = !(this.isReaded)
+  updateIsreaded() {
+    this.isReaded = !this.isReaded;
   }
-  // timeFormat(time: string) {}
 }

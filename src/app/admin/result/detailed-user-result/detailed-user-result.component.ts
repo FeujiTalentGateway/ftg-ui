@@ -29,7 +29,7 @@ export class DetailedUserResultComponent implements OnInit {
   ngOnInit(){
     this.examCode = this.activatedRoute.snapshot.paramMap.get('examCode') as string;
     this.userId =  this.activatedRoute.snapshot.paramMap.get('userId') as number | null | undefined; 
-    this.examObject$ = this.examService.getExamById(this.examCode);
+    this.examObject$ = this.examService.getExamByCode(this.examCode);
     this.detailedUserResultObject$ = this.examService.getDetailedUserResult(this.examCode,this.userId as number);
     this.calculateProgress();
   }

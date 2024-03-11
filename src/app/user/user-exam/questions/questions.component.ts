@@ -4,7 +4,6 @@ import { Exam } from 'src/app/models/exam.model';
 import { ExamStartResponse } from 'src/app/models/examStartresponce.model';
 import { ExamSubject } from 'src/app/models/examSubject';
 import { Option } from 'src/app/models/option';
-import { Paper } from 'src/app/models/paper';
 import { Question } from 'src/app/models/question';
 import { ExamService } from 'src/app/repository/exam.service';
 import { SharedDataService } from 'src/app/services/shared-data.service';
@@ -17,7 +16,6 @@ import { SubjectQuestions } from './subject.questions';
   styleUrls: ['./questions.component.css'],
 })
 export class QuestionsComponent implements OnInit, OnDestroy {
-  @Input() paper: Paper = { id: 0, name: '', active: false, questions: [] };
   @Input() exam: Exam = {
     id: 0,
     name: '',
@@ -287,10 +285,10 @@ export class QuestionsComponent implements OnInit, OnDestroy {
 
   updateTime() {
     const newData = {
-      exam_time: this.currentSubject?.duration,
+      exam_time: this.exam.duration,
       examCode: this.exam.examCode,
     };
-    this.sharedData.updateExamTime(newData);
+    // this.sharedData.updateExamTime(newData);
   }
 
   /**
@@ -333,8 +331,6 @@ export class QuestionsComponent implements OnInit, OnDestroy {
       this.currentQuestion = this.listOfQuestion[this.currentQuestionIndex];
       this.nextSubjectLoading = true;
 
-      let timeData = { exam_time: duration, examCode: this.exam.examCode };
-      this.sharedData.updateExamTime(timeData);
     } else {
       this.listOfQuestionEachSubject.push({
         subjectId: this.currentSubject?.subject.id || 0,
@@ -354,7 +350,6 @@ export class QuestionsComponent implements OnInit, OnDestroy {
       this.ExamRepo.changeSubjectAndGetFirstQuestion(data).subscribe(
         (response) => {
           this.nextSubjectLoading = true;
-          this.updateTime();
           this.currentQuestion = response;
           this.listOfQuestion = [];
           this.listOfQuestion.push(this.currentQuestion);
@@ -398,11 +393,13 @@ export class QuestionsComponent implements OnInit, OnDestroy {
   getSubjectName(): string | undefined {
     return this.currentSubject?.subject.name;
   }
+
   /**
    * @method submitExam() this method is for submitting the exam
    * @returns it will return the confirmation dialog
    * @description this method is for submitting the exam
    */
+
   nextQuestion() {
     if (this.currentQuestionIndex < this.listOfQuestion.length - 1) {
       this.currentQuestionIndex++;
@@ -413,7 +410,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * 
+   *
    * @param option this is the option we are checking wether this is selected or not
    * @returns it will return the true or false
    * @method isOptionSelected() this method is for checking the option is selected or not
@@ -432,7 +429,9 @@ export class QuestionsComponent implements OnInit, OnDestroy {
    * @returns it will return the true or false
    * @method checkLastSubjectOrNot() this method is for checking the last subject or not
    * @description this method is for checking the last subject or not
+   * 
    */
+
   checkLastSubjectOrNot(): any {
     if (this.indexPositionOfSubject + 1 == this.exam.examSubjects.length) {
       return false;
@@ -452,7 +451,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
   }
 
   /**
-   *  @method changeSubject() this method is for changing the subject
+   * @method changeSubject() this method is for changing the subject
    * @param indexPositionOfSubject
    */
 
@@ -477,12 +476,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
       this.listOfQuestion = this.listOfQuestionEachSubject.find(
         (item) => item.subjectId === subject.subject.id
       )?.questions as Question[];
-      let remainingTime = this.listOfQuestionEachSubject.find(
-        (item) => item.subjectId === subject.subject.id
-      )?.reamingTime;
       this.currentQuestion = this.listOfQuestion[this.currentQuestionIndex];
-      let timeData = { exam_time: remainingTime, examCode: this.exam.examCode };
-      this.sharedData.updateExamTime(timeData);
     }
   }
 
@@ -528,11 +522,6 @@ export class QuestionsComponent implements OnInit, OnDestroy {
       subjectId: this.currentSubject?.subject.id || 0,
       attemptId: this.examAttemptID || '',
     };
-    let timeData = {
-      exam_time: this.currentSubject?.duration,
-      examCode: this.exam.examCode,
-    };
-    this.sharedData.updateExamTime(timeData);
     this.sharedData.updateRemainingTime(this.currentSubject?.duration);
     this.listOfQuestionEachSubject.push({
       subjectId: this.currentSubject?.subject.id || 0,
@@ -597,15 +586,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
           this.listOfQuestion = this.listOfQuestionEachSubject.find(
             (item) => item.subjectId === nextSubject?.subject.id
           )?.questions as Question[];
-          let remainingTime = this.listOfQuestionEachSubject.find(
-            (item) => item.subjectId === nextSubject?.subject.id
-          )?.reamingTime;
           this.currentQuestion = this.listOfQuestion[this.currentQuestionIndex];
-          let timeData = {
-            exam_time: remainingTime,
-            examCode: this.exam.examCode,
-          };
-          this.sharedData.updateExamTime(timeData);
         }
       }
     } else {

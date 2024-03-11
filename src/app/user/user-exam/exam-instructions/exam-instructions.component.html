@@ -1,4 +1,4 @@
-<section *ngIf="examDetailObject$ | async as questions; else loadingTemplate">
+<section *ngIf="examDetailObject$ | async as examDetails; else loadingTemplate">
   <div class="container shadow p-5">
     <div class="heading">
       <h2 class="exam-name">{{ examDetails.name }}</h2>
@@ -63,19 +63,28 @@
         </table>
       </div>
     </div>
-    <input type="checkbox" name="" id="" (click)="updateIsreaded()" class="ml-2">
-    <small for="">&nbsp;&nbsp;I have read and understood the instructions</small>
+    <input
+      type="checkbox"
+      name=""
+      id=""
+      (click)="updateIsreaded()"
+      class="ml-2"
+    />
+    <small for=""
+      >&nbsp;&nbsp;I have read and understood the instructions</small
+    >
     <div class="footer">
       <div>
-        <button
-          routerLink="/user/exam/exam-code"
-          class="btn btn-secondary "
-        >
+        <button routerLink="/user/exam/exam-code" class="btn btn-secondary">
           Back
         </button>
       </div>
       <div>
-        <button (click)="startExam()" class="btn btn-success submitt-button btn-custom" [disabled]="!this.isReaded">
+        <button
+          (click)="startExam()"
+          class="btn btn-success submitt-button btn-custom"
+          [disabled]="!this.isReaded"
+        >
           Start Exam
         </button>
       </div>

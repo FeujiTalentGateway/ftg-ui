@@ -49,6 +49,8 @@ export class QuestionsComponent implements OnInit, OnDestroy {
   lastQuestionOfExam$: Observable<any> | undefined;
   listOfQuestionEachSubject: SubjectQuestions[] = [];
   subjectStatus$: Observable<any> | undefined;
+  arrow:boolean=false;
+  questionNavigation: boolean = false;
   ngOnInit(): void {
     this.currentSubject = this.exam.examSubjects[this.indexPositionOfTheExam];
     this.indexPositionOfSubject$ = this.sharedData.indexPositionOfSubject$;
@@ -380,7 +382,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
   }
 
   /**
-  
+
    * @returns it will return the true or false
    * @method checkLastQuestionOrNot() this method is for checking the last question or not
    */
@@ -407,13 +409,15 @@ export class QuestionsComponent implements OnInit, OnDestroy {
     if (this.currentQuestionIndex < this.listOfQuestion.length - 1) {
       this.currentQuestionIndex++;
       this.currentQuestion = this.listOfQuestion[this.currentQuestionIndex];
+      console.log(this.listOfQuestion);
     } else {
+      console.log(this.listOfQuestion);
       this.saveOption(true);
     }
   }
 
   /**
-   * 
+   *
    * @param option this is the option we are checking wether this is selected or not
    * @returns it will return the true or false
    * @method isOptionSelected() this method is for checking the option is selected or not
@@ -633,4 +637,16 @@ export class QuestionsComponent implements OnInit, OnDestroy {
       this.subjectStatus$.subscribe().unsubscribe();
     }
   }
+
+
+  handleQuestionChange(num: number) {
+    this.currentQuestionIndex = num - 1;
+    this.currentQuestion = this.listOfQuestion[this.currentQuestionIndex];
+  }
+  toggleArrow() {
+    this.arrow = !this.arrow;
+    this.questionNavigation=!this.questionNavigation;
+  }
+
+
 }

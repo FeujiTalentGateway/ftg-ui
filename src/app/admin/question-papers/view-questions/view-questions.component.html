@@ -7,7 +7,7 @@
         id="subject"
         class="form-select select header-child"
         [(ngModel)]="selectedSubject"
-        (change)="getQuesitonsBySubject()"
+        (change)="getAllQuestionsBasedOnSubjectId()"
       >
         <option
           value="{{ subject.id }}"
@@ -23,7 +23,7 @@
         id="subject"
         class="form-select select header-child"
         [(ngModel)]="selectedLevel"
-        (change)="getQuesitonsBySubject()"
+        (change)="handleFiltering()"
       >
         <option value="0" disabled selected>Difficulty level</option>
         <option
@@ -40,19 +40,20 @@
       [(ngModel)]="searchQuery"
       placeholder="Search questions"
       class="styled-input header-child"
+      (input)="handleFiltering()"
     />
   </div>
-  <div *ngIf="paginatedQuestions.length > 0; else noQuestionsMessage">
+  <div *ngIf="questionsList.length > 0; else noQuestionsMessage">
     <div class="row d-flex align-item-center justify-content-center">
       <div
         class="col-sm-12 m-b-20"
-        *ngFor="let question of paginatedQuestions; let i = index"
+        *ngFor="let question of questionsList; let i = index"
       >
         <div class="card shadow-sm mb-2  rounded">
           <div class="card-body">
             <div class="content">
               <h6 class="card-title">
-                {{ pageNumber * pageSize + i + 1 + ". " + question.content }}
+                {{ (page - 1) * pageSize + i + 1 + ". " + question.content }}
               </h6>
               <div class="dropdown">
                 <span
@@ -113,20 +114,18 @@
 
   <ng-template #noQuestionsMessage>
     <div
-      class="d-flex align-item-center justify-content-around mb-3 flex-dir-column"
+      class="d-flex align-item-center justify-content-ceter oops"
     >
-      <p class="no-quesitons-msg">
-        No questions available for the selected subject.
-      </p>
+      <img src="../../../../assets/images/oops.svg" alt="">
     </div>
   </ng-template>
-  <div class="bottom-container" *ngIf="paginatedQuestions.length > 0">
+  <div class="bottom-container" *ngIf="questionsList.length > 0">
     <div class="">
       <div style="width: fit-content">
         <mat-paginator
-          [length]="questions.length"
+          [length]="questionsLength"
           [pageSize]="rows"
-          [pageSizeOptions]="[2, 4, 6, 8]"
+          [pageSizeOptions]="[5, 10, 15, 20, 25]"
           (page)="onPageChange($event)"
         ></mat-paginator>
       </div>

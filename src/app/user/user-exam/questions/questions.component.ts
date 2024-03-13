@@ -176,10 +176,10 @@ export class QuestionsComponent implements OnInit, OnDestroy {
       questionId: this.currentQuestion?.id,
       selectedOptions: this.getSelectedOptions(),
       isLast: isLast,
-      endDate: new Date().toISOString().slice(0, 23),
       attemptId: this.examAttemptID,
       isUpdating: isUpdating,
       isSkipped: isSkipped,
+      isMarkedForReview: this.currentQuestion?.isMarkedForReview
     };
     return currentQuestionData;
   }
@@ -471,6 +471,13 @@ export class QuestionsComponent implements OnInit, OnDestroy {
     } else {
       this.currentQuestionIndex = 0;
       this.currentSubject = subject;
+      this.ExamRepo.getListOFAttemptedQuestions(this.examAttemptID as number, subject.subject.id).subscribe((response:any) => {
+        console.log(response, 'response');
+        
+        //
+      });
+
+
       this.listOfQuestion = this.listOfQuestionEachSubject.find(
         (item) => item.subjectId === subject.subject.id
       )?.questions as Question[];

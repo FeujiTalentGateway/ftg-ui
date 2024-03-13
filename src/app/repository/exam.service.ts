@@ -81,6 +81,10 @@ export class ExamService {
     );
   }
 
+  getListOFAttemptedQuestions(examAttemptId : number, subjectId:number):any{
+    return this.http.get(`${this.javaExamUrl}/attempted-questions/subject/${examAttemptId}/${subjectId}`)
+  }
+
   checkStaticExamByCode(examCode: string) {}
 
   getStaticListOfExams(): Observable<Exam[]> {

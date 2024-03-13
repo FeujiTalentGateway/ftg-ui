@@ -243,6 +243,9 @@ export class QuestionsComponent implements OnInit, OnDestroy {
    * @method updateOption() this method is for updating the option
    */
   updateOption(currentQuestionData: any) {
+      console.log(currentQuestionData, 'currentQuestionData');
+
+      
     this.question$ = this.ExamRepo.submitQuestion(currentQuestionData);
     this.question$.subscribe((response) => {
       if (response != null) {
@@ -267,6 +270,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
       if (response != null) {
         this.currentQuestion = response;
         this.currentQuestion.optionSelected = [];
+        this.currentQuestion.isMarkedForReview = false;
         this.listOfQuestion.push(response);
       }
       this.currentQuestionIndex++;
@@ -303,6 +307,10 @@ export class QuestionsComponent implements OnInit, OnDestroy {
     optionArray = this.currentQuestion?.optionSelected?.map(
       (opt) => opt.id
     ) as [];
+    console.log(optionArray, 'optionArray');
+    if (optionArray === undefined) {
+      return [];
+    }   
     return optionArray;
   }
   /**
@@ -310,6 +318,8 @@ export class QuestionsComponent implements OnInit, OnDestroy {
    */
   changeSubjectAndGetFirstQuestion() {
     this.nextSubjectLoading = false;
+    console.log("i am in changeSubjectAndGetFirstQuestion");
+    
 
     let checkAlreadyVisited = this.listOfQuestionEachSubject.some(
       (item) => item.subjectId == this.currentSubject?.subject.id
@@ -454,9 +464,9 @@ export class QuestionsComponent implements OnInit, OnDestroy {
    */
 
   changeSubject(indexPositionOfSubject: any) {
-    console.log(indexPositionOfSubject, 'indexPositionOfSubject');
+    console.log(indexPositionOfSubject.value, 'indexPositionOfSubject');
 
-    this.saveOption(false, true);
+    this.saveOption(false, false, true);
     this.updatingTheCurrentSubjectAndQuestions();
     let subject = this.exam.examSubjects[indexPositionOfSubject.value];
     this.sharedData.updateSubjectIndex(indexPositionOfSubject.value);
@@ -473,6 +483,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
       this.currentSubject = subject;
       this.ExamRepo.getListOFAttemptedQuestions(this.examAttemptID as number, subject.subject.id).subscribe((response:any) => {
         console.log(response, 'response');
+        this.listOfQuestion = response;
         
         //
       });

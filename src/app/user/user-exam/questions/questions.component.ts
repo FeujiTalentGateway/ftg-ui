@@ -55,35 +55,36 @@ export class QuestionsComponent implements OnInit, OnDestroy {
       this.exam.examCode,
       this.currentSubject.startingDifficultyLevel,
       this.currentSubject.subject.id
-    )
-      .pipe(take(1))
-      .subscribe(
-        (response) => {
-          this.nextSubjectLoading = true;
-          response.question['optionSelected'] = [];
-          this.currentQuestion = response.question;
-          this.examAttemptID = response.attemptId;
-          this.sharedData.updateExamAttempt(this.examAttemptID as number);
-          this.isLoading = false;
-          this.listOfQuestion.push(response.question);
-          this.exam.examSubjects[this.indexPositionOfTheExam].isTimeUp = false;
-          this.updateExamTimeConfirmation();
-          console.log(this.exam.examSubjects, 'this.exam.examSubjects');
+    ).subscribe(
+      (response) => {
+        this.nextSubjectLoading = true;
+        response.question['optionSelected'] = [];
+        response.question['isMarkedForReview'] = false;
+        this.currentQuestion = response.question;
+        console.log(this.currentQuestion, 'this.currentQuestion');
 
-          this.listOfQuestionEachSubject.push({
-            subjectId: this.currentSubject?.subject.id || 0,
-            subjectName: this.currentSubject?.subject.name || '',
-            questions: this.listOfQuestion,
-            reamingTime: this.getRemainingTime(),
-            isVisited: true,
-          });
-          console.log(
-            this.listOfQuestionEachSubject,
-            'this.listOfQuestionEachSubject'
-          );
-        },
-        (error) => {}
-      );
+        this.examAttemptID = response.attemptId;
+        this.sharedData.updateExamAttempt(this.examAttemptID as number);
+        this.isLoading = false;
+        this.listOfQuestion.push(response.question);
+        this.exam.examSubjects[this.indexPositionOfTheExam].isTimeUp = false;
+        this.updateExamTimeConfirmation();
+        console.log(this.exam.examSubjects, 'this.exam.examSubjects');
+
+        this.listOfQuestionEachSubject.push({
+          subjectId: this.currentSubject?.subject.id ?? 0,
+          subjectName: this.currentSubject?.subject.name ?? '',
+          questions: this.listOfQuestion,
+          reamingTime: this.getRemainingTime(),
+          isVisited: true,
+        });
+        console.log(
+          this.listOfQuestionEachSubject,
+          'this.listOfQuestionEachSubject'
+        );
+      },
+      (error) => {}
+    );
     this.sharedData.updateExamAttempt(this.examAttemptID as number);
     this.sharedData.updateSubjects(this.exam.examSubjects);
     this.indexPositionOfSubject$.subscribe((response) => {
@@ -131,7 +132,6 @@ export class QuestionsComponent implements OnInit, OnDestroy {
    */
   updateQuestions() {
     if (this.indexPositionOfSubject != 0) {
-      // this.saveOption(false, true);
       this.currentSubject = this.exam.examSubjects[this.indexPositionOfSubject];
       this.changeSubjectAndGetFirstQuestion();
     }
@@ -230,6 +230,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
       if (response != null) {
         this.currentQuestion = response;
         this.currentQuestion.optionSelected = [];
+        this.currentQuestion.isMarkedForReview = false;
         this.listOfQuestion.push(response);
         this.currentQuestionIndex++;
       }
@@ -252,6 +253,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
       this.currentQuestion = this.listOfQuestion[this.currentQuestionIndex];
     });
   }
+
   /**
    *
    * @param currentQuestionData this is the current question data
@@ -278,17 +280,10 @@ export class QuestionsComponent implements OnInit, OnDestroy {
 
   previousQuestion() {
     if (this.currentQuestionIndex > 0) {
+      this.updateOptionSelected(false, false, true);
       this.currentQuestionIndex--;
       this.currentQuestion = this.listOfQuestion[this.currentQuestionIndex];
     }
-  }
-
-  updateTime() {
-    const newData = {
-      exam_time: this.exam.duration,
-      examCode: this.exam.examCode,
-    };
-    // this.sharedData.updateExamTime(newData);
   }
 
   /**
@@ -324,17 +319,13 @@ export class QuestionsComponent implements OnInit, OnDestroy {
         (item) => item.subjectId == this.currentSubject?.subject.id
       )?.questions as Question[];
 
-      let duration = this.listOfQuestionEachSubject.find(
-        (item) => item.subjectId == this.currentSubject?.subject.id
-      )?.reamingTime as number;
       this.currentQuestionIndex = 0;
       this.currentQuestion = this.listOfQuestion[this.currentQuestionIndex];
       this.nextSubjectLoading = true;
-
     } else {
       this.listOfQuestionEachSubject.push({
-        subjectId: this.currentSubject?.subject.id || 0,
-        subjectName: this.currentSubject?.subject.name || '',
+        subjectId: this.currentSubject?.subject.id ?? 0,
+        subjectName: this.currentSubject?.subject.name ?? '',
         questions: this.listOfQuestion,
         reamingTime: this.getRemainingTime(),
         isVisited: true,
@@ -342,15 +333,16 @@ export class QuestionsComponent implements OnInit, OnDestroy {
 
       let data = {
         examCode: this.exam.examCode,
-        difficultyLevel: this.currentSubject?.startingDifficultyLevel || 0,
+        difficultyLevel: this.currentSubject?.startingDifficultyLevel ?? 0,
         startDate: new Date().toISOString().slice(0, 23),
-        subjectId: this.currentSubject?.subject.id || 0,
-        attemptId: this.examAttemptID || '',
+        subjectId: this.currentSubject?.subject.id ?? 0,
+        attemptId: this.examAttemptID ?? '',
       };
       this.ExamRepo.changeSubjectAndGetFirstQuestion(data).subscribe(
         (response) => {
           this.nextSubjectLoading = true;
           this.currentQuestion = response;
+          this.currentQuestion.isMarkedForReview = false;
           this.listOfQuestion = [];
           this.listOfQuestion.push(this.currentQuestion);
           this.currentQuestionIndex = 0;
@@ -375,9 +367,9 @@ export class QuestionsComponent implements OnInit, OnDestroy {
   }
 
   /**
-  
+   
    * @returns it will return the true or false
-   * @method checkLastQuestionOrNot() this method is for checking the last question or not
+  * @method checkLastQuestionOrNot() this method is for checking the last question or not
    */
 
   checkLastQuestionOrNot(): boolean {
@@ -402,10 +394,16 @@ export class QuestionsComponent implements OnInit, OnDestroy {
 
   nextQuestion() {
     if (this.currentQuestionIndex < this.listOfQuestion.length - 1) {
+      // this.saveOption(false, false, true);
+      this.updateOptionSelected(false, false, true);
       this.currentQuestionIndex++;
       this.currentQuestion = this.listOfQuestion[this.currentQuestionIndex];
     } else {
-      this.saveOption(true);
+      if (this.currentQuestion?.optionSelected?.length != 0) {
+        this.saveOption();
+      } else {
+        this.saveOption(true, false, false);
+      }
     }
   }
 
@@ -429,7 +427,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
    * @returns it will return the true or false
    * @method checkLastSubjectOrNot() this method is for checking the last subject or not
    * @description this method is for checking the last subject or not
-   * 
+   *
    */
 
   checkLastSubjectOrNot(): any {
@@ -613,5 +611,39 @@ export class QuestionsComponent implements OnInit, OnDestroy {
     if (this.subjectStatus$) {
       this.subjectStatus$.subscribe().unsubscribe();
     }
+  }
+
+  setMarkedForReview() {
+    if (this.currentQuestion?.isMarkedForReview !== undefined) {
+      this.currentQuestion.isMarkedForReview =
+        !this.currentQuestion.isMarkedForReview;
+      console.log(this.currentQuestion);
+    }
+  }
+
+  updateOptionSelected(
+    isSkipped: boolean = false,
+    isLast: boolean = false,
+    isUpdating: boolean = false
+  ) {
+    let currentQuestionData = this.getCurrentQuestionData(
+      isSkipped,
+      isLast,
+      isUpdating
+    );
+    this.updateOption(currentQuestionData);
+  }
+  checkOptionSelectedOrNot(): any {
+    if (this.currentQuestion?.optionSelected?.length != 0) {
+      return true;
+    }
+    return false;
+  }
+
+  getTestForMarkButton(): any {
+    if (!this.currentQuestion?.isMarkedForReview) {
+      return "Mark for Review";
+    }
+    return "Unmark";
   }
 }

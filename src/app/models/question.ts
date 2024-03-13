@@ -11,6 +11,7 @@ export interface Question {
   rightOptions?: Option[];
   options: Option[];
   optionSelected?: Option[];
+  isMarkedForReview?: boolean;
 }
 
 export interface ResultTimeQuestion {

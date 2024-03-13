@@ -74,7 +74,6 @@ export class QuestionsComponent implements OnInit, OnDestroy {
           this.listOfQuestion.push(response.question);
           this.exam.examSubjects[this.indexPositionOfTheExam].isTimeUp = false;
           this.updateExamTimeConfirmation();
-          console.log(this.exam.examSubjects, 'this.exam.examSubjects');
 
           this.listOfQuestionEachSubject.push({
             subjectId: this.currentSubject?.subject.id || 0,
@@ -83,10 +82,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
             reamingTime: this.getRemainingTime(),
             isVisited: true,
           });
-          console.log(
-            this.listOfQuestionEachSubject,
-            'this.listOfQuestionEachSubject'
-          );
+
         },
         (error) => {}
       );
@@ -112,9 +108,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
     this.subjectStatus$ = this.sharedData.subjectStatus$;
     this.subjectStatus$.subscribe((response) => {
       if (response != null) {
-        console.log(response, 'response');
         let id = response.id;
-        console.log(id, 'id');
         this.exam.examSubjects.map((item) => {
           if (item.id == id) {
             item.isTimeUp = true;
@@ -556,16 +550,13 @@ export class QuestionsComponent implements OnInit, OnDestroy {
     let isSubjectAvailable = examSubjectsList.some(
       (item) => item.isTimeUp == false
     );
-    console.log(isSubjectAvailable, 'isSubjectAvailable');
     if (isSubjectAvailable) {
       let nextSubject = examSubjectsList.find((item) => item.isTimeUp == false);
       let indexPositionOfSubject = examSubjectsList.findIndex(
         (item) => item.id == nextSubject?.id
       );
-      console.log(indexPositionOfSubject, 'indexPositionOfSubject');
       this.sharedData.updateSubjectIndex(indexPositionOfSubject);
 
-      console.log(nextSubject, 'nextSubject');
       if (nextSubject != undefined) {
         this.currentSubject = nextSubject;
         let subjectIsExits = this.checkSubjectIsExitsOrNot(this.currentSubject);
@@ -631,7 +622,6 @@ export class QuestionsComponent implements OnInit, OnDestroy {
    * @description this method is for submitting the exam
    */
   async nextQuestion() {
-    console.log(this.currentQuestionIndex, 'this.currentQuestionIndex');
     if (this.currentQuestionIndex < this.listOfQuestion.length - 1) {
         this.currentQuestionIndex++;
         this.currentQuestion = this.listOfQuestion[this.currentQuestionIndex];

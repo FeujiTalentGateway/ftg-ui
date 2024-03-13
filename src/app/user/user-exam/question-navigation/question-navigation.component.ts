@@ -24,7 +24,6 @@ export class QuestionNavigationComponent implements OnInit {
     this.displayedNumber = questionNumber;
   }
   nextQuestion(index: number): void {
-    console.log(index);
     this.displayedNumber = index+1;
     this.changeQuestion(index+1);
   }
@@ -33,7 +32,6 @@ export class QuestionNavigationComponent implements OnInit {
     this.changeQuestion(index+1);
   }
   previousQuestion(index: number): void {
-    console.log(index);
     this.displayedNumber = index;
     this.changeQuestion(index+1);
 

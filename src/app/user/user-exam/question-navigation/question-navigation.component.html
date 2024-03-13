@@ -12,10 +12,6 @@
       <div class="info" style="background-color: #569805df"></div>
       <p>Answered</p>
     </div>
-    <!-- <div class="instruction-item">
-      <div class="info" style="background-color: #815DA4;"></div>
-      <p>Not saved</p>
-    </div> -->
   </div>
   <div class="option-info">
     <h6>Choose a question</h6>
@@ -24,12 +20,17 @@
     class="navigation-style"
     *ngFor="let questionNumber of getQuestionNumbers(); let i = index"
   >
-    <div
-      class="navigation-numbers"
-      [ngClass]="getNavigationStatus(i,i)"
-      (click)="getNavigationStatus(i,i)!='disabled' && changeQuestion(questionNumber)"
-    >
-      <p>{{ questionNumber }}</p>
-    </div>
+  <div
+  class="navigation-numbers"
+  [ngClass]="{
+    'answered': listOfQuestion[i]?.optionSelected?.length !== 0 && i !== displayedNumber,
+    'not-answered': listOfQuestion[i]?.optionSelected?.length === 0 && i !== displayedNumber,
+    '': (listOfQuestion[i]?.optionSelected?.length === 0) && i === displayedNumber,
+    '': (listOfQuestion[i]?.optionSelected?.length !== 0)&& i === displayedNumber,
+    'disabled': i >= listOfQuestion.length
+  }"
+  (click)="i < listOfQuestion.length && previousQuestion(i)"
+>
+<p>{{questionNumber}}</p>
   </div>
 </div>

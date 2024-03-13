@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Exam } from 'src/app/models/exam.model';
 import { ExamStartResponse } from 'src/app/models/examStartresponce.model';
@@ -10,6 +10,7 @@ import { ExamService } from 'src/app/repository/exam.service';
 import { SharedDataService } from 'src/app/services/shared-data.service';
 import { take } from 'rxjs';
 import { SubjectQuestions } from './subject.questions';
+import { QuestionNavigationComponent } from '../question-navigation/question-navigation.component';
 
 @Component({
   selector: 'app-questions',
@@ -17,6 +18,7 @@ import { SubjectQuestions } from './subject.questions';
   styleUrls: ['./questions.component.css'],
 })
 export class QuestionsComponent implements OnInit, OnDestroy {
+  @ViewChild('childComponentRef') childComponent!: QuestionNavigationComponent;
   @Input() paper: Paper = { id: 0, name: '', active: false, questions: [] };
   @Input() exam: Exam = {
     id: 0,
@@ -49,7 +51,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
   lastQuestionOfExam$: Observable<any> | undefined;
   listOfQuestionEachSubject: SubjectQuestions[] = [];
   subjectStatus$: Observable<any> | undefined;
-  arrow:boolean=false;
+  arrow: boolean = false;
   questionNavigation: boolean = false;
   ngOnInit(): void {
     this.currentSubject = this.exam.examSubjects[this.indexPositionOfTheExam];
@@ -275,18 +277,6 @@ export class QuestionsComponent implements OnInit, OnDestroy {
       this.currentQuestion = this.listOfQuestion[this.currentQuestionIndex];
     });
   }
-
-  /**
-   *  @method previousQuestion() this method is for getting the previous question
-   */
-
-  previousQuestion() {
-    if (this.currentQuestionIndex > 0) {
-      this.currentQuestionIndex--;
-      this.currentQuestion = this.listOfQuestion[this.currentQuestionIndex];
-    }
-  }
-
   updateTime() {
     const newData = {
       exam_time: this.currentSubject?.duration,
@@ -400,21 +390,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
   getSubjectName(): string | undefined {
     return this.currentSubject?.subject.name;
   }
-  /**
-   * @method submitExam() this method is for submitting the exam
-   * @returns it will return the confirmation dialog
-   * @description this method is for submitting the exam
-   */
-  nextQuestion() {
-    if (this.currentQuestionIndex < this.listOfQuestion.length - 1) {
-      this.currentQuestionIndex++;
-      this.currentQuestion = this.listOfQuestion[this.currentQuestionIndex];
-      console.log(this.listOfQuestion);
-    } else {
-      console.log(this.listOfQuestion);
-      this.saveOption(true);
-    }
-  }
+
 
   /**
    *
@@ -461,7 +437,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
    */
 
   changeSubject(indexPositionOfSubject: any) {
-    console.log(indexPositionOfSubject, 'indexPositionOfSubject');
+    this.currentQuestionIndex = 0;
 
     this.saveOption(false, true);
     this.updatingTheCurrentSubjectAndQuestions();
@@ -487,6 +463,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
       this.currentQuestion = this.listOfQuestion[this.currentQuestionIndex];
       let timeData = { exam_time: remainingTime, examCode: this.exam.examCode };
       this.sharedData.updateExamTime(timeData);
+      this.childComponent.previousQuestion(this.currentQuestionIndex);
     }
   }
 
@@ -638,15 +615,49 @@ export class QuestionsComponent implements OnInit, OnDestroy {
     }
   }
 
-
   handleQuestionChange(num: number) {
     this.currentQuestionIndex = num - 1;
     this.currentQuestion = this.listOfQuestion[this.currentQuestionIndex];
   }
   toggleArrow() {
     this.arrow = !this.arrow;
-    this.questionNavigation=!this.questionNavigation;
+    this.questionNavigation = !this.questionNavigation;
   }
+
+
+  /**
+   * @method submitExam() this method is for submitting the exam
+   * @returns it will return the confirmation dialog
+   * @description this method is for submitting the exam
+   */
+  async nextQuestion() {
+    console.log(this.currentQuestionIndex, 'this.currentQuestionIndex');
+    if (this.currentQuestionIndex < this.listOfQuestion.length - 1) {
+        this.currentQuestionIndex++;
+        this.currentQuestion = this.listOfQuestion[this.currentQuestionIndex];
+        this.childComponent.nextQuestions(this.currentQuestionIndex);
+    } else {
+        await this.saveOption(true);
+        this.childComponent.nextQuestion(this.currentQuestionIndex);
+    }
+}
+
+  /**
+   *  @method previousQuestion() this method is for getting the previous question
+   */
+
+  previousQuestion() {
+    if (this.currentQuestionIndex > 0) {
+      this.currentQuestionIndex--;
+      this.currentQuestion = this.listOfQuestion[this.currentQuestionIndex];
+      this.childComponent.previousQuestion(
+        this.currentQuestionIndex
+      );
+    }
+  }
+
+
+
 
 
 }

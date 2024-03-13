@@ -26,12 +26,13 @@
       </div>
     </div>
   </div>
-  <div class="container shadow p-3 mb-5 bg-white rounded ">
+  <div class="container shadow p-3 mb-5 bg-white rounded">
     <div style="width: 100%">
       <div class="heading"></div>
       <div class="content" *ngIf="nextSubjectLoading; else loadingSubject">
+        <!-- {{ currentQuestionIndex }} -->
         <h5>
-          Question : {{ currentQuestionIndex + 1 }} /
+          Question : {{ currentQuestionIndex+1 }} /
           {{ currentSubject?.maxQuestions }}
         </h5>
         <br />
@@ -113,8 +114,9 @@
           (click)="toggleArrow()"
         ></i>
       </div>
-      <div class="question" *ngIf="questionNavigation">
+      <div class="question" [hidden]="!questionNavigation">
         <app-question-navigation
+          #childComponentRef
           [listOfQuestion]="listOfQuestion"
           [totalQuestion]="currentSubject?.maxQuestions"
           (questionChanged)="handleQuestionChange($event)"

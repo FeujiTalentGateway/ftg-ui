@@ -11,7 +11,7 @@
   background-color: aquamarine;
 }
 .heading h2 {
-  font-family: "Regular";
+  font-family: "Regular", sans-serif;
 }
 li {
   list-style: none;
@@ -27,22 +27,21 @@ h5 {
 }
 .footer {
   display: flex;
-  /* padding: 20px; */
   justify-content: space-around;
 }
 .btn-custom {
   background-color: #0bc279;
   border: 1px solid #0bc279;
 }
-.subject-name{
-    margin: 10px 0px 0px 0px;
-    text-align: center;
-    font-family: 'Bold';
+.subject-name {
+  margin: 10px 0px 0px 0px;
+  text-align: center;
+  font-family: "Bold";
 }
-.exam-header{
+.exam-header {
   display: flex;
   justify-content: space-between;
 }
-.exam-header div{
+.exam-header div {
   padding: 0px 10px;
 }

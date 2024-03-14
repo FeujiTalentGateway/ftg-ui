@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Exam } from 'src/app/models/exam.model';
 import { ExamStartResponse } from 'src/app/models/examStartresponce.model';
 import { ExamSubject } from 'src/app/models/examSubject';
@@ -7,7 +7,6 @@ import { Option } from 'src/app/models/option';
 import { Question } from 'src/app/models/question';
 import { ExamService } from 'src/app/repository/exam.service';
 import { SharedDataService } from 'src/app/services/shared-data.service';
-import { take } from 'rxjs';
 import { SubjectQuestions } from './subject.questions';
 
 @Component({
@@ -55,8 +54,8 @@ export class QuestionsComponent implements OnInit, OnDestroy {
       this.exam.examCode,
       this.currentSubject.startingDifficultyLevel,
       this.currentSubject.subject.id
-    ).subscribe(
-      (response) => {
+    ).subscribe({
+      next: (response) => {
         this.nextSubjectLoading = true;
         response.question['optionSelected'] = [];
         response.question['isMarkedForReview'] = false;
@@ -83,8 +82,8 @@ export class QuestionsComponent implements OnInit, OnDestroy {
           'this.listOfQuestionEachSubject'
         );
       },
-      (error) => {}
-    );
+      error: (error) => {},
+    });
     this.sharedData.updateExamAttempt(this.examAttemptID as number);
     this.sharedData.updateSubjects(this.exam.examSubjects);
     this.indexPositionOfSubject$.subscribe((response) => {
@@ -149,13 +148,11 @@ export class QuestionsComponent implements OnInit, OnDestroy {
 
     if (index != -1 && typeof index == 'number') {
       this.currentQuestion?.optionSelected?.splice(index, 1);
+    } else if (this.currentQuestion?.questionType == 'single choice') {
+      this.currentQuestion.optionSelected = [];
+      this.currentQuestion.optionSelected?.push(userOptionSelected);
     } else {
-      if (this.currentQuestion?.questionType == 'single choice') {
-        this.currentQuestion.optionSelected = [];
-        this.currentQuestion.optionSelected?.push(userOptionSelected);
-      } else {
-        this.currentQuestion?.optionSelected?.push(userOptionSelected);
-      }
+      this.currentQuestion?.optionSelected?.push(userOptionSelected);
     }
   }
 
@@ -179,7 +176,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
       attemptId: this.examAttemptID,
       isUpdating: isUpdating,
       isSkipped: isSkipped,
-      isMarkedForReview: this.currentQuestion?.isMarkedForReview
+      isMarkedForReview: this.currentQuestion?.isMarkedForReview,
     };
     return currentQuestionData;
   }
@@ -243,9 +240,8 @@ export class QuestionsComponent implements OnInit, OnDestroy {
    * @method updateOption() this method is for updating the option
    */
   updateOption(currentQuestionData: any) {
-      console.log(currentQuestionData, 'currentQuestionData');
+    console.log(currentQuestionData, 'currentQuestionData');
 
-      
     this.question$ = this.ExamRepo.submitQuestion(currentQuestionData);
     this.question$.subscribe((response) => {
       if (response != null) {
@@ -310,7 +306,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
     console.log(optionArray, 'optionArray');
     if (optionArray === undefined) {
       return [];
-    }   
+    }
     return optionArray;
   }
   /**
@@ -318,8 +314,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
    */
   changeSubjectAndGetFirstQuestion() {
     this.nextSubjectLoading = false;
-    console.log("i am in changeSubjectAndGetFirstQuestion");
-    
+    console.log('i am in changeSubjectAndGetFirstQuestion');
 
     let checkAlreadyVisited = this.listOfQuestionEachSubject.some(
       (item) => item.subjectId == this.currentSubject?.subject.id
@@ -404,16 +399,13 @@ export class QuestionsComponent implements OnInit, OnDestroy {
 
   nextQuestion() {
     if (this.currentQuestionIndex < this.listOfQuestion.length - 1) {
-      // this.saveOption(false, false, true);
       this.updateOptionSelected(false, false, true);
       this.currentQuestionIndex++;
       this.currentQuestion = this.listOfQuestion[this.currentQuestionIndex];
+    } else if (this.currentQuestion?.optionSelected?.length != 0) {
+      this.saveOption();
     } else {
-      if (this.currentQuestion?.optionSelected?.length != 0) {
-        this.saveOption();
-      } else {
-        this.saveOption(true, false, false);
-      }
+      this.saveOption(true, false, false);
     }
   }
 
@@ -481,13 +473,15 @@ export class QuestionsComponent implements OnInit, OnDestroy {
     } else {
       this.currentQuestionIndex = 0;
       this.currentSubject = subject;
-      this.ExamRepo.getListOFAttemptedQuestions(this.examAttemptID as number, subject.subject.id).subscribe((response:any) => {
+      this.ExamRepo.getListOFAttemptedQuestions(
+        this.examAttemptID as number,
+        subject.subject.id
+      ).subscribe((response: any) => {
         console.log(response, 'response');
         this.listOfQuestion = response;
-        
+
         //
       });
-
 
       this.listOfQuestion = this.listOfQuestionEachSubject.find(
         (item) => item.subjectId === subject.subject.id
@@ -533,15 +527,15 @@ export class QuestionsComponent implements OnInit, OnDestroy {
   changeSubjectWithIndexPositionAndGetQuestion() {
     let data = {
       examCode: this.exam.examCode,
-      difficultyLevel: this.currentSubject?.startingDifficultyLevel || 0,
+      difficultyLevel: this.currentSubject?.startingDifficultyLevel ?? 0,
       startDate: new Date().toISOString().slice(0, 23),
-      subjectId: this.currentSubject?.subject.id || 0,
-      attemptId: this.examAttemptID || '',
+      subjectId: this.currentSubject?.subject.id ?? 0,
+      attemptId: this.examAttemptID ?? '',
     };
     this.sharedData.updateRemainingTime(this.currentSubject?.duration);
     this.listOfQuestionEachSubject.push({
-      subjectId: this.currentSubject?.subject.id || 0,
-      subjectName: this.currentSubject?.subject.name || '',
+      subjectId: this.currentSubject?.subject.id ?? 0,
+      subjectName: this.currentSubject?.subject.name ?? '',
       questions: [],
       reamingTime: this.getRemainingTime(),
       isVisited: true,
@@ -577,12 +571,10 @@ export class QuestionsComponent implements OnInit, OnDestroy {
 
   updateNextSubject() {
     let examSubjectsList = this.exam.examSubjects;
-    let isSubjectAvailable = examSubjectsList.some(
-      (item) => item.isTimeUp == false
-    );
+    let isSubjectAvailable = examSubjectsList.some((item) => item.isTimeUp);
     console.log(isSubjectAvailable, 'isSubjectAvailable');
     if (isSubjectAvailable) {
-      let nextSubject = examSubjectsList.find((item) => item.isTimeUp == false);
+      let nextSubject = examSubjectsList.find((item) => item.isTimeUp);
       let indexPositionOfSubject = examSubjectsList.findIndex(
         (item) => item.id == nextSubject?.id
       );
@@ -660,8 +652,8 @@ export class QuestionsComponent implements OnInit, OnDestroy {
 
   getTestForMarkButton(): any {
     if (!this.currentQuestion?.isMarkedForReview) {
-      return "Mark for Review";
+      return 'Mark for Review';
     }
-    return "Unmark";
+    return 'Unmark';
   }
 }

@@ -14,10 +14,10 @@
           <label for="subject">Select a subject:</label>
           <select id="subject" (change)="changeSubject($event.target)">
             <option
-              *ngFor="let subject of exam.examSubjects;index as i"
+              *ngFor="let subject of exam.examSubjects; index as i"
               [value]="i"
               [selected]="subject.id === this.currentSubject?.id"
-              [disabled]="(exam.examSubjects[i].isTimeUp)"
+              [disabled]="exam.examSubjects[i].isTimeUp"
             >
               {{ subject.subject.name }}
             </option>
@@ -27,39 +27,76 @@
     </div>
   </div>
   <div class="container shadow p-3 mb-5 bg-white rounded">
-    <div class="heading"></div>
-    <div class="content" *ngIf="nextSubjectLoading; else loadingSubject">
-      <h5>
-        Question : {{ currentQuestionIndex + 1 }} /
-        {{ currentSubject?.maxQuestions }}
-      </h5>
-      <br />
-      <h4 class="question-name">
-        {{ this.currentQuestion?.content }}
-      </h4>
-      <ul>
-        <li *ngFor="let option of currentQuestion?.options">
-          <span *ngIf="currentQuestion?.questionType == 'single choice'">
-            <input
-              type="radio"
-              name="question.id"
-              (change)="assignRightOption(option)"
-              [checked]="isOptionsSelected(option)"
-            />
-            &nbsp; &nbsp;{{ option.optionName }}
-          </span>
+    <div style="width: 100%">
+      <div class="heading"></div>
+      <div class="content" *ngIf="nextSubjectLoading; else loadingSubject">
+        <!-- {{ currentQuestionIndex }} -->
+        <h5>
+          Question : {{ currentQuestionIndex+1 }} /
+          {{ currentSubject?.maxQuestions }}
+        </h5>
+        <br />
+        <h4 class="question-name">
+          {{ this.currentQuestion?.content }}
+        </h4>
+        <ul>
+          <li *ngFor="let option of currentQuestion?.options">
+            <span *ngIf="currentQuestion?.questionType == 'single choice'">
+              <input
+                type="radio"
+                name="question.id"
+                (change)="assignRightOption(option)"
+                [checked]="isOptionsSelected(option)"
+              />
+              &nbsp; &nbsp;{{ option.optionName }}
+            </span>
 
-          <span *ngIf="currentQuestion?.questionType == 'multiple choices'">
-            <input
-              type="checkbox"
-              name="question.id"
-              (change)="assignRightOption(option)"
-              [checked]="isOptionsSelected(option)"
-            />
-            &nbsp; &nbsp;{{ option.optionName }}
-          </span>
-        </li>
-      </ul>
+            <span *ngIf="currentQuestion?.questionType == 'multiple choices'">
+              <input
+                type="checkbox"
+                name="question.id"
+                (change)="assignRightOption(option)"
+                [checked]="isOptionsSelected(option)"
+              />
+              &nbsp; &nbsp;{{ option.optionName }}
+            </span>
+          </li>
+        </ul>
+      </div>
+      <div class="footer">
+        <button
+          (click)="previousQuestion()"
+          *ngIf="!(this.currentQuestionIndex == 0)"
+          class="btn btn-outline-secondary btn-sm"
+        >
+          Previous
+        </button>
+        <span *ngIf="this.currentQuestionIndex == 0"></span>
+        <button
+          (click)="saveOption()"
+          class="btn btn-sm btn-success btn-custom btn-sm"
+          [disabled]="this.currentQuestion?.optionSelected?.length == 0"
+          *ngIf="!checkLastQuestionOrNot()"
+        >
+          save & next
+        </button>
+        <button
+          (click)="saveOption(false, false, true)"
+          class="btn btn-sm btn-success btn-custom btn-sm"
+          [disabled]="this.currentQuestion?.optionSelected?.length == 0"
+          *ngIf="checkLastQuestionOrNot()"
+        >
+          save
+        </button>
+        <button
+          (click)="nextQuestion()"
+          *ngIf="!this.checkLastQuestionOrNot()"
+          class="btn btn-outline-secondary btn-sm"
+        >
+          Next
+        </button>
+        <span *ngIf="this.checkLastQuestionOrNot()"> </span>
+      </div>
     </div>
 
     <div class="footer">
@@ -94,6 +131,29 @@
       {{getTestForMarkButton()}}
       </button>
       <span *ngIf="this.checkLastQuestionOrNot()"> </span>
+    <div class="question-navigation" [ngClass]="{ 'arrow-true': arrow }">
+      <div class="button-choice">
+        <i
+          class="fa fa-arrow-circle-left fa-2x"
+          aria-hidden="true"
+          *ngIf="!arrow"
+          (click)="toggleArrow()"
+        ></i>
+        <i
+          class="fa fa-arrow-circle-right fa-2x"
+          aria-hidden="true"
+          *ngIf="arrow"
+          (click)="toggleArrow()"
+        ></i>
+      </div>
+      <div class="question" [hidden]="!questionNavigation">
+        <app-question-navigation
+          #childComponentRef
+          [listOfQuestion]="listOfQuestion"
+          [totalQuestion]="currentSubject?.maxQuestions"
+          (questionChanged)="handleQuestionChange($event)"
+        ></app-question-navigation>
+      </div>
     </div>
   </div>
   <ng-template #loadingSubject></ng-template>

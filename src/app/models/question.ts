@@ -8,9 +8,10 @@ export interface Question {
   difficultyLevel: number;
   questionType: string;
   subject: Subject;
-  rightOptions?: Option[];
+  rightOptions: Option[];
   options: Option[];
   optionSelected?: Option[];
+
   isMarkedForReview?: boolean;
 }
 

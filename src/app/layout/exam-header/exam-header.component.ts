@@ -104,8 +104,8 @@ export class ExamHeaderComponent implements OnInit, OnDestroy {
       );
       this.countdownDuration--;
       if (this.countdownDuration >= 0) {
-        if (this.countdownDuration == 150) {
-          this.snackBarService.openRedAlertSnackBar('you have only 1 min left');
+        if (this.countdownDuration == 120) {
+          this.snackBarService.openRedAlertSnackBar('you have only 2 min left');
         }
         this.updateCountdownDisplay();
       } else {

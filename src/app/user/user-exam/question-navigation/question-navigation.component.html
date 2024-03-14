@@ -5,12 +5,16 @@
       <p>Not visited</p>
     </div>
     <div class="instruction-item">
-      <div class="info" style="background-color: #ed4807a5"></div>
+      <div class="info" style="background-color: #ed4907"></div>
       <p>Not answered</p>
     </div>
     <div class="instruction-item">
-      <div class="info" style="background-color: #569805df"></div>
+      <div class="info" style="background-color: #76be20"></div>
       <p>Answered</p>
+    </div>
+    <div class="instruction-item">
+      <div class="info" style="background-color: #815da4"></div>
+      <p>Marked for review</p>
     </div>
   </div>
   <div class="option-info">
@@ -20,17 +24,25 @@
     class="navigation-style"
     *ngFor="let questionNumber of getQuestionNumbers(); let i = index"
   >
-  <div
-  class="navigation-numbers"
-  [ngClass]="{
-    'answered': listOfQuestion[i]?.optionSelected?.length !== 0 && i !== displayedNumber,
-    'not-answered': listOfQuestion[i]?.optionSelected?.length === 0 && i !== displayedNumber,
-    '': (listOfQuestion[i]?.optionSelected?.length === 0) && i === displayedNumber,
-    '': (listOfQuestion[i]?.optionSelected?.length !== 0)&& i === displayedNumber,
-    'disabled': i >= listOfQuestion.length
-  }"
-  (click)="i < listOfQuestion.length && previousQuestion(i)"
->
-<p>{{questionNumber}}</p>
+    <div
+      class="navigation-numbers"
+      [ngClass]="{
+        disabled: i >= listOfQuestion.length,
+        answered:
+          listOfQuestion[i]?.optionSelected?.length !== 0 &&
+          i !== displayedNumber,
+        'not-answered':
+          listOfQuestion[i]?.optionSelected?.length === 0 &&
+          i !== displayedNumber,
+        '':
+          listOfQuestion[i]?.optionSelected?.length === 0 &&
+          i === displayedNumber || listOfQuestion[i]?.optionSelected?.length !== 0 &&
+          i === displayedNumber,
+        marked: listOfQuestion[i]?.isMarkedForReview && i !== displayedNumber
+      }"
+      (click)="i < listOfQuestion.length && previousQuestion(i)"
+    >
+      <p>{{ questionNumber }}</p>
+    </div>
   </div>
 </div>

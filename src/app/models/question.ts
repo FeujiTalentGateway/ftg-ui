@@ -10,7 +10,8 @@ export interface Question {
   subject: Subject;
   rightOptions: Option[];
   options: Option[];
-  optionSelected: Option[];
+  optionSelected?: Option[];
+
   isMarkedForReview?: boolean;
 }
 

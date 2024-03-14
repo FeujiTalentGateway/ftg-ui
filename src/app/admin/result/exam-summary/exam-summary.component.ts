@@ -43,7 +43,7 @@ export class ExamSummaryComponent implements OnInit {
   ngOnInit() {
     this.examCode = this.activateRoute.snapshot.paramMap.get('examCode') as string;
     console.log(this.examCode);
-    this.examObject$ = this.examService.getExamById(this.examCode);
+    this.examObject$ = this.examService.getExamByCode(this.examCode);
     this.examStatObject$ = this.examService.getExamStatsByExamCode(this.examCode);
     this.examStatObject$.subscribe((examStat: ExamStatsModel) => {
       this.handleExamStatObject(examStat);

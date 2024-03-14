@@ -40,11 +40,6 @@ export class ExamService {
   getStaticExamData(): Observable<any[]> {
     return this.http.get<any[]>('/assets/static_data/listOfExams.json');
   }
-
-  getExamData(examCode: string): Observable<Exam> {
-    const url = `${this.javaExamUrl}/code/${examCode}/`;
-    return this.http.get<Exam>(url);
-  }
   getAllExamData(): Observable<Exam[]> {
     const url = `${this.javaExamUrl}/`;
     return this.http.get<Exam[]>(url);
@@ -52,9 +47,6 @@ export class ExamService {
 
   getStaticExamById(): Observable<Exam> {
     return this.http.get<Exam>('/assets/static_data/ExamData.json');
-  }
-  getExamById(examCode: string): Observable<Exam> {
-    return this.http.get<Exam>(`${this.javaExamUrl}/code/${examCode}`);
   }
 
   getStaticQuestionPaper(): Observable<Paper> {
@@ -87,6 +79,10 @@ export class ExamService {
     return this.http.get<ViewResult>(
       `${this.examUrl}exam/view-result/${examCode}/${examAttemptId}/`
     );
+  }
+
+  getListOFAttemptedQuestions(examAttemptId : number, subjectId:number):any{
+    return this.http.get(`${this.javaExamUrl}/attempted-questions/subject/${examAttemptId}/${subjectId}`)
   }
 
   checkStaticExamByCode(examCode: string) {}

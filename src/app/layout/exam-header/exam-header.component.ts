@@ -3,7 +3,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subject, Subscription, interval } from 'rxjs';
 import { ExamSubject } from 'src/app/models/examSubject';
-import { Paper } from 'src/app/models/paper';
 import { ExamService } from 'src/app/repository/exam.service';
 import { SharedDataService } from 'src/app/services/shared-data.service';
 import { SnackBarService } from 'src/app/services/snack-bar.service';
@@ -37,7 +36,6 @@ export class ExamHeaderComponent implements OnInit, OnDestroy {
   constructor(
     private sharedService: SharedDataService,
     private examService: ExamService,
-    private activatedRoute: ActivatedRoute,
     private router: Router,
     private snackBarService: SnackBarService,
     private dialog: MatDialog
@@ -99,26 +97,20 @@ export class ExamHeaderComponent implements OnInit, OnDestroy {
 
   private startCountdown() {
     this.countdownSubscription?.unsubscribe();
+
     this.countdownSubscription = interval(1000).subscribe(() => {
       this.sharedService.updateRemainingTime(
         this.convertSecondsToTime(this.countdownDuration)
       );
       this.countdownDuration--;
       if (this.countdownDuration >= 0) {
-        if (this.countdownDuration == 60) {
+        if (this.countdownDuration == 150) {
           this.snackBarService.openRedAlertSnackBar('you have only 1 min left');
         }
         this.updateCountdownDisplay();
       } else {
         this.countdownSubscription?.unsubscribe();
-
-        if (this.checkSubjectsAvailability()) {
-          this.updateSubjectStatus(
-            this.currentSubjects[this.updateSubjectIndex]
-          );
-        } else {
-          this.submitExam(true);
-        }
+        this.submitExam(true);
       }
     });
   }

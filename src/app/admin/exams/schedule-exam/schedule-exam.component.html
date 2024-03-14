@@ -154,7 +154,51 @@
 
         <!-- Inside your form -->
 
-        <div></div>
+        <div>
+          <label for="duration"
+            >Duration<span class="required-field">*</span></label
+          >
+          <div class="sub-duration">
+            <div>
+              <select
+                id="hours"
+                formControlName="hours"
+                class=""
+                (change)="mapSubDurationToDuration()"
+              >
+                <option *ngFor="let hour of hoursArray" [value]="hour">
+                  {{ hour }}
+                </option>
+              </select>
+            </div>
+            <label for="minutes">:</label>
+            <div>
+              <select
+                id="minutes"
+                formControlName="minutes"
+                class=""
+                (change)="mapSubDurationToDuration()"
+              >
+                <option *ngFor="let minute of minutesArray" [value]="minute">
+                  {{ minute }}
+                </option>
+              </select>
+            </div>
+            <label for="seconds">:</label>
+            <div>
+              <select
+                id="seconds"
+                formControlName="seconds"
+                class=""
+                (change)="mapSubDurationToDuration()"
+              >
+                <option *ngFor="let second of secondsArray" [value]="second">
+                  {{ second }}
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="form-row">
         <label for="description">Description*</label>
@@ -286,51 +330,7 @@
               Strting Difficulty Level is required.
             </div>
           </div>
-          <div>
-            <label for="duration"
-              >Duration<span class="required-field">*</span></label
-            >
-            <div class="sub-duration">
-              <div>
-                <select
-                  id="hours{{ i }}"
-                  formControlName="hours"
-                  class=""
-                  (change)="mapSubDurationToDuration()"
-                >
-                  <option *ngFor="let hour of hoursArray" [value]="hour">
-                    {{ hour }}
-                  </option>
-                </select>
-              </div>
-              <label for="minutes{{ i }}">:</label>
-              <div>
-                <select
-                  id="minutes{{ i }}"
-                  formControlName="minutes"
-                  class=""
-                  (change)="mapSubDurationToDuration()"
-                >
-                  <option *ngFor="let minute of minutesArray" [value]="minute">
-                    {{ minute }}
-                  </option>
-                </select>
-              </div>
-              <label for="seconds{{ i }}">:</label>
-              <div>
-                <select
-                  id="seconds{{ i }}"
-                  formControlName="seconds"
-                  class=""
-                  (change)="mapSubDurationToDuration()"
-                >
-                  <option *ngFor="let second of secondsArray" [value]="second">
-                    {{ second }}
-                  </option>
-                </select>
-              </div>
-            </div>
-          </div>
+
           <button
             class="btn btn-outline-secondary remove-subject"
             type="button"

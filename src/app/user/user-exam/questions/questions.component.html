@@ -99,6 +99,38 @@
       </div>
     </div>
 
+    <div class="footer">
+      <button
+        (click)="previousQuestion()"
+        *ngIf="!(this.currentQuestionIndex == 0)"
+        class="btn btn-outline-secondary btn-sm"
+      >
+        Previous
+      </button>
+      <span *ngIf="this.currentQuestionIndex == 0"></span>
+      <button
+        (click)="saveOption(false, false, true)"
+        class="btn btn-sm btn-success btn-custom btn-sm"
+        [disabled]="this.currentQuestion?.optionSelected?.length == 0"
+        *ngIf="checkLastQuestionOrNot()"
+      >
+        save
+      </button>
+      <button
+        (click)="nextQuestion()"
+        *ngIf="!this.checkLastQuestionOrNot()"
+        class="btn btn-outline-secondary btn-sm"
+      >
+        Next
+      </button>
+      <button
+        (click)="setMarkedForReview()"
+        [disabled]="!checkOptionSelectedOrNot()"
+        class="btn btn-outline-secondary btn-sm"
+      >
+      {{getTestForMarkButton()}}
+      </button>
+      <span *ngIf="this.checkLastQuestionOrNot()"> </span>
     <div class="question-navigation" [ngClass]="{ 'arrow-true': arrow }">
       <div class="button-choice">
         <i

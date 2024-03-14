@@ -44,7 +44,7 @@
 }
 .exam-subject-item {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 0.3fr;
+  grid-template-columns: 1fr 1fr 1fr 0.3fr;
   grid-column-gap: 10px;
 }
 .remove-subject {

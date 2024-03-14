@@ -30,9 +30,8 @@
     <div style="width: 100%">
       <div class="heading"></div>
       <div class="content" *ngIf="nextSubjectLoading; else loadingSubject">
-        <!-- {{ currentQuestionIndex }} -->
         <h5>
-          Question : {{ currentQuestionIndex+1 }} /
+          Question : {{ currentQuestionIndex + 1 }} /
           {{ currentSubject?.maxQuestions }}
         </h5>
         <br />
@@ -65,42 +64,6 @@
       </div>
       <div class="footer">
         <button
-          (click)="previousQuestion()"
-          *ngIf="!(this.currentQuestionIndex == 0)"
-          class="btn btn-outline-secondary btn-sm"
-        >
-          Previous
-        </button>
-        <span *ngIf="this.currentQuestionIndex == 0"></span>
-        <button
-          (click)="saveOption()"
-          class="btn btn-sm btn-success btn-custom btn-sm"
-          [disabled]="this.currentQuestion?.optionSelected?.length == 0"
-          *ngIf="!checkLastQuestionOrNot()"
-        >
-          save & next
-        </button>
-        <button
-          (click)="saveOption(false, false, true)"
-          class="btn btn-sm btn-success btn-custom btn-sm"
-          [disabled]="this.currentQuestion?.optionSelected?.length == 0"
-          *ngIf="checkLastQuestionOrNot()"
-        >
-          save
-        </button>
-        <button
-          (click)="nextQuestion()"
-          *ngIf="!this.checkLastQuestionOrNot()"
-          class="btn btn-outline-secondary btn-sm"
-        >
-          Next
-        </button>
-        <span *ngIf="this.checkLastQuestionOrNot()"> </span>
-      </div>
-    </div>
-
-    <div class="footer">
-      <button
         (click)="previousQuestion()"
         *ngIf="!(this.currentQuestionIndex == 0)"
         class="btn btn-outline-secondary btn-sm"
@@ -130,7 +93,10 @@
       >
       {{getTestForMarkButton()}}
       </button>
-      <span *ngIf="this.checkLastQuestionOrNot()"> </span>
+        <span *ngIf="this.checkLastQuestionOrNot()"> </span>
+      </div>
+    </div>
+
     <div class="question-navigation" [ngClass]="{ 'arrow-true': arrow }">
       <div class="button-choice">
         <i
@@ -156,5 +122,6 @@
       </div>
     </div>
   </div>
-  <ng-template #loadingSubject></ng-template>
+
+  <ng-template #loadingSubject> </ng-template>
 </ng-template>

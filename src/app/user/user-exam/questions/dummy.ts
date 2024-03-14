@@ -105,5 +105,5 @@
 //     let timeData = { exam_time: time, examCode: this.exam.examCode };
 //       this.sharedData.updateExamTime(timeData);
 //       console.error('timeData', timeData);
-      
+
 //   }

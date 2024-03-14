@@ -53,6 +53,7 @@ export class ViewQuestionsComponent implements OnInit {
     private activatedRoute: ActivatedRoute
   ) {
     this.isDropdownOpen = Array(this.questions.length).fill(false);
+    
   }
 
   /**
@@ -62,7 +63,7 @@ export class ViewQuestionsComponent implements OnInit {
     this.selectedLevel = 0;
     this.selectedSubject = 0;
     this.service.questionChanged$.subscribe(() => {
-      this.getAllQuestionsBasedOnSubjectId();
+      this.handleFiltering();
     });
     this.subjectsSubscription = this.subjectRepository
       .getAllSubjectsByActiveStatus(true)
@@ -76,7 +77,7 @@ export class ViewQuestionsComponent implements OnInit {
               console.log(this.selectedSubject);
               this.selectedSubject = subjects[0].id;
             }
-            this.getAllQuestionsBasedOnSubjectId();
+            this.handleFiltering();
           }
         },
         (error) => {
@@ -84,13 +85,31 @@ export class ViewQuestionsComponent implements OnInit {
         }
       );
 
-    this.getQuestionsBasedOnPageSize();
-    this.handleFiltering();
   }
   /**
    * Retrieves questions based on the selected subject, page, and page size.
    */
   getQuestionsBasedOnPageSize() {
+    if (this.selectedLevel !== 0) {
+      this.questionRepository
+        .filterQuestionsBasedOnDifficultyLevel(
+          this.selectedSubject,
+          this.selectedLevel,
+          this.page,
+          this.pageSize
+        )
+        .subscribe(
+          (response) => {
+            console.log(response);
+            this.questionsList = response.results;
+            this.questionsLength = response.count;
+          },
+          (error) => {
+            console.error('Error fetching questions:', error);
+          }
+        );
+    }
+    else
     this.questionRepository
       .getAllQuestionsBySubjectId(
         this.selectedSubject,
@@ -234,8 +253,11 @@ export class ViewQuestionsComponent implements OnInit {
       this.getFilteredQuestionsBasedonDifficultyLevelWithSearchQuery();
     } else if (this.selectedLevel !== 0) {
       this.getFilteredQuestionsBasedOnDifficultyLevel();
-    } else {
+    } else if(this.searchQuery) {
       this.getFilteredQuestionsBasedonSearchQuery();
+    }
+    else{
+      this.getAllQuestionsBasedOnSubjectId();
     }
   }
 

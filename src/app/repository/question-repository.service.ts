@@ -88,7 +88,7 @@ export class QuestionRepository {
       headers: headers,
       params: params
     };
-    return this.http.get<any>(`${this.pythonUrl}/api/questions/${subjectId}/`, requestOptions);
+    return this.http.get<any>(`${this.pythonUrl}api/questions/${subjectId}/`, requestOptions);
   }
   filterQuestionsBasedOnDifficultyLevel(subjectId:number,difficultyLevel: number,page: number, pageSize: number): Observable<any> {
     const params = new HttpParams()
@@ -96,14 +96,14 @@ export class QuestionRepository {
       .set('page', page.toString())
       .set('pageSize', pageSize.toString());
 
-      return this.http.get<any>(`${this.pythonUrl}/api/questions/${subjectId}/`, { params });
+      return this.http.get<any>(`${this.pythonUrl}api/questions/${subjectId}/`, { params });
   }
   filterQuestionsBasedOnSearchQuery(subjectId:number,page: number, pageSize: number,searchQuery : string): Observable<any> {
     const params = new HttpParams()
       .set('content', searchQuery)
       .set('page', page.toString())
       .set('pageSize', pageSize.toString());
-      return this.http.get<any>(`${this.pythonUrl}/api/questions/${subjectId}/`, { params });
+      return this.http.get<any>(`${this.pythonUrl}api/questions/${subjectId}/`, { params });
   }
   filterQuestionsBasedOnDifficultyLevelWithSearchQuery(subjectId:number,difficultyLevel: number,page: number, pageSize: number,searchQuery : string): Observable<any> {
     const params = new HttpParams()
@@ -112,7 +112,7 @@ export class QuestionRepository {
       .set('page', page.toString())
       .set('pageSize', pageSize.toString());
 
-      return this.http.get<any>(`${this.pythonUrl}/api/questions/${subjectId}/`, { params });
+      return this.http.get<any>(`${this.pythonUrl}api/questions/${subjectId}/`, { params });
   }
   
 

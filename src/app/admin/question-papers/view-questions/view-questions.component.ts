@@ -49,9 +49,7 @@ export class ViewQuestionsComponent implements OnInit {
     const subjectQueryParam =
       this.activatedRoute.snapshot.queryParamMap.get('subject');
     this.selectedSubject = subjectQueryParam !== null ? +subjectQueryParam : 0; // Use a default value (e.g., 0) if subjectQueryParam is null
-    console.log(this.selectedSubject);
     this.service.questionChanged$.subscribe(() => {
-      console.log('refreshing');
       this.getQuesitonsBySubject();
     });
     // Subscribe to getSubjects and store the result in the subjects variable
@@ -62,9 +60,7 @@ export class ViewQuestionsComponent implements OnInit {
           this.subjects = subjects;
           // Initialize selectedSubject with the first subject
           if (subjects.length > 0) {
-            console.log(this.selectedSubject);
             if (this.selectedSubject == 0) {
-              console.log(this.selectedSubject);
               this.selectedSubject = subjects[0].id;
             }
             this.getQuesitonsBySubject();
@@ -154,7 +150,6 @@ export class ViewQuestionsComponent implements OnInit {
     this.quesitonSubscirption.unsubscribe();
   }
   setRightOptionOrNot(option: any, question: Question): Boolean {
-    // console.log(option, question);
     let optionFound = question.rightOptions?.find(
       (opt) => opt.id === option.id
     );

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription, throttleTime } from 'rxjs';
 import { Question } from 'src/app/models/question';
@@ -14,6 +15,8 @@ import { QuestionsService } from 'src/app/services/questions.service';
 })
 
 export class ViewQuestionsComponent implements OnInit {
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+
   difficultLevelList: number[] = Array.from(
     { length: 10 },
     (_, index) => index + 1
@@ -109,6 +112,9 @@ export class ViewQuestionsComponent implements OnInit {
           }
         );
     }
+    else if(this.searchQuery) {
+      this.getFilteredQuestionsBasedonSearchQuery();
+    }
     else
     this.questionRepository
       .getAllQuestionsBySubjectId(
@@ -149,6 +155,8 @@ export class ViewQuestionsComponent implements OnInit {
           this.questionsList = response.results;
           this.questionsLength = response.count;
           console.log(response);
+          this.paginator.pageIndex = 0;
+
         });
     } else {
       this.quesitonSubscirption = this.questionRepository
@@ -185,6 +193,7 @@ export class ViewQuestionsComponent implements OnInit {
           console.log(response.results);
           this.questionsList = response.results;
           this.questionsLength = response.count;
+          this.paginator.pageIndex = 0;
         },
         (error) => {
           console.error('Error fetching filtered questions:', error);
@@ -212,6 +221,7 @@ export class ViewQuestionsComponent implements OnInit {
           console.log(response.results);
           this.questionsList = response.results;
           this.questionsLength = response.count;
+          this.paginator.pageIndex = 0;
         },
         (error) => {
           console.error('Error fetching filtered questions:', error);
@@ -222,8 +232,8 @@ export class ViewQuestionsComponent implements OnInit {
    * Retrieves filtered questions based on the search query.
    */
   getFilteredQuestionsBasedonSearchQuery() {
-    this.page = 1;
-    this.pageSize = 5;
+    // this.page = 1;
+    // this.pageSize = 5;
     const lowercaseSearchQuery = this.searchQuery.toLowerCase();
     this.questionRepository
       .filterQuestionsBasedOnSearchQuery(
@@ -238,6 +248,10 @@ export class ViewQuestionsComponent implements OnInit {
           console.log(response.results);
           this.questionsList = response.results;
           this.questionsLength = response.count;
+          // this.page = 1;
+          this.pageSize = 5;
+          this.paginator.pageIndex = 0;
+          
         },
         (error) => {
           console.error('Error fetching filtered questions:', error);

@@ -2,7 +2,7 @@
   <div
     class="d-flex align-item-center justify-content-around flex-dir-column header"
   >
-    <div >
+    <div>
       <select
         id="subject"
         class="form-select select header-child"
@@ -18,7 +18,7 @@
       </select>
     </div>
 
-    <div >
+    <div>
       <select
         id="subject"
         class="form-select select header-child"
@@ -40,84 +40,97 @@
       [(ngModel)]="searchQuery"
       placeholder="Search questions"
       class="styled-input header-child"
-      (input)="handleFiltering()"
+      (input)="handleSearchInput($event)"
     />
   </div>
-  <div *ngIf="questionsList.length > 0; else noQuestionsMessage">
-    <div class="row d-flex align-item-center justify-content-center">
-      <div
-        class="col-sm-12 m-b-20"
-        *ngFor="let question of questionsList; let i = index"
-      >
-        <div class="card shadow-sm mb-2  rounded">
-          <div class="card-body">
-            <div class="content">
-              <h6 class="card-title">
-                {{ (page - 1) * pageSize + i + 1 + ". " + question.content }}
-              </h6>
-              <div class="dropdown">
-                <span
-                  class="common-level"
-                  [ngClass]="getStatusButtonClass(question.difficultyLevel)"
-                  >Level : {{ question.difficultyLevel }}</span
-                >
-                <span
-                  id="ellipsisIcon"
-                  class="ellipsis-icon"
-                  (click)="toggleDropdown(question.id)"
-                >
-                  <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-                </span>
-                <div
-                  class="dropdown-content"
-                  *ngIf="isDropdownOpen[question.id]"
-                >
-                  <ul>
-                    <li
-                      [routerLink]="[
-                        '/admin/questionPapers/addEditQuestion',
-                        question.id
-                      ]"
-                    >
-
-                      Edit &nbsp;<i class="far fa-edit" style="color: #6979ef;"></i>
-                    </li>
-                    <li (click)="deleteQuestion(question.id)">
-                      Delete &nbsp;<i class="far fa-trash-alt"style="color: #ff5f19;"></i>
-                    </li>
-                  </ul>
+  <div *ngIf="isLoading">
+    <div class="spinner-container">
+      <mat-spinner diameter="100"></mat-spinner>
+    </div>
+  </div>
+  <div *ngIf="!isLoading">
+    <div
+      *ngIf="!isLoading && questionsList.length > 0; else noQuestionsMessage"
+    >
+      <div class="row d-flex align-item-center justify-content-center">
+        <div
+          class="col-sm-12 m-b-20"
+          *ngFor="let question of questionsList; let i = index"
+        >
+          <div class="card shadow-sm mb-2 rounded">
+            <div class="card-body">
+              <div class="content">
+                <h6 class="card-title">
+                  {{ (page - 1) * pageSize + i + 1 + ". " + question.content }}
+                </h6>
+                <div class="dropdown">
+                  <span
+                    class="common-level"
+                    [ngClass]="getStatusButtonClass(question.difficultyLevel)"
+                    >Level : {{ question.difficultyLevel }}</span
+                  >
+                  <span
+                    id="ellipsisIcon"
+                    class="ellipsis-icon"
+                    (click)="toggleDropdown(question.id)"
+                  >
+                    <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                  </span>
+                  <div
+                    class="dropdown-content"
+                    *ngIf="isDropdownOpen[question.id]"
+                  >
+                    <ul>
+                      <li
+                        [routerLink]="[
+                          '/admin/questionPapers/addEditQuestion',
+                          question.id
+                        ]"
+                      >
+                        Edit &nbsp;<i
+                          class="far fa-edit"
+                          style="color: #6979ef"
+                        ></i>
+                      </li>
+                      <li (click)="deleteQuestion(question.id)">
+                        Delete &nbsp;<i
+                          class="far fa-trash-alt"
+                          style="color: #ff5f19"
+                        ></i>
+                      </li>
+                    </ul>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <ol type="A" class="options-list">
-              <li
-                class="card-text mb-3"
-                [ngClass]="{
-                  'text-success fw-700': setRightOptionOrNot(option, question)
-                }"
-                *ngFor="let option of question.options; let i = index"
-              >
-                <span
+              <ol type="A" class="options-list">
+                <li
+                  class="card-text mb-3"
                   [ngClass]="{
-                    'right-option fw-700': setRightOptionOrNot(option, question)
+                    'text-success fw-700': setRightOptionOrNot(option, question)
                   }"
-                  >{{ option.optionName }}</span
+                  *ngFor="let option of question.options; let i = index"
                 >
-              </li>
-            </ol>
+                  <span
+                    [ngClass]="{
+                      'right-option fw-700': setRightOptionOrNot(
+                        option,
+                        question
+                      )
+                    }"
+                    >{{ option.optionName }}</span
+                  >
+                </li>
+              </ol>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-
   <ng-template #noQuestionsMessage>
-    <div
-      class="d-flex align-item-center justify-content-ceter oops"
-    >
-
-      <img src="../../../../assets/images/oops.svg" alt="">
+    <div class="d-flex align-item-center justify-content-ceter oops">
+      <img src="../../../../assets/images/oops.svg" alt="" />
     </div>
   </ng-template>
   <div class="bottom-container" *ngIf="questionsList.length > 0">

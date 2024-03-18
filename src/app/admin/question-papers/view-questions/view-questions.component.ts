@@ -1,7 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription, throttleTime } from 'rxjs';
+import {
+  Subscription,
+  debounceTime,
+  throttleTime,
+  Subject as SubjectRxjs,
+} from 'rxjs';
 import { Question } from 'src/app/models/question';
 import { Subject } from 'src/app/models/subject';
 import { QuestionRepository } from 'src/app/repository/question-repository.service';
@@ -44,6 +49,8 @@ export class ViewQuestionsComponent implements OnInit {
   isDropdownOpen: boolean[] = [];
   questionsList: Question[] = [];
   questionsLength: number = 0;
+  private searchSubject: SubjectRxjs<string> = new SubjectRxjs<string>();
+  isLoading: boolean = false;
 
   /**
    * Constructs a new instance of the ViewQuestionsComponent.
@@ -65,10 +72,14 @@ export class ViewQuestionsComponent implements OnInit {
    * Initializes the component and sets up initial values and subscriptions.
    */
   ngOnInit(): void {
+    this.searchSubject.pipe(debounceTime(1000)).subscribe(() => {
+      this.handleFiltering();
+    });
     this.selectedLevel = 0;
     this.selectedSubject = 0;
     this.service.questionChanged$.subscribe(() => {
       this.handleFiltering();
+      
     });
     this.subjectsSubscription = this.subjectRepository
       .getAllSubjectsByActiveStatus(true)
@@ -92,12 +103,22 @@ export class ViewQuestionsComponent implements OnInit {
   }
 
   /**
+   * Handles the search input event.
+   * @param event - The input event object.
+   */
+  handleSearchInput(event: any) {
+    const inputValue = (event.target as HTMLInputElement).value || '';
+    this.searchSubject.next(inputValue);
+  }
+
+  /**
    * Retrieves questions based on the selected page size.
    * If a difficulty level is selected, filters the questions based on the selected subject, difficulty level, page, and page size.
    * If a search query is provided, filters the questions based on the search query.
    * Otherwise, retrieves all questions based on the selected subject, page, and page size.
    */
   getQuestionsBasedOnPageSize() {
+    this.addloading();
     if (this.selectedLevel !== 0) {
       this.questionRepository
         .filterQuestionsBasedOnDifficultyLevel(
@@ -111,6 +132,7 @@ export class ViewQuestionsComponent implements OnInit {
             console.log(response);
             this.questionsList = response.results;
             this.questionsLength = response.count;
+            this.addloading();
           },
           (error) => {
             console.error('Error fetching questions:', error);
@@ -130,6 +152,7 @@ export class ViewQuestionsComponent implements OnInit {
             console.log(response);
             this.questionsList = response.results;
             this.questionsLength = response.count;
+            this.addloading();
           },
           (error) => {
             console.error('Error fetching questions:', error);
@@ -140,6 +163,7 @@ export class ViewQuestionsComponent implements OnInit {
    * Retrieves all questions based on the selected subject ID.
    */
   getAllQuestionsBasedOnSubjectId() {
+    this.isLoading = true;
     this.page = 1;
     this.pageSize = 5;
     if (this.selectedLevel == 0) {
@@ -158,6 +182,7 @@ export class ViewQuestionsComponent implements OnInit {
             this.paginator.pageIndex = 0;
           }
           this.searchQuery = '';
+          this.isLoading = false;
         });
     } else {
       this.quesitonSubscirption = this.questionRepository
@@ -180,6 +205,7 @@ export class ViewQuestionsComponent implements OnInit {
    * Retrieves filtered questions based on the selected subject, difficulty level, page, and page size.
    */
   getFilteredQuestionsBasedOnDifficultyLevel() {
+    this.addloading();
     this.page = 1;
     this.pageSize = 5;
     this.questionRepository
@@ -192,6 +218,7 @@ export class ViewQuestionsComponent implements OnInit {
       .subscribe(
         (response) => {
           console.log(response);
+          this.addloading()
           console.log(response.results);
           this.questionsList = response.results;
           this.questionsLength = response.count;
@@ -208,6 +235,7 @@ export class ViewQuestionsComponent implements OnInit {
    * Retrieves filtered questions based on the selected difficulty level and search query.
    */
   getFilteredQuestionsBasedonDifficultyLevelWithSearchQuery() {
+    this.addloading();
     this.page = 1;
     this.pageSize = 5;
     const lowercaseSearchQuery = this.searchQuery.toLowerCase();
@@ -228,6 +256,7 @@ export class ViewQuestionsComponent implements OnInit {
           if (this.paginator != undefined) {
             this.paginator.pageIndex = 0;
           }
+          this.addloading();
         },
         (error) => {
           console.error('Error fetching filtered questions:', error);
@@ -238,6 +267,7 @@ export class ViewQuestionsComponent implements OnInit {
    * Retrieves filtered questions based on the search query.
    */
   getFilteredQuestionsBasedonSearchQuery() {
+    this.addloading();
     const lowercaseSearchQuery = this.searchQuery.toLowerCase();
     this.questionRepository
       .filterQuestionsBasedOnSearchQuery(
@@ -253,6 +283,7 @@ export class ViewQuestionsComponent implements OnInit {
           this.questionsList = response.results;
           this.questionsLength = response.count;
           this.pageSize = 5;
+          this.addloading();
         },
         (error) => {
           console.error('Error fetching filtered questions:', error);
@@ -389,5 +420,8 @@ export class ViewQuestionsComponent implements OnInit {
       default:
         return 'common-level';
     }
+  }
+  addloading() {
+    this.isLoading = !this.isLoading;
   }
 }

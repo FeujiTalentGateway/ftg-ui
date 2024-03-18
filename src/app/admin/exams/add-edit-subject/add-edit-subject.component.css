@@ -1,7 +1,7 @@
 .edit-div {
     width: 100%;
     height: 100%;
-    /* background-color: #3caf895e; */
+    background-color: #ebebee;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -18,12 +18,23 @@
     max-width: 90%;
     margin: 0 auto;
     padding: 20px;
-    background-color: #8aa05f6b;
+    /* background-color: #ebebee; */
   }
-  
+  label {
+    font-family: var(--font-family);
+    font-weight: var(--label-font-weight);
+    font-size: var(--label-font-size);
+    color: rgb(40, 36, 36);
+  }
+  .required-field {
+    color: red;
+  }
+
   input {
     width: 100%;
     padding: 10px;
+    margin: 0;
+    font: normal 450 14px/21px var(--font-family);
   }
   .error-div {
     position: relative;
@@ -62,4 +73,3 @@
     overflow-y: auto;
     background-color: rgba(0, 0, 0, 0.5); /* Adjust the opacity as needed */
   }
-  

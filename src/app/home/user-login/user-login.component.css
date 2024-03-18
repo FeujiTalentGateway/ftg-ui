@@ -4,18 +4,10 @@
   align-items: center;
   justify-content: space-between;
 }
-.welcome .welcome-back {
-  font-family: "Gilda Display";
-  font-size: 2.5rem;
-  font-style: normal;
-  font-weight: 100;
-  line-height: normal;
-}
-.welcome .project-name {
-  font-family: "Gurajada", sans-serif;
-  font-style: normal;
-  font-weight: bold;
-  line-height: normal;
+
+h1 {
+  text-align: center;
+  font-family: "SemiBold";
 }
 label {
   display: block;
@@ -23,14 +15,30 @@ label {
   color: black;
 }
 form {
-  width: 50%;
-  margin: auto;
+  width: 75%;
+  margin: 6%;
+  margin-left: 12%;
 }
+
 .inputs {
   width: 100%;
   padding: 10px;
   box-sizing: border-box;
-  margin-bottom: 25px;
+  font-family: "Medium";
+  border: none;
+  border-bottom: 1px solid #333;
+  outline: none;
+}
+.inputs:focus,
+.inputs:not(:placeholder-shown) {
+  border-bottom-color: #f3752e;
+}
+.password-container {
+  position: relative;
+}
+
+.error-message {
+  color: red;
 }
 .submit-button {
   cursor: pointer;
@@ -46,17 +54,26 @@ form {
   padding: 10px;
   border: none;
   border-radius: 20px;
+  margin-top: 7px;
 }
 a {
   text-decoration: none;
+  font-size: 15px;
 }
 p {
   margin-top: 15px;
   margin-left: 30px;
+  font-size: 13px;
 }
 .password {
   display: flex;
   justify-content: space-between;
+}
+.forgot-password {
+  font-family: "Regular";
+  font-size: 13px;
+  font-weight: 600;
+  color: black;
 }
 
 .fa-eye,
@@ -67,6 +84,9 @@ p {
   cursor: pointer;
   color: lightgray;
 }
+.img-fluid {
+  mix-blend-mode: multiply;
+}
 
 .password-container {
   padding: 0px;
@@ -75,33 +95,64 @@ p {
 }
 .error-message {
   color: red;
+  font-family: "Light";
   margin-top: -25px;
+  font-size: 15px;
 }
-.welcome .project-name {
-  font-family: "Gurajada", sans-serif;
-  font-size: 2rem;
-  font-style: normal;
-  font-weight: bold;
-  line-height: normal;
+.login-card {
+  max-width: 600px;
+  margin: auto;
+  margin-top: 10px;
+  height: 500px;
+}
+.login-card input[type="text"],
+.login-card input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 30px;
+}
+.middle-or{
+  font-family: "Bold";
+  align-items: center;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.6px;
+  line-height: 15px;
+  display: block;
+  margin-left: 45%;
+  margin-top: 3%;
+  color: #a0a7b3;
 }
 
-@media (min-width: 308px) {
-  .welcome .project-name,
-  .welcome .welcome-back {
-    font-size: 2.5rem;
-  }
+.signup {
+  opacity: 0.9;
+  cursor: pointer;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #a0a7b3;
+  border-radius: 20px;
+  margin-top: 7px;
+}
+.signup > a {
+  color: black;
+  font-size: 15px;
+  font-weight: 500;
+}
+.signup:hover {
+  border: 1px solid #f3752e;
+}
+.signup:hover a {
+  opacity: 1;
+  color: #f3752e;
+  font-size: 15px;
+  font-weight: 500;
+}
+.custom {
+  margin-top: 7%;
 }
 
-@media (min-width: 470px) {
-  .welcome .project-name,
-  .welcome .welcome-back {
-    font-size: 3rem;
-  }
-}
-
-@media (min-width: 924px) {
-  .welcome .project-name,
-  .welcome .welcome-back {
-    font-size: 3rem;
+@media (max-width: 768px) {
+  .login-card {
+    margin-top: 20px;
   }
 }

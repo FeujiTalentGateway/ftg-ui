@@ -1,36 +1,48 @@
-/* Styling for the header */
-.header-fileds {
-  padding-top: 1%;
-  padding-left: 1%;
-  padding-right: 1%;
+header {
+  background-color: white !important;
+  width: 100%;
+  z-index: 1;
+  margin-top: 1%;
+  margin-right: 10%;
+  margin-left: 1%;
+  border-radius: 10px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  /* z-index: 100; */
+}
+li > a {
+  font-family: "SemiBold" !important;
+  color: black !important;
+}
+li > a:hover {
+  color: #f3752e !important;
+}
+.container-fluid {
+  padding-left: 0%;
 }
 
-/* Styling for the logo */
-.logo {
-  width: 70%;
-}
-
-/* Styling for navigation links*/
-.navi {
-  color: #576368;
-}
-/* Hover effect for navigation links*/
-.navi:hover {
-  color: #f37730;
-  transition: color 0.3s ease-in-out;
-}
-
-/* Styling for login button */
-.login {
-  padding-top: 0.4%;
-  font-size: 84%;
-  font-weight: 500;
-  color: #f37730;
-  border-color: #f37730;
-}
-
-/* Hover effect for login button*/
-.login:hover {
-  background: #f37730;
+.signup {
+  opacity: 0.9;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  background-color: #f3752e;
   color: white;
+  margin-top: 7px;
+}
+button {
+  padding: 1px 10px !important;
+  font-family: "Medium";
+}
+.signup > a {
+  color: black;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.navbar-nav {
+  width: 42% !important;
+  justify-content: space-evenly !important;
 }

@@ -21,3 +21,28 @@ app-main-header {
   z-index: 100;
   top: 0%;
 }
+.side {
+  transition: transform 0.3s ease;
+}
+.side.d-none {
+  transform: translateX(-100%);
+}
+
+.side-expanded {
+  transform: translateX(0);
+}
+@media (max-width: 768px) {
+  .side {
+    display: none;
+  }
+
+  .main {
+    width: 100%;
+  }
+
+  .main.col-md-12 {
+    padding-left: 0;
+    padding-right: 0;
+    width: 100%;
+  }
+}

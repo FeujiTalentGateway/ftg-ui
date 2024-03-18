@@ -1,14 +1,18 @@
-<section  *ngIf="examTime$ | async as questions; else loading">
+<section *ngIf="examTime$ | async as questions; else loading">
   <div class="header">
     <div class="sections">
-      <img src="../../../assets/images/feuji-logo1.png" alt="Feuji Logo" class="logo-image">
+      <img
+        src="../../../assets/images/Feuji-new-logo.jpg"
+        alt="Feuji Logo"
+        class="logo-image"
+      />
     </div>
-    <div class="sections" >
-      <div class="sub-items">
-        <button class="btn btn-success btn-sm btn-custom" (click)="submitExam()">Submit</button>
-      </div>
-      <div class="sub-items">Time left :{{ countdownDisplay }}</div>
-      <div class="sub-items">username</div>
+    <div class="sections">
+      Time left :{{ countdownDisplay }} &nbsp;&nbsp;
+      <button class="btn btn-success btn-sm btn-custom" (click)="submitExam()">
+        Submit
+      </button>
+      &nbsp;&nbsp;
     </div>
   </div>
 </section>

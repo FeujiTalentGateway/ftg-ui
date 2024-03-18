@@ -8,30 +8,30 @@
   background-color: #fff;
 }
 .sections {
-  width: 30%;
+  width: auto;
   height: 30px;
   /* background-color: #fff; */
 }
-.sections:nth-child(1) {
+/* .sections:nth-child(1) {
   width: 20%;
   align-items: center;
   text-align: center;
-}
-.sections:nth-child(2) {
+} */
+/* .sections:nth-child(2) {
   width: 50%;
   display: flex;
   justify-content: space-around;
-}
+} */
 .logo-image {
-  margin-top: -5px;
+  margin-top: -15px;
+  height: 4rem;
 }
 .sub-items {
-  width: 30%;
+  width: auto;
   height: auto;
   text-align: center;
 }
 .btn-custom {
-    background-color: #0bc279;
-    border: 1px solid #0bc279;
-  }
-  
+  background-color: #0bc279;
+  border: 1px solid #0bc279;
+}

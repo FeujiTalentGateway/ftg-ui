@@ -1,74 +1,179 @@
-<div class="container-fluid">
-    <app-header></app-header>
-    <div class="row justify-content-center align-items-center">
-        <!-- Left Content (Project Information) -->
-        <div class="col-md-7">
-            <div class="col-md-8 offset-md-2">
+<app-header></app-header>
+<div class="container-fluid custom">
+  <div class="row justify-content-center align-items-center">
+    <div class="col-md-12 mx-auto">
+      <div class="card login-card shadow p-3 rounded">
+        <div class="card-body">
+          <div class="row">
+            <h2 class="text-center global-color">Feuji Talent Gateway</h2>
+
+            <div class="col-md-6">
+              <div class="left-content">
                 <div class="welcome">
-                    <h1 class="project-name global-color">Feuji Talent Gateway</h1>
-                    <h2 class="welcome-back global-color">Reset your password!</h2>
+                  <h4 class="welcome-back">Reset your password!</h4>
                 </div>
-                <form [formGroup]="forgotPasswordRequestForm"
-                    (ngSubmit)="forgotPasswordRequestForm.status !== 'INVALID' && register(forgotPasswordRequestForm)"
-                    class="form-container">
-                    <label for="exampleFormControlInput1"
-                        class="input-label form-control-icon password-div">Password</label>
-                    <div class="input-container">
-                        <input [type]="passwordVisible ? 'text' : 'password'" class="form-control input-fields"
-                            id="password" placeholder="Password" formControlName="password"
-                            [ngClass]="{error:getControl('password')?.errors &&getControl('password')?.touched}" />
-                        <i class="fa-solid {{ passwordVisible ? 'fa-eye-slash' : 'fa-eye' }}" id="eye"
-                            (click)="passwordVisibility()"></i>
-                    </div>
+                <form
+                  [formGroup]="forgotPasswordRequestForm"
+                  (ngSubmit)="
+                    forgotPasswordRequestForm.status !== 'INVALID' &&
+                      register(forgotPasswordRequestForm)
+                  "
+                  class="form-container"
+                >
+                  <img
+                    src="../../../assets/images/lock_outline_black_18dp.svg"
+                    alt=""
+                    srcset=""
+                    class="icon-img"
+                  />
+                  <label
+                    for="exampleFormControlInput1"
+                    class="input-label form-control-icon password-div"
+                    >Password</label
+                  >
+                  <div class="input-container">
+                    <input
+                      [type]="passwordVisible ? 'text' : 'password'"
+                      class="form-control input-fields"
+                      id="password"
+                      placeholder="Password"
+                      formControlName="password"
+                      [ngClass]="{
+                        error:
+                          getControl('password')?.errors &&
+                          getControl('password')?.touched
+                      }"
+                    />
+                    <i
+                      class="fa-solid {{
+                        passwordVisible ? 'fa-eye-slash' : 'fa-eye'
+                      }}"
+                      id="eye"
+                      (click)="passwordVisibility()"
+                    ></i>
+                  </div>
 
-                    <div *ngIf="getControl('password')?.errors && getControl('password')?.touched">
-                        <span class="text-danger" *ngIf="getControl('password')?.hasError('required')">Password is
-                            required.
-                        </span>
-                        <span class="text-danger"
-                            *ngIf="getControl('password')?.hasError('maxlength') ||getControl('password')?.hasError('minlength')">Password
-                            should be between 8 and 32 characters long.
-                        </span>
-                    </div>
-                    <div *ngIf="!getControl('password')?.errors || !getControl('password')?.touched">
-                        <div class="empty-space"></div>
-                    </div>
+                  <div
+                    *ngIf="
+                      getControl('password')?.errors &&
+                      getControl('password')?.touched
+                    "
+                    class="error-message"
+                  >
+                    <span
+                      class="text-danger"
+                      *ngIf="getControl('password')?.hasError('required')"
+                      >Password is required.
+                    </span>
+                    <span
+                      class="text-danger"
+                      *ngIf="
+                        getControl('password')?.hasError('maxlength') ||
+                        getControl('password')?.hasError('minlength')
+                      "
+                      >Password should be between 8 and 32 characters long.
+                    </span>
+                  </div>
+                  <div
+                    *ngIf="
+                      !getControl('password')?.errors ||
+                      !getControl('password')?.touched
+                    "
+                  >
+                    <div class="empty-space"></div>
+                  </div>
+                  <img
+                    src="../../../assets/images/lock_outline_black_18dp.svg"
+                    alt=""
+                    srcset=""
+                    class="icon-img"
+                  />
 
-                    <label for="exampleFormControlInput1" class="input-label">Confirm Password</label>
-                    <div class="input-container">
-                        <input [type]="confirmPasswordVisible ? 'text' : 'password'" class="form-control input-fields"
-                            id="confirmPassword" placeholder="Confirm Password" formControlName="confirmPassword"
-                            [ngClass]="{error:getControl('confirmPassword')?.errors &&getControl('confirmPassword')?.touched}" />
-                        <i class="fa-solid {{ confirmPasswordVisible ? 'fa-eye-slash' : 'fa-eye' }}" id="eye"
-                            (click)="confirmPasswordVisibility()"></i>
-                    </div>
-                    <div *ngIf="getControl('confirmPassword')?.errors &&getControl('confirmPassword')?.touched">
-                        <span class="text-danger" *ngIf="getControl('confirmPassword')?.hasError('required')">Confirm
-                            Password is
-                            required.
-                        </span>
-                    </div>
-                    <div *ngIf="!(getControl('confirmPassword')?.errors &&getControl('confirmPassword')?.touched)">
-                        <div class="empty-space"></div>
-                    </div>
-                    <div
-                        *ngIf="forgotPasswordRequestForm.hasError('passwordMismatch') &&getControl('confirmPassword')?.touched">
-                        <span class="text-danger">Passwords do not match. </span>
-                    </div>
+                  <label for="exampleFormControlInput1" class="input-label"
+                    >Confirm Password</label
+                  >
+                  <div class="input-container">
+                    <input
+                      [type]="confirmPasswordVisible ? 'text' : 'password'"
+                      class="form-control input-fields"
+                      id="confirmPassword"
+                      placeholder="Confirm Password"
+                      formControlName="confirmPassword"
+                      [ngClass]="{
+                        error:
+                          getControl('confirmPassword')?.errors &&
+                          getControl('confirmPassword')?.touched
+                      }"
+                    />
+                    <i
+                      class="fa-solid {{
+                        confirmPasswordVisible ? 'fa-eye-slash' : 'fa-eye'
+                      }}"
+                      id="eye"
+                      (click)="confirmPasswordVisibility()"
+                    ></i>
+                  </div>
+                  <div
+                    class="error-message"
+                    *ngIf="
+                      getControl('confirmPassword')?.errors &&
+                      getControl('confirmPassword')?.touched
+                    "
+                  >
+                    <span
+                      class="text-danger"
+                      *ngIf="
+                        getControl('confirmPassword')?.hasError('required')
+                      "
+                      >Confirm Password is required.
+                    </span>
+                  </div>
+                  <div
+                    *ngIf="
+                      !(
+                        getControl('confirmPassword')?.errors &&
+                        getControl('confirmPassword')?.touched
+                      )
+                    "
+                  >
+                    <div class="empty-space"></div>
+                  </div>
+                  <div
+                    class="error-message"
+                    *ngIf="
+                      forgotPasswordRequestForm.hasError('passwordMismatch') &&
+                      getControl('confirmPassword')?.touched
+                    "
+                  >
+                    <span class="text-danger">Passwords do not match. </span>
+                  </div>
                 </form>
-                <div class="row" id="sub-rout">
-                    <div class="row justify-content-center submit-div">
-                        <input id="submit-input" type="submit" class="btn btn-primary btn-custom"
-                            [disabled]="forgotPasswordRequestForm.status === 'INVALID'" value="Submit"
-                            (click)="register(forgotPasswordRequestForm)" />
-                    </div>
+              </div>
+              <div class="row" id="sub-rout">
+                <div class="row justify-content-center submit-div">
+                  <input
+                    id="submit-input"
+                    type="submit"
+                    class="btn btn-primary btn-custom"
+                    [disabled]="forgotPasswordRequestForm.status === 'INVALID'"
+                    value="Submit"
+                    (click)="register(forgotPasswordRequestForm)"
+                  />
                 </div>
-
+              </div>
             </div>
+            <div class="col-md-6 img">
+              <div class="right-content">
+                <img
+                  src="assets/images/reset_password.png"
+                  alt="select the correct path"
+                  class="img-fluid"
+                />
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="col-md-5">
-            <img src="assets/images/reset_password.png" alt="select the correct path" class="img-fluid" />
-        </div>
+      </div>
     </div>
+  </div>
 </div>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />

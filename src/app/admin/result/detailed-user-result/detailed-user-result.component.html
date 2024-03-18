@@ -1,76 +1,114 @@
-<section>
-<div class="exam-name">{{ examObject?.name }}</div>
-<div class="user-name">
-    <div class="user-data">
-        Respondent
-    </div>
+<section *ngIf="examObject$ | async as exam; else template">
+  <ng-container *ngIf="handleExamObject(exam)"></ng-container>
+  <div class="exam-name">
+    <h2>{{ exam.name }}</h2>
+  </div>
+  <div
+    class="user-name"
+    *ngIf="
+      detailedUserResultObject$ | async as detailedUserResult;
+      else template
+    "
+  >
+    <ng-container
+      *ngIf="handleDetailedUserResultObject(detailedUserResult)"
+    ></ng-container>
+    <div class="user-data">Username</div>
     <div class="user-info">
-        <i class="fa-regular fa-id-badge user-icon"></i>&nbsp;&nbsp;<span>Dhanu</span>
+      <i class="fa-regular fa-id-badge user-icon"></i>&nbsp;&nbsp;<span>{{
+        detailedUserResult.fullName
+      }}</span>
     </div>
-</div>
-<div class="row">
-    <div class="col-md-6">
+  </div>
+  <div class="row">
+    <div
+      class="col-md-6"
+      *ngIf="
+        detailedUserResultObject$ | async as detailedUserResult;
+        else template
+      "
+    >
+      <ng-container
+        *ngIf="handleDetailedUserResultObject(detailedUserResult)"
+      ></ng-container>
       <div class="card result-card">
         <div class="card-body">
-          <h5 class="card-title">RESULT</h5>
-        </div>
-        <div class="test-ended">
-        <div class="test">
-            Test Ended
-        </div>
-        <div class="col">
-            <app-percentage-circle [percentage]="100"></app-percentage-circle>
+          <h5 class="card-title">TIMER</h5>
+          <div class="timer-content"></div>
+          <p class="card-text">
+            <i class="fa-regular fa-clock"></i>&nbsp; Total time
+          </p>
+          <div>
+            {{ detailedUserResult.examDuration }}&nbsp;/&nbsp;{{
+              exam.duration
+            }}
+          </div>
+
+          <div class="progress progress1">
+            <div
+              class="progress-bar"
+              role="progressbar"
+              [style.width.%]="calculateProgress()"
+              [attr.aria-valuenow]="calculateProgress()"
+              aria-valuemin="0"
+              aria-valuemax="100"
+            ></div>
+          </div>
+          <div class="start-end-date">
+            <span class="time-heading">Start time :</span
+            ><span class="time">{{
+              detailedUserResult.examStartedAt | date : "hh:mm a"
+            }}</span>
+            <span class="time-heading">End time :</span
+            ><span class="time">{{
+              detailedUserResult.examCompletedAt | date : "hh:mm a"
+            }}</span>
+            <span class="time-heading">Date :</span
+            ><span class="time">{{
+              detailedUserResult.examCompletedAt | date : "dd MMM yyyy"
+            }}</span>
           </div>
         </div>
       </div>
     </div>
-    <div class="col-md-6">
+    <div
+      class="col-md-6"
+      *ngIf="
+        detailedUserResultObject$ | async as detailedUserResult;
+        else template
+      "
+    >
       <div class="card result-card">
-        <div class="card-body">
-          <h5 class="card-title">TIMER</h5>
-          <p class="card-text"><i class="fa-regular fa-clock"></i>&nbsp; Total time</p>
-          <div>
-            00:12:00&nbsp;/&nbsp;00:88:99
+        <div
+          class="card-body d-flex flex-column align-items-center justify-content-center"
+        >
+          <h5 class="card-title text-center">SCORE CARD</h5>
+          <div class="score-card">
+            <span
+              >Total Score: {{ detailedUserResult.marksObtain }} /
+              {{ detailedUserResult.totalMarks }}
+            </span>
           </div>
-          <div class="progress progress1">
-            <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <div class="start-end-date">
-            <span class="time-heading">Start time :</span><span class="time">10:18</span>
-            <span class="time-heading">End time :</span><span class="time">10:18</span>
-            <span class="time-heading">Date :</span><span class="time"> 20-04-2024</span>
-          </div>
-          <div class="subject1">
-            <span class="subject-name">JAVA</span>
-            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;00:88:99&nbsp;</span>/&nbsp;
-            <span>99:77:99</span>
-            <span class="total-time">Total time</span>
-            <span>00:23</span>
-          </div>
-          <div class="subject2">
-            <span class="subject-name">PYTHON</span>
-            <span>&nbsp;00:88:99&nbsp;</span>/&nbsp;
-            <span>99:77:99</span>
-            <span class="total-time">Total time</span>
-            <span>00:23</span>
-          </div>
-          <div class="subject3">
-            <span class="subject-name">ANGULAR</span>
-            <span>00:88:99&nbsp;</span>/&nbsp;
-            <span>99:77:99</span>
-            <span class="total-time">Total time</span>
-            <span>00:23</span>
+          <div
+            *ngFor="let result of detailedUserResult.subjectWiseResult"
+            class="score-card"
+          >
+            <span
+              >{{ result.subjectName }}: {{ result.obtainedMarks }} /
+              {{ result.totalMarks }}
+            </span>
           </div>
         </div>
       </div>
     </div>
   </div>
-<div class="user-name">
+  <!-- <div class="user-name">
     <div class="user-data">
         Questions
     </div>
     <div class="user-info">
-        <span></span>
+        <span>Coming Soon....</span>
     </div>
-</div>
+</div> -->
 </section>
+<ng-template #template></ng-template>

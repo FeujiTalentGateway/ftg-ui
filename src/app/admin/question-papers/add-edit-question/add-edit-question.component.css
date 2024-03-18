@@ -1,32 +1,59 @@
-/* .main-div{
-  background-color: #3caf895e;
-} */
-form {
-  max-width: 80%;
-  margin: 0 auto;
-  padding: 30px;
-  background-color: #ffe1d1;
+.question-form {
+  background-color: rgb(241, 243, 245);
+  padding-bottom: 0.1rem;
 }
-.add-quesiton-header {
-  color: #f3752e;
+.schedule-exam-form {
+  background-color: rgb(241, 243, 245);
+  margin: auto;
+  margin-bottom: 10px;
+  padding: 1rem 0.3rem;
+}
+label {
+  font-family: var(--font-family);
+  font-weight: var(--label-font-weight);
+  font-size: var(--label-font-size);
+  color: rgb(40, 36, 36);
+}
+.required-field {
+  color: red;
+}
+form {
+  background-color: rgb(241, 243, 245);
+  margin: -1px 20px 2px 25px;
+  padding: 0.5rem 0.3rem;
+}
+.header {
+  margin-top: 10px;
+  border-color: #e6e9ed;
+  background-color: #ebebee;
 }
 
+.add-quesiton-header {
+  margin-bottom: 0;
+  color: #5b626b;
+  font-weight: 600;
+  font-size: x-large;
+  padding: 0.5rem 1rem;
+}
+.form-row {
+  margin-bottom: 5px;
+}
 input {
   width: 100%;
   padding: 10px;
+  margin: 0;
+  font: normal 450 14px/21px var(--font-family);
 }
-.error-div {
-  position: relative;
-  font-size: medium;
-  min-height: 24px;
+.text-danger {
+  color: red;
+  font-size: 12px;
+  margin-top: 4px;
 }
-.p-button {
-  width: fit-content;
-  border: 1px red solid;
-  border-radius: 20px;
-  cursor: pointer;
-  color: #007bff;
+
+.example-button {
+  margin-bottom: 0;
 }
+
 .validsubmit-button {
   background-color: #4caf50;
   color: #fff;
@@ -41,28 +68,31 @@ input {
   border: none;
   cursor: none;
 }
-.mr-20 {
-  margin-right: 20px;
+.select-option,
+.form-select {
+  margin: 0;
+  font: normal 450 14px/21px var(--font-family);
 }
+
 .show {
   display: block;
 }
 .modal-open {
   overflow-x: hidden;
   overflow-y: auto;
-  background-color: rgba(0, 0, 0, 0.5); /* Adjust the opacity as needed */
+  background-color: rgba(0, 0, 0, 0.5);
 }
 .option-input {
   z-index: 0;
 }
-.question-type{
+.question-type {
   padding: auto;
 }
-.question-type-option{
+.question-type-option {
   width: 20px;
   padding: 20px;
 }
-.option-type{
+.option-type {
   width: auto;
   margin: 10px;
 }

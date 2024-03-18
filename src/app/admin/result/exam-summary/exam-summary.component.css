@@ -1,60 +1,64 @@
-.exam-name{
-    background-color: var(--secondary-color);
-    color: var(--primary-color);
-    font-family: 'Bold';
-    margin-top: 1%;
-    padding: 10px;
-    position: sticky;
-    top: 12%;
+.exam-name {
+  background-color: white;
+  color: var(--primary-color);
+  margin-top: 1%;
+  position: sticky;
+  height: 38px;
+  top: 12%;
 }
-.test{
-    font-family: 'Regular';
-    margin-top: 2%;
+.exam-name > h2 {
+  font-family: "SemiBold";
+  text-align: center;
+  font-size: 28px;
 }
-.container{
-    background-color: #FFFFFF;
-    border-radius: 5px;
-    padding: 20px;
+.test {
+  font-family: "Regular";
+  margin-top: 2%;
+}
+.container {
+  background-color: #ffffff;
+  border-radius: 5px;
+  padding: 20px;
+}
+.average {
+  margin-top: 10%;
+  margin-left: 2%;
+  font-family: "Bold";
+}
+.icons {
+  margin-top: 4%;
+}
+.user-result {
+  margin-left: 80%;
+  background-color: #0bc279;
+  color: #ffffff;
+  border: none;
+}
 
+.summary {
+  margin-top: 3%;
+  background-color: #ffffff;
+  font-family: "Regular";
+  border-radius: 5px;
+  position: relative;
+  height: auto;
+  padding: 5px;
 }
-.average{
-    margin-top: 4%;
-    font-family: 'Bold';
+.Configuration Summary {
+  font-family: "SemiBold";
 }
-.icons{
-    margin-top: 4%;
+.summary.heading {
+  font-family: "SemiBold";
 }
-.user-result{
-    margin-left: 80%;
-    background-color: #0BC279;
-    color:#FFFFFF;
-    border: none;
+.summary > div {
+  margin: 2%;
 }
-
-.summary{
-    margin-top: 3%;
-    background-color: #FFFFFF;
-    font-family: 'Regular';
-    border-radius: 5px;
-    position: relative;
-    height: auto;
-    padding: 5px;
+ul {
+  list-style-type: var(--primary-color) !important;
 }
-.Configuration Summary{
-    font-family: 'SemiBold';
+ul > li {
+  margin: 0.5%;
 }
-.summary.heading{
-    font-family: 'SemiBold';
-}
-.summary>div{
-    margin: 2%;
-}
-ul{
-    list-style-type: var(--primary-color) !important;
-}
-ul>li{
-    margin: 0.5%;
-}
-.test-time{
-    margin-bottom: 0%;
+.test-time {
+  margin-bottom: 0%;
 }

@@ -1,12 +1,10 @@
-import { Subject } from "./subject";
-
+import { Subject } from './subject';
 
 export interface ExamSubject {
   id: Number;
   duration: string;
   maxQuestions: number;
-  startingDifficultyLevel:number
+  startingDifficultyLevel: number;
   subject: Subject;
-
+  isTimeUp: boolean;
 }
-  

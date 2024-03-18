@@ -21,12 +21,11 @@ export class ExamComponent implements OnInit {
   examAttemptId: number | undefined;
   questions$: Observable<Paper> | undefined;
   Exam$: Observable<Exam> | undefined;
-  examObjet : Exam |undefined;
+  examObjet: Exam | undefined;
   examDuration: string | undefined;
   questions: Paper = { id: 0, name: '', active: false, questions: [] };
 
   constructor(
-    private router: Router,
     private activatedRoute: ActivatedRoute,
     private examService: ExamService,
     private sharedDataService: SharedDataService
@@ -34,33 +33,18 @@ export class ExamComponent implements OnInit {
 
   ngOnInit(): void {
     this.examCode = this.activatedRoute.snapshot.paramMap.get('examCode');
-    // console.log(this.examCode);
-    // this.questions$ = this.examService.getPaperByExamCode(
-    //   this.examCode as string
-    // );
-    // // this.questions$ =  this.examService.getStaticQuestionPaper().subscribe()
-    // this.Exam$ = this.examService.checkExamByCode(this.examCode as string);
-
-    
     this.Exam$ = this.examService.getExamByCode(this.examCode as string);
     this.Exam$.subscribe(
-      (response)=>{
-        this.examObjet = response
-      },
-      (error)=>{
-        console.log(error);
-        
-      }
-    )
-    this.examService
-      .getExamByCode(this.examCode as string)
-      .subscribe((response) => {
-        console.log(response);
-        this.examDuration = response.examSubjects[0].duration;
-        console.log(this.examDuration);
-        const newData = { exam_time: this.examDuration ,examCode :this.examCode};
+      (response) => {
+        this.examObjet = response;
+        this.examDuration = response.duration;
+        const newData = {
+          exam_time: this.examDuration,
+          examCode: this.examCode,
+        };
         this.sharedDataService.updateExamTime(newData);
-      });
-
+      },
+      (error) => {}
+    );
   }
 }

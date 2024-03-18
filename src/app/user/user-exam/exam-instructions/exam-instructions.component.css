@@ -1,52 +1,64 @@
-.container{
-    margin-top: 30px;
-    width: 90%;
-    height: auto;
-    background-color: #fff;
-    box-sizing: border-box;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.188);
-    padding: 0;
-
+.container {
+  margin-top: 30px;
+  width: 90%;
+  height: auto;
+  background-color: #fff;
+  box-sizing: border-box;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.188);
+  padding: 0;
 }
 .heading {
-  background-color: #ffe1d1;
+  /* background-color: var(--home-background-color); */
   color: var(--primary-color);
-
-}
-.heading h2 {
-    font-family: 'Regular';
-}
-.exam-name{
-  font-family: 'SemiBold' !important;
   text-align: center;
 }
-.footer{
+.heading h2 {
+  font-family: "SemiBold";
+}
+.exam-name {
+  font-family: "SemiBold" !important;
+  text-align: center;
+}
+.footer {
   display: flex;
   padding: 30px;
   justify-content: space-evenly;
-
 }
-ul > li{
-  font-family: 'Regular' !important;
+ul > li {
+  font-family: "Regular" !important;
   padding: 5px;
   list-style: disc;
   /* list-style: none; */
 }
-.time{
+.time {
   color: var(--primary-color);
-  font-family: 'Bold';
+  font-family: "Bold";
 }
-.back-button{
+.back-button {
   width: 100%;
-  background-color: var( --home-background-color) !important; 
+  background-color: var(--home-background-color) !important;
   border: 1px solid var(--primary-color);
   color: black;
 }
-.back-button :hover{
-  background-color: var( --primary-color) !important; 
+.back-button :hover {
+  background-color: var(--primary-color) !important;
   border: 1px solid var(--primary-color);
   color: black;
 }
-.subject-table{
-  margin:0% 10%;
+.subject-table {
+  margin: 0% 10%;
+}
+.subject-table th {
+  font-family: "SemiBold";
+  text-align: center;
+  padding: 10px;
+}
+.subject-table td {
+  font-family: "Regular";
+  text-align: center;
+  padding: 10px;
+}
+.btn-custom {
+  background-color: #0bc279;
+  border: 1px solid #0bc279;
 }

@@ -1,76 +1,33 @@
-<section *ngIf="examStatObject$ | async as exam; else loadingTemplate">
-  <div class="exam-name">{{ examObject?.name }}</div>
+<div *ngIf="examObject$ | async as exam">
+  <ng-container *ngIf="handleExamObject(exam)"></ng-container>
+  <div class="exam-name">
+    <h2>{{ exam.name }}</h2>
+  </div>
+</div>
+<section *ngIf="examStatObject$ | async as examStat; else loadingTemplate">
+  <ng-container *ngIf="handleExamStatObject(examStat)"></ng-container>
   <div>
     <h2 class="test">Test Info</h2>
   </div>
   <div class="container">
     <div class="row">
       <div class="col">
-        <!-- <svg width="200" height="200">
-          <circle
-            cx="100"
-            cy="100"
-            r="90"
-            fill="none"
-            [attr.stroke]="color"
-            [attr.stroke-width]="strokeWidth"
-            [attr.stroke-dasharray]="circumference"
-            [attr.stroke-dashoffset]="offset"
-          ></circle>
-          <text
-            x="50%"
-            y="50%"
-            fill="#333"
-            text-anchor="middle"
-            alignment-baseline="central"
-          >{{ calculatePercentage() }}%</text>
-        </svg> -->
-        <svg width="200" height="200">
-            <!-- Completed percentage circle -->
-            <circle
-              cx="100"
-              cy="100"
-              r="90"
-              fill="none"
-              stroke="rgb(11, 194, 121)"
-              [attr.stroke-width]="strokeWidth"
-              [attr.stroke-dasharray]="circumference"
-              [attr.stroke-dashoffset]="0"
-            ></circle>
-          
-            <!-- Remaining percentage circle -->
-            <circle
-              cx="100"
-              cy="100"
-              r="90"
-              fill="none"
-              stroke="#ccc"
-              [attr.stroke-width]="strokeWidth"
-              [attr.stroke-dasharray]="circumference"
-              [attr.stroke-dashoffset]="calculatePercentage().completedPercentage * circumference / 100"
-            ></circle>
-          
-            <!-- Text showing completed percentage -->
-            <text
-              x="50%"
-              y="50%"
-              fill="#333"
-              text-anchor="middle"
-              alignment-baseline="central"
-            >{{ calculatePercentage().completedPercentage }}%</text>
-          </svg>
-          
-          
-          
-          
+        <div *ngIf="pieChartOptions">
+          <highcharts-chart
+            [Highcharts]="Highcharts"
+            [options]="pieChartOptions"
+            style="width: 80%; height: 350px; display: block"
+          >
+          </highcharts-chart>
+        </div>
       </div>
       <div class="col average">
         <i class="fa-solid fa-plus-minus icons"></i>&nbsp;&nbsp; Average Time :
-        {{ examStatObject?.averageTimeOfExam }}<br />
+        {{ (examStat.averageTimeOfExam | timeFormat) || "0" }}<br />
         <i class="fa-regular fa-clock icons"></i>&nbsp;&nbsp; Average Marks :
-        {{ examStatObject?.averageMarksOfExam }}<br />
+        {{ (examStat.averageMarksOfExam | number : "1.2-2") || "0" }}<br />
         <i class="fa-solid fa-check icons"></i>&nbsp;&nbsp; Tests Completed :
-        {{ examStatObject?.testsCompletedUsers }}
+        {{ examStat.testsCompletedUsers }}
       </div>
       <div>
         <button
@@ -91,9 +48,9 @@
       <div *ngIf="examObject$ | async as exam">
         <ul class="test-time">
           <li>
-            Test access will close on:
-            {{ examObject?.endDate | date : "yyyy-MM-dd HH:mm" }} IST. Current
-            server time is: {{ currentTime }} IST.
+            Test access will close on :
+            {{ exam.endDate | date : "dd MMM yyyy HH:mm" }} IST. Current server
+            time is : {{ currentTime }} IST.
           </li>
           <li>Random order of questions and answers enabled.</li>
         </ul>

@@ -10,6 +10,7 @@ import { AddEditQuestionComponent } from './add-edit-question/add-edit-question.
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatIconModule,
     MatTooltipModule,
     MatPaginatorModule,
+    MatSelectModule
 
   ],
 })

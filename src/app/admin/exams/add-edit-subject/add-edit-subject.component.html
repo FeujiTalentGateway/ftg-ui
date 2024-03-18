@@ -6,7 +6,9 @@
     <h3 style="text-align: center">{{ subjectModifyHeader }}</h3>
     <form [formGroup]="subjectForm" (ngSubmit)="onSubmit()">
       <div>
-        <label for="name">Subject Name</label>
+        <label for="name"
+          >Subject Name <sup class="required-field">*</sup></label
+        >
         <div>
           <input
             id="name"

@@ -1,13 +1,14 @@
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { Exam } from '../models/exam.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ScheduleExamRepositoryService {
-  adminUrl = 'http://35.154.116.10:8093/';
+  adminUrl = environment.adminUrl;
 
   constructor(private http: HttpClient) {}
 

@@ -2,20 +2,18 @@
   <div class="header">
     <h1>{{ isEditing ? "Update Exam" : "Schedule Exam" }}</h1>
   </div>
-  <!-- Schedule Exam Dialog -->
   <div class="schedule-exam-form mat-elevation-z8">
-    <form [formGroup]="examForm" (ngSubmit)="onSubmit()" class="exam-form">
-      <div class="form-row">
+    <form [formGroup]="examForm" class="exam-form">
+      <div class="main-fields form-row">
         <div>
-          <label for="name">Name:</label>
+          <label for="name">Name <span class="required-field">*</span></label>
           <input
             type="text"
             id="name"
             formControlName="name"
             required
             class="form-control"
-            placeholder="enter exam name here"
-            aria-label="Exam Name"
+            placeholder="Exam name"
           />
 
           <div
@@ -39,14 +37,16 @@
         </div>
 
         <div>
-          <label for="examCode">Exam Code:</label>
+          <label for="examCode"
+            >Exam Code<span class="required-field">*</span></label
+          >
           <input
             type="text"
             id="examCode"
             formControlName="examCode"
             required
             class="form-control"
-            placeholder="enter exam code here"
+            placeholder="Exam code"
           />
           <div
             *ngIf="
@@ -67,39 +67,24 @@
             Maximum length is 50 characters.
           </div>
         </div>
-
-        <div>
-          <label for="duration">Exam Duration:</label>
-          <input
-            type="text"
-            readonly
-            id="duration"
-            formControlName="duration"
-            required
-            class="form-control"
-            placeholder="HH:mm:ss"
-          />
-          <div
-            *ngIf="
-              examForm.get('duration')?.hasError('required') &&
-              examForm.get('duration')?.touched
-            "
-            class="error-msg"
-          >
-            Duration is required.
-          </div>
-          <div
-            *ngIf="
-              examForm.get('duration')?.hasError('pattern') &&
-              examForm.get('duration')?.touched
-            "
-            class="error-msg"
-          >
-            Duration should be in the format HH:mm:ss.
+        <div class="active d-flex align-items-center">
+          <div>
+            <label for="active"
+              >Active<span class="required-field">*</span></label
+            >
+            &nbsp; &nbsp;
+            <mat-slide-toggle
+              color="warn"
+              id="active"
+              formControlName="active"
+            ></mat-slide-toggle>
           </div>
         </div>
+
         <div>
-          <label for="startDate">Start Date:</label>
+          <label for="startDate"
+            >Start Date<span class="required-field">*</span></label
+          >
           <input
             type="date"
             id="startDate"
@@ -131,7 +116,9 @@
         </div>
 
         <div>
-          <label for="endDate">End Date:</label>
+          <label for="endDate"
+            >End Date<span class="required-field">*</span></label
+          >
           <input
             type="date"
             id="endDate"
@@ -166,27 +153,61 @@
         </div>
 
         <!-- Inside your form -->
-        <div class="active">
-          <div></div>
-          <div>
-            <label for="active">Active:</label> &nbsp; &nbsp;
-            <mat-slide-toggle
-              color="warn"
-              id="active"
-              formControlName="active"
-            ></mat-slide-toggle>
+
+        <div>
+          <label for="duration"
+            >Duration<span class="required-field">*</span></label
+          >
+          <div class="sub-duration">
+            <div>
+              <select
+                id="hours"
+                formControlName="hours"
+                class=""
+                (change)="mapSubDurationToDuration()"
+              >
+                <option *ngFor="let hour of hoursArray" [value]="hour">
+                  {{ hour }}
+                </option>
+              </select>
+            </div>
+            <label for="minutes">:</label>
+            <div>
+              <select
+                id="minutes"
+                formControlName="minutes"
+                class=""
+                (change)="mapSubDurationToDuration()"
+              >
+                <option *ngFor="let minute of minutesArray" [value]="minute">
+                  {{ minute }}
+                </option>
+              </select>
+            </div>
+            <label for="seconds">:</label>
+            <div>
+              <select
+                id="seconds"
+                formControlName="seconds"
+                class=""
+                (change)="mapSubDurationToDuration()"
+              >
+                <option *ngFor="let second of secondsArray" [value]="second">
+                  {{ second }}
+                </option>
+              </select>
+            </div>
           </div>
         </div>
-        <div></div>
       </div>
-      <div>
-        <label for="description">Description:</label>
+      <div class="form-row">
+        <label for="description">Description*</label>
         <textarea
           id="description"
           formControlName="description"
           required
           class="form-control"
-          placeholder="enter exam description here"
+          placeholder="Description"
         ></textarea>
         <div
           *ngIf="
@@ -208,25 +229,28 @@
         </div>
       </div>
 
-      <div class="subject-list">
-        <label for="subjectControl">Select Subjects</label>
-        <mat-select
-          multiple
-          id="subjectControl"
-          required
-          class="form-control"
-          [ngModelOptions]="{ standalone: true }"
-          [(ngModel)]="selectedSubjectIds"
-          (selectionChange)="onSubjectSelected()"
-          #subjectControl="ngModel"
-        >
-          <!-- <mat-option [value]="null">Select Any Subject</mat-option> -->
-          <mat-option *ngFor="let subject of subjects" [value]="subject.id">{{
-            subject.name
-          }}</mat-option>
-        </mat-select>
-        <div *ngIf="subjectControl.touched && !isValid()" class="error-msg">
-          At least one subject is required.
+      <div class="subject-duration form-row">
+        <div class="subject-list">
+          <label for="subjectControl"
+            >Subjects<span class="required-field">*</span></label
+          >
+          <mat-select
+            multiple
+            id="subjectControl"
+            required
+            class="form-control"
+            [ngModelOptions]="{ standalone: true }"
+            [(ngModel)]="selectedSubjectIds"
+            (selectionChange)="onSubjectSelected()"
+            #subjectControl="ngModel"
+          >
+            <mat-option *ngFor="let subject of subjects" [value]="subject.id">
+              {{ subject.name }}
+            </mat-option>
+          </mat-select>
+          <div *ngIf="subjectControl.touched && !isValid()" class="error-msg">
+            At least one subject is required.
+          </div>
         </div>
       </div>
 
@@ -234,9 +258,11 @@
         formArrayName="examSubjects"
         *ngFor="let subjectGroup of getExamSubjectsControls(); let i = index"
       >
-        <div [formGroupName]="i" class="exam-subject-item">
+        <div [formGroupName]="i" class="exam-subject-item form-row">
           <div>
-            <label for="subjectName{{ i }}">Subject Name</label>
+            <label for="subjectName{{ i }}"
+              >Subject<span class="required-field">*</span></label
+            >
             <input
               id="subjectName{{ i }}"
               readonly
@@ -246,7 +272,9 @@
           </div>
 
           <div>
-            <label for="maxQuestions{{ i }}">Max Questions</label>
+            <label for="maxQuestions{{ i }}"
+              >Max Questions<span class="required-field">*</span></label
+            >
             <mat-select
               id="maxQuestions{{ i }}"
               formControlName="maxQuestions"
@@ -271,14 +299,13 @@
 
           <div>
             <label for="startingDifficultyLevel{{ i }}"
-              >Starting Difficulty Level</label
+              >Starting Difficulty<span class="required-field">*</span></label
             >
             <mat-select
               id="startingDifficultyLevel{{ i }}"
               formControlName="startingDifficultyLevel"
               class="form-control"
             >
-              <!-- <mat-option [value]="null">Select Any Subject</mat-option> -->
               <mat-option
                 *ngFor="let difficultyLevel of difficultyLevelArray"
                 [value]="difficultyLevel"
@@ -296,81 +323,8 @@
             >
               Strting Difficulty Level is required.
             </div>
-            <!-- <input id="startingDifficultyLevel{{i}}" formControlName="startingDifficultyLevel" class="form-control" /> -->
           </div>
-          <div>
-            <!-- <label for="duration{{ i }}">Duration</label>
-            <input
-              id="duration{{ i }}"
-              formControlName="duration"
-              (change)="updateExamDuration()"
-              class="form-control"
-            />
-            <div
-              *ngIf="
-                subjectGroup.get('duration')?.hasError('required') &&
-                subjectGroup.get('duration')?.touched
-              "
-              class="error-msg"
-            >
-              Duration is required.
-            </div>
-            <div
-              *ngIf="
-                subjectGroup.get('duration')?.hasError('pattern') &&
-                subjectGroup.get('duration')?.touched
-              "
-              class="error-msg"
-            >
-              Duration should be in the format HH:mm:ss.
-            </div> -->
-            <label for="duration">Duration</label>
-            <div
-              class="d-flex align-item-center justify-content-even flex-dir-column form-control"
-            >
-              <div>
-                <!-- <label for="hours{{ i }}">:</label> -->
-                <select
-                  id="hours{{ i }}"
-                  formControlName="hours"
-                  class="sub-duration"
-                  (change)="mapSubDurationToDuration()"
-                >
-                  <option *ngFor="let hour of hoursArray" [value]="hour">
-                    {{ hour }}
-                  </option>
-                </select>
-              </div>
 
-              <div>
-                <label for="minutes{{ i }}">:</label>
-                <select
-                  id="minutes{{ i }}"
-                  formControlName="minutes"
-                  class="sub-duration"
-                  (change)="mapSubDurationToDuration()"
-                >
-                  <option *ngFor="let minute of minutesArray" [value]="minute">
-                    {{ minute }}
-                  </option>
-                </select>
-              </div>
-
-              <div>
-                <label for="seconds{{ i }}">:</label>
-                <select
-                  id="seconds{{ i }}"
-                  formControlName="seconds"
-                  class="sub-duration"
-                  (change)="mapSubDurationToDuration()"
-                >
-                  <option *ngFor="let second of secondsArray" [value]="second">
-                    {{ second }}
-                  </option>
-                </select>
-              </div>
-            </div>
-          </div>
           <button
             class="btn btn-outline-secondary remove-subject"
             type="button"
@@ -387,24 +341,37 @@
           <!-- Add other form controls for the subject as needed -->
         </div>
       </ng-container>
-      <button
+      <p
         mat-raised-button
-        color="warn"
-        class="add-user"
+        #tooltip="matTooltip"
+        matTooltip="Add Users"
+        [matTooltipPosition]="'right'"
+        matTooltipHideDelay="100"
+        aria-label="Button that displays a tooltip that hides when scrolled out of the container"
+        class="example-button btn btn-outline-secondary add-user"
         (click)="addUsers($event)"
       >
-        {{ isEditing ? "Update Users" : "Add Users" }}
-      </button>
-
+        <mat-icon aria-hidden="false" aria-label="Example plus icon"
+          >person_add</mat-icon
+        >
+      </p>
+    </form>
+    <div class="d-flex justify-content-end btn-div">
       <button
-        mat-raised-button
-        color="primary"
-        class="submit-btn mb-4 mt-2"
+        class="submit-btn btn btn-success"
         [disabled]="examForm.invalid"
         type="submit"
+        (click)="onSubmit()"
       >
         {{ isEditing ? "Update Exam" : "Schedule Exam" }}
       </button>
-    </form>
+      <button
+        *ngIf="isEditing"
+        class="btn btn-secondary"
+        [routerLink]="['/admin/exams/viewExams']"
+      >
+        Cancel
+      </button>
+    </div>
   </div>
 </div>

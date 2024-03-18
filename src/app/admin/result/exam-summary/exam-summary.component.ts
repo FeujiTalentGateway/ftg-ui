@@ -4,6 +4,9 @@ import { Observable } from 'rxjs';
 import { Exam } from 'src/app/models/exam.model';
 import { ExamStatsModel } from 'src/app/models/exam.stats.model';
 import { ExamService } from 'src/app/repository/exam.service';
+import { TimeFormatPipe } from 'src/app/pips/time-format.pipe';
+import * as Highcharts from 'highcharts';
+
 @Component({
   selector: 'app-exam-summary',
   templateUrl: './exam-summary.component.html',
@@ -24,6 +27,8 @@ export class ExamSummaryComponent implements OnInit {
   offset: number = this.circumference;
   completedTestsColor: string = '#0BC279';
   remainingColor: string = '#f3752e';
+  Highcharts: typeof Highcharts = Highcharts;
+  pieChartOptions: Highcharts.Options | undefined;
 
   constructor(
     private router: Router,
@@ -39,50 +44,61 @@ export class ExamSummaryComponent implements OnInit {
       'examCode'
     ) as string;
     console.log(this.examCode);
-    this.examObject$ = this.examService.getExamById(this.examCode);
-    this.examStatObject$ = this.examService.getStaticExamStatsByExamCode(
+    this.examObject$ = this.examService.getExamByCode(this.examCode);
+    this.examStatObject$ = this.examService.getExamStatsByExamCode(
       this.examCode
     );
-    this.examObject$.subscribe(
-      (response) => {
-        this.examObject = response;
-        console.log(response);
-        if (this.examObject && this.examObject.users) {
-          this.totalAssignedUsers = this.examObject.users.length;
-        }
+    this.examStatObject$.subscribe((examStat: ExamStatsModel) => {
+      this.handleExamStatObject(examStat);
+      this.initializePieChart();
+    });
+  }
+
+  initializePieChart() {
+    this.pieChartOptions = {
+      chart: {
+        type: 'pie',
       },
-      (error) => {
-        console.log('exam object not available');
-      }
-    );
-    this.examStatObject$.subscribe(
-      (response) => {
-        console.log(response);
-        this.examStatObject = response;
-        this.completedTests = this.examStatObject.testsCompletedUsers;
+      title: {
+        text: 'User Exam Status',
       },
-      (error) => {
-        console.log('exam stat object not available');
-      }
-    );
+      plotOptions: {
+        pie: {
+          allowPointSelect: true,
+          cursor: 'pointer',
+          dataLabels: {
+            enabled: true,
+            format: '<b>{point.name}</b>: {point.y}',
+          },
+          colors: ['rgb(0, 226, 114)', 'rgb(107, 138, 188)', 'orange'],
+        },
+      },
+      series: [
+        {
+          data: [
+            { name: 'Completed', y: this.completedTests },
+            { name: 'In Progress', y: 0 },
+            {
+              name: 'Not Started',
+              y: this.totalAssignedUsers - this.completedTests,
+            },
+          ],
+          type: 'pie',
+        },
+      ],
+    };
+  }
+
+  handleExamStatObject(examStat: ExamStatsModel) {
+    this.completedTests = examStat.testsCompletedUsers;
+    return true;
+  }
+
+  handleExamObject(exam: Exam) {
+    this.totalAssignedUsers = exam.users.length;
+    return true;
   }
   navigateToUserResult() {
     this.router.navigate(['admin/result/users-result', this.examCode]);
-  }
-  calculatePercentage(): {
-    completedPercentage: number;
-    remainingPercentage: number;
-  } {
-    const completedPercentage =
-      (this.completedTests / this.totalAssignedUsers) * 100;
-    const roundedCompletedPercentage = parseFloat(
-      completedPercentage.toFixed(2)
-    );
-    const remainingPercentage = 100 - completedPercentage;
-    console.log(completedPercentage, remainingPercentage);
-    return {
-      completedPercentage: roundedCompletedPercentage,
-      remainingPercentage,
-    };
   }
 }

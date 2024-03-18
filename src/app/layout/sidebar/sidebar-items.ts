@@ -23,7 +23,6 @@ export const ROUTES: RouteInfo[] = [
     role: ['invigilator'],
     submenu: [],
   },
-  
 
   //invigilator Module
 
@@ -37,7 +36,6 @@ export const ROUTES: RouteInfo[] = [
     role: ['invigilator'],
     submenu: [],
   },
-
 
   //User Modules
 
@@ -74,23 +72,23 @@ export const ROUTES: RouteInfo[] = [
   },
   {
     path: '',
-    title: 'Question Papers',
+    title: 'Subjects',
     modulename: 'questionPapers',
     iconType: 'feather',
     icon: 'fa-solid fa-pen',
     class: 'menu-toggle',
     role: ['Admin'],
     submenu: [
-      {
-        path: '/admin/questionPapers/viewPapers',
-        title: 'View Papers',
-        modulename: 'questionPapers',
-        iconType: '',
-        icon: '',
-        class: 'ml-menu',
-        role: [''],
-        submenu: [],
-      },
+      // {
+      //   path: '/admin/questionPapers/viewPapers',
+      //   title: 'View Papers',
+      //   modulename: 'questionPapers',
+      //   iconType: '',
+      //   icon: '',
+      //   class: 'ml-menu',
+      //   role: [''],
+      //   submenu: [],
+      // },
       // {
       //   path: "/admin/questionPapers/createPaper",
       //   title: "Create Paper",
@@ -140,19 +138,18 @@ export const ROUTES: RouteInfo[] = [
     iconType: 'father',
     icon: 'fa-solid fa-square-poll-vertical',
     class: 'menu-toggle',
-    role: ['invigilator','admin'],
+    role: ['invigilator', 'admin'],
     submenu: [
       {
-        path: '/admin/result/home',
-        title: 'Home',
+        path: '/admin/result/view-results',
+        title: 'View Results',
         modulename: 'exams',
         iconType: '',
         icon: '',
         class: 'ml-menu',
         role: [''],
         submenu: [],
-      }
-
+      },
     ],
   },
   {
@@ -227,14 +224,14 @@ export const ROUTES: RouteInfo[] = [
     role: ['Admin', 'invigilator', 'user'],
     submenu: [],
   },
-  {
-    path: '',
-    title: 'Settings',
-    modulename: 'Settings',
-    iconType: 'father',
-    icon: 'fa-solid fa-wrench',
-    class: 'menu-toggle',
-    role: ['Admin', 'invigilator', 'user'],
-    submenu: [],
-  },
+  // {
+  //   path: '',
+  //   title: 'Settings',
+  //   modulename: 'Settings',
+  //   iconType: 'father',
+  //   icon: 'fa-solid fa-wrench',
+  //   class: 'menu-toggle',
+  //   role: ['Admin', 'invigilator', 'user'],
+  //   submenu: [],
+  // },
 ];

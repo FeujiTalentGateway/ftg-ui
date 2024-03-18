@@ -16,6 +16,7 @@ import { SubjectService } from 'src/app/services/subject.service';
 export class ViewSubjectsComponent implements OnInit {
   subjects: Subject[] = [];
   isDeleteModalOpen: boolean = false;
+  isActive:boolean=true;
   subjectsSubscription: Subscription = new Subscription();
   displayedColumns: string[] = ['serialNumber', 'name', 'action'];
   modifyingMessage: string = '';
@@ -45,7 +46,23 @@ export class ViewSubjectsComponent implements OnInit {
       this.getAllSubjects();
     });
   }
+  toggle(value:boolean){
+    if(value){
+      this.toggleValue=value;
+      this.isActive=true;
+      this.getAllSubjects();
+    }
+    else{
+      this.toggleValue=value;
+      this.isActive=false;
+      this.getAllSubjects();
+    }
+
+
+  }
+
   getAllSubjects() {
+    console.log(this.toggleValue);
     this.subjectsSubscription = this.subjectService
       .getUnSubscribedSubjectsByActiveStatus(this.toggleValue)
       .subscribe({
@@ -54,7 +71,7 @@ export class ViewSubjectsComponent implements OnInit {
             ...subject,
             serialNumber: index + 1,
           }));
-          console.log('refreshing.......');
+          // console.log('refreshing.......');
           // Initialize MatTableDataSource with the data
           this.dataSource = new MatTableDataSource(this.subjects);
           this.dataSource.paginator = this.paginator;

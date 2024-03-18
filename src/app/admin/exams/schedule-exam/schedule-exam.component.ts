@@ -80,13 +80,15 @@ export class ScheduleExamComponent implements OnInit {
         description: ['', [Validators.required, Validators.maxLength(250)]],
         examCode: ['', [Validators.required, Validators.maxLength(50)]],
         duration: [
-          '',
+          '01:00:00',
           [
             Validators.required,
             Validators.pattern(/^([0-9][0-9]):([0-5][0-9]):([0-5][0-9])$/),
           ],
         ],
-
+        hours: ['00', Validators.required],
+        minutes: ['00', Validators.required],
+        seconds: ['00', Validators.required],
         startDate: ['', Validators.required],
         endDate: ['', Validators.required],
         active: [false, Validators.required],
@@ -128,18 +130,6 @@ export class ScheduleExamComponent implements OnInit {
               subjectName: [selectedSubject.name, Validators.required],
               maxQuestions: ['', Validators.required],
               startingDifficultyLevel: ['', Validators.required],
-              duration: [
-                '',
-                [
-                  Validators.required,
-                  Validators.pattern(
-                    /^([0-9][0-9]):([0-5][0-9]):([0-5][0-9])$/
-                  ),
-                ],
-              ],
-              hours: ['00', Validators.required],
-              minutes: ['00', Validators.required],
-              seconds: ['00', Validators.required],
             })
           );
         }
@@ -181,6 +171,7 @@ export class ScheduleExamComponent implements OnInit {
       'yyyy-MM-dd'
     );
     const formattedEndDate = this.datePipe.transform(endDateObj, 'yyyy-MM-dd');
+    let [hours, minutes, seconds] = this.exam!.duration.split(':');
     // Set the form values
     this.examForm.setValue({
       id: this.exam!.id,
@@ -188,6 +179,9 @@ export class ScheduleExamComponent implements OnInit {
       description: this.exam!.description,
       examCode: this.exam!.examCode,
       duration: this.exam!.duration,
+      hours: hours,
+      minutes: minutes,
+      seconds: seconds,
       startDate: formattedStartDate,
       endDate: formattedEndDate,
       active: this.exam!.active,
@@ -199,16 +193,11 @@ export class ScheduleExamComponent implements OnInit {
     console.log(this.examForm.value);
     if (this.exam!.examSubjects) {
       this.exam!.examSubjects.forEach((examSubject: ExamSubject) => {
-        let [hours, minutes, seconds] = examSubject.duration.split(':');
         this.examSubjectsArray.push(
           this.fb.group({
             id: examSubject.id,
             maxQuestions: examSubject.maxQuestions,
             startingDifficultyLevel: examSubject.startingDifficultyLevel,
-            duration: examSubject.duration,
-            hours: hours,
-            minutes: minutes,
-            seconds: seconds,
             subjectName: examSubject.subject.name,
             subject: {
               id: examSubject.subject.id,
@@ -276,50 +265,14 @@ export class ScheduleExamComponent implements OnInit {
     return null;
   }
   mapSubDurationToDuration() {
-    this.examSubjectsArray.controls.map((control) => {
-      let hours = control.get('hours')?.value;
-      let minutes = control.get('minutes')?.value;
-      let seconds = control.get('seconds')?.value;
-      let combinedDuration = `${String(hours).padStart(2, '0')}:${String(
-        minutes
-      ).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-      control.get('duration')?.setValue(combinedDuration);
-    });
-    this.updateExamDuration();
-  }
-
-  updateExamDuration() {
-    let durationList = this.examSubjectsArray.controls
-      .map((control) => control.get('duration')?.value)
-      .filter((duration) => duration !== '');
-    let totalDurationInMilliSeconds = this.calculateTotalDuration(durationList);
-    let totalDuration = this.formatMillisecondsToTimeString(
-      totalDurationInMilliSeconds
-    );
-    this.examForm.get('duration')?.setValue(totalDuration);
-  }
-  calculateTotalDuration(durationsList: string[]): number {
-    return durationsList.reduce((totalMilliseconds, duration) => {
-      const milliseconds = this.parseTimeStringToMilliseconds(duration);
-      return totalMilliseconds + milliseconds;
-    }, 0);
-  }
-
-  parseTimeStringToMilliseconds(timeString: string): number {
-    const [hours, minutes, seconds] = timeString.split(':').map(Number);
-    return hours * 3600000 + minutes * 60000 + seconds * 1000;
-  }
-
-  formatMillisecondsToTimeString(milliseconds: number): string {
-    const totalSeconds = Math.floor(milliseconds / 1000);
-    const hours = Math.floor(totalSeconds / 3600);
-    const minutes = Math.floor((totalSeconds % 3600) / 60);
-    const seconds = totalSeconds % 60;
-
-    return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(
-      2,
-      '0'
-    )}:${String(seconds).padStart(2, '0')}`;
+    let hours = this.examForm.get('hours')?.value;
+    let minutes = this.examForm.get('minutes')?.value;
+    let seconds = this.examForm.get('seconds')?.value;
+    let combinedDuration = `${String(hours).padStart(2, '0')}:${String(
+      minutes
+    ).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+    this.examForm.get('duration')?.setValue(combinedDuration);
+    // this.updateExamDuration();
   }
 
   openAddUserModel() {

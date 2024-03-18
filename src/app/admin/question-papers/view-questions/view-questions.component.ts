@@ -14,6 +14,9 @@ import { QuestionsService } from 'src/app/services/questions.service';
   styleUrls: ['./view-questions.component.css'],
 })
 
+/**
+ * Represents the component responsible for viewing and managing questions.
+ */
 export class ViewQuestionsComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -56,7 +59,6 @@ export class ViewQuestionsComponent implements OnInit {
     private activatedRoute: ActivatedRoute
   ) {
     this.isDropdownOpen = Array(this.questions.length).fill(false);
-    
   }
 
   /**
@@ -87,10 +89,13 @@ export class ViewQuestionsComponent implements OnInit {
           console.error('Error fetching subjects:', error);
         }
       );
-
   }
+
   /**
-   * Retrieves questions based on the selected subject, page, and page size.
+   * Retrieves questions based on the selected page size.
+   * If a difficulty level is selected, filters the questions based on the selected subject, difficulty level, page, and page size.
+   * If a search query is provided, filters the questions based on the search query.
+   * Otherwise, retrieves all questions based on the selected subject, page, and page size.
    */
   getQuestionsBasedOnPageSize() {
     if (this.selectedLevel !== 0) {
@@ -111,34 +116,28 @@ export class ViewQuestionsComponent implements OnInit {
             console.error('Error fetching questions:', error);
           }
         );
-    }
-    else if(this.searchQuery) {
+    } else if (this.searchQuery) {
       this.getFilteredQuestionsBasedonSearchQuery();
-    }
-    else
-    this.questionRepository
-      .getAllQuestionsBySubjectId(
-        this.selectedSubject,
-        this.page,
-        this.pageSize
-      )
-      .subscribe(
-        (response) => {
-          console.log(response);
-          this.questionsList = response.results;
-          this.questionsLength = response.count;
-        },
-        (error) => {
-          console.error('Error fetching questions:', error);
-        }
-      );
+    } else
+      this.questionRepository
+        .getAllQuestionsBySubjectId(
+          this.selectedSubject,
+          this.page,
+          this.pageSize
+        )
+        .subscribe(
+          (response) => {
+            console.log(response);
+            this.questionsList = response.results;
+            this.questionsLength = response.count;
+          },
+          (error) => {
+            console.error('Error fetching questions:', error);
+          }
+        );
   }
-
   /**
    * Retrieves all questions based on the selected subject ID.
-   * Sets the page and page size, and makes a request to the question repository to fetch the questions.
-   * If the selected level is 0, it assigns the fetched questions to the questionsList property and updates the questionsLength property.
-   * If the selected level is not 0, it assigns the fetched questions to the questionsList property, updates the questionsLength property, and resets the selectedLevel to 0.
    */
   getAllQuestionsBasedOnSubjectId() {
     this.page = 1;
@@ -155,8 +154,10 @@ export class ViewQuestionsComponent implements OnInit {
           this.questionsList = response.results;
           this.questionsLength = response.count;
           console.log(response);
-          this.paginator.pageIndex = 0;
-
+          if (this.paginator != undefined) {
+            this.paginator.pageIndex = 0;
+          }
+          this.searchQuery = '';
         });
     } else {
       this.quesitonSubscirption = this.questionRepository
@@ -171,6 +172,7 @@ export class ViewQuestionsComponent implements OnInit {
           this.questionsLength = response.count;
           this.selectedLevel = 0;
           console.log(response);
+          this.searchQuery = '';
         });
     }
   }
@@ -193,7 +195,9 @@ export class ViewQuestionsComponent implements OnInit {
           console.log(response.results);
           this.questionsList = response.results;
           this.questionsLength = response.count;
-          this.paginator.pageIndex = 0;
+          if (this.paginator != undefined) {
+            this.paginator.pageIndex = 0;
+          }
         },
         (error) => {
           console.error('Error fetching filtered questions:', error);
@@ -221,7 +225,9 @@ export class ViewQuestionsComponent implements OnInit {
           console.log(response.results);
           this.questionsList = response.results;
           this.questionsLength = response.count;
-          this.paginator.pageIndex = 0;
+          if (this.paginator != undefined) {
+            this.paginator.pageIndex = 0;
+          }
         },
         (error) => {
           console.error('Error fetching filtered questions:', error);
@@ -232,8 +238,6 @@ export class ViewQuestionsComponent implements OnInit {
    * Retrieves filtered questions based on the search query.
    */
   getFilteredQuestionsBasedonSearchQuery() {
-    // this.page = 1;
-    // this.pageSize = 5;
     const lowercaseSearchQuery = this.searchQuery.toLowerCase();
     this.questionRepository
       .filterQuestionsBasedOnSearchQuery(
@@ -248,10 +252,7 @@ export class ViewQuestionsComponent implements OnInit {
           console.log(response.results);
           this.questionsList = response.results;
           this.questionsLength = response.count;
-          // this.page = 1;
           this.pageSize = 5;
-          this.paginator.pageIndex = 0;
-          
         },
         (error) => {
           console.error('Error fetching filtered questions:', error);
@@ -267,10 +268,9 @@ export class ViewQuestionsComponent implements OnInit {
       this.getFilteredQuestionsBasedonDifficultyLevelWithSearchQuery();
     } else if (this.selectedLevel !== 0) {
       this.getFilteredQuestionsBasedOnDifficultyLevel();
-    } else if(this.searchQuery) {
+    } else if (this.searchQuery) {
       this.getFilteredQuestionsBasedonSearchQuery();
-    }
-    else{
+    } else {
       this.getAllQuestionsBasedOnSubjectId();
     }
   }
@@ -325,6 +325,7 @@ export class ViewQuestionsComponent implements OnInit {
     this.subjectsSubscription.unsubscribe();
     this.quesitonSubscirption.unsubscribe();
   }
+
   /**
    * Checks if the given option is one of the right options for the question.
    * @param option - The option to check.

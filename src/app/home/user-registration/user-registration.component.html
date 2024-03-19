@@ -4,7 +4,7 @@
     <div class="col-md-8 col-lg-6">
       <div class="card login-card shadow p-3 rounded">
         <div class="card-body">
-          <h2 class="global-color text-center">SIGN IN</h2>
+          <h2 class="global-color text-center">SIGN UP</h2>
           <form
             [formGroup]="registerForm"
             (ngSubmit)="
@@ -237,25 +237,30 @@
                 >Confirm Password is required.
               </span>
             </div>
-            <div *ngIf="
+            <div
+              *ngIf="
                 registerForm.hasError('passwordMismatch') &&
                 getControl('confirmPassword')?.touched
-              ">
+              "
+            >
               <span class="text-danger">Passwords do not match. </span>
             </div>
-             <button class="button reg-btn global-background-color" type="submit"
-               [class.disabled-button]="registerForm.invalid">
-               Register
-             </button>
-             <div class="login-link globar-color text-center">
-               Already have an account?
-               <a [routerLink]="['/main/login']"><span class="global-color"> Login</span></a>
-             </div>
-           </form>
-         </div>
-       </div>
-     </div>
-   </div>
- </div>
- 
- 
+            <button
+              class="button reg-btn global-background-color"
+              type="submit"
+              [class.disabled-button]="registerForm.invalid"
+            >
+              Register
+            </button>
+            <div class="login-link globar-color text-center">
+              Already have an account?
+              <a [routerLink]="['/main/login']"
+                ><span class="global-color"> Login</span></a
+              >
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

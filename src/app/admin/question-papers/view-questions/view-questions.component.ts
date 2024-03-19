@@ -1,6 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
+import {
+  Subscription,
+  debounceTime,
+  throttleTime,
+  Subject as SubjectRxjs,
+} from 'rxjs';
 import { Question } from 'src/app/models/question';
 import { Subject } from 'src/app/models/subject';
 import { QuestionRepository } from 'src/app/repository/question-repository.service';
@@ -12,19 +18,26 @@ import { QuestionsService } from 'src/app/services/questions.service';
   templateUrl: './view-questions.component.html',
   styleUrls: ['./view-questions.component.css'],
 })
+
+/**
+ * Represents the component responsible for viewing and managing questions.
+ */
 export class ViewQuestionsComponent implements OnInit {
-  // questions:{id:number,question:string,options:string[],correctAnswer:string}[]=[]
-  difficultLevelList: number[] = Array.from({ length: 10 }, (_, index) => index + 1);
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+
+  difficultLevelList: number[] = Array.from(
+    { length: 10 },
+    (_, index) => index + 1
+  );
   selectedLevel!: number;
   isDeleteModalOpen: boolean = false;
   delitingQuestion: string = '';
   delitableQuestionId: number = 0;
   addExtraStyle: boolean = false;
-  pageSize = 4;
-  pageNumber = 0;
+  pageSize = 5;
+  page = 1;
   totalQuestion: any;
-  rows = 4;
-  first = 0;
+  rows = 5;
   options = [0, 5, 15, 20];
   searchQuestion = '';
   subjects: Subject[] = [];
@@ -34,8 +47,18 @@ export class ViewQuestionsComponent implements OnInit {
   subjectsSubscription: Subscription = new Subscription();
   quesitonSubscirption: Subscription = new Subscription();
   isDropdownOpen: boolean[] = [];
+  questionsList: Question[] = [];
+  questionsLength: number = 0;
+  private searchSubject: SubjectRxjs<string> = new SubjectRxjs<string>();
+  isLoading: boolean = false;
 
-  // paginator!:Paginator
+  /**
+   * Constructs a new instance of the ViewQuestionsComponent.
+   * @param service - The QuestionsService used for retrieving questions.
+   * @param questionRepository - The QuestionRepository used for managing question data.
+   * @param subjectRepository - The SubjectRepositoryService used for managing subject data.
+   * @param activatedRoute - The ActivatedRoute used for retrieving route parameters.
+   */
   constructor(
     private service: QuestionsService,
     private questionRepository: QuestionRepository,
@@ -44,117 +67,303 @@ export class ViewQuestionsComponent implements OnInit {
   ) {
     this.isDropdownOpen = Array(this.questions.length).fill(false);
   }
+
+  /**
+   * Initializes the component and sets up initial values and subscriptions.
+   */
   ngOnInit(): void {
-    this.selectedLevel=0;
-    const subjectQueryParam =
-      this.activatedRoute.snapshot.queryParamMap.get('subject');
-    this.selectedSubject = subjectQueryParam !== null ? +subjectQueryParam : 0; // Use a default value (e.g., 0) if subjectQueryParam is null
-    console.log(this.selectedSubject);
-    this.service.questionChanged$.subscribe(() => {
-      console.log('refreshing');
-      this.getQuesitonsBySubject();
+    this.searchSubject.pipe(debounceTime(1000)).subscribe(() => {
+      this.handleFiltering();
     });
-    // Subscribe to getSubjects and store the result in the subjects variable
+    this.selectedLevel = 0;
+    this.selectedSubject = 0;
+    this.service.questionChanged$.subscribe(() => {
+      this.handleFiltering();
+      
+    });
     this.subjectsSubscription = this.subjectRepository
       .getAllSubjectsByActiveStatus(true)
       .subscribe(
         (subjects: Subject[]) => {
           this.subjects = subjects;
-          // Initialize selectedSubject with the first subject
+          console.log(this.subjects);
           if (subjects.length > 0) {
-            console.log(this.selectedSubject);
             if (this.selectedSubject == 0) {
-              console.log(this.selectedSubject);
               this.selectedSubject = subjects[0].id;
             }
-            this.getQuesitonsBySubject();
+            this.handleFiltering();
           }
         },
         (error) => {
-          // Handle error if needed
           console.error('Error fetching subjects:', error);
         }
       );
   }
 
-  getQuesitonsBySubject() {
-    if(this.selectedLevel==0){
-    this.quesitonSubscirption = this.questionRepository
-      .getQuestionsBySubject(this.selectedSubject)
-      .subscribe(
-        (questions: Question[]) => {
-          this.questions = questions;
-          // Initialize selectedSubject with the first subject
-        },
-        (error) => {
-          // Handle error if needed
-          console.error('Error fetching questions:', error);
-        }
-      );
-    }
-    else{
-      this.quesitonSubscirption = this.questionRepository
-      .getQuestionsBySubject(this.selectedSubject)
-      .subscribe(
-        (questions: Question[]) => {
-          this.questions = questions.filter((question) =>
-          question.difficultyLevel==this.selectedLevel
+  /**
+   * Handles the search input event.
+   * @param event - The input event object.
+   */
+  handleSearchInput(event: any) {
+    const inputValue = (event.target as HTMLInputElement).value || '';
+    this.searchSubject.next(inputValue);
+  }
+
+  /**
+   * Retrieves questions based on the selected page size.
+   * If a difficulty level is selected, filters the questions based on the selected subject, difficulty level, page, and page size.
+   * If a search query is provided, filters the questions based on the search query.
+   * Otherwise, retrieves all questions based on the selected subject, page, and page size.
+   */
+  getQuestionsBasedOnPageSize() {
+    this.addloading();
+    if (this.selectedLevel !== 0) {
+      this.questionRepository
+        .filterQuestionsBasedOnDifficultyLevel(
+          this.selectedSubject,
+          this.selectedLevel,
+          this.page,
+          this.pageSize
+        )
+        .subscribe(
+          (response) => {
+            console.log(response);
+            this.questionsList = response.results;
+            this.questionsLength = response.count;
+            this.addloading();
+          },
+          (error) => {
+            console.error('Error fetching questions:', error);
+          }
         );
-          // Initialize selectedSubject with the first subject
+    } else if (this.searchQuery) {
+      this.getFilteredQuestionsBasedonSearchQuery();
+    } else
+      this.questionRepository
+        .getAllQuestionsBySubjectId(
+          this.selectedSubject,
+          this.page,
+          this.pageSize
+        )
+        .subscribe(
+          (response) => {
+            console.log(response);
+            this.questionsList = response.results;
+            this.questionsLength = response.count;
+            this.addloading();
+          },
+          (error) => {
+            console.error('Error fetching questions:', error);
+          }
+        );
+  }
+  /**
+   * Retrieves all questions based on the selected subject ID.
+   */
+  getAllQuestionsBasedOnSubjectId() {
+    this.isLoading = true;
+    this.page = 1;
+    this.pageSize = 5;
+    if (this.selectedLevel == 0) {
+      this.quesitonSubscirption = this.questionRepository
+        .getAllQuestionsBySubjectId(
+          this.selectedSubject,
+          this.page,
+          this.pageSize
+        )
+        .subscribe((response) => {
+          console.log(response.results);
+          this.questionsList = response.results;
+          this.questionsLength = response.count;
+          console.log(response);
+          if (this.paginator != undefined) {
+            this.paginator.pageIndex = 0;
+          }
+          this.searchQuery = '';
+          this.isLoading = false;
+        });
+    } else {
+      this.quesitonSubscirption = this.questionRepository
+        .getAllQuestionsBySubjectId(
+          this.selectedSubject,
+          this.page,
+          this.pageSize
+        )
+        .subscribe((response) => {
+          console.log(response.results);
+          this.questionsList = response.results;
+          this.questionsLength = response.count;
+          this.selectedLevel = 0;
+          console.log(response);
+          this.searchQuery = '';
+        });
+    }
+  }
+  /**
+   * Retrieves filtered questions based on the selected subject, difficulty level, page, and page size.
+   */
+  getFilteredQuestionsBasedOnDifficultyLevel() {
+    this.addloading();
+    this.page = 1;
+    this.pageSize = 5;
+    this.questionRepository
+      .filterQuestionsBasedOnDifficultyLevel(
+        this.selectedSubject,
+        this.selectedLevel,
+        this.page,
+        this.pageSize
+      )
+      .subscribe(
+        (response) => {
+          console.log(response);
+          this.addloading()
+          console.log(response.results);
+          this.questionsList = response.results;
+          this.questionsLength = response.count;
+          if (this.paginator != undefined) {
+            this.paginator.pageIndex = 0;
+          }
         },
         (error) => {
-          // Handle error if needed
-          console.error('Error fetching questions:', error);
+          console.error('Error fetching filtered questions:', error);
         }
       );
+  }
+  /**
+   * Retrieves filtered questions based on the selected difficulty level and search query.
+   */
+  getFilteredQuestionsBasedonDifficultyLevelWithSearchQuery() {
+    this.addloading();
+    this.page = 1;
+    this.pageSize = 5;
+    const lowercaseSearchQuery = this.searchQuery.toLowerCase();
+    this.questionRepository
+      .filterQuestionsBasedOnDifficultyLevelWithSearchQuery(
+        this.selectedSubject,
+        this.selectedLevel,
+        this.page,
+        this.pageSize,
+        lowercaseSearchQuery
+      )
+      .subscribe(
+        (response) => {
+          console.log(response);
+          console.log(response.results);
+          this.questionsList = response.results;
+          this.questionsLength = response.count;
+          if (this.paginator != undefined) {
+            this.paginator.pageIndex = 0;
+          }
+          this.addloading();
+        },
+        (error) => {
+          console.error('Error fetching filtered questions:', error);
+        }
+      );
+  }
+  /**
+   * Retrieves filtered questions based on the search query.
+   */
+  getFilteredQuestionsBasedonSearchQuery() {
+    // this.page = 1;
+    // this.pageSize = 5;
+    // this.paginator.pageIndex = 0;
+    this.addloading();
+    const lowercaseSearchQuery = this.searchQuery.toLowerCase();
+    this.questionRepository
+      .filterQuestionsBasedOnSearchQuery(
+        this.selectedSubject,
+        this.page,
+        this.pageSize,
+        lowercaseSearchQuery
+      )
+      .subscribe(
+        (response) => {
+          console.log(response);
+          console.log(response.results);
+          this.questionsList = response.results;
+          this.questionsLength = response.count;
+          this.addloading();
+        },
+        (error) => {
+          console.error('Error fetching filtered questions:', error);
+        }
+      );
+  }
+
+  /**
+   * Handles the filtering of questions based on the selected level and search query.
+   */
+  handleFiltering() {
+    if (this.selectedLevel !== 0 && this.searchQuery) {
+      this.getFilteredQuestionsBasedonDifficultyLevelWithSearchQuery();
+    } else if (this.selectedLevel !== 0) {
+      this.getFilteredQuestionsBasedOnDifficultyLevel();
+    } else if (this.searchQuery) {
+      this.getFilteredQuestionsBasedonSearchQuery();
+    } else {
+      this.getAllQuestionsBasedOnSubjectId();
     }
   }
 
-
-  get paginatedQuestions() {
-    const startIndex = this.pageNumber * this.pageSize;
-    const endIndex = startIndex + this.pageSize;
-    return this.filteredQuestions.slice(startIndex, endIndex);
-  }
-
-  get filteredQuestions() {
-    return this.questions.filter((question) =>
-      question.content.toLowerCase().includes(this.searchQuery.toLowerCase())
-    );
-  }
-
-  // Handling page change event from mat-paginator
+  /**
+   * Handles the page change event.
+   * @param event - The page change event object.
+   */
   onPageChange(event: any) {
-    this.pageNumber = event.pageIndex;
+    this.page = event.pageIndex + 1;
     this.pageSize = event.pageSize;
+    this.getQuestionsBasedOnPageSize();
   }
 
+  /**
+   * Deletes a question with the specified ID.
+   * @param id - The ID of the question to delete.
+   */
   deleteQuestion(id: any) {
     this.delitableQuestionId = id;
     this.openDeleteModal();
     this.delitingQuestion = 'Are you sure you want to delete this question';
   }
 
+  /**
+   * Opens the delete modal.
+   */
   openDeleteModal() {
     this.isDeleteModalOpen = true;
   }
 
+  /**
+   * Deletes the question after confirmation.
+   */
   deleteQuestionAfterConfirmation() {
     this.service.deleteQuestion(this.delitableQuestionId);
     this.closeDeleteModal();
   }
 
+  /**
+   * Closes the delete modal.
+   */
   closeDeleteModal() {
     this.isDeleteModalOpen = false;
   }
 
+  /**
+   * Lifecycle hook that is called when the component is destroyed.
+   * It is used to perform any necessary cleanup tasks before the component is removed from the DOM.
+   */
   ngOnDestroy(): void {
-    // Unsubscribe to avoid memory leaks
     this.subjectsSubscription.unsubscribe();
     this.quesitonSubscirption.unsubscribe();
   }
+
+  /**
+   * Checks if the given option is one of the right options for the question.
+   * @param option - The option to check.
+   * @param question - The question object.
+   * @returns A boolean value indicating whether the option is one of the right options for the question.
+   */
   setRightOptionOrNot(option: any, question: Question): Boolean {
-    // console.log(option, question);
     let optionFound = question.rightOptions?.find(
       (opt) => opt.id === option.id
     );
@@ -162,11 +371,15 @@ export class ViewQuestionsComponent implements OnInit {
     if (optionFound) {
       return true;
     }
-    // option.optionName === question.rightOption.optionName
-
     return false;
   }
 
+  /**
+   * Toggles the dropdown state for a specific index.
+   * If the dropdown is closed, it will open it. If the dropdown is open, it will close it.
+   *
+   * @param index - The index of the dropdown to toggle.
+   */
   toggleDropdown(index: number) {
     if (!this.isDropdownOpen[index]) {
       this.isDropdownOpen = Array(this.questions.length).fill(false);
@@ -176,6 +389,11 @@ export class ViewQuestionsComponent implements OnInit {
     }
   }
 
+  /**
+   * Returns the CSS class based on the level.
+   * @param level - The level of the button.
+   * @returns The CSS class corresponding to the level.
+   */
   getStatusButtonClass(level: number): string {
     switch (level) {
       case 1:
@@ -202,5 +420,8 @@ export class ViewQuestionsComponent implements OnInit {
       default:
         return 'common-level';
     }
+  }
+  addloading() {
+    this.isLoading = !this.isLoading;
   }
 }

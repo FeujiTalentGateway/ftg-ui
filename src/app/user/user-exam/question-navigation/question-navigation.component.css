@@ -1,0 +1,114 @@
+.container-fluid {
+  display: flex;
+  flex-wrap: wrap;
+  border: 1px solid #ccc;
+  width: 100%;
+  min-height: 410px;
+  padding: 0%;
+}
+ 
+.navigation-style {
+  flex: 0 0 25%;
+  text-align: center;
+  box-sizing: border-box;
+  padding: 5px;
+}
+ 
+.instructions {
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+ 
+.instruction-item {
+  width: 160px;
+  display: flex;
+}
+ 
+.info {
+  width: 2rem;
+  height: 2rem;
+  background-color: #ccc;
+  margin-right: 5px;
+  border-radius: 5px;
+}
+ 
+.navigation-numbers {
+  margin: 3px;
+  width: 70px;
+  border-radius: 5px;
+  height: 40px;
+  border: 1px solid #ccc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+ 
+h6 {
+  margin-bottom: 0px;
+}
+ 
+.option-info {
+  padding: 3px;
+  height: 30px;
+  width: 100%;
+  display: flex;
+  background-color: #ffe2d1;
+  justify-content: center;
+  align-items: center;
+}
+.answered {
+  cursor: pointer;
+  background-color: #76BE20;
+}
+.not-answered {
+  cursor: pointer;
+  background-color: #ED4907;
+}
+.disabled {
+  cursor: not-allowed;
+  background-color: #ccc;
+}.marked{
+  cursor: pointer;
+  background-color: #815da4;
+ 
+}
+ 
+p {
+  margin-bottom: 0px;
+}
+@media(min-width: 300px) and (max-width: 420px){
+ 
+  .navigation-numbers {
+    margin: 3px;
+    width: 50px;
+    border-radius: 5px;
+    height: 30px;
+    border: 1px solid #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+ 
+  }
+}
+@media(min-width: 200px) and (max-width: 300px){
+ 
+  .navigation-numbers {
+    margin: 3px;
+    width: 40px;
+    border-radius: 5px;
+    height: 20px;
+    border: 1px solid #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+ 
+  }
+}
+ 
+ 
+ 

@@ -11,6 +11,17 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSelectModule } from '@angular/material/select';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
+@NgModule({
+  imports: [
+    // Other imports
+    MatProgressSpinnerModule,
+  ],
+  // Other module configurations
+})
+export class AppModule { }
+
 
 @NgModule({
   declarations: [
@@ -27,7 +38,8 @@ import { MatSelectModule } from '@angular/material/select';
     MatIconModule,
     MatTooltipModule,
     MatPaginatorModule,
-    MatSelectModule
+    MatSelectModule,
+    MatProgressSpinnerModule
 
   ],
 })

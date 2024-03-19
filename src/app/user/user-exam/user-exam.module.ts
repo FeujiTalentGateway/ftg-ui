@@ -13,8 +13,9 @@ import { ResultChartComponent } from './result-chart/result-chart.component';
 import { UserExamRoutingModule } from './user-exam-routing.module';
 import { ViewExamsComponent } from './view-exams/view-exams.component';
 import { ViewResultComponent } from './view-result/view-result.component';
-import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatOptionModule } from '@angular/material/core';
+import { QuestionNavigationComponent } from './question-navigation/question-navigation.component';
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import { MatOptionModule } from '@angular/material/core';
     ExamSubmittedComponent,
     ResultChartComponent,
     RemoveInspectComponent,
+    QuestionNavigationComponent,
   ],
   imports: [
     CommonModule,

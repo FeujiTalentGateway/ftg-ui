@@ -126,6 +126,10 @@ export class QuestionsComponent implements OnInit, OnDestroy {
         this.updateNextSubject();
       }
     });
+    
+
+
+
   }
   constructor(
     private ExamRepo: ExamService,

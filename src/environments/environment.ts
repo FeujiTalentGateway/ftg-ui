@@ -4,5 +4,5 @@ export const environment = {
   adminUrl: 'http://localhost:8093/', // Development URL
   // adminUrl: 'http://35.154.116.10:8093/', // Production URL
   pythonUrl: 'http://127.0.0.1:8000/', // Development URL
-  // pythonUrl: 'http://35.154.116.10:8093/', // Production URL
+  // pythonUrl: 'http://35.154.116.10:8000/', // Production URL
 };

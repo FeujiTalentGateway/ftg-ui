@@ -265,6 +265,9 @@ export class ViewQuestionsComponent implements OnInit {
    * Retrieves filtered questions based on the search query.
    */
   getFilteredQuestionsBasedonSearchQuery() {
+    // this.page = 1;
+    // this.pageSize = 5;
+    // this.paginator.pageIndex = 0;
     this.addloading();
     const lowercaseSearchQuery = this.searchQuery.toLowerCase();
     this.questionRepository
@@ -280,7 +283,6 @@ export class ViewQuestionsComponent implements OnInit {
           console.log(response.results);
           this.questionsList = response.results;
           this.questionsLength = response.count;
-          this.pageSize = 5;
           this.addloading();
         },
         (error) => {

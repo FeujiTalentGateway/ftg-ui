@@ -43,14 +43,14 @@
       (input)="handleSearchInput($event)"
     />
   </div>
-  <div *ngIf="isLoading">
+  <!-- <div *ngIf="isLoading">
     <div class="spinner-container">
       <mat-spinner diameter="100"></mat-spinner>
     </div>
-  </div>
-  <div *ngIf="!isLoading">
+  </div> -->
+  <div>
     <div
-      *ngIf="!isLoading && questionsList.length > 0; else noQuestionsMessage"
+      *ngIf="questionsList.length > 0; else noQuestionsMessage"
     >
       <div class="row d-flex align-item-center justify-content-center">
         <div

@@ -1,3 +1,4 @@
+
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Exam } from 'src/app/models/exam.model';
@@ -14,14 +15,6 @@ export class ExamCodeComponent implements OnInit {
   currentExam: Exam | undefined;
 
   ngOnInit(): void {
-    this.examRepo.getStaticListOfExams().subscribe(
-      (response) => {
-        this.localExamArray = response;
-      },
-      (error) => {
-        console.log('error');
-      }
-    );
   }
 
   constructor(

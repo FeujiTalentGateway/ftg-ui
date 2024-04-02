@@ -285,6 +285,10 @@ input[type="text"]:focus {
     font-family: "Medium";
   }
 }
+.oops{
+  margin-top: 7% !important;
+  margin-left: 25% !important;
+}
 
 @media (min-width: 300px) and (max-width: 500px) {
   .bottom-container {

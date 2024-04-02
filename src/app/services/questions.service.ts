@@ -26,7 +26,7 @@ export class QuestionsService {
     private snackBarService: SnackBarService,
     private subjectRepository: SubjectRepositoryService
   ) {
-    this.getRestFullCall();
+    // this.getRestFullCall();
   }
   questionObservable = new Observable<any>((observable) => {
     observable.next(this.questions);

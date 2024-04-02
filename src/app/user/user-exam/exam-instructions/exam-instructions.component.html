@@ -1,4 +1,4 @@
-<section *ngIf="examDetailObject$ | async as questions; else loadingTemplate">
+<section *ngIf="examDetailObject$ | async as examDetails; else loadingTemplate">
   <div class="container shadow p-5">
     <div class="heading">
       <h2 class="exam-name">{{ examDetails.name }}</h2>
@@ -48,7 +48,6 @@
             <tr>
               <th scope="col">SN no</th>
               <th scope="col">Subject</th>
-              <th scope="col">Time</th>
               <th scope="col">Questions</th>
             </tr>
           </thead>
@@ -56,26 +55,34 @@
             <tr *ngFor="let subject of examDetails.examSubjects; index as i">
               <th scope="row">{{ i + 1 }}</th>
               <td>{{ subject.subject.name }}</td>
-              <td>{{ subject.duration | timeFormat }}</td>
               <td>{{ subject.maxQuestions }}</td>
             </tr>
           </tbody>
         </table>
       </div>
     </div>
-    <input type="checkbox" name="" id="" (click)="updateIsreaded()" class="ml-2">
-    <small for="">&nbsp;&nbsp;I have read and understood the instructions</small>
+    <input
+      type="checkbox"
+      name=""
+      id=""
+      (click)="updateIsreaded()"
+      class="ml-2"
+    />
+    <small for=""
+      >&nbsp;&nbsp;I have read and understood the instructions</small
+    >
     <div class="footer">
       <div>
-        <button
-          routerLink="/user/exam/exam-code"
-          class="btn btn-secondary "
-        >
+        <button routerLink="/user/exam/exam-code" class="btn btn-secondary">
           Back
         </button>
       </div>
       <div>
-        <button (click)="startExam()" class="btn btn-success submitt-button btn-custom" [disabled]="!this.isReaded">
+        <button
+          (click)="startExam()"
+          class="btn btn-success submitt-button btn-custom"
+          [disabled]="!this.isReaded"
+        >
           Start Exam
         </button>
       </div>

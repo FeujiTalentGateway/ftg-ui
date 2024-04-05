@@ -1,0 +1,26 @@
+.main-div{
+    background-color: rgb(241, 243, 245);
+    box-shadow: 0px 0px;
+}
+.coding-question-heading{
+  margin-bottom: 0;
+  color: #5b626b;
+  font-weight: 600;
+  font-size: x-large;
+  padding: 0.5rem 1rem;
+  margin-top: 5px;
+}
+form {
+    background-color: rgb(241, 243, 245);
+    /* margin: -1px 20px 2px 25px; */
+    padding: 0.5rem 0.3rem;
+}
+label {
+    font-family: var(--font-family);
+    font-weight: var(--label-font-weight);
+    font-size: var(--label-font-size);
+    color: rgb(40, 36, 36);
+}
+.form-row {
+    margin-bottom: 5px;
+}

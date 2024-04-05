@@ -122,6 +122,16 @@ export const ROUTES: RouteInfo[] = [
         submenu: [],
       },
       {
+        path: '/admin/questionPapers/codingQuestion',
+        title: 'Coding Questions',
+        modulename: 'questionPapers',
+        iconType: '',
+        icon: '',
+        class: 'ml-menu',
+        role: [''],
+        submenu: [],
+      },
+      {
         path: '/admin/exams/viewSubjects',
         title: 'Subjects',
         modulename: 'exams',

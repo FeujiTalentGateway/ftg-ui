@@ -1,0 +1,132 @@
+<div
+  class="container-fluid coding-question-heading"
+  *ngIf="!isEditCodingQuestion"
+>
+  Add Coding Question
+</div>
+<div *ngIf="isEditCodingQuestion">edit coding-question works!</div>
+
+<mat-horizontal-stepper linear #stepper class="main-div">
+    <mat-step [stepControl]="firstFormGroup">
+        <ng-template matStepLabel>Coding Question</ng-template>
+        <form [formGroup]="firstFormGroup">
+          <div class="form-row">
+            <label for="content">Question<sup class="required-field">*</sup></label>
+            <div>
+              <input
+                id="content"
+                class="form-control"
+                type="text"
+                
+              />
+              <!-- <div class="error-div" *ngIf="firstFormGroup.get('content').invalid && firstFormGroup.get('content').touched">
+                <span class="text-danger">Question is required</span>
+              </div> -->
+            </div>
+          </div>
+          <div class="form-row">
+            <label for="description">Description<sup class="required-field">*</sup></label>
+            <div>
+              <input
+                id="description"
+                class="form-control"
+                type="text"
+              />
+              <!-- <div class="error-div" *ngIf="firstFormGroup.get('description').invalid && firstFormGroup.get('description').touched">
+                <span class="text-danger">Description is required</span>
+              </div> -->
+            </div>
+          </div>
+          <div class="form-row">
+            <label for="difficultyLevel">Difficulty Level<sup class="required-field">*</sup></label>
+            <div>
+              <select id="difficultyLevel" class="form-select">
+                <!-- <option value="{{ difficultyLevel }}" *ngFor="let difficultyLevel of difficultLevelList">
+                  {{ difficultyLevel }}
+                </option> -->
+              </select>
+              <!-- <div class="error-div" *ngIf="firstFormGroup.get('difficultyLevel').invalid && firstFormGroup.get('difficultyLevel').touched">
+                <span class="text-danger">Difficulty level is required</span>
+              </div> -->
+            </div>
+          </div>
+          <div class="mt-3">
+            <button mat-button matStepperNext class="btn btn-outline-secondary">Add Method</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step [stepControl]="firstFormGroup">
+        <ng-template matStepLabel>Add Method</ng-template>
+        <form [formGroup]="firstFormGroup">
+          <div class="form-row">
+            <label for="content">Method Name<sup class="required-field">*</sup></label>
+            <div>
+              <input
+                id="content"
+                class="form-control"
+                type="text"
+                
+              />
+              <!-- <div class="error-div" *ngIf="firstFormGroup.get('content').invalid && firstFormGroup.get('content').touched">
+                <span class="text-danger">Question is required</span>
+              </div> -->
+            </div>
+          </div>
+          <div class="form-row">
+            <label for="description">Arguments<sup class="required-field">*</sup></label>
+            <div>
+              <input
+                id="description"
+                class="form-control"
+                type="text"
+              />
+              <!-- <div class="error-div" *ngIf="firstFormGroup.get('description').invalid && firstFormGroup.get('description').touched">
+                <span class="text-danger">Description is required</span>
+              </div> -->
+            </div>
+          </div>
+          <div class="form-row">
+            <label for="description">Return Type<sup class="required-field">*</sup></label>
+            <div>
+              <input
+                id="description"
+                class="form-control"
+                type="text"
+              />
+              <!-- <div class="error-div" *ngIf="firstFormGroup.get('description').invalid && firstFormGroup.get('description').touched">
+                <span class="text-danger">Description is required</span>
+              </div> -->
+            </div>
+          </div>
+          <div>
+            <button mat-button matStepperPrevious class="btn btn-outline-secondary">Back</button>
+            <button mat-button matStepperNext class="btn btn-outline-success">Preview & Save</button>
+          </div>
+        </form>
+      </mat-step>
+      
+  <mat-step [stepControl]="firstFormGroup" [optional]="isOptional">
+    <form>
+      <ng-template matStepLabel>Test Cases</ng-template>
+      <mat-form-field>
+        <input
+          matInput
+          placeholder="Address"
+          required
+        />
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Preview & Save</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Preview & Save</ng-template>
+    You are now done.
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button (click)="stepper.reset()">Reset</button>
+    </div>
+  </mat-step>
+</mat-horizontal-stepper>

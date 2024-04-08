@@ -24,7 +24,6 @@ export class MainHeaderComponent implements OnInit {
 
   toggleDropdown() {
     this.showDropdown = !this.showDropdown;
-    console.log('ok');
   }
 
   logOut() {

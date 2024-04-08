@@ -34,7 +34,6 @@ export class QuestionsService {
   getRestFullCall() {
     this.questionRepository.getAllQuestions().subscribe({
       next: (response) => {
-        console.log(response);
         this.questions = response;
       },
     });
@@ -45,7 +44,6 @@ export class QuestionsService {
   addQuestion(question: any) {
     this.questionRepository.addQuestion(question).subscribe({
       next: (response: any) => {
-        console.log(response);
         this.formSubmitSucceed.next();
         this.snackBarService.openSnackBar(
           'Question added successfully',
@@ -63,7 +61,6 @@ export class QuestionsService {
   editQuestion(question: any) {
     this.questionRepository.editQuestion(question).subscribe({
       next: (response) => {
-        console.log(response);
         this.formSubmitSucceed.next();
         this.route.navigate(['/admin/questionPapers/viewQuestions'], {
           queryParams: { subject: question.subject.id },
@@ -79,7 +76,6 @@ export class QuestionsService {
   deleteQuestion(id: number) {
     this.questionRepository.deleteQuestion(id).subscribe({
       next: (response: any) => {
-        console.log(response);
         this.questionChanged.next();
         this.snackBarService.openSnackBar(
           'Question deleted successfully',

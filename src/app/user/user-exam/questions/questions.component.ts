@@ -67,7 +67,6 @@ export class QuestionsComponent implements OnInit, OnDestroy {
         response.question['optionSelected'] = [];
         response.question['isMarkedForReview'] = false;
         this.currentQuestion = response.question;
-        console.log(this.currentQuestion, 'this.currentQuestion');
  
         this.examAttemptID = response.attemptId;
         this.sharedData.updateExamAttempt(this.examAttemptID as number);
@@ -75,7 +74,6 @@ export class QuestionsComponent implements OnInit, OnDestroy {
         this.listOfQuestion.push(response.question);
         this.exam.examSubjects[this.indexPositionOfTheExam].isTimeUp = false;
         this.updateExamTimeConfirmation();
-        console.log(this.exam.examSubjects, 'this.exam.examSubjects');
  
         this.listOfQuestionEachSubject.push({
           subjectId: this.currentSubject?.subject.id ?? 0,
@@ -84,10 +82,6 @@ export class QuestionsComponent implements OnInit, OnDestroy {
           reamingTime: this.getRemainingTime(),
           isVisited: true,
         });
-        console.log(
-          this.listOfQuestionEachSubject,
-          'this.listOfQuestionEachSubject'
-        );
       },
       (error) => {}
     );
@@ -113,9 +107,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
     this.subjectStatus$ = this.sharedData.subjectStatus$;
     this.subjectStatus$.subscribe((response) => {
       if (response != null) {
-        console.log(response, 'response');
         let id = response.id;
-        console.log(id, 'id');
         this.exam.examSubjects.map((item) => {
           if (item.id == id) {
             item.isTimeUp = true;
@@ -252,7 +244,6 @@ export class QuestionsComponent implements OnInit, OnDestroy {
    * @method updateOption() this method is for updating the option
    */
   updateOption(currentQuestionData: any) {
-    console.log(currentQuestionData, 'currentQuestionData');
  
     this.question$ = this.ExamRepo.submitQuestion(currentQuestionData);
     this.question$.subscribe((response) => {
@@ -303,7 +294,6 @@ export class QuestionsComponent implements OnInit, OnDestroy {
     optionArray = this.currentQuestion?.optionSelected?.map(
       (opt) => opt.id
     ) as [];
-    console.log(optionArray, 'optionArray');
     if (optionArray === undefined) {
       return [];
     }
@@ -416,7 +406,6 @@ export class QuestionsComponent implements OnInit, OnDestroy {
         this.examAttemptID as number,
         subject.subject.id
       ).subscribe((response: any) => {
-        console.log(response, 'response');
         this.listOfQuestion = response;
         this.childComponent.previousQuestion(this.currentQuestionIndex);
  
@@ -513,16 +502,13 @@ export class QuestionsComponent implements OnInit, OnDestroy {
     let isSubjectAvailable = examSubjectsList.some(
       (item) => item.isTimeUp == false
     );
-    console.log(isSubjectAvailable, 'isSubjectAvailable');
     if (isSubjectAvailable) {
       let nextSubject = examSubjectsList.find((item) => item.isTimeUp == false);
       let indexPositionOfSubject = examSubjectsList.findIndex(
         (item) => item.id == nextSubject?.id
       );
-      console.log(indexPositionOfSubject, 'indexPositionOfSubject');
       this.sharedData.updateSubjectIndex(indexPositionOfSubject);
  
-      console.log(nextSubject, 'nextSubject');
       if (nextSubject != undefined) {
         this.currentSubject = nextSubject;
         let subjectIsExits = this.checkSubjectIsExitsOrNot(this.currentSubject);
@@ -568,7 +554,6 @@ export class QuestionsComponent implements OnInit, OnDestroy {
     if (this.currentQuestion?.isMarkedForReview !== undefined) {
       this.currentQuestion.isMarkedForReview =
         !this.currentQuestion.isMarkedForReview;
-      console.log(this.currentQuestion);
     }
   }
  
@@ -648,8 +633,6 @@ export class QuestionsComponent implements OnInit, OnDestroy {
    */
   changeSubjectAndGetFirstQuestion() {
     this.nextSubjectLoading = false;
-    console.log('i am in changeSubjectAndGetFirstQuestion');
- 
     let checkAlreadyVisited = this.listOfQuestionEachSubject.some(
       (item) => item.subjectId == this.currentSubject?.subject.id
     );

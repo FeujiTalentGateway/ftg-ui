@@ -30,16 +30,12 @@ export class ExamCodeComponent implements OnInit {
       (exam) => exam.examCode == this.examCode
     );
 
-    console.log(this.currentExam);
     //   on production
       this.examRepo.checkExamAvailableForUserOrNot(this.examCode).subscribe(
         (response) => {
-          console.log(response);
           this.router.navigate(['/user/exam/exam-instructions', this.examCode]);
         },
         (error) => {
-          console.log(error);
-          console.log(error.error);
           this.auth.openSnackBar(error.error.error, 'close');
           if (error.status == 0){
             alert("service not Available")

@@ -15,14 +15,10 @@ export class AuthRepositoryService {
   }
 
   register(data: any): Observable<any> {
-    console.log('Inside auth repo: register()');
-    console.log(this.baseUrl);
-
     return this.http.post(this.baseUrl + 'registration/register', data);
   }
 
   login(loginData: UserLoginModel): Observable<any> {
-    console.log('Inside auth repo: login()');
     return this.http.post(this.baseUrl + 'auth/login', loginData);
   }
   sendOtpToEmail(email: string): Observable<any> {  

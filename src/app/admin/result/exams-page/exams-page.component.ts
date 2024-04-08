@@ -43,7 +43,6 @@ ngOnDestroy(): void {
   
 }
 viewResultByExamId(examCode : string){
-  console.log(examCode);
   this.route.navigate(['admin/result/summary',examCode])
 
 

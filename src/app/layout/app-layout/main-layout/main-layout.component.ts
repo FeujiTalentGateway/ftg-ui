@@ -22,7 +22,6 @@ export class MainLayoutComponent implements OnInit {
         // localStorage.setItem('userName', response);
       },
       (error) => {
-        console.log(error);
       }
     );
   }

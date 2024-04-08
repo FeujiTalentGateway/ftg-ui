@@ -26,7 +26,6 @@ export class ViewResultComponent {
     this.activatedRoute.paramMap.subscribe((params) => {
       this.examCode = params.get('examCode') as string;
       this.examAttemptId = params.get('examAttemptId') as string;
-      console.log(this.examCode, this.examAttemptId);
       this.result$ = this.examService.getResult(
         this.examAttemptId,
         this.examCode
@@ -34,10 +33,8 @@ export class ViewResultComponent {
       this.result$.subscribe(
         (response) => {
           this.result = response;
-          console.log(this.result);
         },
         (error) => {
-          console.log(error);
         }
       );
     });

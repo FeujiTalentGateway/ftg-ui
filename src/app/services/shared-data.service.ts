@@ -65,8 +65,6 @@ export class SharedDataService {
     this.remainingTime.next(time);
   }
   updateSubjectStatus(status: any) {
-    console.log(status, 'status');
-    
     this.subjectStatus.next(status);
   }
   callSubmitExam(isSystemSubmitted: boolean) {

@@ -33,4 +33,14 @@ describe('MainHomeComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+      // When the user tries to leave the page, the method should return a confirmation message
+      it('should return a confirmation message when the user tries to leave the page', () => {
+        const component = new MainHomeComponent();
+        const event = new Event("beforeunload");
+        const confirmationMessage = "Are you sure you want to leave? All your progress will be lost.";
+    
+        const result = component.unloadHandler(event);
+    
+        expect(result).toBe(confirmationMessage);
+      });
 });

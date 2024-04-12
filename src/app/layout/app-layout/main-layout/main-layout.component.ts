@@ -3,6 +3,8 @@ import { BehaviorSubject } from 'rxjs';
 import { User } from 'src/app/models/user.model';
 import { UserdetailsService } from 'src/app/services/userdetails.service';
 import { Observable } from 'rxjs';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-main-layout',
@@ -14,6 +16,7 @@ export class MainLayoutComponent implements OnInit {
   userName: any;
   layoutCollapsed: boolean = false;
   userName$ = new Observable<string>();
+  showFiller = false;
   constructor(private userDetails: UserdetailsService) {}
   ngOnInit(): void {
     this.userName$ = this.userDetails.getUserNameFromToken();
@@ -22,6 +25,7 @@ export class MainLayoutComponent implements OnInit {
         // localStorage.setItem('userName', response);
       },
       (error) => {
+        console.log(error);
       }
     );
   }

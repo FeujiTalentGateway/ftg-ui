@@ -12,7 +12,6 @@ import { MatDrawer } from '@angular/material/sidenav';
 export class MainLayoutComponent implements OnInit {
   userData: User = new User();
   userName: any;
-  layoutCollapsed: boolean = false;
   userName$ = new Observable<string>();
   showFiller = false;
   constructor(private userDetails: UserdetailsService) {}
@@ -35,7 +34,6 @@ export class MainLayoutComponent implements OnInit {
     roles_list_: 1,
   };
   toggleLayout() {
-    this.layoutCollapsed = !this.layoutCollapsed;
     this.drawer.toggle();
   }
 }

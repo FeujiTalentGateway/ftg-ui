@@ -9,7 +9,7 @@ import { ScheduleExamService } from 'src/app/services/schedule-exam.service';
   templateUrl: './view-exams.component.html',
   styleUrls: ['./view-exams.component.css'],
 })
-export class ViewExamsComponent implements OnInit,OnDestroy{
+export class ViewExamsComponent implements OnInit{
   listOfExams :Exam[] =[]
 
 
@@ -44,8 +44,5 @@ formatDate(date :string){
 }
 getStatus(status: boolean){
   return  status ?"ACTIVE":'INACTIVE';
-}
-ngOnDestroy(): void {
-  
 }
 }

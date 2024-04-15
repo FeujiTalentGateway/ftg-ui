@@ -39,7 +39,6 @@ export class ViewResultComponent {
       );
     });
   }
-  calculateScore() {}
   getTheMassage(question: ResultTimeQuestion): string {
     if (question.correct_option_id == question.selected_option_id) {
       return 'Correct Option';

@@ -38,7 +38,17 @@ describe('ConfirmDialogforuserComponent', () => {
       declarations: [ConfirmDialogforuserComponent],
       providers: [
         { provide: MatDialogRef, useValue: mockMatDialogRef },
-        { provide: MAT_DIALOG_DATA, useValue: {} } // Provide a mock implementation
+        { provide: MAT_DIALOG_DATA, useValue: {} } ,// Provide a mock implementation,
+        {
+          provide: MatDialogRef,
+          useValue: {
+            close: () => {}
+          }
+        },
+        {
+          provide: MAT_DIALOG_DATA,
+          useValue: { title: 'Test Title', message: 'Test Message', note: 'Test Note' }
+        }
       ]
     });
     fixture = TestBed.createComponent(ConfirmDialogforuserComponent);
@@ -50,25 +60,27 @@ describe('ConfirmDialogforuserComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  // Emits a true value through the confirmBox EventEmitter.
-  // it('should emit true value through confirmBox EventEmitter', () => {
-  //   const emitSpy = spyOn(component.confirmBox, 'emit').and.callThrough();
-  //   const closeSpy = spyOn(component.dialogRef, 'close').and.callThrough();
+  it('should emit true on confirm', () => {
+    spyOn(component.confirmBox, 'emit');
+    component.confirm();
+    expect(component.confirmBox.emit).toHaveBeenCalledWith(true);
+  });
 
-  //   component.confirm();
+  it('should emit false on cancel', () => {
+    spyOn(component.confirmBox, 'emit');
+    component.cancel();
+    expect(component.confirmBox.emit).toHaveBeenCalledWith(false);
+  });
 
-  //   expect(emitSpy).toHaveBeenCalledWith(true);
-  //   expect(closeSpy).toHaveBeenCalled();
-  // });
+  it('should close the dialog on confirm', () => {
+    spyOn(component.dialogRef, 'close');
+    component.confirm();
+    expect(component.dialogRef.close).toHaveBeenCalled();
+  });
 
-  // // Emits a false value through the confirmBox EventEmitter
-  // it('should emit false value through confirmBox EventEmitter when cancel is called', () => {
-  //   const emitSpy = spyOn(component.confirmBox, 'emit').and.callThrough();
-  //   const closeSpy = spyOn(component.dialogRef, 'close').and.callThrough();
-
-  //   component.cancel();
-
-  //   expect(emitSpy).toHaveBeenCalledWith(false);
-  //   expect(closeSpy).toHaveBeenCalled();
-  // });
+  it('should close the dialog on cancel', () => {
+    spyOn(component.dialogRef, 'close');
+    component.cancel();
+    expect(component.dialogRef.close).toHaveBeenCalled();
+  });
 });

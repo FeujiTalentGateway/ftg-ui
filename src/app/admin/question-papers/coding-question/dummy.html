@@ -1,0 +1,273 @@
+<mat-step [stepControl]="codingQuestionTestCaseDetailsForm">
+    <ng-template matStepLabel>Add Test Cases</ng-template>
+    <form [formGroup]="codingQuestionTestCaseDetailsForm">
+      <button
+        type="button"
+        class="btn btn-outline-secondary btn-md"
+        (click)="addTestCases()"
+      >
+        Add Test Cases&nbsp;&nbsp;<i class="fa-solid fa-circle-plus"></i>
+      </button>
+      <div formArrayName="listOfTestCases">
+        <div
+          *ngFor="let argument of listOfTestCases.controls; let i = index"
+          class="argument-container"
+          [formGroupName]="i"
+        >
+          <div class="form-row">
+            <div class="row" *ngFor="let test of listOfArguments.controls">
+              <div class="col-md-3">
+                <label for="inputArgumentPosition"
+                  >Input Argument Position<sup class="required-field"
+                    >*</sup
+                  ></label
+                >
+                <input
+                  id="inputArgumentPosition"
+                  class="form-control"
+                  type="text"
+                  [value]="test.value.argumentPosition"
+                  [disabled]="true"
+                />
+              </div>
+              <div class="col-md-3">
+                <label for="inputArgumentName"
+                  >Input Argument Name<sup class="required-field">*</sup></label
+                >
+                <input
+                  id="inputArgumentName"
+                  class="form-control"
+                  type="text"
+                  [value]="test.value.argumentName"
+                  [disabled]="true"
+                />
+              </div>
+              <div class="col-md-3">
+                <label for="inputArgumentDataType"
+                  >Input Argument Data Type<sup class="required-field"
+                    >*</sup
+                  ></label
+                >
+                <input
+                  id="inputArgumentDataType"
+                  class="form-control"
+                  type="text"
+                  [value]="test.value.newArgDataType"
+                  [disabled]="true"
+                />
+              </div>
+              <div class="col-md-3">
+                <label for="inputArgumentValue"
+                  >Input Argument Value<sup class="required-field"
+                    >*</sup
+                  ></label
+                >
+                <input
+                  id="inputArgumentValue"
+                  class="form-control"
+                  type="text"
+                  [value]="test.value.inputValue"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <label for="expectedResult"
+              >Expected Result<sup class="required-field">*</sup></label
+            >
+            <div>
+              <input
+                id="expectedResult"
+                class="form-control"
+                type="text"
+                formControlName="expectedResult"
+              />
+            </div>
+          </div>
+          <div class="form-row">
+            <label for="description"
+              >Example Explaination<sup class="required-field">*</sup></label
+            >
+            <div>
+              <input
+                id="description"
+                class="form-control"
+                type="text"
+                formControlName="exampleExplaination"
+              />
+            </div>
+          </div>
+          <button
+            type="button"
+            class="btn btn-danger btn-sm small"
+            (click)="removeTestCaseDetails(i)"
+          >
+            Remove
+          </button>
+        </div>
+      </div>
+      <div>
+        <button
+          mat-button
+          matStepperPrevious
+          class="btn btn-outline-secondary button mt-3"
+        >
+          Back
+        </button>
+        <button
+          mat-button
+          matStepperNext
+          class="btn btn-outline-success button mt-3"
+          (click)="printDetails()"
+        >
+          Preview & Save
+        </button>
+      </div>
+    </form>
+  </mat-step>
+  
+-----------------------------------------------
+
+
+  <mat-step [stepControl]="codingQuestionTestCaseDetailsForm">
+    <ng-template matStepLabel>Add Test Cases</ng-template>
+    <form [formGroup]="codingQuestionTestCaseDetailsForm">
+      <button
+        type="button"
+        class="btn btn-outline-secondary btn-md"
+        (click)="addTestCases()"
+      >
+        Add Test Cases&nbsp;&nbsp;<i class="fa-solid fa-circle-plus"></i>
+      </button>
+      <div formArrayName="listOfTestCases">
+        <div
+          *ngFor="let argument of listOfTestCases.controls; let i = index"
+          class="argument-container"
+          [formGroupName]="i"
+        >
+          <div class="form-row">
+            <div class="row" *ngFor="let test of listOfArguments.controls">
+              <div class="col-md-3">
+                <label for="inputArgumentPosition"
+                  >Input Argument Position<sup class="required-field"
+                    >*</sup
+                  ></label
+                >
+                <input
+                  id="inputArgumentPosition"
+                  class="form-control"
+                  type="text"
+                  [value]="test.value.argumentPosition"
+                  [disabled]="true"
+                />
+              </div>
+              <div class="col-md-3">
+                <label for="inputArgumentName"
+                  >Input Argument Name<sup class="required-field">*</sup></label
+                >
+                <input
+                  id="inputArgumentName"
+                  class="form-control"
+                  type="text"
+                  [value]="test.value.argumentName"
+                  [disabled]="true"
+                />
+              </div>
+              <div class="col-md-3">
+                <label for="inputArgumentDataType"
+                  >Input Argument Data Type<sup class="required-field"
+                    >*</sup
+                  ></label
+                >
+                <input
+                  id="inputArgumentDataType"
+                  class="form-control"
+                  type="text"
+                  [value]="test.value.newArgDataType"
+                  [disabled]="true"
+                />
+              </div>
+              <div class="col-md-3">
+                <label for="inputArgumentValue"
+                  >Input Argument Value<sup class="required-field"
+                    >*</sup
+                  ></label
+                >
+                <input
+                  id="inputArgumentValue"
+                  class="form-control"
+                  type="text"
+                  [value]="test.value.inputValue"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <label for="expectedResult"
+              >Expected Result<sup class="required-field">*</sup></label
+            >
+            <div>
+              <input
+                id="expectedResult"
+                class="form-control"
+                type="text"
+                formControlName="expectedResult"
+              />
+            </div>
+          </div>
+          <div class="form-row">
+            <label for="description"
+              >Example Explaination<sup class="required-field">*</sup></label
+            >
+            <div>
+              <input
+                id="description"
+                class="form-control"
+                type="text"
+                formControlName="exampleExplaination"
+              />
+            </div>
+          </div>
+          <button
+            type="button"
+            class="btn btn-danger btn-sm small"
+            (click)="removeTestCaseDetails(i)"
+          >
+            Remove
+          </button>
+        </div>
+      </div>
+      <div>
+        <button
+          mat-button
+          matStepperPrevious
+          class="btn btn-outline-secondary button mt-3"
+        >
+          Back
+        </button>
+        <button
+          mat-button
+          matStepperNext
+          class="btn btn-outline-success button mt-3"
+          (click)="printDetails()"
+        >
+          Preview & Save
+        </button>
+      </div>
+    </form>
+  </mat-step>
+
+  ----------------------------------------------------------------
+
+  <!-- <div class="col-md-3">
+            <label for="inputArgumentPosition"
+              >Input Argument Position<sup class="required-field">*</sup>
+            </label>
+            <input type="text" class="form-control" />
+          </div>
+          <div class="col-md-3">
+            <label for="inputArgumentPosition"
+              >Input Argument Value<sup class="required-field">*</sup>
+            </label>
+            <input type="text" class="form-control" />
+          </div> -->

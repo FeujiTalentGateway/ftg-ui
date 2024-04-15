@@ -1,76 +1,54 @@
-{
-    "content": "sum of two numbers",
-    "description": "Detailed information about the coding question",
-    "difficultyLevel": 1,
-    "constraints": [
-      {
-        "constraint": "Detailed information of constraint"
-      }
-    ],
-    "method": {
-      "methodName": "AddTwoNumbers",
-      "arguments": [
+
+ {
+    "id":1,
+    "content":"add two numbers",
+    "description":"something",
+    "difficultLevel":3,
+    "constraints":
+        [
+            {
+    
+            "id":1,
+            "constraint":""
+            }
+
+        ],
+
+    "methodDefination":
         {
-          "argumentName": "num1",
-          "argumentPosition": 1,
-          "argumentDataType": {
-            "dataTypeId": 1
-          }
+            "methodName":"",
+            "returnType":"",
+            "methodArguments":    
+                    [
+                        {
+                            "argumentName":"",
+                            "argumentPosition":"",
+                            "isCollection":true,
+                            "collectionName":"set",   
+                            "primitiveName":"int"
+                           
+                        }
+                    ]
         },
-        {
-          "argumentName": "num2",
-          "argumentPosition": 2,
-          "argumentDataType": {
-            "dataTypeId": 1
-          }
-        }
-      ],
-      "returnType":{
-          "dataTypeId": 1
-        }
-    },
-  
-    "testCases": [
-      {
-        "isSample": true,
-        "expectedResult": "5",
-        "exampleExplainAction": "This is an example test case.",
-        "inputs": [
-          {
-            "inputValue": "2",
-            "arguments": {
-              "argumentName": "num1"
-            }
-          },
-          {
-            "inputValue": "3",
-            "arguments": {
-              "argumentName": "num2"
-            }
-          }
-        ]
-      },
-      {
-        "isSample": true,
-        "expectedResult": "10",
-        "exampleExplainAction": "This is an example test case.",
-        "inputs": [
-          {
-            "inputValue": "5",
-            "arguments": {
-              "argumentName": "num1"
-            }
-          },
-          {
-            "inputValue": "5",
-            "arguments": {
-              "argumentName": "num2"
-            }
-          }
-        ]
-      }
-    ]
-  }
-  
 
-
+    "testCases":
+        [
+            {
+                "id":1,
+                "expectedResult":5,
+                "explanationExample":"",
+                "isSample":true,
+                "inputArguments":
+                    [
+                        {
+                            "inputValue":1,
+                            "argumentPosition":2
+                        },
+                        {
+                            "inputValue":2,
+                            "argumentPosition":2
+                        }
+                    ]
+            }
+        ]
+}

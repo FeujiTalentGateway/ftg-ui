@@ -1,8 +1,8 @@
-.main-div{
-    background-color: rgb(241, 243, 245);
-    box-shadow: 0px 0px;
+.main-div {
+  background-color: rgb(241, 243, 245);
+  box-shadow: 0px 0px;
 }
-.coding-question-heading{
+.coding-question-heading {
   margin-bottom: 0;
   color: #5b626b;
   font-weight: 600;
@@ -11,16 +11,61 @@
   margin-top: 5px;
 }
 form {
-    background-color: rgb(241, 243, 245);
-    /* margin: -1px 20px 2px 25px; */
-    padding: 0.5rem 0.3rem;
+  background-color: rgb(241, 243, 245);
+  padding: 0.5rem 0.3rem;
 }
+.input-with-icon {
+    display: flex;
+    align-items: center;
+  }
+  
+  .input-with-icon input {
+    flex: 1;
+    margin-right: 5px; 
+  }
+  
 label {
-    font-family: var(--font-family);
-    font-weight: var(--label-font-weight);
-    font-size: var(--label-font-size);
-    color: rgb(40, 36, 36);
+  font-family: var(--font-family);
+  font-weight: var(--label-font-weight);
+  font-size: var(--label-font-size);
+  color: rgb(40, 36, 36);
 }
 .form-row {
-    margin-bottom: 5px;
+  margin-bottom: 5px;
+}
+.data-type-option {
+  margin-right: 10px; /* Add spacing between radio buttons */
+}
+.button {
+  margin-right: 15px !important;
+}
+.small {
+  margin-top: 15px !important;
+  margin-right: 15px !important;
+}
+
+.data-type-option {
+  width: 20px;
+  padding: 20px;
+}
+.data-type{
+    padding: auto;
+}
+i{
+    cursor: pointer;
+}
+
+.argument-container {
+  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.3); /* Customize shadow properties as needed */
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+@media (max-width: 768px) {
+  .collection-dropdowns {
+    flex-direction: column;
+  }
+}
+.mat-step-icon-selected {
+  background-color: #f3752e !important;
 }

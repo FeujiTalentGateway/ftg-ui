@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CodingQuestionComponent } from './coding-question.component';
+import { RouterTestingModule } from '@angular/router/testing';
+import { MatStepperModule } from '@angular/material/stepper';
 
 describe('CodingQuestionComponent', () => {
   let component: CodingQuestionComponent;
@@ -8,7 +10,8 @@ describe('CodingQuestionComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [CodingQuestionComponent]
+      declarations: [CodingQuestionComponent],
+      imports:[RouterTestingModule,MatStepperModule]
     });
     fixture = TestBed.createComponent(CodingQuestionComponent);
     component = fixture.componentInstance;

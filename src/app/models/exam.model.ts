@@ -1,3 +1,4 @@
+import { CodingQuestions } from "./codingquestions.model";
 import { ExamSubject } from "./examSubject";
 import { User } from "./user.model";
 
@@ -14,5 +15,6 @@ export interface Exam {
     created_at_ts: string;
     examSubjects:ExamSubject[]
     users: User[]
+    codingQuestions:CodingQuestions[]
   }
   

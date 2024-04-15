@@ -10,6 +10,7 @@ import { Paper } from '../models/paper';
 import { Question } from '../models/question';
 import { UsersResult } from '../models/users.result.model';
 import { ViewResult } from '../models/view-result';
+import { CodingQuestions } from '../models/codingquestions.model';
 
 @Injectable({
   providedIn: 'root',
@@ -192,5 +193,8 @@ export class ExamService {
       `${this.javaExamUrl}/change-subject`,
       question
     );
+  }
+  getStaticCodingQuestions(){
+    return this.http.get<CodingQuestions[]>('/assets/static_data/CodingQuestions.json');
   }
 }

@@ -102,7 +102,7 @@ export class ScheduleExamComponent implements OnInit {
         active: [false, Validators.required],
         examSubjects: this.fb.array([] as FormGroup[]),
         users: this.fb.array([] as FormGroup[]),
-        //codingQuestions: this.fb.array([] as FormGroup[]),
+        codingQuestions: this.fb.array([] as FormGroup[]),
       },
       { validators: this.dateRangeValidator },
       

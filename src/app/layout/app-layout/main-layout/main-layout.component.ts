@@ -1,10 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { User } from 'src/app/models/user.model';
 import { UserdetailsService } from 'src/app/services/userdetails.service';
 import { Observable } from 'rxjs';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatButtonModule } from '@angular/material/button';
+import { MatDrawer } from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-main-layout',
@@ -18,16 +16,9 @@ export class MainLayoutComponent implements OnInit {
   userName$ = new Observable<string>();
   showFiller = false;
   constructor(private userDetails: UserdetailsService) {}
+  @ViewChild('drawer') drawer!: MatDrawer;
   ngOnInit(): void {
     this.userName$ = this.userDetails.getUserNameFromToken();
-    this.userName$.subscribe(
-      (response) => {
-        // localStorage.setItem('userName', response);
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
   }
 
   userObject: User = {
@@ -45,5 +36,6 @@ export class MainLayoutComponent implements OnInit {
   };
   toggleLayout() {
     this.layoutCollapsed = !this.layoutCollapsed;
+    this.drawer.toggle();
   }
 }

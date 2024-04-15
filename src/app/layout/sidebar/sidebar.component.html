@@ -1,11 +1,9 @@
 <aside>
   <div class="row">
     <div class="side-nav">
-      <img class="image-logo" src="assets/images/Feuji-new-logo.jpg" (click)="loadHomePage()" />
+      <img class="image-logo" src="assets/images/Feuji-new-logo.jpg" (click)="loadHomePage()" alt="Feuji-logo"/>
       <div class="nav-list">
         <div *ngFor="let route of listOfRoutes" class="nav-item">
-          <!-- <div (click)="toggleActiveRoute(route)"  [class.active]="activeRoute === route"><i class="{{ route.icon }}"></i> &nbsp;&nbsp;{{ route.title }}</div>
-          <div>></div> -->
           <span (click)="toggleActiveRoute(route)" class="main-menu" [class.active]="activeRoute === route">
             <span class="nav-main-title"><i class="{{ route.icon }}"></i></span> &nbsp;&nbsp;{{ route.title }} &nbsp; 
           </span>

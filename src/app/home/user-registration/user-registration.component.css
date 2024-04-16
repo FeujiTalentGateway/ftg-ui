@@ -112,3 +112,19 @@ input {
 .img > img {
   margin-left: -17%;
 }
+.input-wrapper {
+  position: relative;
+}
+
+.icon-label {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 10px;
+}
+
+.icon-label i {
+  color: #555;
+}
+
+

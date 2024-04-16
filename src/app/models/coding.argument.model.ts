@@ -8,5 +8,7 @@ export interface Argument{
     collectionName:DataType
     primitiveName:DataType
     argumentDataType:DataType
+    primitiveDataType:number
+    dataTypes:DataType[]
 
 }

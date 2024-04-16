@@ -61,6 +61,9 @@ i{
   margin-bottom: 10px;
 }
 
+h5{
+  text-decoration: underline;
+}
 @media (max-width: 768px) {
   .collection-dropdowns {
     flex-direction: column;

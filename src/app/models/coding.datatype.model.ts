@@ -1,4 +1,5 @@
 export interface DataType{
     id:number,
-    commonDataType:string
+    commonDataType:string,
+    collection:boolean
 }

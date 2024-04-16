@@ -273,7 +273,6 @@
           <div>
           </div>
         </div>
-      </div>
       <div>
         <button
           mat-button
@@ -298,8 +297,9 @@
     
     <mat-step>
       <ng-template matStepLabel>Preview & Save</ng-template>
-      <div>
+      <div class="border border-0">
         <div>
+          <h5>Coding Question details</h5>
           <p>Content: {{ codingQuestionDetailsForm.value.content }}</p>
           <p>Description: {{ codingQuestionDetailsForm.value.description }}</p>
           <p>Difficulty Level: {{ codingQuestionDetailsForm.value.difficultyLevel }}</p>
@@ -309,6 +309,7 @@
         </div>
         <hr>
         <div>
+          <h5>Method Details</h5>
           <p>Method Definition:</p>
           <p>Method Name: {{ codingQuestionDetailsForm.value.methodDefination.methodName }}</p>
           <p>Return Type: {{ codingQuestionDetailsForm.value.methodDefination.returnType }}</p>
@@ -320,8 +321,9 @@
           </div>
         </div>
         <hr>
+        <h5>Test Case Details</h5>
         <div *ngFor="let testCase of codingQuestionDetailsForm.value.testCases">
-          <h4>Test Case:</h4>
+          <h6>Test Case:</h6>
           <p>Expected Result: {{ testCase.expectedResult }}</p>
           <p>Explanation Example: {{ testCase.explanationExample }}</p>
           <!-- Add input arguments display if needed -->

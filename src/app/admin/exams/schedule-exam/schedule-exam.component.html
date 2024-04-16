@@ -275,7 +275,7 @@
           </div>
 
 
-          <ng-container *ngIf="examSubjectsArray.value[i].subjectName =='Coding Questions'">
+          <ng-container *ngIf="examSubjectsArray.value[i].subjectName.toLowerCase()==CodingSubjectName.toLowerCase()">
             <div>
               <label for="maxQuestions{{ i }}"
                 >Max Questions<span class="required-field">*</span></label
@@ -305,16 +305,18 @@
           <div>
              <label class="hide">uyeuhsdau</label>
           </div>
-          <button
+          <div class="coding-button">
+            <button
             class="btn btn-outline-secondary"
             type="button"
             pInputText
             (click)=" AddCodingquestions(subjectGroup.get('maxQuestions')?.value)"
           >Coding Questions</button>
+          </div>
         </div>
           </ng-container>
 
-        <ng-container *ngIf="examSubjectsArray.value[i].subjectName !='Coding Questions'">
+        <ng-container *ngIf="examSubjectsArray.value[i].subjectName.toLowerCase() != CodingSubjectName.toLowerCase()">
           <div>
             <label for="maxQuestions{{ i }}"
               >Max Questions<span class="required-field">*</span></label

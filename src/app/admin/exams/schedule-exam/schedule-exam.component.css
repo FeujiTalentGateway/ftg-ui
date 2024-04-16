@@ -168,6 +168,12 @@ button {
   border: 1px solid #ccc;
   border-radius: 4px;
 }
+.coding-button{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 
 @media (max-width: 600px) {
   .exam-form {
@@ -214,4 +220,5 @@ button {
   .btn-div button {
     margin: 10px 0;
   }
+  
 }

@@ -66,10 +66,10 @@ export class CodingQuestionsComponent implements OnInit, AfterViewInit {
   }
 
   getCodingQuestions() {
-    this.examService.getStaticCodingQuestions().subscribe({
+    this.examService.getCodingQuestions().subscribe({
       next: (questions: CodingQuestions[]) => {
         // Handle the array of users
-        console.log("questions"+questions[0].name)
+       
         this.questions = questions
         // Initialize MatTableDataSource with the data
         this.dataSource = new MatTableDataSource(this.questions);
@@ -90,6 +90,7 @@ export class CodingQuestionsComponent implements OnInit, AfterViewInit {
   config.duration = 3000; // Duration in milliseconds
   this.snackBar.open(message, 'Close', config);
   }
+
   ScheduleExamWithCoding() {
     if(this.dialogData.maxQuestions!=this.selection.selected.length){
         this.openErrorToaster(`Max Questions are ${this.dialogData.maxQuestions} and Selected Questions are ${this.selection.selected.length} Both Does not match`)
@@ -104,7 +105,7 @@ export class CodingQuestionsComponent implements OnInit, AfterViewInit {
     this.questions.forEach((question) => {
       if (
         this.examFormDetails.codingQuestions.find(
-          (selectedQuestion) => selectedQuestion.questionId === question.questionId
+          (selectedQuestion) => selectedQuestion.Id === question.Id
         )
       ) {
         this.selection.select(question);

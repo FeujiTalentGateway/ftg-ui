@@ -24,6 +24,7 @@ import { ExamService } from 'src/app/repository/exam.service';
 })
 export class ScheduleExamComponent implements OnInit {
   exam: Exam | null = null;
+  CodingSubjectName :string ="Coding Questions"
   dialogRef: any;
   isEditing: boolean = false;
   editableExamId!: number;
@@ -215,6 +216,7 @@ export class ScheduleExamComponent implements OnInit {
       active: this.exam!.active,
       examSubjects: [],
       users: [],
+      codingQuestions:[]
     });
     this.updatedUsers = this.exam!.users;
     this.setUsersToExamForm(this.exam?.users as User[]);
@@ -361,11 +363,11 @@ export class ScheduleExamComponent implements OnInit {
     if (questions) {
       questions.forEach((question) => {
         const existingQuestion = this.codingQuestionsArray.controls.find(
-          (control) => control.get('questionId')?.value === question?.questionId
+          (control) => control.get('questionId')?.value === question?.Id
         );
         if (!existingQuestion) {
           const userFormGroup = this.fb.group({
-            questionId:question.questionId,
+            id:question.Id,
           });
 
           this.codingQuestionsArray.push(userFormGroup);
@@ -392,17 +394,24 @@ export class ScheduleExamComponent implements OnInit {
       console.log(this.updatedQuestions);
     });
   }
-  checkCodingQuestions(){
+
+checkCodingQuestions(){
   var subjectName="Coding Questions";
   var maxCodingQuestions=0;
-  this.examSubjectsArray.value.forEach((subject:any) => {
+  var selectedCodingQuestions=this.codingQuestionsArray.value.length
+  this.examSubjectsArray.value.forEach((subject:any,index:number) => {
     if(subjectName==subject.subjectName){
       maxCodingQuestions=subject.maxQuestions
+      this.removeCodingSubjectFromExamform(index)
     }
   });
-    var selectedCodingQuestions=this.codingQuestionsArray.value.length
-    var message=`Max Coding Questions are ${maxCodingQuestions} and Selected Coding Questions are ${selectedCodingQuestions}`
-    return { boolValue: maxCodingQuestions==selectedCodingQuestions, errorMessage: message };
-  }
   
+  var message=`Max Coding Questions are ${maxCodingQuestions} and Selected Coding Questions are ${selectedCodingQuestions}`
+  return { boolValue: maxCodingQuestions==selectedCodingQuestions, errorMessage: message };
+  }
+
+  removeCodingSubjectFromExamform(index:number){
+     this.examForm.get('examSubjects')?.value.splice(index,1);
+  }
 }
+

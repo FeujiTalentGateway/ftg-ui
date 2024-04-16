@@ -194,7 +194,7 @@ export class ExamService {
       question
     );
   }
-  getStaticCodingQuestions(){
-    return this.http.get<CodingQuestions[]>('/assets/static_data/CodingQuestions.json');
+  getCodingQuestions(){
+    return this.http.get<CodingQuestions[]>(`${this.resultUrl}codingquestion?fullData=false`);
   }
 }

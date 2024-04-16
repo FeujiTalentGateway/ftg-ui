@@ -7,6 +7,7 @@ import { Method } from 'src/app/models/coding.method.model';
 import { Argument } from 'src/app/models/coding.argument.model';
 import { Constraint } from 'src/app/models/coding.constraint.model';
 import { CodingQuestionRepositoryService } from 'src/app/repository/coding-question-repository.service';
+import { DataType } from 'src/app/models/coding.datatype.model';
 @Component({
   selector: 'app-coding-question',
   templateUrl: './coding-question.component.html',
@@ -20,6 +21,7 @@ export class CodingQuestionComponent implements OnInit {
   codingQuestionArgumentDetailsForm!: FormGroup;
   codingQuestionConstraintsDetailsForm!:FormGroup
   codingQuestionTestCasesDetailsForm!:FormGroup
+  codingQuestionListOfInputArgumentsDetailsForm?:FormGroup
 
   isEditCodingQuestion: boolean = false;
   questionId: number = 0;
@@ -29,9 +31,8 @@ export class CodingQuestionComponent implements OnInit {
 
   dataTypes: string[] = ['primitive', 'collection'];
   dataType: string = 'primitive';
-  primitiveTypes: string[] = ['int', 'boolean', 'string'];
-  nonPrimitiveTypes: string[] = ['list', 'set', 'hashmap'];
   numbers: number[] = [1, 2, 3, 4, 5];
+  dataTypesFromJava!:DataType[]
 
 
   constructor(
@@ -41,7 +42,7 @@ export class CodingQuestionComponent implements OnInit {
   ) 
   {this.codeRepo.getDataTypes().subscribe({
     next:(data:any)=>{
-      this.dataTypes=data;
+      this.dataTypesFromJava=data;
       console.log(data);
       
     },
@@ -58,11 +59,15 @@ export class CodingQuestionComponent implements OnInit {
       console.log(this.questionId);
     }
 
+
+
     this.codingQuestionConstraintsDetailsForm = this._formBuilder.group({
       constraints: this._formBuilder.array([
         this.createConstraintFormGroup()
       ]),
     });
+
+
 
     this.codingQuestionTestCasesDetailsForm = this._formBuilder.group({
       testCases: this._formBuilder.array([
@@ -70,8 +75,17 @@ export class CodingQuestionComponent implements OnInit {
       ]),
     });
 
+    this.codingQuestionListOfInputArgumentsDetailsForm = this._formBuilder.group({
+      inputArguments: this._formBuilder.array([
+        this.createInputArgumentFormGroup()
+      ]),
+    });
+
+
   
     this.codingQuestionArgumentDetailsForm = this.createArgumentFormGroup();
+
+
 
     this.codingQuestionMethodDetailsForm = this._formBuilder.group({
       methodName: [''],
@@ -98,13 +112,22 @@ export class CodingQuestionComponent implements OnInit {
     return this.codingQuestionDetailsForm.get('constraints') as FormArray;
   }
 
+  get testCases(): FormArray {
+    return this.codingQuestionTestCasesDetailsForm.get('testCases') as FormArray;
+  }
+
 
   get methodArguments(): FormArray {
     return this.codingQuestionMethodDetailsForm.get(
       'methodArguments'
     ) as FormArray;
   }
-
+  createInputArgumentFormGroup(){
+    return this._formBuilder.group({
+      argumentPosition: [''],
+      inputValue:['']
+  })
+}
 
 
   addConstraint() {
@@ -153,15 +176,17 @@ getFormControl(controlName: string): FormControl {
       isCollection: [false],
       primitiveDataType: [''],
       collectionDataType: [''],
-      inputValue: [''],
+      inputValue: ['']
     });
   }
 
   createTestCaseFormGroup():FormGroup{
     return  this._formBuilder.group({
       expectedResult:[''],
-      explanationExample:['']
-      
+      explanationExample:[''],
+      inputArguments:this._formBuilder.array([
+        this.createInputArgumentFormGroup()
+      ])
     })
   }
 
@@ -174,7 +199,9 @@ getFormControl(controlName: string): FormControl {
   }
   
   
-
+  get inputArguments(): FormArray {
+    return this.codingQuestionDetailsForm.get('testCases')?.get('inputArguments') as FormArray;
+  }
  
 
 
@@ -216,7 +243,14 @@ getFormControl(controlName: string): FormControl {
     return this.methodArguments.controls[index].value.isCollection;
   }
 
-
-
+  printDetails(testCase: any = ""){
+    // console.log(this.codingQuestionDetailsForm.value);
+    console.log(testCase);
+    
+    
+  } 
+  getArrayFromTestCase(tt:any):FormArray{
+    return tt.controls.inputArguments as FormArray;
+  }
 
 }

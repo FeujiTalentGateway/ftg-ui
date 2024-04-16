@@ -1,0 +1,54 @@
+
+ {
+    "id":1,
+    "content":"add two numbers",
+    "description":"something",
+    "difficultLevel":3,
+    "constraints":
+        [
+            {
+    
+            "id":1,
+            "constraint":""
+            }
+
+        ],
+
+    "methodDefination":
+        {
+            "methodName":"",
+            "returnType":"",
+            "methodArguments":    
+                    [
+                        {
+                            "argumentName":"",
+                            "argumentPosition":"",
+                            "isCollection":true,
+                            "collectionName":"set",   
+                            "primitiveName":"int"
+                           
+                        }
+                    ]
+        },
+
+    "testCases":
+        [
+            {
+                "id":1,
+                "expectedResult":5,
+                "explanationExample":"",
+                "isSample":true,
+                "inputArguments":
+                    [
+                        {
+                            "inputValue":1,
+                            "argumentPosition":2
+                        },
+                        {
+                            "inputValue":2,
+                            "argumentPosition":2
+                        }
+                    ]
+            }
+        ]
+}

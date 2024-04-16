@@ -12,23 +12,17 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSelectModule } from '@angular/material/select';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-
-@NgModule({
-  imports: [
-    // Other imports
-    MatProgressSpinnerModule,
-  ],
-  // Other module configurations
-})
-export class AppModule { }
-
-
+import { CodingQuestionComponent } from './coding-question/coding-question.component';
+import {MatStepperModule} from '@angular/material/stepper';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 @NgModule({
   declarations: [
     ViewPapersComponent,
     CreatePaperComponent,
     ViewQuestionsComponent,
     AddEditQuestionComponent,
+    CodingQuestionComponent
   ],
   imports: [
     CommonModule,
@@ -39,7 +33,10 @@ export class AppModule { }
     MatTooltipModule,
     MatPaginatorModule,
     MatSelectModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatStepperModule,
+    MatFormFieldModule,
+    MatInputModule
 
   ],
 })

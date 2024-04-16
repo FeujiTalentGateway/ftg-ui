@@ -1,0 +1,35 @@
+{
+    "content": "What is the main focus of the local-variable type inference feature introduced in Java 10?",
+    "description": "scvsdv",
+    "difficultyLevel": "2",
+    "constraints": [
+        {
+            "constraint": ""
+        }
+    ],
+    "method": {
+        "methodName": "What is the main focus of the local-variable type inference feature introduced in Java 10?",
+        "returnType": "boolean",
+        "listOfArguments": [
+            {
+                "argumentName": "s",
+                "argumentDataType": "primitive",
+                "argumentPosition": "d",
+                "isCollection": false,
+                "newArgDataType": "int",
+                "collectionDataType": "",
+                "inputValue": ""
+            },
+            {
+                "argumentName": "s",
+                "argumentDataType": "collection",
+                "argumentPosition": "s",
+                "isCollection": true,
+                "newArgDataType": "boolean",
+                "collectionDataType": "set",
+                "inputValue": ""
+            }
+        ]
+    },
+    "listOfTestCases": []
+}

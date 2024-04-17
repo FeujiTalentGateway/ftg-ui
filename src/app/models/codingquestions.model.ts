@@ -1,5 +1,5 @@
 export interface CodingQuestions{
-    Id:number,
-    name:string,
+    id:number,
+    content:string,
     description:string,
 }

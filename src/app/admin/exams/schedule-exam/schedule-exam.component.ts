@@ -103,7 +103,6 @@ export class ScheduleExamComponent implements OnInit {
         active: [false, Validators.required],
         examSubjects: this.fb.array([] as FormGroup[]),
         users: this.fb.array([] as FormGroup[]),
-        codingQuestions: this.fb.array([] as FormGroup[]),
       },
       { validators: this.dateRangeValidator },
       
@@ -157,7 +156,7 @@ export class ScheduleExamComponent implements OnInit {
             })
           );
 
-          if(selectedSubject.name=='Coding Questions'){
+          if(selectedSubject.name?.toLowerCase()==this.CodingSubjectName.toLowerCase()){
             const lastFormGroup = this.examSubjectsArray.at(this.examSubjectsArray.length - 1) as FormGroup;
             lastFormGroup.removeControl('startingDifficultyLevel');
           }
@@ -216,7 +215,6 @@ export class ScheduleExamComponent implements OnInit {
       active: this.exam!.active,
       examSubjects: [],
       users: [],
-      codingQuestions:[]
     });
     this.updatedUsers = this.exam!.users;
     this.setUsersToExamForm(this.exam?.users as User[]);
@@ -363,11 +361,11 @@ export class ScheduleExamComponent implements OnInit {
     if (questions) {
       questions.forEach((question) => {
         const existingQuestion = this.codingQuestionsArray.controls.find(
-          (control) => control.get('questionId')?.value === question?.Id
+          (control) => control.get('questionId')?.value === question?.id
         );
         if (!existingQuestion) {
           const userFormGroup = this.fb.group({
-            id:question.Id,
+            id:question.id,
           });
 
           this.codingQuestionsArray.push(userFormGroup);
@@ -396,13 +394,11 @@ export class ScheduleExamComponent implements OnInit {
   }
 
 checkCodingQuestions(){
-  var subjectName="Coding Questions";
   var maxCodingQuestions=0;
   var selectedCodingQuestions=this.codingQuestionsArray.value.length
   this.examSubjectsArray.value.forEach((subject:any,index:number) => {
-    if(subjectName==subject.subjectName){
+    if(this.CodingSubjectName.toLowerCase()==subject.subjectName.toLowerCase()){
       maxCodingQuestions=subject.maxQuestions
-      this.removeCodingSubjectFromExamform(index)
     }
   });
   
@@ -410,8 +406,6 @@ checkCodingQuestions(){
   return { boolValue: maxCodingQuestions==selectedCodingQuestions, errorMessage: message };
   }
 
-  removeCodingSubjectFromExamform(index:number){
-     this.examForm.get('examSubjects')?.value.splice(index,1);
-  }
+  
 }
 

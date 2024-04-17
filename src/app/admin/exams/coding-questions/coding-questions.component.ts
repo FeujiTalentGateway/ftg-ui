@@ -105,7 +105,7 @@ export class CodingQuestionsComponent implements OnInit, AfterViewInit {
     this.questions.forEach((question) => {
       if (
         this.examFormDetails.codingQuestions.find(
-          (selectedQuestion) => selectedQuestion.Id === question.Id
+          (selectedQuestion) => selectedQuestion.id === question.id
         )
       ) {
         this.selection.select(question);

@@ -3,9 +3,6 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { AbstractControl, FormControl } from '@angular/forms';
 import { CodingQuestion } from 'src/app/models/coding.question.model';
-import { Method } from 'src/app/models/coding.method.model';
-import { Argument } from 'src/app/models/coding.argument.model';
-import { Constraint } from 'src/app/models/coding.constraint.model';
 import { CodingQuestionRepositoryService } from 'src/app/repository/coding-question-repository.service';
 import { DataType } from 'src/app/models/coding.datatype.model';
 @Component({
@@ -23,6 +20,7 @@ export class CodingQuestionComponent implements OnInit {
   codingQuestionTestCasesDetailsForm!:FormGroup
   codingQuestionListOfInputArgumentsDetailsForm?:FormGroup
 
+  selectedReturnType:string = "primitive";
   isEditCodingQuestion: boolean = false;
   questionId: number = 0;
   isOptional = false;
@@ -51,6 +49,7 @@ export class CodingQuestionComponent implements OnInit {
     }
   })}
   ngOnInit(): void {
+
     this.isEditCodingQuestion = this.activatedParam.snapshot.paramMap.get('id') !== null;
     if (this.isEditCodingQuestion) {
       this.questionId = this.activatedParam.snapshot.paramMap.get(
@@ -89,8 +88,13 @@ export class CodingQuestionComponent implements OnInit {
 
     this.codingQuestionMethodDetailsForm = this._formBuilder.group({
       methodName: [''],
-      returnType: [''],
+      isReturnTypeCollection: [false],
+      primitiveReturnType: this._formBuilder.group({
+        id: ['']}),
+      collectionReturnType: this._formBuilder.group({
+        id: ['']}),
       methodArguments: this._formBuilder.array([]),
+
     });
 
     this.codingQuestionDetailsForm = this._formBuilder.group({
@@ -122,7 +126,7 @@ export class CodingQuestionComponent implements OnInit {
       'methodArguments'
     ) as FormArray;
   }
-  createInputArgumentFormGroup(){
+    createInputArgumentFormGroup(){
     return this._formBuilder.group({
       argumentPosition: [''],
       inputValue:['']
@@ -174,8 +178,10 @@ getFormControl(controlName: string): FormControl {
       argumentDataType: ['primitive'],
       argumentPosition: [''],
       isCollection: [false],
-      primitiveDataType: [''],
-      collectionDataType: [''],
+      primitiveDataType: this._formBuilder.group({
+        id: ['']}),
+      collectionDataType: this._formBuilder.group({
+        id: ['']}),
       inputValue: ['']
     });
   }
@@ -203,8 +209,29 @@ getFormControl(controlName: string): FormControl {
     return this.codingQuestionDetailsForm.get('testCases')?.get('inputArguments') as FormArray;
   }
  
+  addTestCases() {
+    const testCaseDetailsForm = this.createTestCaseFormGroup();
+  
+    const methodArgumentsArray = this.codingQuestionMethodDetailsForm.get('methodArguments') as FormArray;
+    const inputArgumentsArray = (testCaseDetailsForm.get('inputArguments') as FormArray);
+  
+    // Clear existing inputArguments if any
+    while (inputArgumentsArray.length !== 0) {
+      inputArgumentsArray.removeAt(0);
+    }
+    
+    // Create inputArgument form groups based on methodArguments
+    methodArgumentsArray.controls.forEach(() => {
+      inputArgumentsArray.push(this.createInputArgumentFormGroup());
+    });
+  
+    this.testCases.push(testCaseDetailsForm);
+  }
 
-
+  
+  removeTestCaseDetails(index: number) {
+    this.testCases.removeAt(index);
+  }
 
   getDataTypeOfForm(index: number, currentDataType: string): boolean {
     return (
@@ -213,7 +240,30 @@ getFormControl(controlName: string): FormControl {
     );
   }
 
+
+  returnArgArray(testCase:any):FormArray{
+    return testCase.get('inputArguments') as FormArray;
+  }
+
+  setReturnType(dataType: string) {
+    // console.log(this.methodArguments.controls);
+    
+    const control = this.codingQuestionMethodDetailsForm
+    if (dataType !== 'primitive') {
+      control.get('primitiveReturnType')?.reset();
+    } else {
+      control.get('nonPrimitiveType')?.reset();
+    }
+    if (dataType === 'collection') {
+      this.codingQuestionMethodDetailsForm.patchValue({ isReturnTypeCollection: true });
+    }
+    this.selectedReturnType=dataType
+  }
+
+
   setDataType(dataType: string, i: number) {
+    console.log(this.methodArguments.controls);
+    
     this.methodArguments.controls[i].patchValue({ argumentDataType: dataType });
     const control = this.methodArguments.controls[i] as FormGroup;
     if (dataType !== 'primitive') {
@@ -224,6 +274,23 @@ getFormControl(controlName: string): FormControl {
     if (dataType === 'collection') {
       this.methodArguments.controls[i].patchValue({ isCollection: true });
     }
+  }
+
+  setReturnDataType(dataType: string){
+
+    const control = this.methodArguments.controls[1] as FormGroup;
+    // if (dataType !== 'primitive') {
+    //   control.get('primitiveType')?.reset();
+    // } else {
+    //   control.get('nonPrimitiveType')?.reset();
+    // }
+    // if (dataType === 'collection') {
+    //   this.methodArguments.controls[1].patchValue({ isCollection: true });
+    // }
+     console.log(dataType);
+     
+    this.dataType = dataType;
+
   }
 
 

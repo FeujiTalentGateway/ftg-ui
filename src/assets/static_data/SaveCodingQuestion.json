@@ -21,11 +21,19 @@
             "methodArguments":    
                     [
                         {
-                            "argumentName":"",
-                            "argumentPosition":"",
-                            "isCollection":true,
-                            "collectionName":"set",   
-                            "primitiveName":"int"
+                            "argumentName":"num1",
+                            "argumentPosition":"1",
+                            "isCollection":false,
+                            "primitiveName":{"id":"9"},
+                            "collectionName":{"id":"8"}
+                           
+                        },
+                        {
+                            "argumentName":"num2",
+                            "argumentPosition":"1",
+                            "isCollection":false,
+                            "collectionName":"",   
+                            "primitiveName":{"id":"8"}
                            
                         }
                     ]
@@ -42,11 +50,11 @@
                     [
                         {
                             "inputValue":1,
-                            "argumentPosition":2
+                            "argumentName":"num1"
                         },
                         {
                             "inputValue":2,
-                            "argumentPosition":2
+                            "argumentName":"num2"
                         }
                     ]
             }

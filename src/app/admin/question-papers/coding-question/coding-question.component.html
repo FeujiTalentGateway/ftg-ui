@@ -161,13 +161,15 @@
                       "
                       class="dropdown-container"
                     >
-                    <select class="form-select" formControlName="primitiveDataType">
-                      <ng-container *ngFor="let type of dataTypesFromJava">
-                        <option *ngIf="!(type.collection)" [value]="type.id">
-                          {{ type.commonDataType }}
-                        </option>
-                      </ng-container>
-                    </select>
+                    <div formGroupName="primitiveDataType">
+                      <select class="form-select" formControlName="id">
+                        <ng-container *ngFor="let type of dataTypesFromJava">
+                          <option *ngIf="!(type.collection)" [value]="type.id">
+                            {{ type.commonDataType }}
+                          </option>
+                        </ng-container>
+                      </select>
+                    </div>
                     
                     </div>
                     <div
@@ -178,22 +180,27 @@
                       class="form-row row"
                     >
                       <div class="form-group mt-2 col-md-6">
-                        <select class="form-select" formControlName="collectionDataType">
-                          <ng-container *ngFor="let type of dataTypesFromJava">
-                            <option *ngIf="(type.collection)" [value]="type.id">
-                              {{ type.commonDataType }}
-                            </option>
-                          </ng-container>
-                        </select>
+                        <div formGroupName="collectionDataType">
+                          <select class="form-select" formControlName="id">
+                            <ng-container *ngFor="let type of dataTypesFromJava">
+                              <option *ngIf="(type.collection)" [value]="type.id">
+                                {{ type.commonDataType }}
+                              </option>
+                            </ng-container>
+                          </select>
+
+                        </div>
                       </div>
                       <div class="form-group mt-2 col-md-6">
-                        <select class="form-select" formControlName="primitiveDataType">
-                          <ng-container *ngFor="let type of dataTypesFromJava">
-                            <option *ngIf="!(type.collection)" [value]="type.id">
-                              {{ type.commonDataType }}
-                            </option>
-                          </ng-container>
-                        </select>
+                        <div formGroupName="primitiveDataType">
+                          <select class="form-select" formControlName="id">
+                            <ng-container *ngFor="let type of dataTypesFromJava">
+                              <option *ngIf="!(type.collection)" [value]="type.id">
+                                {{ type.commonDataType }}
+                              </option>
+                            </ng-container>
+                          </select>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -215,16 +222,76 @@
                   Remove
                 </button>
               </div>
+              
             </div>
           </div>
         </form>
       </div>
-
+      {{selectedReturnType}}
       <div class="form-row">
         <label for="description"
           >Return Type<sup class="required-field">*</sup></label
         >
-        <div>
+        <div class="data-type-container">
+          <div *ngFor="let dataTypeName of dataTypes" class="data-type">
+            <span>
+              <input
+                type="radio"
+                class="data-type-option"
+                name="data"
+                [checked]="dataTypeName === selectedReturnType"
+                (click)="setReturnType(dataTypeName)"
+              />
+              <label for="{{ dataTypeName }}">{{ dataTypeName }}</label>
+            </span>
+            <div
+              *ngIf="
+                selectedReturnType === 'primitive'"
+              class="dropdown-container"
+            >
+            <div formGroupName="primitiveReturnType">
+              <select class="form-select" formControlName="id">
+                <ng-container *ngFor="let type of dataTypesFromJava">
+                  <option *ngIf="!(type.collection)" [value]="type.id">
+                    {{ type.commonDataType }}
+                  </option>
+                </ng-container>
+              </select>
+            </div>
+            
+            </div>
+            <div
+              *ngIf="
+                selectedReturnType === 'collection'"
+              class="form-row row"
+            >
+              <div class="form-group mt-2 col-md-6">
+                <div formGroupName="collectionReturnType">
+                  <select class="form-select" formControlName="id">
+                    <ng-container *ngFor="let type of dataTypesFromJava">
+                      <option *ngIf="(type.collection)" [value]="type.id">
+                        {{ type.commonDataType }}
+                      </option>
+                    </ng-container>
+                  </select>
+  
+                </div>
+              </div>
+              <div class="form-group mt-2 col-md-6">
+                <div formGroupName="primitiveReturnType">
+                  <select class="form-select" formControlName="id">
+                    <ng-container *ngFor="let type of dataTypesFromJava">
+                      <option *ngIf="!(type.collection)" [value]="type.id">
+                        {{ type.commonDataType }}
+                      </option>
+                    </ng-container>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- <div>
           <select class="form-select" formControlName="returnType">
             <ng-container *ngFor="let type of dataTypesFromJava">
               <option *ngIf="!(type.collection)" [value]="type.id">
@@ -232,7 +299,7 @@
               </option>
             </ng-container>
           </select>
-        </div>
+        </div> -->
       </div>
       <div>
         <button
@@ -256,7 +323,7 @@
 
 
 
-  <mat-step [stepControl]="codingQuestionTestCasesDetailsForm">
+  <!-- <mat-step [stepControl]="codingQuestionTestCasesDetailsForm">
     <ng-template matStepLabel>Add Test Cases</ng-template>
     <form [formGroup]="codingQuestionTestCasesDetailsForm">
       <div class="row" formArrayName="testCases">
@@ -292,7 +359,70 @@
       </div>
 
     </form>
+  </mat-step> -->
+
+  <mat-step [stepControl]="codingQuestionTestCasesDetailsForm">
+    <ng-template matStepLabel>Add Test Cases</ng-template>
+    <button class="btn btn-sm btn-success" (click)="addTestCases()">Add Test Case</button>
+    <form [formGroup]="codingQuestionTestCasesDetailsForm">
+      <div class="row" formArrayName="testCases">
+        <div *ngFor="let testCase of testCases.controls; let i = index" [formGroupName]="i">
+          <div class="row">
+            <label for="expectedResult">Expected Result<sup class="required-field">*</sup></label>
+            <input type="text" class="form-control" formControlName="expectedResult" />
+          </div>
+          <div class="row">
+            <label for="explanationExample">Explanation Example<sup class="required-field">*</sup></label>
+            <input type="text" class="form-control" formControlName="explanationExample"/>
+          </div>
+          <div formArrayName="inputArguments">
+            <div *ngFor="let method of methodArguments.controls; let k =index">
+              <div *ngFor="let inputArg of returnArgArray(testCase).controls; let j = index">
+                <div [formGroupName]="j">
+                <div class="row">
+                  <div class="col-md-6">
+                    <label for="explanationExample">Argument Position<sup class="required-field">*</sup></label>
+                    <input type="text" class="form-control" formControlName="argumentPosition" />
+                    {{method.value|json}}
+                  </div>
+                  <div class="col-md-6">
+                    <label for="explanationExample">Input Value<sup class="required-field">*</sup></label>
+                    <input type="text" class="form-control" formControlName="inputValue"/>
+                  </div>
+                </div>
+              </div>
+             </div>
+            </div>
+          </div>
+ 
+          <button class="btn btn-sm btn-danger mt-2" (click)="removeTestCaseDetails(i)">Remove</button>
+ 
+ 
+          </div>
+          <div>
+          </div>
+        </div>
+      <div>
+        <button
+          mat-button
+          matStepperPrevious
+          class="btn btn-outline-secondary button mt-3"
+        >
+          Back
+        </button>
+        <button
+          mat-button
+          matStepperNext
+          class="btn btn-outline-success button mt-3"
+          (click)="printDetails('s')"
+        >
+          Preview & Save
+        </button>
+      </div>
+ 
+    </form>
   </mat-step>
+
   
     
     <mat-step>

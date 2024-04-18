@@ -16,6 +16,9 @@ import { ViewResultComponent } from './view-result/view-result.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatOptionModule } from '@angular/material/core';
 import { QuestionNavigationComponent } from './question-navigation/question-navigation.component';
+import { CodingQuestionsComponent } from './coding-questions/coding-questions.component';
+import { CodeEditorComponent } from './code-editor/code-editor.component';
+import { TestCasesComponent } from './test-cases/test-cases.component';
 
 
 @NgModule({
@@ -30,6 +33,9 @@ import { QuestionNavigationComponent } from './question-navigation/question-navi
     ResultChartComponent,
     RemoveInspectComponent,
     QuestionNavigationComponent,
+    CodingQuestionsComponent,
+    CodeEditorComponent,
+    TestCasesComponent,
   ],
   imports: [
     CommonModule,

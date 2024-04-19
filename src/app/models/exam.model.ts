@@ -15,6 +15,5 @@ export interface Exam {
     created_at_ts: string;
     examSubjects:ExamSubject[]
     users: User[]
-    codingQuestions:CodingQuestions[]
   }
   

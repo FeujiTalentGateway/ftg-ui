@@ -20,7 +20,6 @@ import { SharedDataService } from './services/shared-data.service';
 import { ConfirmationDialogComponent } from './utils/confirmation-dialog/confirmation-dialog.component';
 
 import { SharedModuleModule } from './shared-module/shared-module.module';
-import { RefreshDialogComponent } from './utils/refresh-dialog/refresh-dialog.component';
 import { ConfirmDialogforuserComponent } from './utils/confirm-dialogforuser/confirm-dialogforuser.component';
 import { MassageboxComponent } from './utils/massagebox/massagebox.component';
 
@@ -34,7 +33,6 @@ import { MassageboxComponent } from './utils/massagebox/massagebox.component';
     ConfirmationDialogComponent,
     UserExamLayoutComponent,
     ExamHeaderComponent,
-    RefreshDialogComponent,
     ConfirmDialogforuserComponent,
     MassageboxComponent,
   ],

@@ -1,0 +1,490 @@
+<div
+  class="container-fluid coding-question-heading"
+  *ngIf="!isEditCodingQuestion"
+>
+  Add Coding Question
+</div>
+<div *ngIf="isEditCodingQuestion">edit coding-question works!</div>
+
+<mat-horizontal-stepper
+  linear
+  #stepper
+  class="main-div"
+  (selectionChange)="stepChanged($event)"
+>
+  <mat-step [stepControl]="codingQuestionDetailsForm">
+    <ng-template matStepLabel>Coding Question</ng-template>
+    <form [formGroup]="codingQuestionDetailsForm">
+      <div class="form-row">
+        <label for="content">Question<sup class="required-field">*</sup></label>
+        <div>
+          <input
+            id="content"
+            class="form-control"
+            type="text"
+            formControlName="content"
+          />
+        </div>
+      </div>
+      <div class="form-row">
+        <label for="description"
+          >Description<sup class="required-field">*</sup></label
+        >
+        <div>
+          <input
+            id="description"
+            class="form-control"
+            type="text"
+            formControlName="description"
+          />
+        </div>
+      </div>
+      <div class="form-row">
+        <label for="difficultyLevel"
+          >Difficulty Level<sup class="required-field">*</sup></label
+        >
+        <div>
+          <select
+            class="form-select"
+            id="difficultyLevel"
+            class="form-select"
+            formControlName="difficultyLevel"
+          >
+            <option *ngFor="let type of numbers" [value]="type">
+              {{ type }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <form [formGroup]="codingQuestionConstraintsDetailsForm">
+        <div class="form-row mt-2">
+          <label for="constraint">
+            Constraints&nbsp;&nbsp;
+            <i
+              class="fa-solid fa-circle-plus fa-lg text-success"
+              (click)="addConstraint()"
+            ></i
+            >&nbsp;&nbsp;
+          </label>
+          <div formArrayName="constraints">
+            <div
+              *ngFor="
+                let constraintGroup of constraints.controls;
+                let i = index
+              "
+              [formGroupName]="i"
+            >
+              <div class="form-row mt-2">
+                <label>Constraint<sup class="required-field">*</sup></label>
+                <div class="input-with-icon">
+                  <input
+                    class="form-control"
+                    type="text"
+                    formControlName="constraint"
+                  />
+                  <i
+                    class="fa-solid fa-circle-minus fa-lg text-danger"
+                    (click)="removeConstraint(i)"
+                  ></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+
+      <div class="mt-3">
+        <button
+          mat-button
+          matStepperNext
+          class="btn btn-outline-success"
+        >
+          Add Method
+        </button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="codingQuestionMethodDetailsForm">
+    <ng-template matStepLabel>Add Method</ng-template>
+    <form [formGroup]="codingQuestionMethodDetailsForm">
+      <div class="form-row">
+        <label for="content"
+          >Method Name<sup class="required-field">*</sup></label
+        >
+        <div>
+          <input
+            id="content"
+            class="form-control"
+            type="text"
+            formControlName="methodName"
+          />
+        </div>
+      </div>
+      <div class="form-row mt-3">
+        <button
+          type="button"
+          class="btn btn-outline-secondary btn-md"
+          (click)="addArgumentDetails()"
+        >
+          Add Arguments&nbsp;&nbsp;<i class="fa-solid fa-circle-plus"></i>
+        </button>
+
+        <form [formGroup]="codingQuestionMethodDetailsForm">
+          <div formArrayName="methodArguments">
+            <div
+              *ngFor="let argument of methodArguments.controls; let i = index"
+              class="argument-container"
+            >
+              <div [formGroupName]="i">
+                <label class="mt-2">Argument Position {{ i + 1 }}</label>
+                <input
+                  formControlName="argumentPosition"
+                  class="form-control"
+                />
+
+                <label class="mt-2">Argument Name:</label>
+                <input formControlName="argumentName" class="form-control" />
+                <label class="mt-2">Argument Data Type:</label>
+                <div class="data-type-container">
+                  <div *ngFor="let dataTypeName of dataTypes" class="data-type">
+                    <span>
+                      <input
+                        type="radio"
+                        [name]="'dataType' + i"
+                        class="data-type-option"
+                        (click)="setDataType(dataTypeName, i)"
+                        [checked]="dataTypeName === dataType"
+                      />
+                      <label for="{{ dataTypeName }}">{{ dataTypeName }}</label>
+                    </span>
+                    <div
+                      *ngIf="
+                        dataTypeName === 'primitive' &&
+                        getDataTypeOfForm(i, 'primitive')
+                      "
+                      class="dropdown-container"
+                    >
+                      <div formGroupName="primitiveDataType">
+                        <select class="form-select" formControlName="id">
+                          <ng-container *ngFor="let type of dataTypesFromJava">
+                            <option *ngIf="!type.isCollection" [value]="type.id">
+                              {{ type.commonDataType }}
+                            </option>
+                          </ng-container>
+                        </select>
+                      </div>
+                    </div>
+                    <div
+                      *ngIf="
+                        dataTypeName === 'collection' &&
+                        getDataTypeOfForm(i, 'collection')
+                      "
+                      class="form-row row"
+                    >
+                      <div class="form-group mt-2 col-md-6">
+                        <div formGroupName="collectionDataType">
+                          <select class="form-select" formControlName="id">
+                            <ng-container
+                              *ngFor="let type of dataTypesFromJava"
+                            >
+                            {{type}}
+                              <option *ngIf="type.isCollection" [value]="type.id">
+                                {{ type.commonDataType }}
+                              </option>
+                            </ng-container>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group mt-2 col-md-6">
+                        <div formGroupName="primitiveDataType">
+                          <select class="form-select" formControlName="id">
+                            <ng-container
+                              *ngFor="let type of dataTypesFromJava"
+                            >
+                              <option
+                                *ngIf="!type.isCollection"
+                                [value]="type.id"
+                              >
+                                {{ type.commonDataType }}
+                              </option>
+                            </ng-container>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  class="btn btn-outline-secondary btn-sm small"
+                  (click)="addArgumentDetails()"
+                >
+                  Add Arguments&nbsp;&nbsp;<i
+                    class="fa-solid fa-circle-plus"
+                  ></i>
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-danger btn-sm small"
+                  (click)="removeArgumentDetails(i)"
+                >
+                  Remove
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="form-row">
+        <label for="description"
+          >Return Type<sup class="required-field">*</sup></label
+        >
+        <div class="data-type-container">
+          <div *ngFor="let dataTypeName of dataTypes" class="data-type">
+            <span>
+              <input
+                type="radio"
+                class="data-type-option"
+                name="data"
+                [checked]="dataTypeName === selectedReturnType"
+                (click)="setReturnType(dataTypeName)"
+              />
+              <label for="{{ dataTypeName }}">{{ dataTypeName }}</label>
+            </span>
+            <div
+              *ngIf="
+                showPrimitiveSection &&
+                selectedReturnType === 'primitive' &&
+                dataTypeName === 'primitive'
+              "
+              class="dropdown-container"
+            >
+              <div formGroupName="primitiveReturnType">
+                <select class="form-select" formControlName="id">
+                  <ng-container *ngFor="let type of dataTypesFromJava">
+                    <option *ngIf="!type.isCollection" [value]="type.id">
+                      {{ type.commonDataType }}
+                    </option>
+                  </ng-container>
+                </select>
+              </div>
+            </div>
+            <div
+              *ngIf="
+                showPrimitiveSection &&
+                selectedReturnType === 'collection' &&
+                dataTypeName === 'collection'
+              "
+              class="form-row row"
+            >
+              <div class="form-group mt-2 col-md-6">
+                <div formGroupName="collectionReturnType">
+                  <select class="form-select" formControlName="id">
+                    <ng-container *ngFor="let type of dataTypesFromJava">
+                      <option *ngIf="type.isCollection" [value]="type.id">
+                        {{ type.commonDataType }}
+                      </option>
+                    </ng-container>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group mt-2 col-md-6">
+                <div formGroupName="primitiveReturnType">
+                  <select class="form-select" formControlName="id">
+                    <ng-container *ngFor="let type of dataTypesFromJava">
+                      <option *ngIf="!type.isCollection" [value]="type.id">
+                        {{ type.commonDataType }}
+                      </option>
+                    </ng-container>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <button
+          mat-button
+          matStepperPrevious
+          class="btn btn-outline-secondary button mt-3"
+        >
+          Back
+        </button>
+        <button
+          mat-button
+          matStepperNext
+          class="btn btn-outline-success button mt-3"
+        >
+          Add Test Cases
+        </button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="codingQuestionTestCasesDetailsForm">
+    <ng-template matStepLabel>Add Test Cases</ng-template>
+    <ng-container *ngIf="selectedStepIndex == 2">
+      <button class="btn btn-sm btn-success" (click)="addTestCases()">
+        Add Test Case
+      </button>
+      <form [formGroup]="codingQuestionTestCasesDetailsForm">
+        <div class="row" formArrayName="testCases">
+          <div
+            *ngFor="let testCase of testCases.controls; let i = index"
+            [formGroupName]="i"
+          >
+            <div class="row">
+              <span>
+                <div>
+                  <label for="">isSample</label>
+                </div>
+                <label>
+                  <input
+                    type="radio"
+                    name="dataType+{{ i }}"
+                    value="true"
+                    [checked]="checkIstrue(testCase, i)"
+                    (click)="updateIsSample(true, i)"
+                  />
+                  true
+                </label>
+                <label>
+                  <input
+                    type="radio"
+                    name="dataType+{{ i }}"
+                    value="false"
+                    [checked]="!checkIstrue(testCase, i)"
+                    (click)="updateIsSample(false, i)"
+                  />
+                  false
+                </label>
+              </span>
+            </div>
+            <div class="row">
+              <label for="expectedResult"
+                >Expected Result<sup class="required-field">*</sup></label
+              >
+              <input
+                type="text"
+                class="form-control"
+                formControlName="expectedResult"
+              />
+            </div>
+            <div class="row">
+              <label for="explanationExample"
+                >Explanation Example<sup class="required-field">*</sup></label
+              >
+              <input
+                type="text"
+                class="form-control"
+                formControlName="explanationExample"
+              />
+            </div>
+            <div formArrayName="inputArguments">
+              <div
+                *ngFor="
+                  let inputArg of returnArgArray(testCase).controls;
+                  let j = index
+                "
+              >
+                <div [formGroupName]="j">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <label for="explanationExample"
+                        >Method Argument Name<sup class="required-field"
+                          >*</sup
+                        ></label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        formControlName="methodArgumentName"
+                      />
+                    </div>
+                    <div class="col-md-6">
+                      <label for="explanationExample"
+                        >Input Value<sup class="required-field">*</sup></label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        formControlName="inputValue"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <button
+              class="btn btn-sm btn-danger mt-2"
+              (click)="removeTestCaseDetails(i)"
+            >
+              Remove
+            </button>
+          </div>
+          <div></div>
+        </div>
+        <div>
+          <button
+            mat-button
+            matStepperPrevious
+            class="btn btn-outline-secondary button mt-3"
+          >
+            Back
+          </button>
+          <button
+            mat-button
+            matStepperNext
+            class="btn btn-outline-success button mt-3"
+            (click)="printDetails()"
+          >
+            Preview & Save
+          </button>
+        </div>
+      </form>
+    </ng-container>
+  </mat-step>
+
+  <mat-step>
+    <ng-template matStepLabel>Preview & Save</ng-template>
+    <div class="border border-0">
+      <div>
+        <h5>Coding Question details</h5>
+        <p>Content: {{ codingQuestionDetailsForm.value.content }}</p>
+        <p>Description: {{ codingQuestionDetailsForm.value.description }}</p>
+        <p>Difficulty Level: {{ codingQuestionDetailsForm.value.difficultyLevel }}</p>
+      </div>
+      <div *ngFor="let constraint of codingQuestionDetailsForm.value.constraints">
+        <p>Constraint: {{ constraint.constraint }}</p>
+      </div>
+      <hr />
+      <div>
+        <h5>Method Details</h5>
+        <p>Method Name: {{ codingQuestionDetailsForm.value.methodDefinition.methodName }}</p>
+        <p>Primitive Return Type: {{ codingQuestionDetailsForm.value.methodDefinition.primitiveReturnType.id }}</p>
+        <p>Collection Return Type: {{ codingQuestionDetailsForm.value.methodDefinition.collectionReturnType.id }}</p>
+        <div *ngFor="let argument of codingQuestionDetailsForm.value.methodDefinition.methodArguments">
+          <p>Argument Name: {{ argument.argumentName }}</p>
+          <p>Primitive Data Type : {{ argument.primitiveDataType.id }}</p>
+          <p>Collection Data Type : {{ argument.collectionDataType.id }}</p>
+        </div>
+      </div>
+      <hr />
+      <h5>Test Case Details</h5>
+      <div *ngFor="let testCase of codingQuestionDetailsForm.value.testCases">
+        <h6>Test Case:</h6>
+        <p>Expected Result: {{ testCase.expectedResult }}</p>
+        <p>Explanation Example: {{ testCase.explanationExample }}</p>
+        <h6>Input Arguments:</h6>
+        <div *ngFor="let inputArg of testCase.inputArguments">
+          <p>Method Argument Name: {{ inputArg.methodArgumentName }}</p>
+          <p>Input Value: {{ inputArg.inputValue }}</p>
+        </div>
+      </div>
+      <button mat-button matStepperPrevious class="btn btn-outline-secondary button">Back</button>
+      <button mat-button (click)="saveCodingQuestion()" class="btn btn-outline-success button">Save</button>
+    </div>
+  </mat-step>
+  
+</mat-horizontal-stepper>

@@ -25,6 +25,7 @@ import { ScheduleExamComponent } from './schedule-exam/schedule-exam.component';
 import { ViewExamDetailComponent } from './view-exam-detail/view-exam-detail.component';
 import { ViewExamsComponent } from './view-exams/view-exams.component';
 import { ViewSubjectsComponent } from './view-subjects/view-subjects.component';
+import { CodingQuestionsComponent } from './coding-questions/coding-questions.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { ViewSubjectsComponent } from './view-subjects/view-subjects.component';
     ViewSubjectsComponent,
     ExamUserComponent,
     ViewExamDetailComponent,
+    CodingQuestionsComponent
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,52 @@
+[
+  {
+    "Id": 1,
+    "name": "Sum of Array",
+    "description": "Write a function that takes an array of numbers as input and returns the sum of all the numbers in the array."
+  },
+  {
+    "Id": 2,
+    "name": "Prime Numbers",
+    "description": "Write a function that takes a number as input and returns true if the number is prime, false otherwise. A prime number is a number that is greater than 1 and has no positive divisors other than 1 and itself."
+  },
+  {
+    "Id": 3,
+    "name": "Even or Odd",
+    "description": "Write a function that takes a number as input and returns 'even' if the number is even, and 'odd' if the number is odd."
+  },
+  {
+    "Id": 4,
+    "name": "Reverse String",
+    "description": "Write a function that takes a string as input and returns the reverse of the string."
+  },
+  {
+    "Id": 5,
+    "name": "Factorial",
+    "description": "Write a function that takes a non-negative integer as input and returns the factorial of that number. The factorial of a number n is the product of all positive integers less than or equal to n."
+  },
+  {
+    "Id": 6,
+    "name": "Palindrome",
+    "description": "Write a function that takes a string as input and returns true if the string is a palindrome, false otherwise. A palindrome is a word, phrase, number, or other sequence of characters that reads the same forward and backward."
+  },
+  {
+    "Id": 7,
+    "name": "Fibonacci Sequence",
+    "description": "Write a function that takes a positive integer n as input and returns the nth number in the Fibonacci sequence. The Fibonacci sequence starts with 0 and 1, and each subsequent number is the sum of the two preceding numbers."
+  },
+  {
+    "Id": 8,
+    "name": "Factorial",
+    "description": "Write a function that takes a non-negative integer as input and returns the factorial of that number. The factorial of a number n is the product of all positive integers less than or equal to n."
+  },
+  {
+    "Id": 9,
+    "name": "Count Vowels",
+    "description": "Write a function that takes a string as input and returns the number of vowels (a, e, i, o, u) in the string."
+  },
+  {
+    "Id": 10,
+    "name": "Binary to Decimal",
+    "description": "Write a function that takes a binary number as input and returns its decimal equivalent."
+  }
+]

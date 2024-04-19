@@ -3,7 +3,7 @@
 </div>
 
 <ng-template #examDetails>
-  <div class="shadow p-2 bg-white rounded subject-name">
+    <div class="shadow p-2 bg-white rounded subject-name">
     <div class="exam-header">
       <div></div>
       <div>
@@ -26,6 +26,7 @@
       </div>
     </div>
   </div>
+  <div *ngIf="currentSubject?.subject?.name?.toLowerCase()!=codingSubjectName.toLowerCase()">
   <div class="container shadow p-3 mb-5 bg-white rounded">
     <div style="width: 100%">
       <div class="heading"></div>
@@ -122,6 +123,56 @@
       </div>
     </div>
   </div>
-
   <ng-template #loadingSubject> </ng-template>
+</div>
+
+<div *ngIf="currentSubject?.subject?.name?.toLowerCase() == codingSubjectName.toLowerCase()">
+  <!-- app.component.html -->
+  <div class="shadow p-2 bg-white rounded subject-name">
+    <div class="exam-header d-flex justify-content-center align-items-center">
+      <!-- Buttons -->
+      <div class="ml-auto">
+        <button class="btn btn-primary mx-2" 
+        (click)="runCode()">
+        <i class="fas fa-play"></i>
+         Run
+        </button>
+        <button class="btn btn-success mx-2"
+         (click)="submitCode()">
+         <i class="fas fa-check"></i> 
+         Submit
+        </button>
+        <button class="btn btn-info mx-2" 
+        *ngIf="!(this.currentCodingQuestionIndex == 0)" (click)="previousCodingQuestion()">
+        <i class="fas fa-chevron-left"></i>
+         Previous
+        </button>
+        <button class="btn btn-info mx-2" 
+        *ngIf="!(this.currentCodingQuestionIndex==codingQuestions.length-1)"
+        (click)="nextCodingQuestion()">Next 
+        <i class="fas fa-chevron-right"></i>
+      </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-container">
+    <div class="coding-question">
+      <app-coding-questions></app-coding-questions>
+    </div>
+    <div class="code-editor">
+      <app-code-editor></app-code-editor>
+    </div>
+    <div class="test-cases">
+      <app-test-cases></app-test-cases>
+    </div>
+  </div>
+  </div>
+
 </ng-template>
+
+
+
+
+
+

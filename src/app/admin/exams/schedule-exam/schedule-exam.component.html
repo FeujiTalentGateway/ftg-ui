@@ -1,3 +1,5 @@
+
+
 <div>
   <div class="header">
     <h1>{{ isEditing ? "Update Exam" : "Schedule Exam" }}</h1>
@@ -258,6 +260,7 @@
         formArrayName="examSubjects"
         *ngFor="let subjectGroup of getExamSubjectsControls(); let i = index"
       >
+      
         <div [formGroupName]="i" class="exam-subject-item form-row">
           <div>
             <label for="subjectName{{ i }}"
@@ -271,6 +274,49 @@
             />
           </div>
 
+
+          <ng-container *ngIf="examSubjectsArray.value[i].subjectName.toLowerCase()==CodingSubjectName.toLowerCase()">
+            <div>
+              <label for="maxQuestions{{ i }}"
+                >Max Questions<span class="required-field">*</span></label
+              >
+              <mat-select
+                id="maxQuestions"
+                formControlName="maxQuestions"
+                class="form-control"
+              >
+                <mat-option
+                  *ngFor="let count of maxQuestionsArray"
+                  [value]="count"
+                  >{{ count }}</mat-option
+                >
+              </mat-select>
+              <div
+                *ngIf="
+                  subjectGroup.get('maxQuestions')?.hasError('required') &&
+                  subjectGroup.get('maxQuestions')?.touched
+                "
+                class="error-msg"
+              >
+                Max Questions is required.
+              </div>
+            </div>
+          <div>
+          <div>
+             <label class="hide">uyeuhsdau</label>
+          </div>
+          <div class="coding-button">
+            <button
+            class="btn btn-outline-secondary"
+            type="button"
+            pInputText
+            (click)=" AddCodingquestions(subjectGroup.get('maxQuestions')?.value)"
+          >Coding Questions</button>
+          </div>
+        </div>
+          </ng-container>
+
+        <ng-container *ngIf="examSubjectsArray.value[i].subjectName.toLowerCase() != CodingSubjectName.toLowerCase()">
           <div>
             <label for="maxQuestions{{ i }}"
               >Max Questions<span class="required-field">*</span></label
@@ -317,13 +363,15 @@
                 subjectGroup
                   .get('startingDifficultyLevel')
                   ?.hasError('required') &&
-                subjectGroup.get('startingDifficultyLevel')?.touched
+                subjectGroup.get('startingDifficultyLevel')?.touched 
               "
               class="error-msg"
             >
-              Strting Difficulty Level is required.
+              Starting Difficulty Level is required.
             </div>
           </div>
+        </ng-container>
+
 
           <button
             class="btn btn-outline-secondary remove-subject"
@@ -355,6 +403,7 @@
           >person_add</mat-icon
         >
       </p>
+      
     </form>
     <div class="d-flex justify-content-end btn-div">
       <button

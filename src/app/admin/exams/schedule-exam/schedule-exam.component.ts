@@ -11,6 +11,10 @@ import { ScheduleExamRepositoryService } from 'src/app/repository/schedule-exam-
 import { SubjectRepositoryService } from 'src/app/repository/subject-repository.service';
 import { ScheduleExamService } from 'src/app/services/schedule-exam.service';
 import { ExamUserComponent } from '../exam-user/exam-user.component';
+import { CodingQuestions } from 'src/app/models/codingquestions.model';
+import { CodingQuestionsComponent } from '../coding-questions/coding-questions.component';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
+import { ExamService } from 'src/app/repository/exam.service';
 
 @Component({
   selector: 'app-schedule-exam',
@@ -20,6 +24,7 @@ import { ExamUserComponent } from '../exam-user/exam-user.component';
 })
 export class ScheduleExamComponent implements OnInit {
   exam: Exam | null = null;
+  CodingSubjectName :string ="Coding Questions"
   dialogRef: any;
   isEditing: boolean = false;
   editableExamId!: number;
@@ -28,6 +33,7 @@ export class ScheduleExamComponent implements OnInit {
   selectedExamId: any;
   subjects!: Subject[];
   updatedUsers!: User[];
+  updatedQuestions!: CodingQuestions[];
   selectedSubjectIds!: number[];
   maxQuestionsArray: number[] = Array.from(
     { length: 50 },
@@ -40,14 +46,17 @@ export class ScheduleExamComponent implements OnInit {
 
   constructor(
     private service: ScheduleExamService,
+    private examService : ExamService,
     private fb: FormBuilder,
     private datePipe: DatePipe,
     private examRepo: ScheduleExamRepositoryService,
     private matDialog: MatDialog,
     private subjectRepo: SubjectRepositoryService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private snackBar: MatSnackBar
   ) {
     this.initializeExamForm();
+
   }
   ngOnInit(): void {
     this.isEditing = this.activatedRoute.snapshot.paramMap.get('id') !== null;
@@ -68,7 +77,7 @@ export class ScheduleExamComponent implements OnInit {
       this.subjects = response;
     });
   }
-
+ 
   // Constructor to inject services and dependencies
 
   // Initialize the exam form with form controls and validators
@@ -95,18 +104,32 @@ export class ScheduleExamComponent implements OnInit {
         examSubjects: this.fb.array([] as FormGroup[]),
         users: this.fb.array([] as FormGroup[]),
       },
-
-      { validators: this.dateRangeValidator }
+      { validators: this.dateRangeValidator },
+      
+      
     );
     // Set the minimum start date for date inputs
     this.minStartDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd')!;
+   
+    
   }
+  // Trigger error message
+  openErrorToaster(message: string) {
+    const config = new MatSnackBarConfig();
+    config.verticalPosition = 'top';
+    config.horizontalPosition = 'center';
+    config.duration = 3000; // Duration in milliseconds
+    this.snackBar.open(message, 'Close', config);
+    }
   // Custom validator for date range
   get examSubjectsArray() {
     return this.examForm.get('examSubjects') as FormArray;
   }
   get examUsersArray() {
     return this.examForm.get('users') as FormArray;
+  }
+  get codingQuestionsArray(){
+      return this.examForm.get('codingQuestions') as FormArray
   }
   onSubjectSelected() {
     this.selectedSubjectIds.forEach((selectedSubjectId) => {
@@ -132,6 +155,11 @@ export class ScheduleExamComponent implements OnInit {
               startingDifficultyLevel: ['', Validators.required],
             })
           );
+
+          if(selectedSubject.name?.toLowerCase()==this.CodingSubjectName.toLowerCase()){
+            const lastFormGroup = this.examSubjectsArray.at(this.examSubjectsArray.length - 1) as FormGroup;
+            lastFormGroup.removeControl('startingDifficultyLevel');
+          }
         }
         console.log(this.examSubjectsArray.value);
         // Reset the subjectControl value to null after processing
@@ -190,6 +218,7 @@ export class ScheduleExamComponent implements OnInit {
     });
     this.updatedUsers = this.exam!.users;
     this.setUsersToExamForm(this.exam?.users as User[]);
+    this.setcodingQuestionsToExamForm(this.exam?.codingQuestions as CodingQuestions [])
     console.log(this.examForm.value);
     if (this.exam!.examSubjects) {
       this.exam!.examSubjects.forEach((examSubject: ExamSubject) => {
@@ -236,11 +265,19 @@ export class ScheduleExamComponent implements OnInit {
     event.preventDefault();
   }
   onSubmit(): void {
+    console.log(this.examForm.value)
     if (this.selectedExamId) {
       this.service.updateExam(this.examForm.value);
       // this.goBack();
-    } else {
-      this.service.scheduleExam(this.examForm.value);
+    } 
+    else {
+      const { boolValue, errorMessage } =this.checkCodingQuestions()
+      if(boolValue){
+        this.service.scheduleExam(this.examForm.value);
+      }
+      else{
+        this.openErrorToaster(errorMessage)
+      }
     }
   }
 
@@ -311,4 +348,64 @@ export class ScheduleExamComponent implements OnInit {
   secondsArray: string[] = Array.from({ length: 60 }, (_, i) =>
     i.toString().padStart(2, '0')
   );
+
+
+  AddCodingquestions(maxQuestions:number){
+    console.log(this.examForm.value);
+    this.setcodingQuestionsToExamForm(this.updatedQuestions);
+    this.openCodingQuestionsModel(maxQuestions);
+    
+  }
+
+  setcodingQuestionsToExamForm(questions: CodingQuestions[]) {
+    if (questions) {
+      questions.forEach((question) => {
+        const existingQuestion = this.codingQuestionsArray.controls.find(
+          (control) => control.get('questionId')?.value === question?.id
+        );
+        if (!existingQuestion) {
+          const userFormGroup = this.fb.group({
+            id:question.id,
+          });
+
+          this.codingQuestionsArray.push(userFormGroup);
+        }
+      });
+    }
+  }
+  openCodingQuestionsModel(questions:number){
+    let dialogConfig: MatDialogConfig = {
+      width: '100%',
+      height: '100%',
+      disableClose: true,
+      // other MatDialogConfig properties can go here
+    };
+    dialogConfig.data = {
+      examData: this.examForm.value,
+      maxQuestions:questions
+    };
+    this.dialogRef = this.matDialog.open(CodingQuestionsComponent, dialogConfig);
+    this.dialogRef.afterClosed().subscribe((result: any) => {
+      this.updatedQuestions = result.examDataWithQuestions.codingQuestions;
+      this.setcodingQuestionsToExamForm(this.updatedQuestions);
+      console.log(this.examForm.value);
+      console.log(this.updatedQuestions);
+    });
+  }
+
+checkCodingQuestions(){
+  var maxCodingQuestions=0;
+  var selectedCodingQuestions=this.codingQuestionsArray.value.length
+  this.examSubjectsArray.value.forEach((subject:any,index:number) => {
+    if(this.CodingSubjectName.toLowerCase()==subject.subjectName.toLowerCase()){
+      maxCodingQuestions=subject.maxQuestions
+    }
+  });
+  
+  var message=`Max Coding Questions are ${maxCodingQuestions} and Selected Coding Questions are ${selectedCodingQuestions}`
+  return { boolValue: maxCodingQuestions==selectedCodingQuestions, errorMessage: message };
+  }
+
+  
 }
+

@@ -1,35 +1,81 @@
 {
     "content": "What is the main focus of the local-variable type inference feature introduced in Java 10?",
-    "description": "scvsdv",
-    "difficultyLevel": "2",
+    "description": "What is the main focus of the local-variable type inference feature introduced in Java 10?",
+    "difficultyLevel": "1",
     "constraints": [
         {
-            "constraint": ""
+            "constraint": "What is the main focus of the local-variable type inference feature introduced in Java 10?"
+        },
+        {
+            "constraint": "What is the main focus of the local-variable type inference feature introduced in Java 10?"
         }
     ],
-    "method": {
-        "methodName": "What is the main focus of the local-variable type inference feature introduced in Java 10?",
-        "returnType": "boolean",
-        "listOfArguments": [
+    "methodDefinition": {
+        "methodName": "Addtwo",
+        "isReturnTypeCollection": true,
+        "primitiveReturnType": {
+            "id": "3"
+        },
+        "collectionReturnType": {
+            "id": "7"
+        },
+        "methodArguments": [
             {
-                "argumentName": "s",
+                "argumentName": "num1",
                 "argumentDataType": "primitive",
-                "argumentPosition": "d",
+                "argumentPosition": "1",
                 "isCollection": false,
-                "newArgDataType": "int",
-                "collectionDataType": "",
-                "inputValue": ""
+                "primitiveDataType": {
+                    "id": "2"
+                },
+                "collectionDataType": {
+                    "id": ""
+                }
             },
             {
-                "argumentName": "s",
+                "argumentName": "num2",
                 "argumentDataType": "collection",
-                "argumentPosition": "s",
+                "argumentPosition": "2",
                 "isCollection": true,
-                "newArgDataType": "boolean",
-                "collectionDataType": "set",
-                "inputValue": ""
+                "primitiveDataType": {
+                    "id": "1"
+                },
+                "collectionDataType": {
+                    "id": "7"
+                }
             }
         ]
     },
-    "listOfTestCases": []
+    "testCases": [
+        {
+            "isSample": true,
+            "expectedResult": "12",
+            "explanationExample": "num1 num3",
+            "inputArguments": [
+                {
+                    "methodArgumentName": "num1",
+                    "inputValue": "10"
+                },
+                {
+                    "methodArgumentName": "num2",
+                    "inputValue": "20"
+                }
+            ]
+        },
+        {
+            "isSample": false,
+            "expectedResult": "15",
+            "explanationExample": "num1 num3",
+            "inputArguments": [
+                {
+                    "methodArgumentName": "num1",
+                    "inputValue": "20"
+                },
+                {
+                    "methodArgumentName": "num2",
+                    "inputValue": "30"
+                }
+            ]
+        }
+    ]
 }

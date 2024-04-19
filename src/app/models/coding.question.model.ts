@@ -8,7 +8,7 @@ export interface CodingQuestion{
     description:string;
     difficultyLevel:number;
     constraints:Constraint[]
-    methodDefination: Method
+    methodDefinition: Method
     testCases:TestCases[]
 
 

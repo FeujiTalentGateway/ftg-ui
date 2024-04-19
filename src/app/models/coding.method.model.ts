@@ -5,5 +5,7 @@ export interface Method{
     id:number,
     methodName:string,
     methodArguments:Argument[]
-    returnType:DataType
+    primitiveReturnType:DataType
+    collectionReturnType:DataType
+    isColletionType:boolean
 }

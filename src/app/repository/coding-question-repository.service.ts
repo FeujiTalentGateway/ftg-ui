@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { DataType } from '../models/coding.datatype.model';
+import { CodingQuestion } from '../models/coding.question.model';
 
 @Injectable({
   providedIn: 'root'
@@ -24,12 +25,8 @@ export class CodingQuestionRepositoryService {
     );
   }
 
-  saveCodingQuestion(){
-    let token = localStorage.getItem('token');
-    let headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    let requestOptions = {
-      headers: headers,
-    };
-    return this.http.post(this.javaUrl + 'codingquestion/',requestOptions)
+  saveCodingQuestion(codingquestion:CodingQuestion):Observable<any>{
+    return this.http.post(`${this.javaUrl}codingquestion/`, codingquestion);
+
   }
 }

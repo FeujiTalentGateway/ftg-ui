@@ -7,7 +7,7 @@ export interface Argument{
     isCollection:boolean
     collectionName:DataType
     primitiveName:DataType
-    argumentDataType:DataType
+    // argumentDataType:DataType
     primitiveDataType:number
     dataTypes:DataType[]
 

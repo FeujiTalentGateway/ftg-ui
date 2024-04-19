@@ -1,5 +1,6 @@
-import { Component, Input, OnInit, OnDestroy, ViewChild } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Observable } from 'rxjs';
+import { CodingQuestions } from 'src/app/models/codingquestions.model';
 import { Exam } from 'src/app/models/exam.model';
 import { ExamStartResponse } from 'src/app/models/examStartresponce.model';
 import { ExamSubject } from 'src/app/models/examSubject';
@@ -7,10 +8,9 @@ import { Option } from 'src/app/models/option';
 import { Question } from 'src/app/models/question';
 import { ExamService } from 'src/app/repository/exam.service';
 import { SharedDataService } from 'src/app/services/shared-data.service';
-import { SubjectQuestions } from './subject.questions';
 import { QuestionNavigationComponent } from '../question-navigation/question-navigation.component';
-import { CodingQuestions } from 'src/app/models/codingquestions.model';
- 
+import { SubjectQuestions } from './subject.questions';
+
 @Component({
   selector: 'app-questions',
   templateUrl: './questions.component.html',
@@ -18,7 +18,7 @@ import { CodingQuestions } from 'src/app/models/codingquestions.model';
 })
 export class QuestionsComponent implements OnInit, OnDestroy {
   @ViewChild('childComponentRef') childComponent!: QuestionNavigationComponent;
- 
+
   @Input() exam: Exam = {
     id: 0,
     name: '',
@@ -31,9 +31,8 @@ export class QuestionsComponent implements OnInit, OnDestroy {
     created_at_ts: '',
     examSubjects: [],
     users: [],
-    codingQuestions:[]
   };
-  codingSubjectName="Coding Questions"
+  codingSubjectName = 'Coding Questions';
   currentQuestionIndex = 0;
   currentQuestion: Question | undefined;
   listOfQuestion: Question[] = [];
@@ -54,20 +53,20 @@ export class QuestionsComponent implements OnInit, OnDestroy {
   subjectStatus$: Observable<any> | undefined;
   arrow: boolean = false;
   questionNavigation: boolean = false;
-  currentCodingQuestionIndex:number=0;
-  codingQuestions:CodingQuestions[]=[]
-  codingQuestionArray:ExamSubject={
-      subject: {
-        id: 1,
-        name:"Coding Questions",
-        active:true
-      },
-      id: 0,
-      maxQuestions: 5,
-      startingDifficultyLevel: 4,
-      duration: "15",
-      isTimeUp:false
-  }
+  currentCodingQuestionIndex: number = 0;
+  codingQuestions: CodingQuestions[] = [];
+  codingQuestionArray: ExamSubject = {
+    subject: {
+      id: 1,
+      name: 'Coding Questions',
+      active: true,
+    },
+    id: 0,
+    maxQuestions: 5,
+    startingDifficultyLevel: 4,
+    duration: '15',
+    isTimeUp: false,
+  };
   ngOnInit(): void {
     this.currentSubject = this.exam.examSubjects[this.indexPositionOfTheExam];
     this.indexPositionOfSubject$ = this.sharedData.indexPositionOfSubject$;
@@ -83,7 +82,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
         response.question['isMarkedForReview'] = false;
         this.currentQuestion = response.question;
         console.log(this.currentQuestion, 'this.currentQuestion');
- 
+
         this.examAttemptID = response.attemptId;
         this.sharedData.updateExamAttempt(this.examAttemptID as number);
         this.isLoading = false;
@@ -91,7 +90,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
         this.exam.examSubjects[this.indexPositionOfTheExam].isTimeUp = false;
         this.updateExamTimeConfirmation();
         console.log(this.exam.examSubjects, 'this.exam.examSubjects');
- 
+
         this.listOfQuestionEachSubject.push({
           subjectId: this.currentSubject?.subject.id ?? 0,
           subjectName: this.currentSubject?.subject.name ?? '',
@@ -141,16 +140,14 @@ export class QuestionsComponent implements OnInit, OnDestroy {
         this.updateNextSubject();
       }
     });
-    
 
-    this.exam.examSubjects.push(this.codingQuestionArray)
-
+    this.exam.examSubjects.push(this.codingQuestionArray);
   }
   constructor(
     private ExamRepo: ExamService,
     private sharedData: SharedDataService
   ) {}
- 
+
   /**
    * @method updateQuestions() this method is for updating the questions
    * @description this method is for updating the questions
@@ -166,12 +163,12 @@ export class QuestionsComponent implements OnInit, OnDestroy {
    * @param userOptionSelected this is the option selected by the user
    * @method assignRightOption() this method is for assigning the right option to the current question
    */
- 
+
   assignRightOption(userOptionSelected: Option) {
     const index = this.currentQuestion?.optionSelected?.findIndex(
       (opt) => opt.id == userOptionSelected.id
     );
- 
+
     if (index != -1 && typeof index == 'number') {
       this.currentQuestion?.optionSelected?.splice(index, 1);
     } else if (this.currentQuestion?.questionType == 'single choice') {
@@ -181,7 +178,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
       this.currentQuestion?.optionSelected?.push(userOptionSelected);
     }
   }
- 
+
   /**
    *
    * @param isSkipped  is fot checking wether the is user is skipping this question or not
@@ -206,7 +203,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
     };
     return currentQuestionData;
   }
- 
+
   /**
    *
    * @param isSkipped   is fot checking wether the is user is skipping this question or not
@@ -214,7 +211,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
    * @param isUpdating    is for to update the question not to skip the getting next question
    * @`method saveOption` this method is for saving the option based on the above conditions
    */
- 
+
   saveOption(
     isSkipped: boolean = false,
     isLast: boolean = false,
@@ -235,19 +232,18 @@ export class QuestionsComponent implements OnInit, OnDestroy {
     } else if (isUpdating) {
       this.currentQuestion = this.listOfQuestion[this.currentQuestionIndex];
       this.updateOption(currentQuestionData);
- 
     } else {
       this.saveOptionAndGetNewQuestion(currentQuestionData);
     }
   }
- 
+
   /**
    *
    * @param currentQuestionData this is the current question data
    * @returns  it will return the new question
    * @method saveOptionAndGetNewQuestion() this method is for saving the option and getting the new question
    */
- 
+
   saveOptionAndGetNewQuestion(currentQuestionData: any) {
     this.question$ = this.ExamRepo.submitQuestion(currentQuestionData);
     this.question$.subscribe((response) => {
@@ -268,7 +264,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
    */
   updateOption(currentQuestionData: any) {
     console.log(currentQuestionData, 'currentQuestionData');
- 
+
     this.question$ = this.ExamRepo.submitQuestion(currentQuestionData);
     this.question$.subscribe((response) => {
       if (response != null) {
@@ -279,14 +275,14 @@ export class QuestionsComponent implements OnInit, OnDestroy {
       this.currentQuestion = this.listOfQuestion[this.currentQuestionIndex];
     });
   }
- 
+
   /**
    *
    * @param currentQuestionData this is the current question data
    * @returns  it will return the new question
    * @method skipTheCurrentQuestionAndGetNewQuestion() this method is for skipping the current question and getting the new question
    */
- 
+
   skipTheCurrentQuestionAndGetNewQuestion(currentQuestionData: any) {
     this.question$ = this.ExamRepo.submitQuestion(currentQuestionData);
     this.question$.subscribe((response) => {
@@ -300,15 +296,15 @@ export class QuestionsComponent implements OnInit, OnDestroy {
       this.currentQuestion = this.listOfQuestion[this.currentQuestionIndex];
     });
   }
- 
+
   /**
    *  @method updateSubjectIndex() this method is for updating the subject index
    */
- 
+
   updateSubjectIndex() {
     this.sharedData.updateSubjectIndex(this.indexPositionOfSubject);
   }
- 
+
   /**
    * @returns it will return the selected options
    * @method getSelectedOptions() this method is for getting the selected options
@@ -324,7 +320,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
     }
     return optionArray;
   }
- 
+
   /**
    *
    * @param option this is option we are checking wether this is selected ot not
@@ -339,13 +335,13 @@ export class QuestionsComponent implements OnInit, OnDestroy {
     const isPresent = options.some((item) => item.id === option.id);
     return isPresent;
   }
- 
+
   /**
  
    * @returns it will return the true or false
   * @method checkLastQuestionOrNot() this method is for checking the last question or not
    */
- 
+
   checkLastQuestionOrNot(): boolean {
     if (
       this.currentQuestionIndex ==
@@ -355,18 +351,18 @@ export class QuestionsComponent implements OnInit, OnDestroy {
     }
     return false;
   }
- 
+
   getSubjectName(): string | undefined {
     return this.currentSubject?.subject.name;
   }
- 
+
   /**
    *
    * @param option this is the option we are checking wether this is selected or not
    * @returns it will return the true or false
    * @method isOptionSelected() this method is for checking the option is selected or not
    */
- 
+
   isOptionSelected(option: Option): boolean {
     let options = this.currentQuestion?.optionSelected?.[0];
     if (options != undefined && options.id == option.id) {
@@ -374,7 +370,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
     }
     return false;
   }
- 
+
   /**
    *
    * @returns it will return the true or false
@@ -382,43 +378,38 @@ export class QuestionsComponent implements OnInit, OnDestroy {
    * @description this method is for checking the last subject or not
    *
    */
- 
+
   checkLastSubjectOrNot(): any {
     if (this.indexPositionOfSubject + 1 == this.exam.examSubjects.length) {
       return false;
     }
     return true;
   }
- 
+
   /**
    * @returns it will return the remaining time`
    * @method getRemainingTime() this method is for getting the remaining time
    */
- 
+
   getRemainingTime(): number {
     let remainingTime = 0;
     remainingTime = this.sharedData.getRemainingTime();
     return remainingTime;
   }
- 
- 
- 
- 
- 
+
   /**
    * @method changeSubject() this method is for changing the subject
    * @param indexPositionOfSubject
    */
- 
+
   changeSubject(indexPositionOfSubject: any) {
- 
     this.saveOption(false, false, true);
     this.updatingTheCurrentSubjectAndQuestions();
     let subject = this.exam.examSubjects[indexPositionOfSubject.value];
     this.sharedData.updateSubjectIndex(indexPositionOfSubject.value);
     this.currentSubject = subject;
     let subjectIsExits = this.checkSubjectIsExitsOrNot(this.currentSubject);
- 
+
     if (!subjectIsExits) {
       this.listOfQuestion = [];
       this.currentQuestionIndex = 0;
@@ -434,21 +425,20 @@ export class QuestionsComponent implements OnInit, OnDestroy {
         console.log(response, 'response');
         this.listOfQuestion = response;
         this.childComponent.previousQuestion(this.currentQuestionIndex);
- 
       });
- 
+
       this.listOfQuestion = this.listOfQuestionEachSubject.find(
         (item) => item.subjectId === subject.subject.id
       )?.questions as Question[];
       this.currentQuestion = this.listOfQuestion[this.currentQuestionIndex];
     }
   }
- 
+
   /**
    * @method updatingTheCurrentSubjectAndQuestions() this method is for updating the current subject and questions
    * @description this method is for updating the current subject and questions
    */
- 
+
   updatingTheCurrentSubjectAndQuestions() {
     this.listOfQuestionEachSubject.map((item) => {
       if (item.subjectId === this.currentSubject?.subject.id) {
@@ -458,26 +448,26 @@ export class QuestionsComponent implements OnInit, OnDestroy {
       return item;
     });
   }
- 
+
   /**
    * @method checkSubjectIsExitsOrNot() this method is for checking the subject is exits or not
    * @param subject this is the subject we are checking wether this is exits or not
    * @returns it will return the true or false
    * @description this method is for checking the subject is exits or not
    */
- 
+
   checkSubjectIsExitsOrNot(subject: any): boolean {
     let subjectIsExits = this.listOfQuestionEachSubject.some(
       (item) => item.subjectId === subject.subject.id
     );
     return subjectIsExits;
   }
- 
+
   /**
    *  @method changeSubjectWithIndexPositionAndGetQuestion() this method is for changing the subject with index position and getting the question
    * @description this method is for changing the subject with index position and getting the question
    */
- 
+
   changeSubjectWithIndexPositionAndGetQuestion() {
     let data = {
       examCode: this.exam.examCode,
@@ -505,24 +495,24 @@ export class QuestionsComponent implements OnInit, OnDestroy {
       }
     );
   }
- 
+
   /**
    * @method updateExamTimeConfirmation() this method is for updating the exam time confirmation
    * @description this method is for updating the exam time confirmation
    */
- 
+
   updateExamTimeConfirmation() {
     this.exam.examSubjects.map((item) => {
       item.isTimeUp = false;
       return item;
     });
   }
- 
+
   /**
    * @method updateNextSubject() this method is for updating the next subject
    * @description this method is for updating the next subject
    */
- 
+
   updateNextSubject() {
     let examSubjectsList = this.exam.examSubjects;
     let isSubjectAvailable = examSubjectsList.some(
@@ -536,7 +526,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
       );
       console.log(indexPositionOfSubject, 'indexPositionOfSubject');
       this.sharedData.updateSubjectIndex(indexPositionOfSubject);
- 
+
       console.log(nextSubject, 'nextSubject');
       if (nextSubject != undefined) {
         this.currentSubject = nextSubject;
@@ -557,7 +547,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
       this.sharedData.callSubmitExam(true);
     }
   }
- 
+
   ngOnDestroy(): void {
     if (this.question$) {
       this.question$.subscribe().unsubscribe();
@@ -578,7 +568,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
       this.subjectStatus$.subscribe().unsubscribe();
     }
   }
- 
+
   setMarkedForReview() {
     if (this.currentQuestion?.isMarkedForReview !== undefined) {
       this.currentQuestion.isMarkedForReview =
@@ -586,7 +576,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
       console.log(this.currentQuestion);
     }
   }
- 
+
   updateOptionSelected(
     isSkipped: boolean = false,
     isLast: boolean = false,
@@ -605,14 +595,14 @@ export class QuestionsComponent implements OnInit, OnDestroy {
     }
     return false;
   }
- 
+
   getTestForMarkButton(): any {
     if (!this.currentQuestion?.isMarkedForReview) {
       return 'Mark for Review';
     }
     return 'Unmark';
   }
- 
+
   handleQuestionChange(num: number) {
     this.currentQuestionIndex = num - 1;
     this.currentQuestion = this.listOfQuestion[this.currentQuestionIndex];
@@ -621,13 +611,13 @@ export class QuestionsComponent implements OnInit, OnDestroy {
     this.arrow = !this.arrow;
     this.questionNavigation = !this.questionNavigation;
   }
- 
+
   /**
    * @method submitExam() this method is for submitting the exam
    * @returns it will return the confirmation dialog
    * @description this method is for submitting the exam
    */
- 
+
   async nextQuestion() {
     if (this.currentQuestionIndex < this.listOfQuestion.length - 1) {
       this.updateOptionSelected(false, false, true);
@@ -645,7 +635,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
   /**
    *  @method previousQuestion() this method is for getting the previous question
    */
- 
+
   previousQuestion() {
     if (this.currentQuestionIndex > 0) {
       this.updateOptionSelected(false, false, true);
@@ -654,17 +644,14 @@ export class QuestionsComponent implements OnInit, OnDestroy {
       this.childComponent.previousQuestion(this.currentQuestionIndex);
     }
   }
- 
- 
- 
- 
+
   /**
    *  @method changeSubjectAndGetFirstQuestion() this method is for changing the subject and getting the first question
    */
   changeSubjectAndGetFirstQuestion() {
     this.nextSubjectLoading = false;
     console.log('i am in changeSubjectAndGetFirstQuestion');
- 
+
     let checkAlreadyVisited = this.listOfQuestionEachSubject.some(
       (item) => item.subjectId == this.currentSubject?.subject.id
     );
@@ -672,7 +659,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
       this.listOfQuestion = this.listOfQuestionEachSubject.find(
         (item) => item.subjectId == this.currentSubject?.subject.id
       )?.questions as Question[];
- 
+
       this.currentQuestionIndex = 0;
       this.currentQuestion = this.listOfQuestion[this.currentQuestionIndex];
       this.nextSubjectLoading = true;
@@ -684,7 +671,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
         reamingTime: this.getRemainingTime(),
         isVisited: true,
       });
- 
+
       let data = {
         examCode: this.exam.examCode,
         difficultyLevel: this.currentSubject?.startingDifficultyLevel ?? 0,
@@ -705,17 +692,8 @@ export class QuestionsComponent implements OnInit, OnDestroy {
       );
     }
   }
-  runCode(){
-
-  }
-  submitCode(){
-
-  }
-  previousCodingQuestion(){
-
-  }
-  nextCodingQuestion(){
-
-  }
+  runCode() {}
+  submitCode() {}
+  previousCodingQuestion() {}
+  nextCodingQuestion() {}
 }
- 

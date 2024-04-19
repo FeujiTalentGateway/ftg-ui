@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ConfirmDialogforuserComponent } from './confirm-dialogforuser.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 
 describe('ConfirmDialogforuserComponent', () => {
   let component: ConfirmDialogforuserComponent;
@@ -8,7 +10,12 @@ describe('ConfirmDialogforuserComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ConfirmDialogforuserComponent]
+      imports:[HttpClientTestingModule,MatDialogModule],
+      declarations: [ConfirmDialogforuserComponent],
+      providers: [
+        { provide: MatDialogRef, useValue: {} },
+        { provide: MAT_DIALOG_DATA, useValue: {} } // Provide a mock implementation
+      ]
     });
     fixture = TestBed.createComponent(ConfirmDialogforuserComponent);
     component = fixture.componentInstance;

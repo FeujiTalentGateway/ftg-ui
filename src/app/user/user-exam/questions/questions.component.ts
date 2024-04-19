@@ -7,9 +7,9 @@ import { Option } from 'src/app/models/option';
 import { Question } from 'src/app/models/question';
 import { ExamService } from 'src/app/repository/exam.service';
 import { SharedDataService } from 'src/app/services/shared-data.service';
-import { take } from 'rxjs';
 import { SubjectQuestions } from './subject.questions';
 import { QuestionNavigationComponent } from '../question-navigation/question-navigation.component';
+import { CodingQuestions } from 'src/app/models/codingquestions.model';
  
 @Component({
   selector: 'app-questions',
@@ -32,6 +32,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
     examSubjects: [],
     users: [],
   };
+  codingSubjectName="Coding Questions"
   currentQuestionIndex = 0;
   currentQuestion: Question | undefined;
   listOfQuestion: Question[] = [];
@@ -52,7 +53,20 @@ export class QuestionsComponent implements OnInit, OnDestroy {
   subjectStatus$: Observable<any> | undefined;
   arrow: boolean = false;
   questionNavigation: boolean = false;
- 
+  currentCodingQuestionIndex:number=0;
+  codingQuestions:CodingQuestions[]=[]
+  codingQuestionArray:ExamSubject={
+      subject: {
+        id: 1,
+        name:"Coding Questions",
+        active:true
+      },
+      id: 0,
+      maxQuestions: 5,
+      startingDifficultyLevel: 4,
+      duration: "15",
+      isTimeUp:false
+  }
   ngOnInit(): void {
     this.currentSubject = this.exam.examSubjects[this.indexPositionOfTheExam];
     this.indexPositionOfSubject$ = this.sharedData.indexPositionOfSubject$;
@@ -128,7 +142,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
     });
     
 
-
+    this.exam.examSubjects.push(this.codingQuestionArray)
 
   }
   constructor(
@@ -689,6 +703,18 @@ export class QuestionsComponent implements OnInit, OnDestroy {
         }
       );
     }
+  }
+  runCode(){
+
+  }
+  submitCode(){
+
+  }
+  previousCodingQuestion(){
+
+  }
+  nextCodingQuestion(){
+
   }
 }
  

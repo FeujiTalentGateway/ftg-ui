@@ -1,0 +1,62 @@
+
+ {
+    "id":1,
+    "content":"add two numbers",
+    "description":"something",
+    "difficultLevel":3,
+    "constraints":
+        [
+            {
+    
+            "id":1,
+            "constraint":""
+            }
+
+        ],
+
+    "methodDefination":
+        {
+            "methodName":"",
+            "returnType":"",
+            "methodArguments":    
+                    [
+                        {
+                            "argumentName":"num1",
+                            "argumentPosition":"1",
+                            "isCollection":false,
+                            "primitiveName":{"id":"9"},
+                            "collectionName":{"id":"8"}
+                           
+                        },
+                        {
+                            "argumentName":"num2",
+                            "argumentPosition":"1",
+                            "isCollection":false,
+                            "collectionName":"",   
+                            "primitiveName":{"id":"8"}
+                           
+                        }
+                    ]
+        },
+
+    "testCases":
+        [
+            {
+                "id":1,
+                "expectedResult":5,
+                "explanationExample":"",
+                "isSample":true,
+                "inputArguments":
+                    [
+                        {
+                            "inputValue":1,
+                            "argumentName":"num1"
+                        },
+                        {
+                            "inputValue":2,
+                            "argumentName":"num2"
+                        }
+                    ]
+            }
+        ]
+}

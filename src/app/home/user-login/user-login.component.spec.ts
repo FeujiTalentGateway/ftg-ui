@@ -4,6 +4,12 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
 import { UserLoginComponent } from './user-login.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterTestingModule } from '@angular/router/testing';
+import { MatDialogModule } from '@angular/material/dialog';
+import { HeaderComponent } from '../header/header.component';
 
 describe('UserLoginComponent', () => {
   let component: UserLoginComponent;
@@ -11,7 +17,9 @@ describe('UserLoginComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [UserLoginComponent],
+      declarations: [UserLoginComponent,HeaderComponent],
+      imports:[HttpClientTestingModule,MatSnackBarModule,FormsModule,ReactiveFormsModule,RouterTestingModule,MatDialogModule]
+
     }).compileComponents();
   }));
 

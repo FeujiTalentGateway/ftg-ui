@@ -275,7 +275,48 @@
           </div>
 
 
-           
+          <ng-container *ngIf="examSubjectsArray.value[i].subjectName.toLowerCase()==CodingSubjectName.toLowerCase()">
+            <div>
+              <label for="maxQuestions{{ i }}"
+                >Max Questions<span class="required-field">*</span></label
+              >
+              <mat-select
+                id="maxQuestions"
+                formControlName="maxQuestions"
+                class="form-control"
+              >
+                <mat-option
+                  *ngFor="let count of maxQuestionsArray"
+                  [value]="count"
+                  >{{ count }}</mat-option
+                >
+              </mat-select>
+              <div
+                *ngIf="
+                  subjectGroup.get('maxQuestions')?.hasError('required') &&
+                  subjectGroup.get('maxQuestions')?.touched
+                "
+                class="error-msg"
+              >
+                Max Questions is required.
+              </div>
+            </div>
+          <div>
+          <div>
+             <label class="hide">uyeuhsdau</label>
+          </div>
+          <div class="coding-button">
+            <button
+            class="btn btn-outline-secondary"
+            type="button"
+            pInputText
+            (click)=" AddCodingquestions(subjectGroup.get('maxQuestions')?.value)"
+          >Coding Questions</button>
+          </div>
+        </div>
+          </ng-container>
+
+        <ng-container *ngIf="examSubjectsArray.value[i].subjectName.toLowerCase() != CodingSubjectName.toLowerCase()">
           <div>
             <label for="maxQuestions{{ i }}"
               >Max Questions<span class="required-field">*</span></label
@@ -329,6 +370,7 @@
               Starting Difficulty Level is required.
             </div>
           </div>
+        </ng-container>
 
 
           <button
@@ -347,8 +389,6 @@
           <!-- Add other form controls for the subject as needed -->
         </div>
       </ng-container>
-
-      <div>
       <p
         mat-raised-button
         #tooltip="matTooltip"
@@ -363,9 +403,7 @@
           >person_add</mat-icon
         >
       </p>
-        <button class="btn btn-outline-secondary" (click)="AddCodingQuestions($event)">Coding Questions</button>
-      </div>
-
+      
     </form>
     <div class="d-flex justify-content-end btn-div">
       <button

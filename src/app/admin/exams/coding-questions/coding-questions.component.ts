@@ -11,10 +11,9 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Subject, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { CodingQuestions } from 'src/app/models/codingquestions.model';
 import { Exam } from 'src/app/models/exam.model';
-import { ExamSubject } from 'src/app/models/examSubject';
 import { AuthRepositoryService } from 'src/app/repository/auth-repository.service';
 import { ExamService } from 'src/app/repository/exam.service';
 import { ScheduleExamService } from 'src/app/services/schedule-exam.service';
@@ -30,8 +29,6 @@ export class CodingQuestionsComponent implements OnInit, AfterViewInit {
   dataSource = new MatTableDataSource(this.questions);
   examFormDetails!: Exam;
   dataSourceWithSerial: any[] = [];
-  subjectName="Coding Questions";
-  codingQuestionObject!:ExamSubject | undefined;
   displayedColumns: string[] = [
     'select',
     'questionId',
@@ -54,7 +51,6 @@ export class CodingQuestionsComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.getCodingQuestions();
     this.examFormDetails = this.dialogData.examData;
-    console.log(this.examFormDetails)
   }
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
@@ -100,29 +96,28 @@ export class CodingQuestionsComponent implements OnInit, AfterViewInit {
         this.openErrorToaster(`Max Questions are ${this.dialogData.maxQuestions} and Selected Questions are ${this.selection.selected.length} Both Does not match`)
     }
     else{
-      this.setCodingquestionsToExamForm()
+      this.examFormDetails.codingQuestions = this.selection.selected;
       this.dialogRef.close({ examDataWithQuestions: this.examFormDetails });
     }
   }
 
+  updateSelectionList() {
+    this.questions.forEach((question) => {
+      if (
+        this.examFormDetails.codingQuestions.find(
+          (selectedQuestion) => selectedQuestion.id === question.id
+        )
+      ) {
+        this.selection.select(question);
+      }
+    });
+  }
   isAllSelected() {
     const numSelected = this.selection.selected.length;
     const numRows = this.dataSource.data.length;
     return numSelected === numRows;
   }
 
-  updateSelectionList() {
-    this.codingQuestionObject =this.examFormDetails.examSubjects.find((subject:any)=>subject.subjectName.toLowerCase()===this.subjectName.toLowerCase());
-    this.questions.forEach((question) => {
-      if (
-        this.codingQuestionObject?.codingQuestions.find(codingquestion=>codingquestion.id==question.id)
-      ) {
-        this.selection.select(question);
-      }
-    });
-  }
-
- 
   masterToggle() {
     this.isAllSelected()
       ? this.selection.clear()
@@ -134,16 +129,6 @@ export class CodingQuestionsComponent implements OnInit, AfterViewInit {
   }
   CloseModel(){
     this.dialogRef.close()
-  }
-
-  setCodingquestionsToExamForm(){
-    this.codingQuestionObject =this.examFormDetails.examSubjects.find((subject:any)=>subject.subjectName.toLowerCase()===this.subjectName.toLowerCase());
-      if(this.codingQuestionObject){
-        this.codingQuestionObject.codingQuestions=this.selection.selected.map((question:CodingQuestions)=>{
-          const {content ,description, ...id}=question;
-          return id
-        });
-      }
   }
 }
 

@@ -31,6 +31,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
     created_at_ts: '',
     examSubjects: [],
     users: [],
+    codingQuestions:[]
   };
   codingSubjectName="Coding Questions"
   currentQuestionIndex = 0;

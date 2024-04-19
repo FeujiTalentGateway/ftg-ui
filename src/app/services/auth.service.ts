@@ -34,7 +34,6 @@ export class AuthService {
     this.authRepo.register(user).subscribe({
       next: (response: any) => {
         const responseMessage: string = response.message;
-        console.log(responseMessage);
         this.openSnackBar(response.message, 'Close');
         if (responseMessage.includes('User successfully registered with')) {
           this.openSnackBar(responseMessage, 'Close');
@@ -68,7 +67,6 @@ export class AuthService {
 
     this.authRepo.login(user).subscribe({
       next: (response: any) => {
-        console.log(response.message);
         if (response.message == 'Successfully logged in') {
           this.openSnackBar('Login successfully', 'Close');
           this.setJwtToken(response.token);
@@ -93,10 +91,7 @@ export class AuthService {
         }
       },
       error: (error: any) => {
-        console.log(error.error.message);
-        console.log(error.status);
         if (error.status===400) {
-          console.log(error.error.message);
           this.openSnackBar(error.error.message, 'Close');
         } else {
           this.openSnackBar('Something went wrong', 'Close');
@@ -119,7 +114,6 @@ export class AuthService {
     } catch (error) {
       console.error('Error decoding JWT token:', error);
     }
-    console.log('inside decode ' + this.userPayload.authorities);
     return this.userPayload;
   }
 
@@ -140,7 +134,6 @@ export class AuthService {
   }
   templogin(loginData: FormGroup) {
     if (loginData) {
-      console.log(loginData);
 
       localStorage.setItem('role', loginData.value.userName);
       this.route.navigateByUrl('/user/home');

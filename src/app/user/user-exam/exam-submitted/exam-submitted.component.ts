@@ -16,7 +16,6 @@ export class ExamSubmittedComponent implements OnInit {
     this.activatedroute.paramMap.subscribe((params) => {
       this.examCode = params.get('examCode')as string;
       this.examAttemptId = params.get('examAttemptId')as string;
-      console.log(this.examCode, this.examAttemptId)
 
 
     });

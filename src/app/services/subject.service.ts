@@ -47,7 +47,6 @@ export class SubjectService {
   deleteSubject(id: number) {
     this.subjectRepositoryService.deleteSubject(id).subscribe({
       next: (response: any) => {
-        console.log(response);
         this.subjectChanged.next();
         this.snackBarService.openSnackBar('Subject deactivated successfully');
       },
@@ -62,7 +61,6 @@ export class SubjectService {
   addSubject(subject: Subject) {
     this.subjectRepositoryService.addSubject(subject).subscribe({
       next: (response: any) => {
-        console.log(response);
         this.subjectChanged.next();
         this.dialogRef.close();
         this.snackBarService.openSnackBar(
@@ -79,7 +77,6 @@ export class SubjectService {
   editSubject(subject: Subject) {
     this.subjectRepositoryService.editSubject(subject).subscribe({
       next: (response) => {
-        console.log(response);
         this.subjectChanged.next();
         this.dialogRef.close();
         this.snackBarService.openSnackBar(
@@ -96,7 +93,6 @@ export class SubjectService {
   activateSubject(subjectId: number) {
     this.subjectRepositoryService.activateSubject(subjectId).subscribe({
       next: (response) => {
-        console.log(response);
         this.subjectChanged.next();
         this.snackBarService.openSnackBar(
           'Subject activated successfully',

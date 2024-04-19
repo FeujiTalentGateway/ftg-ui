@@ -1,12 +1,11 @@
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-md-2 side  " [ngClass]="{ 'd-none': layoutCollapsed,'d-md-block': !layoutCollapsed }">
-      <app-sidebar></app-sidebar>
-    </div>
-    <div class="col-md-10 main" [ngClass]="{ 'col-md-12': layoutCollapsed }"style="z-index: 1000">
-      <app-main-header [userData]="userName$"  (toggleLayout)="toggleLayout()"></app-main-header>
+<mat-drawer-container class="example-container"    >
+  <mat-drawer #drawer class="example-sidenav" mode="side">
+    <app-sidebar></app-sidebar>
+  </mat-drawer>
+  <div class="example-sidenav-content">
+    <app-main-header class="header" (toggleLayout)="toggleLayout()"></app-main-header>
+    <div class="p-3">
       <router-outlet></router-outlet>
     </div>
   </div>
-</div>
-
+</mat-drawer-container>

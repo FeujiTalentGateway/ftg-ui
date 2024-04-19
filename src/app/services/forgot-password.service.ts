@@ -32,9 +32,7 @@ export class ForgotPasswordService {
       next: (response: any) => {
         const responseBody = response;
         const responseStatus = response.status;
-        console.log(response);
         if(responseStatus === 200){
-          console.log("hello2");
           let user: any;
           sessionStorage.setItem('password-token',response.body.otp);
           sessionStorage.setItem('email', email);
@@ -110,7 +108,6 @@ export class ForgotPasswordService {
       .subscribe({
         next: (response: any) => {
           if (response.message === 'password changed') {
-            console.log("hello1");
             
             this.openSnackBar('Password changed successfully', 'Close');
             sessionStorage.removeItem('password-token');
@@ -118,7 +115,6 @@ export class ForgotPasswordService {
           }
         },
         error: (error: any) => {
-          console.log("hello3");
           this.openSnackBar( error.error.message, 'Close');
           sessionStorage.removeItem('password-token');
         },

@@ -167,7 +167,6 @@ export class ExamService {
       startDate: new Date().toISOString().slice(0, 23),
       subjectId: subjectId,
     };
-    console.log(data, '=====================================================');
 
     return this.http.get<any>('/assets/static_data/startExamObject.json');
   }
@@ -183,7 +182,6 @@ export class ExamService {
       startDate: new Date().toISOString().slice(0, 23),
       subjectId: subjectId,
     };
-    console.log(data);
 
     return this.http.post<any>(`${this.javaExamUrl}/start/question`, data);
   }

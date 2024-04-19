@@ -29,25 +29,24 @@ export class ExamCodeComponent implements OnInit {
     this.currentExam = this.localExamArray.find(
       (exam) => exam.examCode == this.examCode
     );
-
-    console.log(this.currentExam);
-    //   on production
+  
+    if (!this.currentExam) {
       this.examRepo.checkExamAvailableForUserOrNot(this.examCode).subscribe(
         (response) => {
-          console.log(response);
           this.router.navigate(['/user/exam/exam-instructions', this.examCode]);
         },
         (error) => {
-          console.log(error);
-          console.log(error.error);
-          this.auth.openSnackBar(error.error.error, 'close');
-          if (error.status == 0){
-            alert("service not Available")
-          }
-          else if (error.status >=700){
-          this.auth.openSnackBar(error.error.message, 'close');
+          if (error.status === 0) {
+            alert("Service not Available");
+          } else if (error.status >= 700) {
+            this.auth.openSnackBar(error.error.message || 'Unknown error', 'close');
           }
         }
       );
+    } else {
+      // Handle when exam is found locally
+      this.router.navigate(['/user/exam/exam-instructions', this.examCode]);
+    }
   }
+  
 }

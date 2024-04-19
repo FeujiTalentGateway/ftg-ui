@@ -60,12 +60,10 @@ export class ScheduleExamComponent implements OnInit {
   }
   ngOnInit(): void {
     this.isEditing = this.activatedRoute.snapshot.paramMap.get('id') !== null;
-    console.log(this.isEditing);
     if (this.isEditing) {
       this.editableExamId = Number(
         this.activatedRoute.snapshot.paramMap.get('id')
       );
-      console.log(this.editableExamId);
       this.examRepo.getExamById(this.editableExamId).subscribe({
         next: (exam) => {
           this.exam = exam;
@@ -161,7 +159,6 @@ export class ScheduleExamComponent implements OnInit {
             lastFormGroup.removeControl('startingDifficultyLevel');
           }
         }
-        console.log(this.examSubjectsArray.value);
         // Reset the subjectControl value to null after processing
         this.examForm.get('subjectControl')?.setValue(null);
       }
@@ -218,8 +215,11 @@ export class ScheduleExamComponent implements OnInit {
     });
     this.updatedUsers = this.exam!.users;
     this.setUsersToExamForm(this.exam?.users as User[]);
+<<<<<<< HEAD
     this.setcodingQuestionsToExamForm(this.exam?.codingQuestions as CodingQuestions [])
     console.log(this.examForm.value);
+=======
+>>>>>>> c162581854422b548ac9bf21e1700c73fac5da52
     if (this.exam!.examSubjects) {
       this.exam!.examSubjects.forEach((examSubject: ExamSubject) => {
         this.examSubjectsArray.push(
@@ -259,7 +259,6 @@ export class ScheduleExamComponent implements OnInit {
   }
 
   addUsers(event: Event) {
-    console.log(this.examForm.value);
     this.setUsersToExamForm(this.updatedUsers);
     this.openAddUserModel();
     event.preventDefault();
@@ -326,8 +325,6 @@ export class ScheduleExamComponent implements OnInit {
     this.dialogRef.afterClosed().subscribe((result: any) => {
       this.updatedUsers = result.examDataWithUsers.users;
       this.setUsersToExamForm(this.updatedUsers);
-      console.log(this.examForm.value);
-      console.log(this.updatedUsers);
     });
   }
 

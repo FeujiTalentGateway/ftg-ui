@@ -53,7 +53,6 @@ export class UserRegistrationComponent {
   formSubmitted: boolean = false;
   newuser: User = new User();
   createUser() {
-    console.log('creating the user');
     const userData: User = {
       firstName: this.registerForm.get('firstName')?.value,
       lastName: this.registerForm.get('lastName')?.value,
@@ -61,7 +60,6 @@ export class UserRegistrationComponent {
       emailId: this.registerForm.get('email')?.value,
       password: btoa(this.registerForm.get('password')?.value as string),
     };
-    console.log(userData);
     this.authService.register(userData);
   }
 
@@ -137,7 +135,6 @@ export class UserRegistrationComponent {
 
   // Function to handle user registration
   register(data: FormGroup) {
-    console.log('Inside register component: register()');
     this.createUser();
   }
 }

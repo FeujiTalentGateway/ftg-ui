@@ -8,6 +8,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { MatDialogModule } from '@angular/material/dialog';
 import { SidebarComponent } from '../../sidebar/sidebar.component';
 import { MainHeaderComponent } from '../../main-header/main-header.component';
+import { MatDrawer, MatDrawerContainer, MatDrawerContent } from '@angular/material/sidenav';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('MainLayoutComponent', () => {
   let component: MainLayoutComponent;
@@ -15,8 +17,8 @@ describe('MainLayoutComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [MainLayoutComponent,SidebarComponent,MainHeaderComponent],
-      imports:[HttpClientTestingModule,MatSnackBarModule,FormsModule,ReactiveFormsModule,RouterTestingModule,MatDialogModule]
+      declarations: [MainLayoutComponent,SidebarComponent,MainHeaderComponent,MatDrawerContainer,MatDrawer,MatDrawerContent],
+      imports:[HttpClientTestingModule,MatSnackBarModule,FormsModule,ReactiveFormsModule,RouterTestingModule,MatDialogModule,BrowserAnimationsModule]
 
 
     });

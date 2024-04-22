@@ -1,9 +1,49 @@
 <div class="coding-question-container">
-    <div class="coding-question-box">
-      <!-- Your coding questions content here -->
-      <!-- Example content -->
-      <!-- Add more coding questions as needed -->
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga illum, vel libero deserunt dignissimos totam possimus aliquam quas eveniet eum accusantium consectetur dolor, ad ipsum, beatae eaque quasi porro molestiae. Odit earum eligendi fuga aut ab officiis vero quos, non, voluptatem atque, aliquam dolorum? Exercitationem laudantium debitis nostrum odio nobis nesciunt quaerat, minima ipsa quam ab neque commodi optio culpa iste accusantium quae qui eveniet nam omnis eligendi similique non aut repellat? Provident culpa reprehenderit quo placeat expedita magnam nostrum ex ducimus sit? Facilis quasi ratione, maiores aliquam enim repudiandae explicabo ea consequatur officia ad, adipisci eaque exercitationem fuga illo quisquam mollitia! Quas, impedit dolorem. Architecto numquam, provident sit at cum velit? Necessitatibus qui quaerat at pariatur tempore veritatis aspernatur, perspiciatis magnam omnis nam cum vel voluptatum eum distinctio quae et modi fugit. At, facilis. Vel aspernatur nihil ratione aut unde. Inventore eligendi ullam itaque vero molestiae. Enim in, natus dignissimos voluptates vitae sapiente ad animi eius eos modi, molestias aliquam cum commodi beatae qui alias illo hic velit quaerat quia mollitia deserunt sed. Enim iste eveniet veritatis maxime harum, facilis dolore in nulla exercitationem dignissimos dolores corporis quisquam aliquam commodi autem odit suscipit hic labore possimus odio debitis. Ea!</p>
+  <div class="coding-question-box">
+    <div
+      *ngFor="let codingQue of codingQuestion; let i = index"
+      class="coding-question"
+    >
+      <!-- Problem Statement -->
+      <h2 class="larger-text custom-heading">
+        {{ i + 1 }}. {{ codingQue.content }}
+      </h2>
+      <!-- Description -->
+      <p>{{ codingQue.description }}</p>
+      <!-- Test Cases -->
+      <div *ngIf="codingQue.testCases && codingQue.testCases.length > 0">
+        <div *ngFor="let testCase of codingQue.testCases; let j = index">
+          <h3 class="custom-heading">Example {{ j + 1 }}</h3>
+          <div class="test-case">
+            <div class="test-case-input">
+              <strong>Input:</strong>
+              <ul>
+                <li *ngFor="let input of testCase.input | keyvalue">
+                  {{ input.key }}: {{ input.value }}
+                </li>
+              </ul>
+              <div class="test-case-output">
+                <strong>Output:</strong> {{ testCase.output }}
+              </div>
+              <strong>Explanation:</strong>
+              <p>{{ testCase.explaination }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Constraints -->
+      <div
+        *ngIf="codingQue.constraints && codingQue.constraints.length > 0"
+        class="constraints"
+      >
+        <h3 class="custom-heading">Constraints</h3>
+        <ul>
+          <li *ngFor="let constraint of codingQue.constraints">
+            {{ constraint }}
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
-  
+</div>

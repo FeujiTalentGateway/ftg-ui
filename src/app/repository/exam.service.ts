@@ -95,15 +95,15 @@ export class ExamService {
   getStaticExamByCode(examCode: string): Observable<Exam> {
     return this.http.get<Exam>('/assets/static_data/ExamDataObject.json');
   }
- 
+
  getStaticExamStatsByExamCode(examCode: string): Observable<ExamStatsModel>{
   return this.http.get<ExamStatsModel>('/assets/static_data/ExamStatsData.json')
-  
+
 
  }
- getExamStatsByExamCode(examCode: string): Observable<ExamStatsModel>{ 
+ getExamStatsByExamCode(examCode: string): Observable<ExamStatsModel>{
   return this.http.get<ExamStatsModel>(`${this.resultUrl}result/${examCode}`)
-  
+
  }
 
  getStaticDetailedUserResult(examCode: string,userId : number):Observable<DetailedUserResult>{
@@ -114,7 +114,7 @@ export class ExamService {
   return this.http.get<DetailedUserResult>(`${this.resultUrl}result/${examCode}/${userId}`)
 
  }
- 
+
   getStaticUserResults(examCode: string): Observable<UsersResult[]> {
     return this.http.get<UsersResult[]>('/assets/static_data/UsersResult.json');
   }
@@ -123,8 +123,8 @@ export class ExamService {
       `${this.resultUrl}result/${examCode}?viewResultTable=true`
     );
   }
- 
- 
+
+
 
   getExamByCode(examCode: string): Observable<Exam> {
     const url = `${this.javaExamUrl}/code/${examCode}`;
@@ -198,4 +198,9 @@ export class ExamService {
     return this.http.get<CodingQuestions[]>(`${this.resultUrl}codingquestion?fullData=false`);
     //return this.http.get<CodingQuestions[]>(`/assets/static_data/CodingQuestions.json`);
   }
+
+  getExamCodingQuestions():Observable<any> {
+    return this.http.get<any>('/assets/static_data/ExamCodingQuestion.json');
+  }
+  
 }

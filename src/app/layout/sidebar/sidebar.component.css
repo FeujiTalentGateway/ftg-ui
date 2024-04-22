@@ -27,8 +27,9 @@
 }
 
 .image-logo {
-  width: 9rem;
-  height: 5rem;
+  width: 69%;
+  height: 12%;
+  margin-left: 11%;
 }
 .nav-main-title:hover {
   color: #f3752e;
@@ -67,7 +68,4 @@
   font-family: 'Regular';
   font-size: 0.9rem;
   
-}
-aside{
-  overflow: hidden;
 }

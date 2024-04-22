@@ -40,7 +40,6 @@
   border-radius: 5px;
   border: 1px solid #f3752e;
   box-shadow: 0px 0px 5px var(--home-background-color);
-  z-index: 1000;
 }
 .menu-dropdown ul {
   list-style: none;
@@ -70,14 +69,4 @@
 }
 .fa-gear{
   cursor: pointer !important;
-}
-
-
-/* ---------- */
-.header-container{
-  height: 6vh;
-  background-color: #fff;
-  padding: 11px;
-  display: flex;
-  justify-content: space-between;
 }

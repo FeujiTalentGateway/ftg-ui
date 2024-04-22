@@ -22,11 +22,6 @@ import { ConfirmationDialogComponent } from './utils/confirmation-dialog/confirm
 import { SharedModuleModule } from './shared-module/shared-module.module';
 import { ConfirmDialogforuserComponent } from './utils/confirm-dialogforuser/confirm-dialogforuser.component';
 import { MassageboxComponent } from './utils/massagebox/massagebox.component';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatIconModule } from '@angular/material/icon';
-import { MatListModule } from '@angular/material/list';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -42,7 +37,6 @@ import { MatButtonModule } from '@angular/material/button';
     MassageboxComponent,
   ],
   imports: [
-    MatSidenavModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule,
@@ -54,10 +48,6 @@ import { MatButtonModule } from '@angular/material/button';
     ReactiveFormsModule,
     MatDialogModule,
     SharedModuleModule,
-    MatToolbarModule,
-    MatIconModule,
-    MatListModule,
-    MatButtonModule,
   ],
   providers: [
     SharedDataService,

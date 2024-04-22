@@ -55,10 +55,12 @@ export class DetailedUserResultComponent implements OnInit {
 
   handleDetailedUserResultObject(detailedUserResult:DetailedUserResult){
     this.examDuration = detailedUserResult.examDuration
+    console.log(this.examDuration);
     return true
   }
   handleExamObject(exam:Exam){
     this.duration = exam.duration
+    console.log(this.duration);
     return true
   }
 

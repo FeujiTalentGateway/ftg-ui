@@ -42,6 +42,7 @@ export class ViewSubjectsComponent implements OnInit {
   ngOnInit(): void {
     this.getAllSubjects();
     this.subjectService.subjectChanged$.subscribe(() => {
+      console.log('Refreshing....');
       this.getAllSubjects();
     });
   }
@@ -61,6 +62,7 @@ export class ViewSubjectsComponent implements OnInit {
   }
 
   getAllSubjects() {
+    console.log(this.toggleValue);
     this.subjectsSubscription = this.subjectService
       .getUnSubscribedSubjectsByActiveStatus(this.toggleValue)
       .subscribe({
@@ -69,6 +71,7 @@ export class ViewSubjectsComponent implements OnInit {
             ...subject,
             serialNumber: index + 1,
           }));
+          // console.log('refreshing.......');
           // Initialize MatTableDataSource with the data
           this.dataSource = new MatTableDataSource(this.subjects);
           this.dataSource.paginator = this.paginator;
@@ -96,6 +99,7 @@ export class ViewSubjectsComponent implements OnInit {
 
   deleteSubject(row: Subject) {
     if (!row.active) {
+      console.log('delete subject');
       this.deActivableSubjectId = row.id;
       this.isSubjectDeActivable = true;
       this.deActivableSubject = row;
@@ -119,6 +123,7 @@ export class ViewSubjectsComponent implements OnInit {
   }
   deleteSubjectAfterConfirmation() {
     if (this.isSubjectActivable) {
+      console.log('update status');
       this.subjectService.activateSubject(this.activableSubjectId);
       this.isSubjectActivable = false;
     } else if (this.isSubjectDeActivable) {

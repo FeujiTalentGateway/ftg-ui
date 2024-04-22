@@ -18,6 +18,7 @@ export class SubjectRepositoryService {
     let requestOptions = {
       headers: headers,
     };
+    console.log('In restful service');
     return this.http.get<Subject[]>(
       this.baseUrl + 'subject/active-status/' + isActive,
       requestOptions
@@ -30,6 +31,7 @@ export class SubjectRepositoryService {
     let requestOptions = {
       headers: headers,
     };
+    console.log('In restful service');
     return this.http.get<Subject[]>(this.baseUrl + 'subject/', requestOptions);
   }
   deleteSubject(id: number) {

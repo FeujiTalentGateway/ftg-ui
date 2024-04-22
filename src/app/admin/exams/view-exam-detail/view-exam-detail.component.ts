@@ -36,6 +36,7 @@ export class ViewExamDetailComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.selectedExam = this.dialogData.selectedExam;
     this.dataSource = new MatTableDataSource(this.selectedExam.examSubjects);
+    console.log(this.selectedExam);
   }
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;

@@ -25,11 +25,4 @@ describe('ExamsPageComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-
-  it('should create', () => {
-    let date = component.getStatus(true)
-    expect(date).toBe('ACTIVE');
-    let date1 = component.getStatus(false)
-    expect(date1).toBe('INACTIVE');
-  });
 });

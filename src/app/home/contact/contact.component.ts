@@ -52,7 +52,7 @@ export class ContactComponent implements OnInit {
   }
 
   // Private function to show a snackbar message
-  showSnackBar(message: string) {
+  private showSnackBar(message: string) {
     this.snackBar.open(message, 'Close', {
       duration: 5000,
     });

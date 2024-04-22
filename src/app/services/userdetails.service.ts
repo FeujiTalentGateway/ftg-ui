@@ -35,6 +35,7 @@ export class UserdetailsService {
 
   // Get the user's username from the stored data as an observable
   public getUserNameFromToken() {
+    console.log(this.userName$.asObservable());
     return this.userName$.asObservable();
   }
 

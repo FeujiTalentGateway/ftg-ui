@@ -42,7 +42,7 @@ export class ExamService {
     return this.http.get<any[]>('/assets/static_data/listOfExams.json');
   }
   getAllExamData(): Observable<Exam[]> {
-    const url = `${this.javaExamUrl}/list`;
+    const url = `${this.javaExamUrl}/`;
     return this.http.get<Exam[]>(url);
   }
 
@@ -167,6 +167,7 @@ export class ExamService {
       startDate: new Date().toISOString().slice(0, 23),
       subjectId: subjectId,
     };
+    console.log(data, '=====================================================');
 
     return this.http.get<any>('/assets/static_data/startExamObject.json');
   }
@@ -182,6 +183,7 @@ export class ExamService {
       startDate: new Date().toISOString().slice(0, 23),
       subjectId: subjectId,
     };
+    console.log(data);
 
     return this.http.post<any>(`${this.javaExamUrl}/start/question`, data);
   }
@@ -194,5 +196,6 @@ export class ExamService {
   }
   getCodingQuestions(){
     return this.http.get<CodingQuestions[]>(`${this.resultUrl}codingquestion?fullData=false`);
+    //return this.http.get<CodingQuestions[]>(`/assets/static_data/CodingQuestions.json`);
   }
 }

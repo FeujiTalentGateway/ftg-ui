@@ -51,6 +51,7 @@ export class UsersResultComponent implements OnInit {
         this.dataSource.sort = this.sort;
       },
       (error) => {
+        console.log("Error fetching data:", error);
       },
     );
     this.examObject$.subscribe(
@@ -58,6 +59,7 @@ export class UsersResultComponent implements OnInit {
         this.examObject = response;
       },
       (error) => {
+        console.log("errorrrr");
       }
     );
   }
@@ -118,6 +120,7 @@ export class UsersResultComponent implements OnInit {
    * @param userId The ID of the user.
    */
   navigateToDetailedUserResult(userId: any) {
+    console.log(userId);
     this.router.navigate(['admin/result/detailed-user-result', this.examCode, userId]);
   }
 

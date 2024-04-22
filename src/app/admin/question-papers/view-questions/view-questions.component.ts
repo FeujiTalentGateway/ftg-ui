@@ -86,6 +86,7 @@ export class ViewQuestionsComponent implements OnInit {
       .subscribe(
         (subjects: Subject[]) => {
           this.subjects = subjects;
+          console.log(this.subjects);
           if (subjects.length > 0) {
             if (this.selectedSubject == 0) {
               this.selectedSubject = subjects[0].id;
@@ -126,6 +127,7 @@ export class ViewQuestionsComponent implements OnInit {
         )
         .subscribe(
           (response) => {
+            console.log(response);
             this.questionsList = response.results;
             this.questionsLength = response.count;
             this.addloading();
@@ -145,6 +147,7 @@ export class ViewQuestionsComponent implements OnInit {
         )
         .subscribe(
           (response) => {
+            console.log(response);
             this.questionsList = response.results;
             this.questionsLength = response.count;
             this.addloading();
@@ -169,8 +172,10 @@ export class ViewQuestionsComponent implements OnInit {
           this.pageSize
         )
         .subscribe((response) => {
+          console.log(response.results);
           this.questionsList = response.results;
           this.questionsLength = response.count;
+          console.log(response);
           if (this.paginator != undefined) {
             this.paginator.pageIndex = 0;
           }
@@ -185,9 +190,11 @@ export class ViewQuestionsComponent implements OnInit {
           this.pageSize
         )
         .subscribe((response) => {
+          console.log(response.results);
           this.questionsList = response.results;
           this.questionsLength = response.count;
           this.selectedLevel = 0;
+          console.log(response);
           this.searchQuery = '';
         });
     }
@@ -208,7 +215,9 @@ export class ViewQuestionsComponent implements OnInit {
       )
       .subscribe(
         (response) => {
+          console.log(response);
           this.addloading()
+          console.log(response.results);
           this.questionsList = response.results;
           this.questionsLength = response.count;
           if (this.paginator != undefined) {
@@ -238,6 +247,8 @@ export class ViewQuestionsComponent implements OnInit {
       )
       .subscribe(
         (response) => {
+          console.log(response);
+          console.log(response.results);
           this.questionsList = response.results;
           this.questionsLength = response.count;
           if (this.paginator != undefined) {
@@ -268,6 +279,8 @@ export class ViewQuestionsComponent implements OnInit {
       )
       .subscribe(
         (response) => {
+          console.log(response);
+          console.log(response.results);
           this.questionsList = response.results;
           this.questionsLength = response.count;
           this.addloading();

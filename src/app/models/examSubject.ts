@@ -1,12 +1,12 @@
-import { Subject } from "./subject";
-
+import { CodingQuestionsDTO } from './codingQuestionDTO.model';
+import { Subject } from './subject';
 
 export interface ExamSubject {
   id: Number;
   duration: string;
   maxQuestions: number;
-  startingDifficultyLevel:number
+  startingDifficultyLevel: number;
   subject: Subject;
-  isTimeUp : boolean;
+  codingQuestions: CodingQuestionsDTO[];
+  isTimeUp: boolean;
 }
-  

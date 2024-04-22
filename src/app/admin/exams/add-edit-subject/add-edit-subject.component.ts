@@ -47,6 +47,7 @@ export class AddEditSubjectComponent {
         },
       });
     }
+    console.log(this.subjectId);
   }
 
   //subject form
@@ -61,6 +62,7 @@ export class AddEditSubjectComponent {
 
   //set value to update subject
   setSubjectValueIntoSubjectForm(subject: Subject) {
+    console.log(subject);
     this.subjectForm.patchValue({
       id: subject.id,
       name: subject.name,
@@ -68,20 +70,22 @@ export class AddEditSubjectComponent {
     });
   }
 
-// This TypeScript code handles form submission for adding or editing a subject.
-
-onSubmit() {
-  this.isFormSubmitted = true;
-  if (this.subjectForm.valid) {
-    this.subject.name = this.subjectForm.value.name;
-    this.subject.id = this.subjectForm.value.id;
-    if (this.subjectId) {
-      this.editSubject(this.subject);
-    } else {
-      this.questionService.addSubject(this.subject);
+  onSubmit() {
+    console.log(this.subjectForm.value);
+    this.isFormSubmitted = true;
+    if (this.subjectForm.valid) {
+      this.subject.name = this.subjectForm.value.name;
+      this.subject.id = this.subjectForm.value.id;
+      if (this.subjectId) {
+        console.log(this.subject);
+        this.editSubject(this.subject);
+      } else {
+        console.log(this.subject);
+        this.questionService.addSubject(this.subject);
+      }
     }
   }
-}
+
   editSubject(quesion: Subject) {
     this.editableSubjectId = quesion.id;
     this.openEditModal();

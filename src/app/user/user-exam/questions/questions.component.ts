@@ -55,6 +55,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
   questionNavigation: boolean = false;
   currentCodingQuestionIndex:number=0;
   codingQuestions:CodingQuestions[]=[]
+  userCodingLogic: string []=[]
   ngOnInit(): void {
     this.currentSubject = this.exam.examSubjects[this.indexPositionOfTheExam];
     this.indexPositionOfSubject$ = this.sharedData.indexPositionOfSubject$;
@@ -715,6 +716,10 @@ export class QuestionsComponent implements OnInit, OnDestroy {
      },
      (error) => {}
    );
+  }
+
+  saveQuestion(code: string) {
+    this.userCodingLogic[this.currentCodingQuestionIndex] = code;
   }
 }
  

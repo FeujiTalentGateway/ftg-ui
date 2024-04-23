@@ -161,7 +161,8 @@
       <app-coding-questions [codingQuestionIndex]="currentCodingQuestionIndex" [currentCodingQuestion]="codingQuestions[currentCodingQuestionIndex]"></app-coding-questions>
     </div>
     <div class="code-editor">
-      <app-code-editor></app-code-editor>
+      <app-code-editor [code]="userCodingLogic[currentCodingQuestionIndex]" 
+      (codeChanged)="saveQuestion($event)">></app-code-editor>
     </div>
     <div class="test-cases">
       <app-test-cases></app-test-cases>

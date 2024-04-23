@@ -41,18 +41,18 @@
         "testCases":[
             {
                 "input":{
-                    "order":"bcafg",
-                    "s" : "abcd"
+                    "siva":"aana",
+                    "rakesh" : "aana"
                 },
                 "output":"bcad",
                 "explaination":"The characters \"b\", \"c\", and \"a\" from order dictate the order for the characters in s. The character \"d\" in s does not appear in order, so its position is flexible.Following the order of appearance in order, \"b\", \"c\", and \"a\" from s should be arranged as \"b\",  \"c\", \"a\". \"d\" can be placed at any position since it's not in order. The output \"bcad\" correctly follows this rule. Other arrangements like \"bacd\" or \"bcda\" would also be valid, as long as \"b\",  \"c\", \"a\" maintain their order."
             },
             {
               "input":{
-                  "order":"bcafg",
-                  "s" : "abcd"
+                  "sam":"bhai",
+                  "mohan" : "raj"
               },
-              "output":"bcad",
+              "output":"Ankush",
               "explaination":"The characters \"b\", \"c\", and \"a\" from order dictate the order for the characters in s. The character \"d\" in s does not appear in order, so its position is flexible.Following the order of appearance in order, \"b\", \"c\", and \"a\" from s should be arranged as \"b\",  \"c\", \"a\". \"d\" can be placed at any position since it's not in order. The output \"bcad\" correctly follows this rule. Other arrangements like \"bacd\" or \"bcda\" would also be valid, as long as \"b\",  \"c\", \"a\" maintain their order."
           }
         ],
@@ -72,16 +72,16 @@
         "testCases":[
             {
                 "input":{
-                    "order":"bcafg",
-                    "s" : "abcd"
+                    "order":"Pritam",
+                    "s" : "Sahil"
                 },
                 "output":"bcad",
                 "explaination":"The characters \"b\", \"c\", and \"a\" from order dictate the order for the characters in s. The character \"d\" in s does not appear in order, so its position is flexible.Following the order of appearance in order, \"b\", \"c\", and \"a\" from s should be arranged as \"b\",  \"c\", \"a\". \"d\" can be placed at any position since it's not in order. The output \"bcad\" correctly follows this rule. Other arrangements like \"bacd\" or \"bcda\" would also be valid, as long as \"b\",  \"c\", \"a\" maintain their order."
             },
             {
               "input":{
-                  "order":"bcafg",
-                  "s" : "abcd"
+                  "order":"gsrdfsk",
+                  "s" : "pinku"
               },
               "output":"bcad",
               "explaination":"The characters \"b\", \"c\", and \"a\" from order dictate the order for the characters in s. The character \"d\" in s does not appear in order, so its position is flexible.Following the order of appearance in order, \"b\", \"c\", and \"a\" from s should be arranged as \"b\",  \"c\", \"a\". \"d\" can be placed at any position since it's not in order. The output \"bcad\" correctly follows this rule. Other arrangements like \"bacd\" or \"bcda\" would also be valid, as long as \"b\",  \"c\", \"a\" maintain their order."

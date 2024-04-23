@@ -396,7 +396,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
    */
  
   changeSubject(indexPositionOfSubject: any) {
-   this.getAllQuestion()
+   this.getAllCodingQuestion()
     this.saveOption(false, false, true);
     this.updatingTheCurrentSubjectAndQuestions();
     let subject = this.exam.examSubjects[indexPositionOfSubject.value];
@@ -708,7 +708,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
     }
   }
 
-  getAllQuestion(){
+  getAllCodingQuestion(){
     this.ExamRepo.getExamCodingQuestions().subscribe(
      (response) => {
        this.codingQuestions = response;

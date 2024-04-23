@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ExamService } from 'src/app/repository/exam.service';
 
 @Component({
@@ -10,24 +10,14 @@ export class TestCasesComponent implements OnInit {
 
   constructor(private examService: ExamService) {}
 
+  @Input() currentCodingQuestion:any;
+  @Input() codingQuestionIndex!: number;
+
   ngOnInit(): void {
-    this.getAllTestCases();
   }
-  
-  codingQuestionTestCases: any[] = [];
   selectedCaseIndex: number = 0;
   isTestCaseSelected: boolean = true;
   selectedButton: string = '';
-
-
-  getAllTestCases() {
-    this.examService.getExamCodingQuestions().subscribe(
-      (response) => {
-        this.codingQuestionTestCases = response;
-      },
-      (error) => { }
-    );
-  }
 
 
   selectTestCase() {

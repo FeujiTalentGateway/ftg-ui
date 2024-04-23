@@ -165,7 +165,7 @@
       (codeChanged)="saveQuestion($event)">></app-code-editor>
     </div>
     <div class="test-cases">
-      <app-test-cases></app-test-cases>
+      <app-test-cases [codingQuestionIndex]="currentCodingQuestionIndex" [currentCodingQuestion]="codingQuestions[currentCodingQuestionIndex]"></app-test-cases>
     </div>
   </div>
   </div>

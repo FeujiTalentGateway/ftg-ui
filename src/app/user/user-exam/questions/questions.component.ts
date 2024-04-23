@@ -55,7 +55,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
   questionNavigation: boolean = false;
   currentCodingQuestionIndex:number=0;
   codingQuestions:CodingQuestions[]=[]
-  
+  userCodingLogic: string []=[]
   ngOnInit(): void {
     this.currentSubject = this.exam.examSubjects[this.indexPositionOfTheExam];
     this.indexPositionOfSubject$ = this.sharedData.indexPositionOfSubject$;
@@ -132,7 +132,8 @@ export class QuestionsComponent implements OnInit, OnDestroy {
   }
   constructor(
     private ExamRepo: ExamService,
-    private sharedData: SharedDataService
+    private sharedData: SharedDataService,
+    
   ) {}
  
   /**
@@ -395,7 +396,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
    */
  
   changeSubject(indexPositionOfSubject: any) {
- 
+   this.getAllQuestion()
     this.saveOption(false, false, true);
     this.updatingTheCurrentSubjectAndQuestions();
     let subject = this.exam.examSubjects[indexPositionOfSubject.value];
@@ -696,10 +697,29 @@ export class QuestionsComponent implements OnInit, OnDestroy {
 
   }
   previousCodingQuestion(){
-
+    if (this.currentCodingQuestionIndex > 0) {
+      this.currentCodingQuestionIndex--;
+    }
+    
   }
   nextCodingQuestion(){
+    if (this.currentCodingQuestionIndex < this.codingQuestions.length - 1) {
+      this.currentCodingQuestionIndex++;
+    }
+  }
 
+  getAllQuestion(){
+    this.ExamRepo.getExamCodingQuestions().subscribe(
+     (response) => {
+       this.codingQuestions = response;
+       console.log(this.codingQuestions);
+     },
+     (error) => {}
+   );
+  }
+
+  saveQuestion(code: string) {
+    this.userCodingLogic[this.currentCodingQuestionIndex] = code;
   }
 }
  

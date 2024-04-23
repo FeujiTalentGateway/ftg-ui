@@ -31,7 +31,6 @@ export class QuestionsComponent implements OnInit, OnDestroy {
     created_at_ts: '',
     examSubjects: [],
     users: [],
-    codingQuestions:[]
   };
   codingSubjectName="Coding Questions"
   currentQuestionIndex = 0;
@@ -56,18 +55,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
   questionNavigation: boolean = false;
   currentCodingQuestionIndex:number=0;
   codingQuestions:CodingQuestions[]=[]
-  codingQuestionArray:ExamSubject={
-      subject: {
-        id: 1,
-        name:"Coding Questions",
-        active:true
-      },
-      id: 0,
-      maxQuestions: 5,
-      startingDifficultyLevel: 4,
-      duration: "15",
-      isTimeUp:false
-  }
+  
   ngOnInit(): void {
     this.currentSubject = this.exam.examSubjects[this.indexPositionOfTheExam];
     this.indexPositionOfSubject$ = this.sharedData.indexPositionOfSubject$;
@@ -141,10 +129,6 @@ export class QuestionsComponent implements OnInit, OnDestroy {
         this.updateNextSubject();
       }
     });
-    
-
-    this.exam.examSubjects.push(this.codingQuestionArray)
-
   }
   constructor(
     private ExamRepo: ExamService,

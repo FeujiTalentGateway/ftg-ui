@@ -165,7 +165,7 @@ export class ViewExamsComponent implements OnInit, AfterViewInit {
   }
 
   getStatusButtonClass(status: boolean): string {
-    console.log(status);
+    
     return status ? 'status-button active' : 'status-button in-active';
   }
 }

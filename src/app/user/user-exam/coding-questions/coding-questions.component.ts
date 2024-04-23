@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ExamService } from 'src/app/repository/exam.service';
 
 @Component({
@@ -10,9 +10,12 @@ export class CodingQuestionsComponent {
   constructor(private examService:ExamService) {
     this.getAllQuestion();
   }
-
-  codingQuestion:any[]=[];
-
+codingQuestion:any[]=[];
+ @Input() currentCodingQuestion:any;
+ @Input() codingQuestionIndex!: number;
+  ngOnInit(){
+     console.log(this.currentCodingQuestion)
+  }
    getAllQuestion(){
      this.examService.getExamCodingQuestions().subscribe(
       (response) => {

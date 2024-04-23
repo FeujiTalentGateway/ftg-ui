@@ -158,7 +158,7 @@
 
   <div class="grid-container">
     <div class="coding-question">
-      <app-coding-questions></app-coding-questions>
+      <app-coding-questions [codingQuestionIndex]="currentCodingQuestionIndex" [currentCodingQuestion]="codingQuestions[currentCodingQuestionIndex]"></app-coding-questions>
     </div>
     <div class="code-editor">
       <app-code-editor></app-code-editor>

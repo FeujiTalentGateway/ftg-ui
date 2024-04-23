@@ -202,5 +202,4 @@ export class ExamService {
   getExamCodingQuestions():Observable<any> {
     return this.http.get<any>('/assets/static_data/ExamCodingQuestion.json');
   }
-  
-}
+

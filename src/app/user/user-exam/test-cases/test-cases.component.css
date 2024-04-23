@@ -1,12 +1,154 @@
-test-cases-container {
-    width: 100%; /* Set the width of the box */
-    max-height: 80vh; /* Set the maximum height of the box */
-    overflow-y: auto; /* Enable vertical scrolling if content overflows */
-    border: 1px solid #ccc; /* Add a border for visual clarity */
-    padding: 10px; /* Add padding for content spacing */
-    background-color: #f9f9f9; /* Set background color */
+.container {
+    display: flex;
+    flex-direction: column;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: 10px;
   }
   
-  test-cases-box {
-    min-height: 500px;
+  .main-button.selected {
+    font-weight: bold;
   }
+  
+  
+  .button-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .custom-heading {
+    padding: 12px 24px;
+    background-color: #0056b3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .custom-heading:hover {
+    background-color: #003c80;
+  }
+  
+  .content-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .test-case {
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+    background-color: #fff;
+  }
+  
+  .test-case-input,
+  .test-case-output {
+    margin-top: 10px;
+  }
+  
+  .test-case-input strong,
+  .test-case-output strong {
+    margin-right: 5px;
+  }
+  
+  .header-container {
+    background-color: #f0f0f0; /* Background color */
+    padding: -1px 20px; /* Padding around the header */
+    border-radius: 10px; /* Rounded corners */
+  }
+  
+  .main-header {
+    display: flex;
+    align-items: center; /* Align items vertically */
+  }
+  
+  .main-button {
+    background-color: transparent; /* Transparent background */
+    color: #333; /* Default text color */
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 12px; /* Adjust font size */
+    margin-right: 1px; /* Add margin between buttons */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
+  }
+
+  
+  .main-button:hover {
+    background-color: #6e6f70b6;
+  }
+  
+  
+  .test-case-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 3px;
+    margin-left: 3px;
+  }
+  
+  .test-case-buttons button {
+    flex-grow: 1; /* Allow buttons to expand to fit content */
+    margin-bottom: 5px;
+    margin-right: 5px;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    background-color: #bddbbe;
+    color: rgb(24, 3, 3);
+    text-align: center;
+    text-decoration: none;
+    font-size: 12px;
+    cursor: pointer;
+    transition-duration: 0.4s;
+  }
+  
+  .test-case-buttons button:hover {
+    background-color: #0bc279;
+    color: #fff;
+  }
+  
+  .main-button .fa-solid.fa-square-check {
+    color: rgb(8, 236, 8); /* Green color for the icon */
+  }
+  .main-button  .fa-solid.fa-arrow-right-to-bracket {
+    color: rgb(8, 236, 8); /* Green color for the icon */
+  }
+  .test-case-buttons .fa-solid.fa-square-check {
+    color: rgb(8, 236, 8); /* Green color for the icon */
+  }
+ 
+  .exam-message {
+    font-weight: bold;
+    text-align: center; /* Center the text horizontally */
+    display: flex; /* Use flexbox for vertical centering */
+    justify-content: center; /* Center the content vertically */
+    align-items: center; /* Center the content vertically */
+  }
+  
+  
+  /* Media queries */
+  @media (max-width: 600px) {
+    .container {
+      width: 100%; 
+    }
+  
+    .test-case-buttons {
+      margin-left: 0;
+    }
+  
+    .test-case-buttons button {
+      width: calc(50% - 10px);
+    }
+  
+    .test-case-details {
+      padding: 10px;
+    }
+  }
+  

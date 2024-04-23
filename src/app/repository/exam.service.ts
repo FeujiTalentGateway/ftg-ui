@@ -197,4 +197,8 @@ export class ExamService {
   getCodingQuestions(){
     return this.http.get<CodingQuestions[]>(`${this.resultUrl}codingquestion?fullData=false`);
   }
+
+  getExamCodingQuestions():Observable<any> {
+    return this.http.get<any>('/assets/static_data/ExamCodingQuestion.json');
+  }
 }

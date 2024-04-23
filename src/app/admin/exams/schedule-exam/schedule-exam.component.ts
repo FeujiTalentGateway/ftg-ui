@@ -365,7 +365,7 @@ export class ScheduleExamComponent implements OnInit {
   }
 
   getMaxCodingQuestions(): number {
-    this.codingQuestionObject= this.examSubjectsArray.value.find((subject: any) => subject.subjectName === this.CodingSubjectName);
+    this.codingQuestionObject= this.examSubjectsArray.value.find((subject: any) => subject.subjectName.toLowerCase() === this.CodingSubjectName.toLowerCase());
      return this.codingQuestionObject ? this.codingQuestionObject.maxQuestions : 0; 
    }
 

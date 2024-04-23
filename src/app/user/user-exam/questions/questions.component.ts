@@ -10,6 +10,7 @@ import { SharedDataService } from 'src/app/services/shared-data.service';
 import { SubjectQuestions } from './subject.questions';
 import { QuestionNavigationComponent } from '../question-navigation/question-navigation.component';
 import { CodingQuestions } from 'src/app/models/codingquestions.model';
+import { CodeEditorComponent } from '../code-editor/code-editor.component';
  
 @Component({
   selector: 'app-questions',
@@ -17,6 +18,7 @@ import { CodingQuestions } from 'src/app/models/codingquestions.model';
   styleUrls: ['./questions.component.css'],
 })
 export class QuestionsComponent implements OnInit, OnDestroy {
+  @ViewChild(CodeEditorComponent) codeEditorComponent!: CodeEditorComponent;
   @ViewChild('childComponentRef') childComponent!: QuestionNavigationComponent;
  
   @Input() exam: Exam = {
@@ -31,6 +33,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
     created_at_ts: '',
     examSubjects: [],
     users: [],
+    codingQuestions:[]
   };
   codingSubjectName="Coding Questions"
   currentQuestionIndex = 0;
@@ -690,11 +693,13 @@ export class QuestionsComponent implements OnInit, OnDestroy {
       );
     }
   }
-  runCode(){
-
+  runCode() {
+    const codeValue = this.codeEditorComponent.code;
+    console.log(codeValue);
   }
   submitCode(){
-
+    const codeValue = this.codeEditorComponent.code;
+    console.log(codeValue);
   }
   previousCodingQuestion(){
     if (this.currentCodingQuestionIndex > 0) {

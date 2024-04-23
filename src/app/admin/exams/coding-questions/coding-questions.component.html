@@ -88,7 +88,7 @@
         <tr
           mat-row
           *matRowDef="let row; columns: displayedColumns"
-          (click)="selection.toggle(row)"
+          (click)="selection.toggle(row.id)"
         ></tr>
   
         <!-- Row shown when there is no matching data. -->

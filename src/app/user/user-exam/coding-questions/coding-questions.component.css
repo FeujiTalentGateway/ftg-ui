@@ -1,14 +1,126 @@
 .coding-question-container {
-    width: auto; /* Set the width of the box to auto */
-    max-height: 80vh; /* Set the maximum height of the box */
-    overflow: auto; /* Enable scrolling if content overflows */
-    border: 1px solid #ccc; /* Add a border for visual clarity */
-    padding: 10px; /* Add padding for content spacing */
-    background-color: #f9f9f9; /* Set background color */
-    overflow-y: auto; /* Enable vertical scrolling if content overflows */
-  }
-  
-  .coding-question-box {
-    min-width: 500px; /* Set the minimum width of the box */
-  }
-  
+  width: auto; /* Set the width of the box to auto */
+  max-height: 80vh; /* Set the maximum height of the box */
+  overflow: auto; /* Enable scrolling if content overflows */
+  border: 1px solid #ccc; /* Add a border for visual clarity */
+  padding: 10px; /* Add padding for content spacing */
+  background-color: #f9f9f9; /* Set background color */
+  overflow-y: auto; /* Enable vertical scrolling if content overflows */
+}
+
+
+.coding-question-box {
+  min-width: 600px; /* Increased minimum width */
+}
+/* Style for the coding question container */
+/* .coding-question {
+margin-bottom: 30px;
+border: 1px solid #ccc;
+padding: 20px;
+border-radius: 8px;
+background-color: #f9f9f9;
+} */
+.coding-question {
+margin-bottom: 30px;
+border: 1px solid #ddd; /* Lighter border */
+border-radius: 10px;
+padding: 30px;
+background-color: #ffffffb7; /* Light gray background */
+box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
+}
+
+/* Style for the problem statement */
+h3 {
+margin-top: 20px;
+}
+h2, h3 {
+font-size: 24px;
+font-weight: bold;
+color: #1f1e1e;
+}
+/* Style for the description */
+p {
+font-size: 16px;
+line-height: 1.4;
+color: #282727;
+}
+
+
+ul {
+list-style-type: disc;
+margin-left: 20px;
+}
+
+/* Style for test cases */
+table {
+width: 100%;
+border-collapse: collapse;
+margin-top: 15px;
+}
+
+th, td {
+border: 1px solid #ddd;
+padding: 8px;
+text-align: left;
+}
+
+th {
+background-color: #f2f2f2;
+font-weight: bold;
+color: #333;
+}
+
+.difficulty {
+font-weight: bold;
+font-family: 'Segoe Ui';
+}
+
+.difficulty-label {
+padding: 5px 10px;
+border-radius: 5px;
+color: #fff;
+}
+
+.easy {
+background-color: #1ef31eb8; /* Green */
+border-radius: 3px;
+}
+
+.medium {
+background-color: #f0ac4ebb; /* Orange */
+border-radius: 3px;
+}
+
+.hard {
+background-color: #d9544faa; /* Red */
+border-radius: 3px;
+}
+
+.larger-text {
+font-size: 2em;
+}
+.custom-heading {
+color: #333; /* Set the text color */
+margin-bottom: 10px; /* Add some space below the heading */
+text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.074); /* Add a subtle shadow effect */
+}
+
+
+.test-cases {
+margin-top: 20px;
+}
+
+.test-case {
+border: 1px solid #ccc;
+border-radius: 5px;
+padding: 10px;
+margin-bottom: 10px;
+}
+
+.test-case-input {
+margin-bottom: 10px;
+}
+
+.test-case-output {
+font-weight: bold;
+}

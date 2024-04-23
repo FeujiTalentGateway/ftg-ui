@@ -9,6 +9,7 @@ import * as ace from 'ace-builds';
 export class CodeEditorComponent {
   @Input() code: string = '';
   @Output() codeChanged: EventEmitter<string> = new EventEmitter<string>();
+
   darkMode: boolean = false;
   // Default language
   selectedLanguage: string = 'python'; 
@@ -56,4 +57,24 @@ export class CodeEditorComponent {
     }
   }
 
+
+  onCodeChange(code: string) {
+    const indentedCode = this.preserveIndentation(code, this.code);
+    this.codeChanged.emit(indentedCode);
+  }
+
+  private preserveIndentation(newCode: string, oldCode: string): string {
+    const newLines = newCode.split('\n');
+    const oldLines = oldCode.split('\n');
+    return newLines.map((newLine, index) => {
+      if (index < oldLines.length) {
+        const leadingWhitespaceMatch = oldLines[index].match(/^\s*/);
+        const leadingWhitespace = leadingWhitespaceMatch?.[0] ?? ''; 
+        return leadingWhitespace + newLine.trim(); 
+      } else {
+        return newLine.trim(); 
+      }
+    }).join('\n');
+  }
+  
 }

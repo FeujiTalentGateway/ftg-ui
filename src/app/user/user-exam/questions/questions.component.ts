@@ -34,7 +34,6 @@ export class QuestionsComponent implements OnInit, OnDestroy {
     examSubjects: [],
     users: [],
     codingQuestions:[]
-    
   };
   codingSubjectName="Coding Questions"
   currentQuestionIndex = 0;
@@ -59,18 +58,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
   questionNavigation: boolean = false;
   currentCodingQuestionIndex:number=0;
   codingQuestions:CodingQuestions[]=[]
-  codingQuestionArray:ExamSubject={
-      subject: {
-        id: 1,
-        name:"Coding Questions",
-        active:true
-      },
-      id: 0,
-      maxQuestions: 5,
-      startingDifficultyLevel: 4,
-      duration: "15",
-      isTimeUp:false
-  }
+  userCodingLogic: string []=[]
   ngOnInit(): void {
     this.currentSubject = this.exam.examSubjects[this.indexPositionOfTheExam];
     this.indexPositionOfSubject$ = this.sharedData.indexPositionOfSubject$;
@@ -144,14 +132,11 @@ export class QuestionsComponent implements OnInit, OnDestroy {
         this.updateNextSubject();
       }
     });
-    
-
-    this.exam.examSubjects.push(this.codingQuestionArray)
-
   }
   constructor(
     private ExamRepo: ExamService,
-    private sharedData: SharedDataService
+    private sharedData: SharedDataService,
+    
   ) {}
  
   /**
@@ -414,7 +399,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
    */
  
   changeSubject(indexPositionOfSubject: any) {
- 
+   this.getAllCodingQuestion()
     this.saveOption(false, false, true);
     this.updatingTheCurrentSubjectAndQuestions();
     let subject = this.exam.examSubjects[indexPositionOfSubject.value];
@@ -717,10 +702,29 @@ export class QuestionsComponent implements OnInit, OnDestroy {
     console.log(codeValue);
   }
   previousCodingQuestion(){
-
+    if (this.currentCodingQuestionIndex > 0) {
+      this.currentCodingQuestionIndex--;
+    }
+    
   }
   nextCodingQuestion(){
+    if (this.currentCodingQuestionIndex < this.codingQuestions.length - 1) {
+      this.currentCodingQuestionIndex++;
+    }
+  }
 
+  getAllCodingQuestion(){
+    this.ExamRepo.getExamCodingQuestions().subscribe(
+     (response) => {
+       this.codingQuestions = response;
+       console.log(this.codingQuestions);
+     },
+     (error) => {}
+   );
+  }
+
+  saveQuestion(code: string) {
+    this.userCodingLogic[this.currentCodingQuestionIndex] = code;
   }
 }
  

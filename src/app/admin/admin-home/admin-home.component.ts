@@ -17,7 +17,7 @@ export class AdminHomeComponent {
       text: 'User count'
     },
     xAxis: {
-      categories: ['Jan 23', 'Feb 23', 'Mar 23', 'Apr 23', 'May 23', 'Jun 23', 'Jul 23', 'Aug 23'], 
+      categories: [ 'Sept 23', 'Oct 23', 'Nov 23','Dec 23', 'Jan 24', 'Feb 24', 'Mar 24', 'April 24'], 
       title: {
         text: 'Time' 
       }
@@ -28,7 +28,7 @@ export class AdminHomeComponent {
       }
     },
     series: [{
-      data: [10, 200, 500, 300, 60, 500, 700, 1000],
+      data: [10, 100, 150, 130, 110 , 400, 450, 600],
       type: 'line'
     }]
   };
@@ -53,9 +53,9 @@ export class AdminHomeComponent {
       data: [
         { name: 'Angular', y: 3 },
         { name: 'Java', y: 7 },
-        { name: 'OOPS', y: 10 },
+        { name: 'OOPS', y: 5 },
         { name: 'Python', y: 2 },
-        { name: 'Aptitude', y: 5 },
+        { name: 'Coding', y: 5 },
       ],
       type: 'pie'
     }]

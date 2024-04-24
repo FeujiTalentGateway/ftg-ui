@@ -9,10 +9,17 @@ import * as ace from 'ace-builds';
 export class CodeEditorComponent {
   @Input() code: string = '';
   @Output() codeChanged: EventEmitter<string> = new EventEmitter<string>();
+ @Input() currentCodingQuestion:any;
+ @Input() codingQuestionIndex!: number;
+
+ ngOnIt(){
+  console.log(this.codingQuestionIndex);
+  console.log(this.currentCodingQuestion);
+ }
 
   darkMode: boolean = false;
   // Default language
-  selectedLanguage: string = 'python'; 
+  selectedLanguage: string = 'java'; 
   selectedTheme: string = 'monokai'; 
 
   @ViewChild("editor") private editor: ElementRef<HTMLElement> | undefined ;
@@ -33,14 +40,16 @@ export class CodeEditorComponent {
   }
 
   setLanguage(language: string) {
+    console.log(this.currentCodingQuestion);
+    
     switch (language) {
       case 'java':
         this.aceEditor!.session.setMode('ace/mode/java');
-        this.aceEditor!.session.setValue("//write your java code here");
+        this.aceEditor!.session.setValue(this.currentCodingQuestion.defaultJavaCode);
         break;
       case 'python':
         this.aceEditor!.session.setMode('ace/mode/python');
-        this.aceEditor!.session.setValue("#write your python code here");
+        this.aceEditor!.session.setValue(this.currentCodingQuestion.defaultPythonCode);
         break;
     }
   }

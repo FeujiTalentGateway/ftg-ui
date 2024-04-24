@@ -203,5 +203,10 @@ export class ExamService {
     return this.http.get<any>('/assets/static_data/ExamCodingQuestion.json');
   }
 
+  fetchTestResultData(): Observable<any> {
+    //return this.http.get<any>('/assets/static_data/CompilationError.json');
+   return this.http.get<any>('/assets/static_data/TestResult.json');
+  }
+
 }
 

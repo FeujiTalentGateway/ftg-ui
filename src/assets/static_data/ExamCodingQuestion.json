@@ -93,6 +93,5 @@
         "defaultJavaCode": "class Solution {\n    public boolean isPrime(int n) {\n        //write your logic here\n   }\n}",
         "defaultPythonCode": "class Solution:\n    def isPrime(self, n ) :\n        # Write your logic here and return a boolean value"
     }
-
   ]
 

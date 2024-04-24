@@ -9,13 +9,8 @@ import * as ace from 'ace-builds';
 export class CodeEditorComponent {
   @Input() code: string = '';
   @Output() codeChanged: EventEmitter<string> = new EventEmitter<string>();
- @Input() currentCodingQuestion:any;
- @Input() codingQuestionIndex!: number;
-
- ngOnIt(){
-  console.log(this.codingQuestionIndex);
-  console.log(this.currentCodingQuestion);
- }
+  @Input() currentCodingQuestion:any;
+  @Input() codingQuestionIndex!: number;
 
   darkMode: boolean = false;
   // Default language

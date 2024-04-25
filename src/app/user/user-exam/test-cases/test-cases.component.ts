@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ExamService } from 'src/app/repository/exam.service';
+import { TestCaseResultService } from 'src/app/services/test-case-result.service';
 
 @Component({
   selector: 'app-test-cases',
@@ -16,7 +17,7 @@ export class TestCasesComponent implements OnInit {
   testResult: any;
   errorMessage: any;
 
-  constructor(private examService: ExamService) {}
+  constructor(private examServiceRepo: ExamService,private testCaseResultService:TestCaseResultService) {}
 
   ngOnInit(): void {
     this.fetchTestResultData();
@@ -37,14 +38,20 @@ export class TestCasesComponent implements OnInit {
   }
 
   fetchTestResultData() {
-    this.examService.fetchTestResultData().subscribe(
-      (res) => {
-        if (res.hasOwnProperty('message')) {
-          this.errorMessage = res; // Set error message
+    this.testCaseResultService.testCasesChanged$.subscribe(
+      (res: any) => { 
+        console.log(res);
+        
+        if (typeof res === 'object' && res !== null && res.hasOwnProperty('message')) {
+          this.errorMessage = res.message; 
           this.testResult = null;
+          console.log( this.errorMessage);
+          
         } else {
-          this.testResult = res; // Set test result
+          this.testResult = res; 
           this.errorMessage = null;
+          console.log( this.testResult);
+          
         }
       },
       (error) => {
@@ -54,4 +61,5 @@ export class TestCasesComponent implements OnInit {
       }
     );
   }
+  
 }

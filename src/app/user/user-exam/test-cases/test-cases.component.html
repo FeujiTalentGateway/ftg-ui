@@ -38,15 +38,13 @@
       </ng-container>
     </div>
   </div>
-  
+
   <!-- Error message container -->
-  <!-- Error message container -->
-<div *ngIf="errorMessage && selectedButton === 'test-result'; else testCaseContent">
-  <div class="exam-message">
-    Compilation Error <i class="fa-solid fa-circle-exclamation"></i> : {{ errorMessage.message }}
-    <span>{{ errorMessage.type }}</span>
+  <div *ngIf="errorMessage && selectedButton === 'test-result'; else testCaseContent">
+    <div class="exam-message">
+      Error <i class="fa-solid fa-circle-exclamation"></i> : {{ errorMessage }}
+    </div>
   </div>
-</div>
 
 
   <!-- Template for Test Result -->
@@ -55,9 +53,10 @@
       <div class="button-container">
         <div *ngFor="let testCase of testResult; let j = index">
           <div class="test-case-buttons">
-            <button [ngClass]="{'passed': testCase.passed, 'failed': !testCase.passed}" (click)="selectTestCaseButton(j)">
+            <button [ngClass]="{'passed': testCase.passed, 'failed': !testCase.passed}"
+              (click)="selectTestCaseButton(j)">
               <ng-container *ngIf="testCase.passed">
-                <i class="fa-solid fa-square-check"></i> 
+                <i class="fa-solid fa-square-check"></i>
               </ng-container>
               <ng-container *ngIf="!testCase.passed">
                 <i class="fa-regular fa-rectangle-xmark"></i>
@@ -67,7 +66,7 @@
           </div>
         </div>
       </div>
-  
+
       <div class="content-container">
         <ng-container *ngFor="let testCase of testResult; let j = index">
           <div class="test-case" *ngIf="selectedCaseIndex === j">
@@ -90,5 +89,5 @@
       </div>
     </div>
   </ng-template>
-  
+
 </div>

@@ -175,13 +175,15 @@ export class ExamService {
   startExam(
     examCode: string,
     difficulty: number,
-    subjectId: Number
+    subjectId: Number,
+    codingSubjectId:Number | undefined
   ): Observable<any> {
     let data = {
       examCode: examCode,
       difficulty: difficulty,
       startDate: new Date().toISOString().slice(0, 23),
       subjectId: subjectId,
+      codingSubjectId:codingSubjectId
     };
     console.log(data);
 
@@ -195,8 +197,8 @@ export class ExamService {
     );
   }
   getCodingQuestions(){
-    //return this.http.get<CodingQuestions[]>(`${this.resultUrl}codingquestion?fullData=false`);
-    return this.http.get<CodingQuestions[]>(`/assets/static_data/CodingQuestions.json`);
+    return this.http.get<CodingQuestions[]>(`${this.resultUrl}codingquestion?fullData=false`);
+    //return this.http.get<CodingQuestions[]>(`/assets/static_data/CodingQuestions.json`);
   }
 
   getExamCodingQuestions():Observable<any> {

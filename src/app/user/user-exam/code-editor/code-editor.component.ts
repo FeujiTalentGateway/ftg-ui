@@ -8,7 +8,6 @@ import * as ace from 'ace-builds';
 })
 export class CodeEditorComponent {
   @Input() code: string = '';
-  @Output() codeChanged: EventEmitter<string> = new EventEmitter<string>();
 
   darkMode: boolean = false;
   // Default language
@@ -16,7 +15,7 @@ export class CodeEditorComponent {
   selectedTheme: string = 'monokai'; 
 
   @ViewChild("editor") private editor: ElementRef<HTMLElement> | undefined ;
-  private aceEditor: ace.Ace.Editor | undefined;
+  public aceEditor: ace.Ace.Editor | undefined;
 
   ngAfterViewInit(): void {
     ace.config.set("fontSize", "14px");
@@ -26,10 +25,12 @@ export class CodeEditorComponent {
     this.setLanguage(this.selectedLanguage);
     this.setTheme(this.selectedTheme);
 
-    // Attach change event listener here
+    //Attach change event listener here
     this.aceEditor.on("change", () => {
       this.code=this.aceEditor!.getValue();
     });
+
+
   }
 
   setLanguage(language: string) {
@@ -57,24 +58,4 @@ export class CodeEditorComponent {
     }
   }
 
-
-  onCodeChange(code: string) {
-    const indentedCode = this.preserveIndentation(code, this.code);
-    this.codeChanged.emit(indentedCode);
-  }
-
-  private preserveIndentation(newCode: string, oldCode: string): string {
-    const newLines = newCode.split('\n');
-    const oldLines = oldCode.split('\n');
-    return newLines.map((newLine, index) => {
-      if (index < oldLines.length) {
-        const leadingWhitespaceMatch = oldLines[index].match(/^\s*/);
-        const leadingWhitespace = leadingWhitespaceMatch?.[0] ?? ''; 
-        return leadingWhitespace + newLine.trim(); 
-      } else {
-        return newLine.trim(); 
-      }
-    }).join('\n');
-  }
-  
 }

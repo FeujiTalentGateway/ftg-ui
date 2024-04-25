@@ -11,6 +11,7 @@ import { SubjectQuestions } from './subject.questions';
 import { QuestionNavigationComponent } from '../question-navigation/question-navigation.component';
 import { CodingQuestions } from 'src/app/models/codingquestions.model';
 import { CodeEditorComponent } from '../code-editor/code-editor.component';
+import { TestCaseResultService } from 'src/app/services/test-case-result.service';
  
 @Component({
   selector: 'app-questions',
@@ -135,6 +136,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
   constructor(
     private ExamRepo: ExamService,
     private sharedData: SharedDataService,
+    private testResultService:TestCaseResultService
     
   ) {}
  
@@ -692,10 +694,13 @@ export class QuestionsComponent implements OnInit, OnDestroy {
       );
     }
   }
+
   runCode() {
     const codeValue = this.codeEditorComponent.code;
     console.log(codeValue);
+    this.testResultService.executeCode(codeValue);
   }
+  
   submitCode(){
     const codeValue = this.codeEditorComponent.code;
     console.log(codeValue);

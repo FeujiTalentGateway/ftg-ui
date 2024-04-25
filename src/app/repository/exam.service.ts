@@ -1,4 +1,4 @@
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -16,6 +16,8 @@ import { CodingQuestions } from '../models/codingquestions.model';
   providedIn: 'root',
 })
 export class ExamService {
+
+
   examUrl: string = ' http://127.0.0.1:8000/';
   javaExamUrl: string = environment.adminUrl + 'exam';
   resultUrl: string = environment.adminUrl;
@@ -201,6 +203,14 @@ export class ExamService {
 
   getExamCodingQuestions():Observable<any> {
     return this.http.get<any>('/assets/static_data/ExamCodingQuestion.json');
+  }
+
+
+  
+  executeCode(codeValue: string): Observable<any> {
+    console.log(codeValue);
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+    return this.http.post<any>(`${this.javaExamUrl}/coding-question/run`, codeValue, { headers: headers });
   }
 
 }

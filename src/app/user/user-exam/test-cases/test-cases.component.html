@@ -11,8 +11,8 @@
     </div>
   </div>
 
-
-  <div *ngIf="isTestCaseSelected">
+  <div *ngIf="isTestCaseSelected" #testCaseContent>
+    <!-- Content for Test Cases -->
     <div class="button-container">
       <div *ngFor="let testCase of currentCodingQuestion.testCases; let j = index">
         <div class="test-case-buttons">
@@ -38,37 +38,56 @@
       </ng-container>
     </div>
   </div>
-  
-  <div *ngIf="!isTestCaseSelected">
-    <div class="button-container">
-      <div *ngFor="let testCase of currentCodingQuestion.testCases; let j = index">
-        <div class="test-case-buttons">
-          <button (click)="selectTestCaseButton(j)"> <i class="fa-solid fa-square-check"></i>Case {{(j + 1) }}</button>
-        </div>
-      </div>
-    </div>
-    <div class="content-container">
-      <ng-container *ngFor="let testCase of currentCodingQuestion.testCases; let j = index">
-        <div class="test-case" *ngIf="selectedCaseIndex === j">
-          <div class="test-case-input">
-            <strong>Input:</strong>
-            <ul>
-              <li *ngFor="let input of testCase.input | keyvalue">
-                {{ input.key }} = "{{ input.value }}"
-              </li>
-            </ul>
-          </div>
-          <div class="test-case-output">
-            <strong>Output:</strong> "{{ testCase.output }}"
-          </div>
-        </div>
-      </ng-container>
-    </div>
+
+  <!-- Error message container -->
+  <div *ngIf="errorMessage && selectedButton === 'test-result'; else testCaseContent">
     <div class="exam-message">
-      <span>You need to run the Exam first</span>
-    </div>
-    <div class="exam-message">
-      <span>Error</span>
+      Error <i class="fa-solid fa-circle-exclamation"></i> : {{ errorMessage }}
     </div>
   </div>
+
+
+  <!-- Template for Test Result -->
+  <ng-template #testCaseContent>
+    <div *ngIf="!isTestCaseSelected">
+      <div class="button-container">
+        <div *ngFor="let testCase of testResult; let j = index">
+          <div class="test-case-buttons">
+            <button [ngClass]="{'passed': testCase.passed, 'failed': !testCase.passed}"
+              (click)="selectTestCaseButton(j)">
+              <ng-container *ngIf="testCase.passed">
+                <i class="fa-solid fa-square-check"></i>
+              </ng-container>
+              <ng-container *ngIf="!testCase.passed">
+                <i class="fa-regular fa-rectangle-xmark"></i>
+              </ng-container>
+              Case {{ j + 1 }}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="content-container">
+        <ng-container *ngFor="let testCase of testResult; let j = index">
+          <div class="test-case" *ngIf="selectedCaseIndex === j">
+            <div class="test-case-input">
+              <strong>Input:</strong>
+              <ul>
+                <li *ngFor="let input of testCase.input | keyvalue">
+                  {{ input.key }} = "{{ input.value }}"
+                </li>
+              </ul>
+            </div>
+            <div class="test-case-output">
+              <strong>Expected Output:</strong> "{{ testCase.expectedOutput }}"
+            </div>
+            <div class="test-case-output">
+              <strong>Actual Output:</strong> "{{ testCase.actualOutput }}"
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </ng-template>
+
 </div>

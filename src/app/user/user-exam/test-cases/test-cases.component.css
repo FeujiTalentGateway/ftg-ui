@@ -59,42 +59,40 @@
   }
   
   .header-container {
-    background-color: #f0f0f0; /* Background color */
-    padding: -1px 20px; /* Padding around the header */
-    border-radius: 10px; /* Rounded corners */
-  }
-  
-  .main-header {
+    background-color: #f0f0f0;
+    padding: -1px 20px;
+    border-radius: 10px;
+}
+
+.main-header {
     display: flex;
-    align-items: center; /* Align items vertically */
-  }
-  
-  .main-button {
-    background-color: transparent; /* Transparent background */
-    color: #333; /* Default text color */
+    align-items: center;
+}
+
+.main-button {
+    background-color: transparent;
+    color: #333;
     border: none;
     border-radius: 3px;
     cursor: pointer;
-    font-size: 12px; /* Adjust font size */
-    margin-right: 1px; /* Add margin between buttons */
-    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
-  }
+    font-size: 12px;
+    margin-right: 1px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
 
-  
-  .main-button:hover {
+.main-button:hover {
     background-color: #6e6f70b6;
-  }
-  
-  
-  .test-case-buttons {
+}
+
+.test-case-buttons {
     display: flex;
     flex-wrap: wrap;
     margin-top: 3px;
     margin-left: 3px;
-  }
-  
-  .test-case-buttons button {
-    flex-grow: 1; /* Allow buttons to expand to fit content */
+}
+
+.test-case-buttons button {
+    flex-grow: 1;
     margin-bottom: 5px;
     margin-right: 5px;
     padding: 8px 16px;
@@ -107,48 +105,66 @@
     font-size: 12px;
     cursor: pointer;
     transition-duration: 0.4s;
-  }
-  
-  .test-case-buttons button:hover {
+}
+
+.test-case-buttons button:hover {
     background-color: #0bc279;
     color: #fff;
-  }
-  
-  .main-button .fa-solid.fa-square-check {
-    color: rgb(8, 236, 8); /* Green color for the icon */
-  }
-  .main-button  .fa-solid.fa-arrow-right-to-bracket {
-    color: rgb(8, 236, 8); /* Green color for the icon */
-  }
-  .test-case-buttons .fa-solid.fa-square-check {
-    color: rgb(8, 236, 8); /* Green color for the icon */
-  }
- 
-  .exam-message {
+}
+
+.main-button .fa-solid.fa-square-check,
+.main-button .fa-solid.fa-arrow-right-to-bracket,
+.test-case-buttons .fa-solid.fa-square-check {
+    color: rgb(8, 236, 8);
+}
+
+.test-case-buttons .fa-regular {
+    color: rgb(236, 8, 8);
+}
+
+.test-case-buttons button.passed {
+    background-color: #0bc279;
+}
+
+.test-case-buttons button.failed {
+    background-color: rgba(252, 53, 3, 0.651);
+}
+
+.exam-message {
     font-weight: bold;
-    text-align: center; /* Center the text horizontally */
-    display: flex; /* Use flexbox for vertical centering */
-    justify-content: center; /* Center the content vertically */
-    align-items: center; /* Center the content vertically */
-  }
-  
-  
-  /* Media queries */
-  @media (max-width: 600px) {
+    text-align: center;
+    background-color: #ffcccc;
+    color: #cc0000;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.exam-message span {
+    display: block;
+    margin-top: 10px;
+    font-size: 14px;
+    font-weight: normal;
+}
+
+@media (max-width: 600px) {
     .container {
-      width: 100%; 
+        width: 100%;
     }
-  
+
     .test-case-buttons {
-      margin-left: 0;
+        margin-left: 0;
     }
-  
+
     .test-case-buttons button {
-      width: calc(50% - 10px);
+        width: calc(50% - 10px);
     }
-  
+
     .test-case-details {
-      padding: 10px;
+        padding: 10px;
     }
-  }
+}
+
   

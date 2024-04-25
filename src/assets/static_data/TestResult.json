@@ -1,0 +1,17 @@
+[
+    {
+        "input": {
+            "number": 5
+        },
+        "expectedOutput": 6,
+        "actualOutput": 120,
+        "passed": false
+    },{
+        "input": {
+            "number": 3
+        },
+        "expectedOutput": 6,
+        "actualOutput": 6,
+        "passed": true
+    }
+]

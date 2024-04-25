@@ -11,6 +11,7 @@ import { SubjectQuestions } from './subject.questions';
 import { QuestionNavigationComponent } from '../question-navigation/question-navigation.component';
 import { CodingQuestions } from 'src/app/models/codingquestions.model';
 import { CodeEditorComponent } from '../code-editor/code-editor.component';
+import { TestCaseResultService } from 'src/app/services/test-case-result.service';
 import { CodingQuestion } from 'src/app/models/coding.question.model';
  
 @Component({
@@ -33,7 +34,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
     active: false,
     created_at_ts: '',
     examSubjects: [],
-    users: [],
+    users: []
   };
   alredyVisited:boolean=false
   codingSubjectName="Coding Questions"
@@ -146,6 +147,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
   constructor(
     private ExamRepo: ExamService,
     private sharedData: SharedDataService,
+    private testResultService:TestCaseResultService
     
   ) {}
  
@@ -707,10 +709,13 @@ export class QuestionsComponent implements OnInit, OnDestroy {
       );
     }
   }
+
   runCode() {
     const codeValue = this.codeEditorComponent.code;
     console.log(codeValue);
+    this.testResultService.executeCode(codeValue);
   }
+  
   submitCode(){
     const codeValue = this.codeEditorComponent.code;
     console.log(codeValue);

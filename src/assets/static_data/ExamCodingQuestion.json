@@ -31,72 +31,67 @@
           "order and s consist of lowercase English letters.",
           "All the characters of order are unique."
       ],
-      "defaultCode":"class Solution {public String customSortString(String order, String s) {}}"
-
-
+      "defaultJavaCode": "class Solution {\n    public String customSortString(String order, String s) {\n        //write your logic here\n   }\n}",
+      "defaultPythonCode": "class Solution:\n    def customSortString(self, order , s) :\n        # Write your logic here and return the string"
     },
     {
-        "content":"Custom Sort String2",
-        "description":"You are given two strings order and s. All the characters of order are unique and were sorted in some custom order previously.Permute the characters of s so that they match the order that order was sorted. More specifically, if a character x occurs before a character y in order, then x should occur before y in the permuted string.Return any permutation of s that satisfies this property.",
-        "testCases":[
+        "content": "Sum of Two Numbers",
+        "description": "Given two integers, return their sum.",
+        "testCases": [
             {
-                "input":{
-                    "siva":"aana",
-                    "rakesh" : "aana"
+                "input": {
+                    "num1": 5,
+                    "num2": 7
                 },
-                "output":"bcad",
-                "explaination":"The characters \"b\", \"c\", and \"a\" from order dictate the order for the characters in s. The character \"d\" in s does not appear in order, so its position is flexible.Following the order of appearance in order, \"b\", \"c\", and \"a\" from s should be arranged as \"b\",  \"c\", \"a\". \"d\" can be placed at any position since it's not in order. The output \"bcad\" correctly follows this rule. Other arrangements like \"bacd\" or \"bcda\" would also be valid, as long as \"b\",  \"c\", \"a\" maintain their order."
+                "output": 12
             },
             {
-              "input":{
-                  "sam":"bhai",
-                  "mohan" : "raj"
-              },
-              "output":"Ankush",
-              "explaination":"The characters \"b\", \"c\", and \"a\" from order dictate the order for the characters in s. The character \"d\" in s does not appear in order, so its position is flexible.Following the order of appearance in order, \"b\", \"c\", and \"a\" from s should be arranged as \"b\",  \"c\", \"a\". \"d\" can be placed at any position since it's not in order. The output \"bcad\" correctly follows this rule. Other arrangements like \"bacd\" or \"bcda\" would also be valid, as long as \"b\",  \"c\", \"a\" maintain their order."
-          }
-        ],
-        "constraints":[
-            "1 <= order.length <= 26",
-            "1 <= s.length <= 200",
-            "order and s consist of lowercase English letters.",
-            "All the characters of order are unique."
-        ],
-        "defaultCode":"class Solution {public String customSortString(String order, String s) {}}"
-  
-  
-      },
-      {
-        "content":"Custom Sort String2",
-        "description":"You are given two strings order and s. All the characters of order are unique and were sorted in some custom order previously.Permute the characters of s so that they match the order that order was sorted. More specifically, if a character x occurs before a character y in order, then x should occur before y in the permuted string.Return any permutation of s that satisfies this property.",
-        "testCases":[
-            {
-                "input":{
-                    "order":"Pritam",
-                    "s" : "Sahil"
+                "input": {
+                    "num1": -3,
+                    "num2": 10
                 },
-                "output":"bcad",
-                "explaination":"The characters \"b\", \"c\", and \"a\" from order dictate the order for the characters in s. The character \"d\" in s does not appear in order, so its position is flexible.Following the order of appearance in order, \"b\", \"c\", and \"a\" from s should be arranged as \"b\",  \"c\", \"a\". \"d\" can be placed at any position since it's not in order. The output \"bcad\" correctly follows this rule. Other arrangements like \"bacd\" or \"bcda\" would also be valid, as long as \"b\",  \"c\", \"a\" maintain their order."
+                "output": 7
             },
             {
-              "input":{
-                  "order":"gsrdfsk",
-                  "s" : "pinku"
-              },
-              "output":"bcad",
-              "explaination":"The characters \"b\", \"c\", and \"a\" from order dictate the order for the characters in s. The character \"d\" in s does not appear in order, so its position is flexible.Following the order of appearance in order, \"b\", \"c\", and \"a\" from s should be arranged as \"b\",  \"c\", \"a\". \"d\" can be placed at any position since it's not in order. The output \"bcad\" correctly follows this rule. Other arrangements like \"bacd\" or \"bcda\" would also be valid, as long as \"b\",  \"c\", \"a\" maintain their order."
-          }
+                "input": {
+                    "num1": 0,
+                    "num2": 0
+                },
+                "output": 0
+            }
         ],
-        "constraints":[
-            "1 <= order.length <= 26",
-            "1 <= s.length <= 200",
-            "order and s consist of lowercase English letters.",
-            "All the characters of order are unique."
+        "constraints": [
+            "-10^9 <= num1, num2 <= 10^9"
         ],
-        "defaultCode":"class Solution {public String customSortString(String order, String s) {}}"
-  
-  
-      }
-
+        "defaultJavaCode": "class Solution {\n    public int sumOfTwoNumbers(int num1, int num2) {\n        //write your logic here\n   }\n}",
+        "defaultPythonCode": "class Solution:\n    def sumOfTwoNumbers(self, num1 , num2 ) :\n        # Write your logic here and return the int value"
+    },
+    {
+        "content": "Prime Number",
+        "description": "Given an integer, determine whether it is a prime number or not.",
+        "testCases": [
+            {
+                "input": 5,
+                "output": true
+            },
+            {
+                "input": 10,
+                "output": false
+            },
+            {
+                "input": 17,
+                "output": true
+            },
+            {
+                "input": 20,
+                "output": false
+            }
+        ],
+        "constraints": [
+            "1 <= n <= 10^5"
+        ],
+        "defaultJavaCode": "class Solution {\n    public boolean isPrime(int n) {\n        //write your logic here\n   }\n}",
+        "defaultPythonCode": "class Solution:\n    def isPrime(self, n ) :\n        # Write your logic here and return a boolean value"
+    }
   ]
 

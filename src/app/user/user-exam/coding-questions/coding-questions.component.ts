@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { CodingQuestion } from 'src/app/models/coding.question.model';
 import { ExamService } from 'src/app/repository/exam.service';
 
 @Component({
@@ -11,7 +12,7 @@ export class CodingQuestionsComponent {
     this.getAllQuestion();
   }
 codingQuestion:any[]=[];
- @Input() currentCodingQuestion:any;
+ @Input() currentCodingQuestion!: CodingQuestion;
  @Input() codingQuestionIndex!: number;
   ngOnInit(){
      console.log(this.currentCodingQuestion)

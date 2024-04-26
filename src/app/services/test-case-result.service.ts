@@ -17,7 +17,7 @@ export class TestCaseResultService {
   errorMessage: any;
   testResult: any;
 
-  executeCode(codeValue: string) {
+  executeCode(codeValue: any) {
     this.examservice.executeCode(codeValue).subscribe((res) => {
 
       this.testResult = res

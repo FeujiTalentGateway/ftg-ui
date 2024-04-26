@@ -12,6 +12,7 @@ import { QuestionNavigationComponent } from '../question-navigation/question-nav
 import { CodingQuestions } from 'src/app/models/codingquestions.model';
 import { CodeEditorComponent } from '../code-editor/code-editor.component';
 import { TestCaseResultService } from 'src/app/services/test-case-result.service';
+import { CodingQuestion } from 'src/app/models/coding.question.model';
  
 @Component({
   selector: 'app-questions',
@@ -35,6 +36,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
     examSubjects: [],
     users: []
   };
+  alredyVisited:boolean=false
   codingSubjectName="Coding Questions"
   currentQuestionIndex = 0;
   currentQuestion: Question | undefined;
@@ -57,22 +59,31 @@ export class QuestionsComponent implements OnInit, OnDestroy {
   arrow: boolean = false;
   questionNavigation: boolean = false;
   currentCodingQuestionIndex:number=0;
-  codingQuestions:CodingQuestions[]=[]
-  userCodingLogic: string []=[]
+  codingQuestions:CodingQuestion[]=[]
+  userCodingLogic:string[] = [];
+  codingLanguages:string[] = []
   ngOnInit(): void {
     this.currentSubject = this.exam.examSubjects[this.indexPositionOfTheExam];
     this.indexPositionOfSubject$ = this.sharedData.indexPositionOfSubject$;
     this.isLoading = true;
+    const codingQuestionId=this.getIndexOfCodingQuestion()
     this.ExamRepo.startExam(
       this.exam.examCode,
       this.currentSubject.startingDifficultyLevel,
-      this.currentSubject.subject.id
+      this.currentSubject.subject.id,
+      codingQuestionId
+      
     ).subscribe(
       (response) => {
         this.nextSubjectLoading = true;
         response.question['optionSelected'] = [];
         response.question['isMarkedForReview'] = false;
         this.currentQuestion = response.question;
+        this.codingQuestions=response.examCodingQuestionDTO
+        this.ExamRepo.getExamCodingQuestions().subscribe((questions=>{
+          this.codingQuestions=questions
+        }))
+        console.log(response)
         console.log(this.currentQuestion, 'this.currentQuestion');
  
         this.examAttemptID = response.attemptId;
@@ -140,6 +151,11 @@ export class QuestionsComponent implements OnInit, OnDestroy {
     
   ) {}
  
+
+  getIndexOfCodingQuestion(){
+    var object=this.exam.examSubjects.find((subj:any)=> subj.subject.name.toLowerCase() == this.codingSubjectName.toLowerCase())
+    return object?.subject?.id
+  }
   /**
    * @method updateQuestions() this method is for updating the questions
    * @description this method is for updating the questions
@@ -400,7 +416,6 @@ export class QuestionsComponent implements OnInit, OnDestroy {
    */
  
   changeSubject(indexPositionOfSubject: any) {
-   this.getAllCodingQuestion()
     this.saveOption(false, false, true);
     this.updatingTheCurrentSubjectAndQuestions();
     let subject = this.exam.examSubjects[indexPositionOfSubject.value];
@@ -696,39 +711,81 @@ export class QuestionsComponent implements OnInit, OnDestroy {
   }
 
   runCode() {
-    const codeValue = this.codeEditorComponent.code;
-    console.log(codeValue);
-    this.testResultService.executeCode(codeValue);
+    const codeValue = this.codeEditorComponent.code;  
+    const requestPayload = {
+      codingQuestionId: this.currentCodingQuestionIndex+1,
+      responseCodeSnippet: codeValue
+    };
+  
+    this.testResultService.executeCode(requestPayload);
   }
+  
   
   submitCode(){
     const codeValue = this.codeEditorComponent.code;
     console.log(codeValue);
   }
+
   previousCodingQuestion(){
+    
+    this.saveQuestion(this.codeEditorComponent.code,this.currentCodingQuestionIndex)
+    this.setUsedWrittenCodetoEditor(this.currentCodingQuestionIndex-1)
+    
     if (this.currentCodingQuestionIndex > 0) {
       this.currentCodingQuestionIndex--;
     }
+    if(this.userCodingLogic.length==this.codingQuestions.length){
+      this.alredyVisited=true
+    }
+    this.changeCodingLanguage(this.currentCodingQuestionIndex)
+  }
+
+  nextCodingQuestion(){
+    console.log(this.codeEditorComponent.code)
+      this.saveQuestion(this.codeEditorComponent.code,this.currentCodingQuestionIndex)
+      
+      if (this.currentCodingQuestionIndex < this.codingQuestions.length - 1) {
+        this.currentCodingQuestionIndex++;
+        if(this.userCodingLogic[this.currentCodingQuestionIndex]==null){
+            // this.codeEditorComponent.ngAfterViewInit()
+        }
+        else{
+          this.setUsedWrittenCodetoEditor(this.currentCodingQuestionIndex)
+          this.changeCodingLanguage(this.currentCodingQuestionIndex+1)
+        }
+
+      }
+     
+    
     
   }
-  nextCodingQuestion(){
-    if (this.currentCodingQuestionIndex < this.codingQuestions.length - 1) {
-      this.currentCodingQuestionIndex++;
+  saveQuestion(code: string,index:number) {
+    if(this.userCodingLogic[index]!=null){
+      this.userCodingLogic.splice(index,1)
     }
+    this.codingLanguages.splice(index,0,this.codeEditorComponent.selectedLanguage)
+    this.userCodingLogic.splice(index,0,code)
+    console.log(this.userCodingLogic)
   }
 
-  getAllCodingQuestion(){
-    this.ExamRepo.getExamCodingQuestions().subscribe(
-     (response) => {
-       this.codingQuestions = response;
-       console.log(this.codingQuestions);
-     },
-     (error) => {}
-   );
+  setUsedWrittenCodetoEditor(index:number){
+   
+    console.log(this.userCodingLogic)
+    this.codeEditorComponent.aceEditor!.session.setValue(this.userCodingLogic[index])
+    this.changeCodingLanguage(index)
+    
   }
-
-  saveQuestion(code: string) {
-    this.userCodingLogic[this.currentCodingQuestionIndex] = code;
+  changeCodingLanguage(index:number){
+    var javaSubject="java";
+    var pythonSubject="python"
+    if(this.codingLanguages[index].toLowerCase() ==javaSubject.toLowerCase()){
+      this.codeEditorComponent.aceEditor!.session.setMode('ace/mode/java');
+      this.codeEditorComponent.selectedLanguage=javaSubject
+    }
+    else{
+      this.codeEditorComponent.aceEditor!.session.setMode('ace/mode/python');
+      this.codeEditorComponent.selectedLanguage=pythonSubject
+    }
   }
 }
  

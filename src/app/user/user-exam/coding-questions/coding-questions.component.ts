@@ -11,7 +11,7 @@ export class CodingQuestionsComponent {
   constructor(private examService:ExamService) {
     this.getAllQuestion();
   }
-codingQuestion:any[]=[];
+  codingQuestion:any[]=[];
  @Input() currentCodingQuestion!: CodingQuestion;
  @Input() codingQuestionIndex!: number;
   ngOnInit(){
@@ -20,7 +20,7 @@ codingQuestion:any[]=[];
    getAllQuestion(){
      this.examService.getExamCodingQuestions().subscribe(
       (response) => {
-        this.codingQuestion = response;
+        this.codingQuestion = response.examCodingQuestionDTO;
         console.log(this.codingQuestion);
       },
       (error) => {}

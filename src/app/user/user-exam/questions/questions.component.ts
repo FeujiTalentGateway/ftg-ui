@@ -80,10 +80,14 @@ export class QuestionsComponent implements OnInit, OnDestroy {
         response.question['isMarkedForReview'] = false;
         this.currentQuestion = response.question;
         this.codingQuestions=response.examCodingQuestionDTO
+        console.log("line 83");
+        
+        console.log(this.codingQuestions);
+        
         this.ExamRepo.getExamCodingQuestions().subscribe((questions=>{
-          this.codingQuestions=questions
+          this.codingQuestions=questions.examCodingQuestionDTO
         }))
-        console.log(response)
+        console.log(response.examCodingQuestionDTO)
         console.log(this.currentQuestion, 'this.currentQuestion');
  
         this.examAttemptID = response.attemptId;

@@ -44,16 +44,17 @@ export class CodeEditorComponent {
 
 
   setLanguage(language: string) {
-    console.log(this.currentCodingQuestion);
+    console.log(JSON.stringify(this.currentCodingQuestion));
+
     
     switch (language) {
       case 'java':
         this.aceEditor!.session.setMode('ace/mode/java');
-        this.aceEditor!.session.setValue(this.currentCodingQuestion.defaultJavaCode);        
+        this.aceEditor!.session.setValue(this.currentCodingQuestion.javaDefaultCode);        
         break;
       case 'python':
         this.aceEditor!.session.setMode('ace/mode/python');
-        this.aceEditor!.session.setValue(this.currentCodingQuestion.defaultPythonCode);
+        this.aceEditor!.session.setValue(this.currentCodingQuestion.pythonDefaultCode);
         break;
     }
   }

@@ -18,6 +18,7 @@ import { CodingQuestions } from '../models/codingquestions.model';
 export class ExamService {
 
 
+
   examUrl: string = ' http://127.0.0.1:8000/';
   javaExamUrl: string = environment.adminUrl + 'exam';
   resultUrl: string = environment.adminUrl;
@@ -213,6 +214,14 @@ export class ExamService {
     console.log(codeValue);
     const headers = new HttpHeaders({'Content-Type': 'application/json'});
     return this.http.post<any>(`${this.javaExamUrl}/coding-question/run`, codeValue, { headers: headers });
+  }
+
+  submitCode(requestPayload: any):Observable<any> {
+    console.log(requestPayload);
+    
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+    return this.http.post<any>(`${this.javaExamUrl}/coding-question/submit`, requestPayload, { headers: headers });
+  
   }
 
 }

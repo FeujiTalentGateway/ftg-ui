@@ -1,0 +1,56 @@
+/* test-result-popup.component.css */
+
+.popup-container {
+    max-width: 400px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
+  
+  .popup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .popup-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: #333;
+  }
+  
+  .popup-content {
+    color: #555;
+  }
+  
+  .popup-content div {
+    margin-bottom: 10px;
+  }
+  
+  .popup-content div:last-child {
+    margin-bottom: 0;
+  }
+  
+  /* Close button styles */
+  .popup-header button {
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .popup-header button:hover {
+    background-color: #f0f0f0;
+    border-radius: 50%;
+  }
+  
+  .popup-header button:focus {
+    outline: none;
+  }
+  
+  .popup-header button .mat-icon {
+    font-size: 1.5rem;
+    color: #777;
+  }
+  

@@ -12,7 +12,9 @@ import { QuestionNavigationComponent } from '../question-navigation/question-nav
 import { CodingQuestions } from 'src/app/models/codingquestions.model';
 import { CodeEditorComponent } from '../code-editor/code-editor.component';
 import { TestCaseResultService } from 'src/app/services/test-case-result.service';
+import { MatDialog } from '@angular/material/dialog';
 import { CodingQuestion } from 'src/app/models/coding.question.model';
+import { TestResultPopupComponent } from '../test-result-popup/test-result-popup.component';
  
 @Component({
   selector: 'app-questions',
@@ -147,7 +149,8 @@ export class QuestionsComponent implements OnInit, OnDestroy {
   constructor(
     private ExamRepo: ExamService,
     private sharedData: SharedDataService,
-    private testResultService:TestCaseResultService
+    private testResultService:TestCaseResultService,
+    public dialog: MatDialog
     
   ) {}
  
@@ -713,7 +716,8 @@ export class QuestionsComponent implements OnInit, OnDestroy {
   runCode() {
     const codeValue = this.codeEditorComponent.code;  
     const requestPayload = {
-      codingQuestionId: this.currentCodingQuestionIndex+1,
+      // codingQuestionId: this.currentCodingQuestionIndex+1,
+       codingQuestionId:2,
       responseCodeSnippet: codeValue
     };
   
@@ -721,9 +725,54 @@ export class QuestionsComponent implements OnInit, OnDestroy {
   }
   
   
-  submitCode(){
+  // submitCode(){
+  //   const codeValue = this.codeEditorComponent.code;
+  //   const formattedData = JSON.stringify({
+
+  //     codingQuestionId: 2,
+  //     responseCodeSnippet: codeValue,
+  //     examAttemptId:280
+  // }, null, 2);
+  //   console.log(formattedData);
+
+  //  const response = this.testResultService.submitCode(codeValue);
+  //  console.log(response);
+   
+  // }
+  submitCode() {
     const codeValue = this.codeEditorComponent.code;
-    console.log(codeValue);
+    const formattedData = JSON.stringify({
+      codingQuestionId: 2,
+      responseCodeSnippet: codeValue,
+      examAttemptId: 280
+    }, null, 2);
+    console.log(formattedData);
+  
+    // Call the service to submit the code and handle the response
+    this.testResultService.submitCode(formattedData).subscribe(response => {
+      console.log(response);
+      
+      // Open the popup with the response data
+      this.openTestResultPopup(response);
+    }, error => {
+      console.error('Error submitting code:', error);
+      // Handle error if needed
+    });
+  }
+  
+  openTestResultPopup(responseData: any) {
+    console.log();
+    
+    console.log(responseData);
+    
+    const dialogRef = this.dialog.open(TestResultPopupComponent, {
+      width: '250px',
+      data: responseData // Pass the response data to the popup
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
   }
 
   previousCodingQuestion(){

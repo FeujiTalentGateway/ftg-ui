@@ -1,97 +1,78 @@
 [
-{
-    "content":"Custom Sort String",
-    "description":"You are given two strings order and s. All the characters of order are unique and were sorted in some custom order previously.Permute the characters of s so that they match the order that order was sorted. More specifically, if a character x occurs before a character y in order, then x should occur before y in the permuted string.Return any permutation of s that satisfies this property.",
-    "testCases":[
         {
-            "input":{
-                "order":"bcafg",
-                "s" : "abcd"
-            },
-            "output":"bcad",
-            "explaination":"The characters \"b\", \"c\", and \"a\" from order dictate the order for the characters in s. The character \"d\" in s does not appear in order, so its position is flexible.Following the order of appearance in order, \"b\", \"c\", and \"a\" from s should be arranged as \"b\",  \"c\", \"a\". \"d\" can be placed at any position since it's not in order. The output \"bcad\" correctly follows this rule. Other arrangements like \"bacd\" or \"bcda\" would also be valid, as long as \"b\",  \"c\", \"a\" maintain their order."
-        },{
-            "input":{
-                "Vehicle":"Car",
-                "fuel" : "petrol"
-            },
-            "output":"Suzuki"
-         },{
-            "input":{
-                "table":"new",
-                "metarial" : "wood"
-            },
-            "output":"bcad",
-            "explaination":"The characters \"b\", \"c\", and \"a\" from order dictate the order for the characters in s. The character \"d\" in s does not appear in order, so its position is flexible.Following the order of appearance in order, \"b\", \"c\", and \"a\" from s should be arranged as \"b\",  \"c\", \"a\". \"d\" can be placed at any position since it's not in order. The output \"bcad\" correctly follows this rule. Other arrangements like \"bacd\" or \"bcda\" would also be valid, as long as \"b\",  \"c\", \"a\" maintain their order."
+            "id": 1,
+            "content": "add two numbers",
+            "description": "something",
+            "javaDefaultCode": "public class Solution { public List<Integer> test(int test1,int test2) {}}",
+            "pythonDefaultCode": "class Solution:\n    def test(test1,test2):\n",
+            "difficultLevel": 3,
+            "constraints": [
+                "test"
+            ],
+            "testCases": [
+                {
+                    "input": {
+                        "test2": "2",
+                        "test1": "1"
+                    },
+                    "output": "3",
+                    "explanation": "",
+                    "isSample": true
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "content": "Calculate the factorial of a number",
+            "description": "Factorial is the product of an integer and all the integers below it.",
+            "javaDefaultCode": "public class Solution { public int calculateFactorial(int number) {}}",
+            "pythonDefaultCode": "class Solution:\n    def calculateFactorial(number):\n",
+            "difficultLevel": 4,
+            "constraints": [
+                "The number should not be negative."
+            ],
+            "testCases": [
+                {
+                    "input": {
+                        "number": "3"
+                    },
+                    "output": "6",
+                    "explanation": "",
+                    "isSample": true
+                },{
+                    "input": {
+                        "number": "35"
+                    },
+                    "output": "16",
+                    "explanation": "",
+                    "isSample": true
+                },{
+                    "input": {
+                        "number": "56"
+                    },
+                    "output": "6",
+                    "explanation": "",
+                    "isSample": true
+                }
+            ]
+        },
+        {
+            "id": 3,
+            "content": "Check if a number is prime",
+            "description": "A prime number is a natural number greater than 1 that cannot be formed by multiplying two smaller natural numbers.",
+            "javaDefaultCode": "public class Solution { public float isPrime(int number) {}}",
+            "pythonDefaultCode": "class Solution:\n    def isPrime(number):\n",
+            "difficultLevel": 5,
+            "constraints": [],
+            "testCases": [
+                {
+                    "input": {
+                        "number": "7"
+                    },
+                    "output": "true",
+                    "explanation": "",
+                    "isSample": true
+                }
+            ]
         }
-      ],
-      "constraints":[
-          "1 <= order.length <= 26",
-          "1 <= s.length <= 200",
-          "order and s consist of lowercase English letters.",
-          "All the characters of order are unique."
-      ],
-      "defaultJavaCode": "public class Solution {\n    public String customSortString(String order, String s) {\n        //write your logic here\n   }\n}",
-      "defaultPythonCode": "class Solution:\n    def customSortString(self, order , s) :\n        # Write your logic here and return the string"
-    },
-    {
-        "content": "Sum of Two Numbers",
-        "description": "Given two integers, return their sum.",
-        "testCases": [
-            {
-                "input": {
-                    "num1": 5,
-                    "num2": 7
-                },
-                "output": 12
-            },
-            {
-                "input": {
-                    "num1": -3,
-                    "num2": 10
-                },
-                "output": 7
-            },
-            {
-                "input": {
-                    "num1": 0,
-                    "num2": 0
-                },
-                "output": 0
-            }
-        ],
-        "constraints": [
-            "-10^9 <= num1, num2 <= 10^9"
-        ],
-        "defaultJavaCode": "public class Solution {\n    public int sumOfTwoNumbers(int num1, int num2) {\n        //write your logic here\n   }\n}",
-        "defaultPythonCode": "class Solution:\n    def sumOfTwoNumbers(self, num1 , num2 ) :\n        # Write your logic here and return the int value"
-    },
-    {
-        "content": "Prime Number",
-        "description": "Given an integer, determine whether it is a prime number or not.",
-        "testCases": [
-            {
-                "input": 5,
-                "output": true
-            },
-            {
-                "input": 10,
-                "output": false
-            },
-            {
-                "input": 17,
-                "output": true
-            },
-            {
-                "input": 20,
-                "output": false
-            }
-        ],
-        "constraints": [
-            "1 <= n <= 10^5"
-        ],
-        "defaultJavaCode": "public class Solution {\n    public boolean isPrime(int n) {\n        //write your logic here\n   }\n}",
-        "defaultPythonCode": "class Solution:\n    def isPrime(self, n ) :\n        # Write your logic here and return a boolean value"
-    }
-  ]
-
+    ]

@@ -161,7 +161,7 @@
       <app-coding-questions [codingQuestionIndex]="currentCodingQuestionIndex" [currentCodingQuestion]="codingQuestions[currentCodingQuestionIndex]"></app-coding-questions>
     </div>
     <div class="code-editor">
-      <app-code-editor [code]="userCodingLogic[currentCodingQuestionIndex]" 
+      <app-code-editor [code]="userCodingLogic[currentCodingQuestionIndex]"  [codingQuestionIndex]="currentCodingQuestionIndex" [currentCodingQuestion]="codingQuestions[currentCodingQuestionIndex]"
       ></app-code-editor>
     </div>
     <div class="test-cases">

@@ -7,6 +7,8 @@ import * as ace from 'ace-builds';
   styleUrls: ['./code-editor.component.css']
 })
 export class CodeEditorComponent {
+
+
   @Input() code: string = '';
   @Output() codeChanged: EventEmitter<string> = new EventEmitter<string>();
   @Input() currentCodingQuestion:any;
@@ -36,13 +38,18 @@ export class CodeEditorComponent {
 
   }
 
+  ngOnChanges(): void {
+    this.ngAfterViewInit();
+  }
+
+
   setLanguage(language: string) {
     console.log(this.currentCodingQuestion);
     
     switch (language) {
       case 'java':
         this.aceEditor!.session.setMode('ace/mode/java');
-        this.aceEditor!.session.setValue(this.currentCodingQuestion.defaultJavaCode);
+        this.aceEditor!.session.setValue(this.currentCodingQuestion.defaultJavaCode);        
         break;
       case 'python':
         this.aceEditor!.session.setMode('ace/mode/python');

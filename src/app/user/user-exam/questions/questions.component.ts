@@ -711,10 +711,15 @@ export class QuestionsComponent implements OnInit, OnDestroy {
   }
 
   runCode() {
-    const codeValue = this.codeEditorComponent.code;
-    console.log(codeValue);
-    this.testResultService.executeCode(codeValue);
+    const codeValue = this.codeEditorComponent.code;  
+    const requestPayload = {
+      codingQuestionId: this.currentCodingQuestionIndex+1,
+      responseCodeSnippet: codeValue
+    };
+  
+    this.testResultService.executeCode(requestPayload);
   }
+  
   
   submitCode(){
     const codeValue = this.codeEditorComponent.code;
@@ -742,7 +747,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
       if (this.currentCodingQuestionIndex < this.codingQuestions.length - 1) {
         this.currentCodingQuestionIndex++;
         if(this.userCodingLogic[this.currentCodingQuestionIndex]==null){
-            this.codeEditorComponent.ngAfterViewInit()
+            // this.codeEditorComponent.ngAfterViewInit()
         }
         else{
           this.setUsedWrittenCodetoEditor(this.currentCodingQuestionIndex)

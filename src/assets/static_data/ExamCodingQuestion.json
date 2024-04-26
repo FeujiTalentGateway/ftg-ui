@@ -31,7 +31,7 @@
           "order and s consist of lowercase English letters.",
           "All the characters of order are unique."
       ],
-      "defaultJavaCode": "class Solution {\n    public String customSortString(String order, String s) {\n        //write your logic here\n   }\n}",
+      "defaultJavaCode": "public class Solution {\n    public String customSortString(String order, String s) {\n        //write your logic here\n   }\n}",
       "defaultPythonCode": "class Solution:\n    def customSortString(self, order , s) :\n        # Write your logic here and return the string"
     },
     {
@@ -63,7 +63,7 @@
         "constraints": [
             "-10^9 <= num1, num2 <= 10^9"
         ],
-        "defaultJavaCode": "class Solution {\n    public int sumOfTwoNumbers(int num1, int num2) {\n        //write your logic here\n   }\n}",
+        "defaultJavaCode": "public class Solution {\n    public int sumOfTwoNumbers(int num1, int num2) {\n        //write your logic here\n   }\n}",
         "defaultPythonCode": "class Solution:\n    def sumOfTwoNumbers(self, num1 , num2 ) :\n        # Write your logic here and return the int value"
     },
     {
@@ -90,7 +90,7 @@
         "constraints": [
             "1 <= n <= 10^5"
         ],
-        "defaultJavaCode": "class Solution {\n    public boolean isPrime(int n) {\n        //write your logic here\n   }\n}",
+        "defaultJavaCode": "public class Solution {\n    public boolean isPrime(int n) {\n        //write your logic here\n   }\n}",
         "defaultPythonCode": "class Solution:\n    def isPrime(self, n ) :\n        # Write your logic here and return a boolean value"
     }
   ]

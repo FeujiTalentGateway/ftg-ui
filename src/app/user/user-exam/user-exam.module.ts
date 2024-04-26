@@ -19,6 +19,8 @@ import { QuestionNavigationComponent } from './question-navigation/question-navi
 import { CodingQuestionsComponent } from './coding-questions/coding-questions.component';
 import { CodeEditorComponent } from './code-editor/code-editor.component';
 import { TestCasesComponent } from './test-cases/test-cases.component';
+import { TestResultPopupComponent } from './test-result-popup/test-result-popup.component';
+import { MatIconModule } from '@angular/material/icon';
 
 
 @NgModule({
@@ -36,6 +38,7 @@ import { TestCasesComponent } from './test-cases/test-cases.component';
     CodingQuestionsComponent,
     CodeEditorComponent,
     TestCasesComponent,
+    TestResultPopupComponent,
   ],
   imports: [
     CommonModule,
@@ -44,6 +47,7 @@ import { TestCasesComponent } from './test-cases/test-cases.component';
     UserExamRoutingModule,
     FormsModule,
     SharedModuleModule,
+    MatIconModule
   ],
 })
 export class UserExamModule {}

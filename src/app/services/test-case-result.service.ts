@@ -7,6 +7,7 @@ import { Observable, Subject as RxSubject } from 'rxjs';
 })
 export class TestCaseResultService {
 
+
   testCaseResult: any;
   private testCasesChanged = new RxSubject<void>();
   testCasesChanged$ = this.testCasesChanged.asObservable();
@@ -32,9 +33,14 @@ export class TestCaseResultService {
         this.errorMessage = error.error;
         this.testResult = null;
         this.testCasesChanged.next(this.errorMessage)
+
       })
+
+
   }
-
   
-
+  submitResult: any;
+  submitCode(requestPayload: any): Observable<any> {
+    return this.examservice.submitCode(requestPayload);
+  }
 }

@@ -2,7 +2,7 @@
 FROM node:18.13.0-alpine as iaangular
 
 # Expose the port your Angular app will run on
-EXPOSE 4400
+EXPOSE 4200
 
 # Set the working directory in the container
 WORKDIR /app

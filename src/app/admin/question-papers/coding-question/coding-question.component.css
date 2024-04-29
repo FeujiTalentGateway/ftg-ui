@@ -35,6 +35,8 @@ label {
 }
 .data-type-option {
   margin-right: 10px; /* Add spacing between radio buttons */
+  width: 20px;
+  padding: 20px;
 }
 .button {
   margin-right: 15px !important;
@@ -44,10 +46,6 @@ label {
   margin-right: 15px !important;
 }
 
-.data-type-option {
-  width: 20px;
-  padding: 20px;
-}
 .data-type{
     padding: auto;
 }

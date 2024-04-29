@@ -277,16 +277,22 @@ export class ScheduleExamComponent implements OnInit {
       this.service.updateExam(this.examForm.value);
       // this.goBack();
     } 
-     else {
-      const { boolValue, errorMessage } =this.checkCodingQuestions()
-       if(boolValue){
+    else {
+      this.codingQuestionObject= this.examSubjectsArray.value.find((subject: any) => subject.subjectName.toLowerCase() === this.CodingSubjectName.toLowerCase());
+      if(this.codingQuestionObject){
+        const { boolValue, errorMessage } =this.checkCodingQuestions()
+        if(boolValue){
+          this.service.scheduleExam(this.examForm.value);
+        }
+        else{
+          this.openErrorToaster(errorMessage)
+        }
+      }
+      else{
         this.service.scheduleExam(this.examForm.value);
-     }
-       else{
-        this.openErrorToaster(errorMessage)
-       }
-    }
+      }
   }
+}
 
   formatDate(date: Date): string {
     const isoString = date.toISOString();

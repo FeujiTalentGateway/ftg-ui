@@ -38,9 +38,9 @@ export class CodeEditorComponent {
 
   }
 
-  ngOnChanges(): void {
-    this.ngAfterViewInit();
-  }
+  // ngOnChanges(): void {
+  //   this.ngAfterViewInit();
+  // }
 
 
   setLanguage(language: string) {

@@ -38,10 +38,6 @@ export class CodeEditorComponent {
 
   }
 
-  // ngOnChanges(): void {
-  //   this.ngAfterViewInit();
-  // }
-
 
   setLanguage(language: string) {
     console.log(JSON.stringify(this.currentCodingQuestion));

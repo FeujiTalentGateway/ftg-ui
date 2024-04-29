@@ -75,8 +75,7 @@
 
 /* ---------- */
 .header-container{
-  height: 6vh;
-  background-color: #fff;
+  background-color: #fff !important;
   padding: 11px;
   display: flex;
   justify-content: space-between;

@@ -1,5 +1,4 @@
-
-<div  *ngIf="examObject$ | async as exam">
+<div *ngIf="examObject$ | async as exam">
   <ng-container *ngIf="handleExamObject(exam)"></ng-container>
   <div class="exam-name">
     <h2>{{ exam.name }}</h2>
@@ -14,28 +13,22 @@
     <div class="row">
       <div class="col">
         <div *ngIf="pieChartOptions">
-          <highcharts-chart 
-            [Highcharts]="Highcharts"
-            [options]="pieChartOptions"
-            style="width: 80%; height: 350px; display: block;"
-          >
-        </highcharts-chart>
+          <highcharts-chart [Highcharts]="Highcharts" [options]="pieChartOptions"
+            style="width: 80%; height: 350px; display: block;" >
+          </highcharts-chart>
         </div>
       </div>
       <div class="col average">
-        <i class="fa-solid fa-plus-minus icons"></i>&nbsp;&nbsp; Average Time :
+        <i class="fa-regular fa-clock icons"></i>&nbsp;&nbsp; Average Time :
         {{ (examStat.averageTimeOfExam | timeFormat) || '0' }}<br />
-        <i class="fa-regular fa-clock icons"></i>&nbsp;&nbsp; Average Marks :
+        <i class="fa-solid fa-plus-minus icons"></i> &nbsp;&nbsp; Average Marks :
         {{ (examStat.averageMarksOfExam | number: '1.2-2') || '0'}}<br />
         <i class="fa-solid fa-check icons"></i>&nbsp;&nbsp; Tests Completed :
         {{ examStat.testsCompletedUsers }}
+
       </div>
       <div>
-        <button
-          type="button"
-          class="btn btn-outline-success btn-sm user-result"
-          (click)="navigateToUserResult()"
-        >
+        <button type="button" class="btn btn-outline-success btn-sm user-result" (click)="navigateToUserResult()">
           View User Result
         </button>
       </div>
@@ -49,9 +42,9 @@
       <div *ngIf="examObject$ | async as exam">
         <ul class="test-time">
           <li>
-            Test access will close on : 
+            Test access will close on :
             {{ exam.endDate | date : "dd MMM yyyy HH:mm" }} IST. Current
-            server time is : {{ currentTime  }} IST.
+            server time is : {{ currentTime }} IST.
           </li>
           <li>Random order of questions and answers enabled.</li>
         </ul>

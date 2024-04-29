@@ -45,7 +45,7 @@ export class ExamService {
     return this.http.get<any[]>('/assets/static_data/listOfExams.json');
   }
   getAllExamData(): Observable<Exam[]> {
-    const url = `${this.javaExamUrl}/`;
+    const url = `${this.javaExamUrl}/list`;
     return this.http.get<Exam[]>(url);
   }
 

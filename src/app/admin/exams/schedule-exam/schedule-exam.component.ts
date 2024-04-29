@@ -65,7 +65,6 @@ export class ScheduleExamComponent implements OnInit {
 
     
     this.isEditing = this.activatedRoute.snapshot.paramMap.get('id') !== null;
-    console.log(this.isEditing);
     if (this.isEditing) {
       this.editableExamId = Number(
         this.activatedRoute.snapshot.paramMap.get('id')
@@ -161,9 +160,8 @@ export class ScheduleExamComponent implements OnInit {
             })
           );
         }
-        console.log(this.examSubjectsArray.value);
-       
-        
+        // Reset the subjectControl value to null after processing
+        this.examForm.get('subjectControl')?.setValue(null);
       }
     });
   }

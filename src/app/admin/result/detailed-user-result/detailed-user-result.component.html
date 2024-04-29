@@ -3,34 +3,24 @@
   <div class="exam-name">
     <h2>{{ exam.name }}</h2>
   </div>
-  <div
-    class="user-name"
-    *ngIf="
+  <div class="user-name" *ngIf="
       detailedUserResultObject$ | async as detailedUserResult;
       else template
-    "
-  >
-    <ng-container
-      *ngIf="handleDetailedUserResultObject(detailedUserResult)"
-    ></ng-container>
+    ">
+    <ng-container *ngIf="handleDetailedUserResultObject(detailedUserResult)"></ng-container>
     <div class="user-data">Username</div>
     <div class="user-info">
       <i class="fa-regular fa-id-badge user-icon"></i>&nbsp;&nbsp;<span>{{
         detailedUserResult.fullName
-      }}</span>
+        }}</span>
     </div>
   </div>
   <div class="row">
-    <div
-      class="col-md-6"
-      *ngIf="
+    <div class="col-md-6" *ngIf="
         detailedUserResultObject$ | async as detailedUserResult;
         else template
-      "
-    >
-      <ng-container
-        *ngIf="handleDetailedUserResultObject(detailedUserResult)"
-      ></ng-container>
+      ">
+      <ng-container *ngIf="handleDetailedUserResultObject(detailedUserResult)"></ng-container>
       <div class="card result-card">
         <div class="card-body">
           <h5 class="card-title">TIMER</h5>
@@ -40,66 +30,61 @@
           </p>
           <div>
             {{ detailedUserResult.examDuration }}&nbsp;/&nbsp;{{
-              exam.duration
+            exam.duration
             }}
           </div>
 
           <div class="progress progress1">
-            <div
-              class="progress-bar"
-              role="progressbar"
-              [style.width.%]="calculateProgress()"
-              [attr.aria-valuenow]="calculateProgress()"
-              aria-valuemin="0"
-              aria-valuemax="100"
-            ></div>
+            <div class="progress-bar" role="progressbar" [style.width.%]="calculateProgress()"
+              [attr.aria-valuenow]="calculateProgress()" aria-valuemin="0" aria-valuemax="100"></div>
           </div>
           <div class="start-end-date">
-            <span class="time-heading">Start time :</span
-            ><span class="time">{{
+            <span class="time-heading">Start time :</span><span class="time">{{
               detailedUserResult.examStartedAt | date : "hh:mm a"
-            }}</span>
-            <span class="time-heading">End time :</span
-            ><span class="time">{{
+              }}</span>
+            <span class="time-heading">End time :</span><span class="time">{{
               detailedUserResult.examCompletedAt | date : "hh:mm a"
-            }}</span>
-            <span class="time-heading">Date :</span
-            ><span class="time">{{
+              }}</span>
+            <span class="time-heading">Date :</span><span class="time">{{
               detailedUserResult.examCompletedAt | date : "dd MMM yyyy"
-            }}</span>
+              }}</span>
           </div>
         </div>
       </div>
     </div>
-    <div
-      class="col-md-6"
-      *ngIf="
+    <div class="col-md-6" *ngIf="
         detailedUserResultObject$ | async as detailedUserResult;
         else template
-      "
-    >
+      ">
       <div class="card result-card">
-        <div
-          class="card-body d-flex flex-column align-items-center justify-content-center"
-        >
+        <div class="card-body d-flex flex-column align-items-center justify-content-center">
           <h5 class="card-title text-center">SCORE CARD</h5>
           <div class="score-card">
-            <span
-              >Total Score: {{ detailedUserResult.marksObtain }} /
+            <span>
+              Total Score: {{ detailedUserResult.marksObtain }} /
               {{ detailedUserResult.totalMarks }}
+
             </span>
           </div>
-          <div
-            *ngFor="let result of detailedUserResult.subjectWiseResult"
-            class="score-card"
-          >
-            <span
-              >{{ result.subjectName }}: {{ result.obtainedMarks }} /
+          <div *ngFor="let result of detailedUserResult.subjectWiseResult" class="score-card">
+           <span >
+               {{ result.subjectName }}: {{ result.obtainedMarks
+              }} /
               {{ result.totalMarks }}
-            </span>
+           </span>
           </div>
+          <span>Coding Questions :-</span>
+          <div *ngFor="let result of detailedUserResult.codingQuestionResults" class="score-card">
+            <span >
+                {{ result.content }}: {{ result.noOfTestCasesPassed
+               }} /
+               {{ result.totalTestCases }}
+            </span>
+           </div>
+       
         </div>
       </div>
+
     </div>
   </div>
   <!-- <div class="user-name">

@@ -31,6 +31,9 @@ export class DetailedUserResultComponent implements OnInit {
     this.userId =  this.activatedRoute.snapshot.paramMap.get('userId') as number | null | undefined; 
     this.examObject$ = this.examService.getExamByCode(this.examCode);
     this.detailedUserResultObject$ = this.examService.getDetailedUserResult(this.examCode,this.userId as number);
+    console.log(this.detailedUserResultObject$.subscribe(res=>{
+      console.log(res)
+    }))
     this.calculateProgress();
   }
   
@@ -55,12 +58,10 @@ export class DetailedUserResultComponent implements OnInit {
 
   handleDetailedUserResultObject(detailedUserResult:DetailedUserResult){
     this.examDuration = detailedUserResult.examDuration
-    console.log(this.examDuration);
     return true
   }
   handleExamObject(exam:Exam){
     this.duration = exam.duration
-    console.log(this.duration);
     return true
   }
 

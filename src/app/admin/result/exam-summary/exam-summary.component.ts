@@ -59,6 +59,9 @@ export class ExamSummaryComponent implements OnInit {
       title: {
         text: 'User Exam Status' 
       },
+      credits:{
+        enabled:false
+      },
       plotOptions: {
         pie: {
           allowPointSelect: true,
@@ -70,6 +73,7 @@ export class ExamSummaryComponent implements OnInit {
           colors: ['rgb(0, 226, 114)', 'rgb(107, 138, 188)', 'orange']
         }
       },
+    
       series: [{
         data: [
           { name: 'Completed', y: this.completedTests },

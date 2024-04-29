@@ -21,6 +21,9 @@ export class TestCasesComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchTestResultData();
+    this.testCaseResultService.codeExecutionCompleted.subscribe(() => {
+      this.selectTestResult();
+    });
   }
 
   selectTestCase() {

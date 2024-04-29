@@ -2,13 +2,14 @@
     display: flex;
     flex-direction: column;
     font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
-    padding: 20px;
+    padding: 4px;
     border-radius: 10px;
   }
   
   .main-button.selected {
     font-weight: bold;
+    background-color: #ba989852;
+    color: #100101;
   }
   
   
@@ -50,12 +51,12 @@
   
   .test-case-input,
   .test-case-output {
-    margin-top: 10px;
+    margin-top: 2px;
   }
   
   .test-case-input strong,
   .test-case-output strong {
-    margin-right: 5px;
+    margin-right: 2px;
   }
   
   .header-container {
@@ -80,9 +81,9 @@
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.main-button:hover {
+/* .main-button:hover {
     background-color: #6e6f70b6;
-}
+} */
 
 .test-case-buttons {
     display: flex;
@@ -117,6 +118,11 @@
 .test-case-buttons .fa-solid.fa-square-check {
     color: rgb(8, 236, 8);
 }
+.fa-regular, .far {
+  font-family: "Font Awesome 6 Free";
+  font-weight: lighter;
+  color: rgb(8, 236, 8);
+}
 
 .test-case-buttons .fa-regular {
     color: rgb(236, 8, 8);
@@ -124,6 +130,7 @@
 
 .test-case-buttons button.passed {
     background-color: #0bc279;
+    
 }
 
 .test-case-buttons button.failed {

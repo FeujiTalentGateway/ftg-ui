@@ -3,8 +3,8 @@
   <div class="header-container">
     <div class="main-header">
       <button class="main-button" (click)="selectButton('test-case')" [class.selected]="selectedButton === 'test-case'">
-        <i class="fa-solid fa-square-check"></i> Test Cases
-      </button>
+        <i class="fa-regular fa-square-check"></i> Test Cases
+      </button> |
       <button class="main-button" (click)="selectButton('test-result')"
         [class.selected]="selectedButton === 'test-result'">
         <i class="fa-solid fa-arrow-right-to-bracket"></i> Test Result
@@ -81,7 +81,7 @@
               </ul>
             </div>
             <div class="test-case-output">
-              <strong>Expected Output:</strong> "{{ testCase.expectedOutput }}"
+              <b>Expected :</b> "{{ testCase.expectedOutput }}"
             </div>
             <div class="test-case-output">
               <strong>Actual Output:</strong> "{{ testCase.actualOutput }}"

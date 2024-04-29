@@ -32,9 +32,48 @@ h5 {
   justify-content: space-around;
 }
 .btn-custom {
-  background-color: #0bc279;
-  border: 1px solid #0bc279;
+  width: 150px; /* Adjust width as needed */
+  height: 20px; /* Adjust height as needed */
+  border-radius: 5px; /* Rounded corners */
+  font-size: 14px; /* Font size */
+  margin: 0 5px; /* Margin between buttons */
 }
+.btn-custom i {
+  margin-right: 5px; /* Space between icon and text */
+}
+/* Primary Button */
+.btn-primary {
+  background-color: #007bff; /* Blue */
+  color: #fff; /* White text */
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Success Button */
+.btn-success {
+  background-color: #28a745; /* Green */
+  color: #fff; /* White text */
+  border: none;
+}
+
+.btn-success:hover {
+  background-color: #218838; /* Darker green on hover */
+}
+
+/* Info Button */
+.btn-info {
+  background-color: #17a2b8; /* Aqua */
+  color: #fff; /* White text */
+  border: none;
+}
+
+.btn-info:hover {
+  background-color: #138496; /* Darker aqua on hover */
+}
+
 .subject-name {
   margin: 10px 0px 0px 0px;
   text-align: center;

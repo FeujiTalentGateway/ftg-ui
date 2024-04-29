@@ -796,11 +796,13 @@ export class QuestionsComponent implements OnInit, OnDestroy {
   nextCodingQuestion(){
     console.log(this.codeEditorComponent.code)
       this.saveQuestion(this.codeEditorComponent.code,this.currentCodingQuestionIndex)
-      
+    
       if (this.currentCodingQuestionIndex < this.codingQuestions.length - 1) {
         this.currentCodingQuestionIndex++;
         if(this.userCodingLogic[this.currentCodingQuestionIndex]==null){
-            // this.codeEditorComponent.ngAfterViewInit()
+     this.codeEditorComponent.currentCodingQuestion=this.codingQuestions[this.currentCodingQuestionIndex]
+
+             this.codeEditorComponent.ngAfterViewInit()
         }
         else{
           this.setUsedWrittenCodetoEditor(this.currentCodingQuestionIndex)
@@ -808,7 +810,6 @@ export class QuestionsComponent implements OnInit, OnDestroy {
         }
 
       }
-     
     
     
   }

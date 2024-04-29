@@ -728,21 +728,6 @@ export class QuestionsComponent implements OnInit, OnDestroy {
     this.testResultService.executeCode(requestPayload);
   }
   
-  
-  // submitCode(){
-  //   const codeValue = this.codeEditorComponent.code;
-  //   const formattedData = JSON.stringify({
-
-  //     codingQuestionId: 2,
-  //     responseCodeSnippet: codeValue,
-  //     examAttemptId:280
-  // }, null, 2);
-  //   console.log(formattedData);
-
-  //  const response = this.testResultService.submitCode(codeValue);
-  //  console.log(response);
-   
-  // }
   submitCode() {
     const codeValue = this.codeEditorComponent.code;
     const formattedData = JSON.stringify({

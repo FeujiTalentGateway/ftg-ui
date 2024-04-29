@@ -17,41 +17,33 @@ export class TestCasesComponent implements OnInit {
   testResult: any;
   errorMessage: any;
 
-  constructor(private examServiceRepo: ExamService,private testCaseResultService:TestCaseResultService) {}
+  constructor(private examServiceRepo: ExamService, private testCaseResultService: TestCaseResultService) { }
 
   ngOnInit(): void {
     this.fetchTestResultData();
+    this.testCaseResultService.codeExecutionCompleted.subscribe(() => {
+      this.selectButton('test-result');
+    });
   }
 
-  selectTestCase() {
-    this.isTestCaseSelected = true;
-    this.selectedButton = 'test-case';
-  }
-
-  selectTestResult() {
-    this.isTestCaseSelected = false;
-    this.selectedButton = 'test-result';
+  selectButton(button: string) {
+    this.isTestCaseSelected = button === 'test-case';
+    this.selectedButton = button;
   }
 
   selectTestCaseButton(index: number) {
     this.selectedCaseIndex = index;
   }
 
-  fetchTestResultData() {
+  fetchTestResultData(): void {
     this.testCaseResultService.testCasesChanged$.subscribe(
-      (res: any) => { 
-        console.log(res);
-        
-        if (typeof res === 'object' && res !== null && res.hasOwnProperty('message')) {
-          this.errorMessage = res.message; 
+      (res: any) => {
+        if (res && res.message) {
+          this.errorMessage = res.message;
           this.testResult = null;
-          console.log( this.errorMessage);
-          
         } else {
-          this.testResult = res; 
+          this.testResult = res;
           this.errorMessage = null;
-          console.log( this.testResult);
-          
         }
       },
       (error) => {
@@ -61,5 +53,5 @@ export class TestCasesComponent implements OnInit {
       }
     );
   }
-  
+
 }

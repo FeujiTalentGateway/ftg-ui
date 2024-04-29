@@ -5,4 +5,7 @@ export interface UsersResult{
     examCompletedAt:string;
     examStatus:string;
     examOutCome:string;
+    noOfCodingQuestions:number;
+    noOfTestCasesPassed:number;
+    noOfTestCasesFailed:number;
 }

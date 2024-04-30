@@ -1,3 +1,4 @@
+import { CodingQuestionResult } from "./codingresult.model";
 import { SubjectDuration } from "./subject.duration.model";
 
 export interface DetailedUserResult{
@@ -8,5 +9,6 @@ export interface DetailedUserResult{
     totalMarks:number;
     marksObtain:number;
     subjectWiseResult:SubjectDuration[]
+    codingQuestionResults:CodingQuestionResult[];
 
 }

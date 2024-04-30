@@ -25,7 +25,7 @@ export class UsersResultComponent implements OnInit {
   examObject: Exam | undefined;
   usersResult$: Observable<UsersResult[]> | undefined;
   dataSource!: MatTableDataSource<UsersResult>;
-  displayedColumns: string[] = ['fullName', 'examStatus', 'totalScore', 'outCome', 'examStartDate', 'examCompletedAt', 'detailView'];
+  displayedColumns: string[] = ['fullName', 'examStatus', 'totalScore', 'outCome','noOfCodingQuestions','codingQuestion','examStartDate', 'examCompletedAt', 'detailView'];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;

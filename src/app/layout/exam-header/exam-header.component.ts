@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subject, Subscription, interval } from 'rxjs';
@@ -235,4 +235,31 @@ export class ExamHeaderComponent implements OnInit, OnDestroy {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
   }
+
+  // @HostListener('window:visibilitychange', ['$event'])
+  // @HostListener('window:focus', ['$event'])
+  // visibilityChangeOrFocusHandler(event: Event) {
+  //   console.log('Visibility state changed or window focused');
+  //   // If the countdown is still running, prompt the user
+  //   if (this.countdownDuration > 0 && (document.visibilityState === 'hidden' || document.hasFocus())) {
+  //     // Show confirmation dialog when switching tabs or returning focus
+  //     const confirmation = confirm('Are you sure you want to switch tabs? Your exam will be submitted.');
+  //     if (!confirmation) {
+  //       // Prevent tab switch if user cancels
+  //       if (document.visibilityState === 'hidden') {
+  //         window.focus(); // Bring focus back to the current tab if visibility state is hidden
+  //       } else {
+  //         event.preventDefault(); // Prevent switching tabs if focus is returned to the window
+  //       }
+  //     }
+  //   }
+  // }
+  
+  
+
+  // submitExam1() {
+  //   // Logic to submit exam
+  //   // You can put your code here to submit the exam
+  //   alert('Exam submitted successfully!');
+  // }
 }

@@ -1,36 +1,106 @@
-
-[
-  {
-      "content":"Custom Sort String",
-      "description":"You are given two strings order and s. All the characters of order are unique and were sorted in some custom order previously.Permute the characters of s so that they match the order that order was sorted. More specifically, if a character x occurs before a character y in order, then x should occur before y in the permuted string.Return any permutation of s that satisfies this property.",
-      "testCases":[
-          {
-              "input":{
-                  "order":"bcafg",
-                  "s" : "abcd"
-              },
-              "output":"bcad",
-              "explaination":"The characters \"b\", \"c\", and \"a\" from order dictate the order for the characters in s. The character \"d\" in s does not appear in order, so its position is flexible.Following the order of appearance in order, \"b\", \"c\", and \"a\" from s should be arranged as \"b\",  \"c\", \"a\". \"d\" can be placed at any position since it's not in order. The output \"bcad\" correctly follows this rule. Other arrangements like \"bacd\" or \"bcda\" would also be valid, as long as \"b\",  \"c\", \"a\" maintain their order."
-          },
-          {
-            "input":{
-                "order":"bcafg",
-                "s" : "abcd"
-            },
-            "output":"bcad",
-            "explaination":"The characters \"b\", \"c\", and \"a\" from order dictate the order for the characters in s. The character \"d\" in s does not appear in order, so its position is flexible.Following the order of appearance in order, \"b\", \"c\", and \"a\" from s should be arranged as \"b\",  \"c\", \"a\". \"d\" can be placed at any position since it's not in order. The output \"bcad\" correctly follows this rule. Other arrangements like \"bacd\" or \"bcda\" would also be valid, as long as \"b\",  \"c\", \"a\" maintain their order."
+{
+    "examCodingQuestionDTO": [
+        {
+            "id": 1,
+            "content": "add two numbers",
+            "description": "something",
+            "javaDefaultCode": "public class Solution { \n    public List<Integer> test(int test1, int test2) {\n        \n    }\n}",
+            "pythonDefaultCode": "class Solution:\n    def test(test1,test2):\n",
+            "difficultLevel": 3,
+            "constraints": [
+                "test"
+            ],
+            "testCases": [
+                {
+                    "input": {
+                        "test2": "2",
+                        "test1": "1"
+                    },
+                    "output": "3",
+                    "explanation": "",
+                    "isSample": true
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "content": "Calculate the factorial of a number",
+            "description": "Factorial is the product of an integer and all the integers below it.",
+            "javaDefaultCode": "public class Solution { \n    public int calculateFactorial(int number) {\n        \n    }\n}",
+            "pythonDefaultCode": "class Solution:\n    def calculateFactorial(number):\n",
+            "difficultLevel": 4,
+            "constraints": [
+                "The number should not be negative."
+            ],
+            "testCases": [
+                {
+                    "input": {
+                        "number": "3"
+                    },
+                    "output": "6",
+                    "explanation": "",
+                    "isSample": true
+                }
+            ]
+        },
+        {
+            "id": 3,
+            "content": "Check if a number is prime",
+            "description": "A prime number is a natural number greater than 1 that cannot be formed by multiplying two smaller natural numbers.",
+            "javaDefaultCode": "public class Solution { \n    public boolean isPrime(int number) {\n        \n    }\n}",
+            "pythonDefaultCode": "class Solution:\n    def isPrime(number):\n",
+            "difficultLevel": 5,
+            "constraints": [],
+            "testCases": [
+                {
+                    "input": {
+                        "number": "7"
+                    },
+                    "output": "true",
+                    "explanation": "",
+                    "isSample": true
+                }
+            ]
         }
-      ],
-      "constraints":[
-          "1 <= order.length <= 26",
-          "1 <= s.length <= 200",
-          "order and s consist of lowercase English letters.",
-          "All the characters of order are unique."
-      ],
-      "defaultCode":"class Solution {public String customSortString(String order, String s) {}}"
-
-
-    }
-
-  ]
-
+    ],
+    "message": "Success",
+    "question": {
+        "id": 7,
+        "content": "What is the purpose of Angular directives?",
+        "questionType": "single choice",
+        "codeSnippet": null,
+        "isMarkedForReview": null,
+        "active": true,
+        "difficultyLevel": 2,
+        "subject": {
+            "id": 2,
+            "name": "ANGULAR",
+            "active": true
+        },
+        "rightOptions": null,
+        "optionSelected": null,
+        "options": [
+            {
+                "id": 24,
+                "optionName": "To add styles to HTML elements",
+                "active": true
+            },
+            {
+                "id": 25,
+                "optionName": "To define routing in Angular applications",
+                "active": true
+            },
+            {
+                "id": 26,
+                "optionName": "To add behavior to HTML elements",
+                "active": true
+            },
+            {
+                "id": 27,
+                "optionName": "To define models for data manipulation",
+                "active": true
+            }
+        ]
+    },
+    "attemptId": 360
+}

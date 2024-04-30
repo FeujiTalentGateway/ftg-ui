@@ -1,4 +1,4 @@
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -16,6 +16,9 @@ import { CodingQuestions } from '../models/codingquestions.model';
   providedIn: 'root',
 })
 export class ExamService {
+
+
+
   examUrl: string = ' http://127.0.0.1:8000/';
   javaExamUrl: string = environment.adminUrl + 'exam';
   resultUrl: string = environment.adminUrl;
@@ -42,7 +45,7 @@ export class ExamService {
     return this.http.get<any[]>('/assets/static_data/listOfExams.json');
   }
   getAllExamData(): Observable<Exam[]> {
-    const url = `${this.javaExamUrl}/`;
+    const url = `${this.javaExamUrl}/list`;
     return this.http.get<Exam[]>(url);
   }
 
@@ -175,13 +178,15 @@ export class ExamService {
   startExam(
     examCode: string,
     difficulty: number,
-    subjectId: Number
+    subjectId: Number,
+    codingSubjectId:Number | undefined
   ): Observable<any> {
     let data = {
       examCode: examCode,
       difficulty: difficulty,
       startDate: new Date().toISOString().slice(0, 23),
       subjectId: subjectId,
+      codingSubjectId:codingSubjectId
     };
     console.log(data);
 
@@ -195,12 +200,29 @@ export class ExamService {
     );
   }
   getCodingQuestions(){
-    return this.http.get<CodingQuestions[]>(`${this.resultUrl}codingquestion?fullData=false`);
-    //return this.http.get<CodingQuestions[]>(`/assets/static_data/CodingQuestions.json`);
+   // return this.http.get<CodingQuestions[]>(`${this.resultUrl}codingquestion?fullData=false`);
+    return this.http.get<CodingQuestions[]>(`/assets/static_data/CodingQuestions.json`);
   }
 
   getExamCodingQuestions():Observable<any> {
     return this.http.get<any>('/assets/static_data/ExamCodingQuestion.json');
   }
+
+
   
+  executeCode(codeValue: string): Observable<any> {
+    console.log(codeValue);
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+    return this.http.post<any>(`${this.javaExamUrl}/coding-question/run`, codeValue, { headers: headers });
+  }
+
+  submitCode(requestPayload: any):Observable<any> {
+    console.log(requestPayload);
+    
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+    return this.http.post<any>(`${this.javaExamUrl}/coding-question/submit`, requestPayload, { headers: headers });
+  
+  }
+
 }
+

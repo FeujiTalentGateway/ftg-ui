@@ -1,10 +1,14 @@
-  <div class="code-editor-container">
-    <div class="code-editor-box">
-      <!-- Your coding questions content here -->
-      <!-- Example content -->
-      <!-- Add more coding questions as needed -->
-     <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptate, minus, fugit provident non enim magnam vel minima aspernatur est officia neque sequi! Totam nobis voluptatem placeat ea perspiciatis, magni culpa natus repudiandae quo, consequuntur dolorum dignissimos facilis ducimus possimus odit repellat. Veniam eveniet quidem dolore cum est deleniti natus quia laborum iure soluta! Beatae porro ut at adipisci facere sit asperiores nobis architecto, minima officia, voluptatum dicta recusandae quos, mollitia eaque. Quae fugiat quos deserunt distinctio? Magni culpa minima, aperiam natus odio iste iusto numquam esse quas quam vitae omnis pariatur. Officia, numquam quaerat. Id culpa quod vero tempora suscipit.</p>
-    </div>
+<div class="code-editor-container">
+  <div class="code-editor-box">
+    <select [(ngModel)]="selectedLanguage" (change)="setLanguage(selectedLanguage)">
+      <option value="java">Java &nbsp;</option>
+      <option value="python">Python &nbsp;</option>
+    </select>
+    &nbsp; &nbsp;
+    <select [(ngModel)]="selectedTheme" (change)="setTheme(selectedTheme)">
+      <option value="monokai">Dark &nbsp;</option>
+      <option value="github">Light &nbsp;</option>
+    </select>
+    <div class="app-ace-editor" #editor style="width: 100%; min-height:300px"></div>
   </div>
-  
-
+</div>

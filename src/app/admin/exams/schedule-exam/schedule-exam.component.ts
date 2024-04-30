@@ -65,7 +65,6 @@ export class ScheduleExamComponent implements OnInit {
 
     
     this.isEditing = this.activatedRoute.snapshot.paramMap.get('id') !== null;
-    console.log(this.isEditing);
     if (this.isEditing) {
       this.editableExamId = Number(
         this.activatedRoute.snapshot.paramMap.get('id')
@@ -161,9 +160,8 @@ export class ScheduleExamComponent implements OnInit {
             })
           );
         }
-        console.log(this.examSubjectsArray.value);
-       
-        
+        // Reset the subjectControl value to null after processing
+        this.examForm.get('subjectControl')?.setValue(null);
       }
     });
   }
@@ -277,16 +275,22 @@ export class ScheduleExamComponent implements OnInit {
       this.service.updateExam(this.examForm.value);
       // this.goBack();
     } 
-     else {
-      const { boolValue, errorMessage } =this.checkCodingQuestions()
-       if(boolValue){
+    else {
+      this.codingQuestionObject= this.examSubjectsArray.value.find((subject: any) => subject.subjectName.toLowerCase() === this.CodingSubjectName.toLowerCase());
+      if(this.codingQuestionObject){
+        const { boolValue, errorMessage } =this.checkCodingQuestions()
+        if(boolValue){
+          this.service.scheduleExam(this.examForm.value);
+        }
+        else{
+          this.openErrorToaster(errorMessage)
+        }
+      }
+      else{
         this.service.scheduleExam(this.examForm.value);
-     }
-       else{
-        this.openErrorToaster(errorMessage)
-       }
-    }
+      }
   }
+}
 
   formatDate(date: Date): string {
     const isoString = date.toISOString();
@@ -365,7 +369,7 @@ export class ScheduleExamComponent implements OnInit {
   }
 
   getMaxCodingQuestions(): number {
-    this.codingQuestionObject= this.examSubjectsArray.value.find((subject: any) => subject.subjectName === this.CodingSubjectName);
+    this.codingQuestionObject= this.examSubjectsArray.value.find((subject: any) => subject.subjectName.toLowerCase() === this.CodingSubjectName.toLowerCase());
      return this.codingQuestionObject ? this.codingQuestionObject.maxQuestions : 0; 
    }
 

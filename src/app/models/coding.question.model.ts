@@ -7,9 +7,11 @@ export interface CodingQuestion{
     content:string;
     description:string;
     difficultyLevel:number;
+    pythonDefaultCode: string;
+    javaDefaultCode:string;
     constraints:Constraint[]
     methodDefinition: Method
     testCases:TestCases[]
 
-
 }
+

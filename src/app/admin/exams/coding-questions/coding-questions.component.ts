@@ -73,7 +73,7 @@ export class CodingQuestionsComponent implements OnInit, AfterViewInit {
     this.examService.getCodingQuestions().subscribe({
       next: (questions: CodingQuestions[]) => {
         // Handle the array of users
-       
+       console.log(this.questions)
         this.questions = questions
         // Initialize MatTableDataSource with the data
         this.dataSource = new MatTableDataSource(this.questions);

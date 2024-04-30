@@ -1,12 +1,177 @@
-test-cases-container {
-    width: 100%; /* Set the width of the box */
-    max-height: 80vh; /* Set the maximum height of the box */
-    overflow-y: auto; /* Enable vertical scrolling if content overflows */
-    border: 1px solid #ccc; /* Add a border for visual clarity */
-    padding: 10px; /* Add padding for content spacing */
-    background-color: #f9f9f9; /* Set background color */
+.container {
+    display: flex;
+    flex-direction: column;
+    font-family: Arial, sans-serif;
+    padding: 4px;
+    border-radius: 10px;
   }
   
-  test-cases-box {
-    min-height: 500px;
+  .main-button.selected {
+    font-weight: bold;
+    background-color: #ba989852;
+    color: #100101;
   }
+  
+  
+  .button-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .custom-heading {
+    padding: 12px 24px;
+    background-color: #0056b3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .custom-heading:hover {
+    background-color: #003c80;
+  }
+  
+  .content-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .test-case {
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+    background-color: #fff;
+  }
+  
+  .test-case-input,
+  .test-case-output {
+    margin-top: 2px;
+  }
+  
+  .test-case-input strong,
+  .test-case-output strong {
+    margin-right: 2px;
+  }
+  
+  .header-container {
+    background-color: #f0f0f0;
+    padding: -1px 20px;
+    border-radius: 10px;
+}
+
+.main-header {
+    display: flex;
+    align-items: center;
+}
+
+.main-button {
+    background-color: transparent;
+    color: #333;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 12px;
+    margin-right: 1px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* .main-button:hover {
+    background-color: #6e6f70b6;
+} */
+
+.test-case-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 3px;
+    margin-left: 3px;
+}
+
+.test-case-buttons button {
+    flex-grow: 1;
+    margin-bottom: 5px;
+    margin-right: 5px;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    background-color: #bddbbe;
+    color: rgb(24, 3, 3);
+    text-align: center;
+    text-decoration: none;
+    font-size: 12px;
+    cursor: pointer;
+    transition-duration: 0.4s;
+}
+
+.test-case-buttons button:hover {
+    background-color: #0bc279;
+    color: #fff;
+}
+
+.main-button .fa-solid.fa-square-check,
+.main-button .fa-solid.fa-arrow-right-to-bracket,
+.test-case-buttons .fa-solid.fa-square-check {
+    color: rgb(8, 236, 8);
+}
+.fa-regular, .far {
+  font-family: "Font Awesome 6 Free";
+  font-weight: lighter;
+  color: rgb(8, 236, 8);
+}
+
+.test-case-buttons .fa-regular {
+    color: rgb(236, 8, 8);
+}
+
+.test-case-buttons button.passed {
+    background-color: #0bc279;
+    
+}
+
+.test-case-buttons button.failed {
+    background-color: rgba(252, 53, 3, 0.651);
+}
+
+.exam-message {
+    font-weight: bold;
+    text-align: center;
+    background-color: #ffcccc;
+    color: #cc0000;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.exam-message span {
+    display: block;
+    margin-top: 10px;
+    font-size: 14px;
+    font-weight: normal;
+}
+
+@media (max-width: 600px) {
+    .container {
+        width: 100%;
+    }
+
+    .test-case-buttons {
+        margin-left: 0;
+    }
+
+    .test-case-buttons button {
+        width: calc(50% - 10px);
+    }
+
+    .test-case-details {
+        padding: 10px;
+    }
+}
+
+  

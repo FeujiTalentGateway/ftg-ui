@@ -10,6 +10,11 @@ import { SharedDataService } from 'src/app/services/shared-data.service';
 import { SubjectQuestions } from './subject.questions';
 import { QuestionNavigationComponent } from '../question-navigation/question-navigation.component';
 import { CodingQuestions } from 'src/app/models/codingquestions.model';
+import { CodeEditorComponent } from '../code-editor/code-editor.component';
+import { TestCaseResultService } from 'src/app/services/test-case-result.service';
+import { MatDialog } from '@angular/material/dialog';
+import { CodingQuestion } from 'src/app/models/coding.question.model';
+import { TestResultPopupComponent } from '../test-result-popup/test-result-popup.component';
  
 @Component({
   selector: 'app-questions',
@@ -17,6 +22,7 @@ import { CodingQuestions } from 'src/app/models/codingquestions.model';
   styleUrls: ['./questions.component.css'],
 })
 export class QuestionsComponent implements OnInit, OnDestroy {
+  @ViewChild(CodeEditorComponent) codeEditorComponent!: CodeEditorComponent;
   @ViewChild('childComponentRef') childComponent!: QuestionNavigationComponent;
  
   @Input() exam: Exam = {
@@ -30,8 +36,9 @@ export class QuestionsComponent implements OnInit, OnDestroy {
     active: false,
     created_at_ts: '',
     examSubjects: [],
-    users: [],
+    users: []
   };
+  alredyVisited:boolean=false
   codingSubjectName="Coding Questions"
   currentQuestionIndex = 0;
   currentQuestion: Question | undefined;
@@ -54,22 +61,35 @@ export class QuestionsComponent implements OnInit, OnDestroy {
   arrow: boolean = false;
   questionNavigation: boolean = false;
   currentCodingQuestionIndex:number=0;
-  codingQuestions:CodingQuestions[]=[]
-  
+  codingQuestions:CodingQuestion[]=[]
+  userCodingLogic:string[] = [];
+  codingLanguages:string[] = []
   ngOnInit(): void {
     this.currentSubject = this.exam.examSubjects[this.indexPositionOfTheExam];
     this.indexPositionOfSubject$ = this.sharedData.indexPositionOfSubject$;
     this.isLoading = true;
+    const codingQuestionId=this.getIndexOfCodingQuestion()
     this.ExamRepo.startExam(
       this.exam.examCode,
       this.currentSubject.startingDifficultyLevel,
-      this.currentSubject.subject.id
+      this.currentSubject.subject.id,
+      codingQuestionId
+      
     ).subscribe(
       (response) => {
         this.nextSubjectLoading = true;
         response.question['optionSelected'] = [];
         response.question['isMarkedForReview'] = false;
         this.currentQuestion = response.question;
+        this.codingQuestions=response.examCodingQuestionDTO
+        console.log("line 83");
+        
+        console.log(this.codingQuestions);
+        
+        this.ExamRepo.getExamCodingQuestions().subscribe((questions=>{
+          this.codingQuestions=questions.examCodingQuestionDTO
+        }))
+        console.log(response.examCodingQuestionDTO)
         console.log(this.currentQuestion, 'this.currentQuestion');
  
         this.examAttemptID = response.attemptId;
@@ -132,9 +152,17 @@ export class QuestionsComponent implements OnInit, OnDestroy {
   }
   constructor(
     private ExamRepo: ExamService,
-    private sharedData: SharedDataService
+    private sharedData: SharedDataService,
+    private testResultService:TestCaseResultService,
+    public dialog: MatDialog
+    
   ) {}
  
+
+  getIndexOfCodingQuestion(){
+    var object=this.exam.examSubjects.find((subj:any)=> subj.subject.name.toLowerCase() == this.codingSubjectName.toLowerCase())
+    return object?.subject?.id
+  }
   /**
    * @method updateQuestions() this method is for updating the questions
    * @description this method is for updating the questions
@@ -395,7 +423,6 @@ export class QuestionsComponent implements OnInit, OnDestroy {
    */
  
   changeSubject(indexPositionOfSubject: any) {
- 
     this.saveOption(false, false, true);
     this.updatingTheCurrentSubjectAndQuestions();
     let subject = this.exam.examSubjects[indexPositionOfSubject.value];
@@ -689,17 +716,115 @@ export class QuestionsComponent implements OnInit, OnDestroy {
       );
     }
   }
-  runCode(){
 
+  runCode() {
+    const codeValue = this.codeEditorComponent.code;  
+    const requestPayload = {
+      // codingQuestionId: this.currentCodingQuestionIndex+1,
+       codingQuestionId:2,
+      responseCodeSnippet: codeValue
+    };
+  
+    this.testResultService.executeCode(requestPayload);
   }
-  submitCode(){
+  
+  submitCode() {
+    const codeValue = this.codeEditorComponent.code;
+    const formattedData = JSON.stringify({
+      codingQuestionId: 2,
+      responseCodeSnippet: codeValue,
+      examAttemptId: 280
+    }, null, 2);
+    console.log(formattedData);
+  
+    // Call the service to submit the code and handle the response
+    this.testResultService.submitCode(formattedData).subscribe(response => {
+      console.log(response);
+      
+      // Open the popup with the response data
+      this.openTestResultPopup(response);
+    }, error => {
+      console.error('Error submitting code:', error);
+      // Handle error if needed
+    });
+  }
+  
+  openTestResultPopup(responseData: any) {
+    console.log();
+    
+    console.log(responseData);
+    
+    const dialogRef = this.dialog.open(TestResultPopupComponent, {
+      width: '250px',
+      data: responseData // Pass the response data to the popup
+    });
 
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
   }
+
   previousCodingQuestion(){
-
+    
+    this.saveQuestion(this.codeEditorComponent.code,this.currentCodingQuestionIndex)
+    this.setUsedWrittenCodetoEditor(this.currentCodingQuestionIndex-1)
+    
+    if (this.currentCodingQuestionIndex > 0) {
+      this.currentCodingQuestionIndex--;
+    }
+    if(this.userCodingLogic.length==this.codingQuestions.length){
+      this.alredyVisited=true
+    }
+    this.changeCodingLanguage(this.currentCodingQuestionIndex)
   }
-  nextCodingQuestion(){
 
+  nextCodingQuestion(){
+    console.log(this.codeEditorComponent.code)
+      this.saveQuestion(this.codeEditorComponent.code,this.currentCodingQuestionIndex)
+    
+      if (this.currentCodingQuestionIndex < this.codingQuestions.length - 1) {
+        this.currentCodingQuestionIndex++;
+        if(this.userCodingLogic[this.currentCodingQuestionIndex]==null){
+     this.codeEditorComponent.currentCodingQuestion=this.codingQuestions[this.currentCodingQuestionIndex]
+
+             this.codeEditorComponent.ngAfterViewInit()
+        }
+        else{
+          this.setUsedWrittenCodetoEditor(this.currentCodingQuestionIndex)
+          this.changeCodingLanguage(this.currentCodingQuestionIndex+1)
+        }
+
+      }
+    
+    
+  }
+  saveQuestion(code: string,index:number) {
+    if(this.userCodingLogic[index]!=null){
+      this.userCodingLogic.splice(index,1)
+    }
+    this.codingLanguages.splice(index,0,this.codeEditorComponent.selectedLanguage)
+    this.userCodingLogic.splice(index,0,code)
+    console.log(this.userCodingLogic)
+  }
+
+  setUsedWrittenCodetoEditor(index:number){
+   
+    console.log(this.userCodingLogic)
+    this.codeEditorComponent.aceEditor!.session.setValue(this.userCodingLogic[index])
+    this.changeCodingLanguage(index)
+    
+  }
+  changeCodingLanguage(index:number){
+    var javaSubject="java";
+    var pythonSubject="python"
+    if(this.codingLanguages[index].toLowerCase() ==javaSubject.toLowerCase()){
+      this.codeEditorComponent.aceEditor!.session.setMode('ace/mode/java');
+      this.codeEditorComponent.selectedLanguage=javaSubject
+    }
+    else{
+      this.codeEditorComponent.aceEditor!.session.setMode('ace/mode/python');
+      this.codeEditorComponent.selectedLanguage=pythonSubject
+    }
   }
 }
  

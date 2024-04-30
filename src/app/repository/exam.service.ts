@@ -205,11 +205,12 @@ export class ExamService {
   }
 
   getExamCodingQuestions():Observable<any> {
-    return this.http.get<any>('/assets/static_data/ExamCodingQuestion.json');
+    return this.http.get<any>(`${this.resultUrl}codingquestion?fullData=false`);
+   // return this.http.get<any>('/assets/static_data/ExamCodingQuestion.json');
   }
 
 
-  
+
   executeCode(codeValue: string): Observable<any> {
     console.log(codeValue);
     const headers = new HttpHeaders({'Content-Type': 'application/json'});
@@ -218,10 +219,10 @@ export class ExamService {
 
   submitCode(requestPayload: any):Observable<any> {
     console.log(requestPayload);
-    
+
     const headers = new HttpHeaders({'Content-Type': 'application/json'});
     return this.http.post<any>(`${this.javaExamUrl}/coding-question/submit`, requestPayload, { headers: headers });
-  
+
   }
 
 }

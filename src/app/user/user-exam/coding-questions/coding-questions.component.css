@@ -124,3 +124,9 @@ margin-bottom: 10px;
 .test-case-output {
 font-weight: bold;
 }
+
+.coding-question strong {
+  font-weight: bold;
+  font-weight: 900;
+  /* text-decoration: underline; */
+}

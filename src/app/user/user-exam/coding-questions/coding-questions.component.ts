@@ -9,21 +9,12 @@ import { ExamService } from 'src/app/repository/exam.service';
 })
 export class CodingQuestionsComponent {
   constructor(private examService:ExamService) {
-    this.getAllQuestion();
   }
   codingQuestion:any[]=[];
  @Input() currentCodingQuestion!: CodingQuestion;
  @Input() codingQuestionIndex!: number;
   ngOnInit(){
-     console.log(this.currentCodingQuestion)
+
   }
-   getAllQuestion(){
-     this.examService.getExamCodingQuestions().subscribe(
-      (response) => {
-        this.codingQuestion = response.examCodingQuestionDTO;
-        console.log(this.codingQuestion);
-      },
-      (error) => {}
-    );
-}
+
 }

@@ -137,7 +137,7 @@
           *ngIf="this.questionType == 'single choice'"
           >Correct Option<sup class="required-field">*</sup></label
         >
-        <div *ngIf="this.questionType == 'single choice'&& operation==='Add Question'">
+        <div *ngIf="this.questionType == 'single choice'">
           <select
             id="rightOptionName"
             class="form-select"
@@ -146,7 +146,7 @@
             <option
               value="{{ option.value }}"
               *ngFor="let option of OptionsArray.controls"
-              (change)="setRightOption(option)"
+              [selected]="getRightOrnot(option)"              
             >
               {{ option.value }}
             </option>
@@ -155,7 +155,7 @@
         </div>
 
 
-
+<!-- 
         <div *ngIf="questionType === 'single choice' && operation === 'Edit Question'">
           <select
             id="rightOptionName"
@@ -170,7 +170,7 @@
               {{ option.value }}
             </option>
           </select>
-        </div>
+        </div> -->
 
         <div
           class="error-div"

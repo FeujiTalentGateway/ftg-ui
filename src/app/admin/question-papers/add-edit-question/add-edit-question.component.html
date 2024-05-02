@@ -137,7 +137,7 @@
           *ngIf="this.questionType == 'single choice'"
           >Correct Option<sup class="required-field">*</sup></label
         >
-        <div *ngIf="this.questionType == 'single choice'">
+        <div *ngIf="this.questionType == 'single choice'&& operation==='Add Question'">
           <select
             id="rightOptionName"
             class="form-select"
@@ -153,6 +153,25 @@
           </select>
 
         </div>
+
+
+
+        <div *ngIf="questionType === 'single choice' && operation === 'Edit Question'">
+          <select
+            id="rightOptionName"
+            class="form-select"
+            (change)="setRightOption($event.target)"
+          >
+            <option
+              *ngFor="let option of OptionsArray.controls"
+              [value]="option.value"
+              [selected]="getRightOrnot(option)"
+            >
+              {{ option.value }}
+            </option>
+          </select>
+        </div>
+
         <div
           class="error-div"
           *ngIf="

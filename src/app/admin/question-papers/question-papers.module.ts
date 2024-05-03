@@ -12,6 +12,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSelectModule } from '@angular/material/select';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { AdminModule } from '../admin.module';
 
 @NgModule({
   imports: [
@@ -39,7 +40,8 @@ export class AppModule { }
     MatTooltipModule,
     MatPaginatorModule,
     MatSelectModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    AdminModule
 
   ],
 })

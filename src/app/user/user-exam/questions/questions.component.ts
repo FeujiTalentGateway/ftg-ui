@@ -97,7 +97,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
       if (response != null) {
         this.currentSubject = this.exam.examSubjects[response];
         this.indexPositionOfSubject = response;
-        this.updateQuestions();
+        // this.updateQuestions();
       }
     });
     this.updateSubjectIndex();
@@ -211,6 +211,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
       isUpdating
     );
     if (isSkipped) {
+      currentQuestionData.isMarkedForReview=false;
       this.skipTheCurrentQuestionAndGetNewQuestion(currentQuestionData);
     } else if (this.currentQuestionIndex < this.listOfQuestion.length - 1) {
       this.currentQuestion = this.listOfQuestion[this.currentQuestionIndex];
@@ -234,6 +235,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
    */
  
   saveOptionAndGetNewQuestion(currentQuestionData: any) {
+    currentQuestionData.isMarkedForReview=false;
     this.question$ = this.ExamRepo.submitQuestion(currentQuestionData);
     this.question$.subscribe((response) => {
       if (response != null) {
@@ -253,7 +255,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
    */
   updateOption(currentQuestionData: any) {
     console.log(currentQuestionData, 'currentQuestionData');
- 
+    currentQuestionData.isMarkedForReview=false;
     this.question$ = this.ExamRepo.submitQuestion(currentQuestionData);
     this.question$.subscribe((response) => {
       if (response != null) {
@@ -272,7 +274,8 @@ export class QuestionsComponent implements OnInit, OnDestroy {
    * @method skipTheCurrentQuestionAndGetNewQuestion() this method is for skipping the current question and getting the new question
    */
  
-  skipTheCurrentQuestionAndGetNewQuestion(currentQuestionData: any) {
+  async skipTheCurrentQuestionAndGetNewQuestion(currentQuestionData: any) {
+    currentQuestionData.isMarkedForReview=false;
     this.question$ = this.ExamRepo.submitQuestion(currentQuestionData);
     this.question$.subscribe((response) => {
       if (response != null) {
@@ -648,7 +651,6 @@ export class QuestionsComponent implements OnInit, OnDestroy {
    */
   changeSubjectAndGetFirstQuestion() {
     this.nextSubjectLoading = false;
-    console.log('i am in changeSubjectAndGetFirstQuestion');
  
     let checkAlreadyVisited = this.listOfQuestionEachSubject.some(
       (item) => item.subjectId == this.currentSubject?.subject.id

@@ -11,7 +11,8 @@ import { ViewUsersComponent } from './view-users/view-users.component';
   ],
   imports: [
     CommonModule,
-    UsersRoutingModule
+    UsersRoutingModule,
+    
   ]
 })
 export class UsersModule { }

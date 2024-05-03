@@ -398,7 +398,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
   changeSubject(indexPositionOfSubject: any) {
  
     this.saveOption(false, false, true);
-    this.updatingTheCurrentSubjectAndQuestions();
+    // this.updatingTheCurrentSubjectAndQuestions();
     let subject = this.exam.examSubjects[indexPositionOfSubject.value];
     this.sharedData.updateSubjectIndex(indexPositionOfSubject.value);
     this.currentSubject = subject;

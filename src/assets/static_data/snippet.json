@@ -1,0 +1,33 @@
+{
+    "id": 0,
+    "content": "what will be the output of below code ",
+    "active": true,
+    "difficultyLevel": 1,
+    "questionType": "single choice",
+    "subject": {
+        "id": "2",
+        "name": "",
+        "active": true
+    },
+    "rightOptions": [
+        {
+            "optionName": "2",
+            "active": true
+        }
+    ],
+    "options": [
+        {
+            "optionName": "2",
+            "id": 0,
+            "active": true
+        },
+        {
+            "optionName": "3",
+            "id": 0,
+            "active": true
+        }
+    ],
+    "optionSelected": [],
+    "isCodeSnippet": true,
+    "codeSnippet": "class Solution:\n    def addNum(num1,num2):\n        return num1+num2"
+}

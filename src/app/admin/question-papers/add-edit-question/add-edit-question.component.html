@@ -8,8 +8,8 @@
       <div class="form-row">
         <label for="subject">Subject<sup class="required-field">*</sup></label>
         <div>
-          <select id="subject" class="form-select" formControlName="subject">
-            <option class="select-option" value="{{ subject.id }}" *ngFor="let subject of subjects">
+          <select id="subject" class="form-select" formControlName="subject" (change)="setSubject($event)">
+            <option class="select-option" value="{{ subject.id }}" *ngFor="let subject of subjects" >
               {{ subject.name }}
             </option>
           </select>
@@ -43,6 +43,15 @@
             <span class="text-danger">Question is required</span>
           </div>
         </div>
+       
+      </div>
+      <div class="from-row">
+        <label for="content">isCode_Snippet<sup class="required-field">*</sup></label>
+        yes <input type="radio" name="isCodeSnippet" class="question-type-option" (click)="setQuestionIsSnippetOrNot(true)" [checked]="this.question.isCodeSnippet">
+        No <input type="radio" name="isCodeSnippet" class="question-type-option" (click)="setQuestionIsSnippetOrNot(false)" [checked]="!this.question.isCodeSnippet">
+        <div *ngIf="this.question.isCodeSnippet">
+          <app-code-snippet [adminMode]="true" [code]="this.question.codeSnippet" [subject]="selectedSubjectName" (codeChanged)="onCodeChanged($event)"></app-code-snippet>
+       </div>
       </div>
       <div class="form-row">
         <label for="content">Question Type<sup class="required-field">*</sup></label>
@@ -215,7 +224,6 @@
 
 </div>
 
-
 <div
   class="modal fade"
   [ngClass]="{ 'show modal-open': isEditModalOpen }"
@@ -262,4 +270,3 @@
     </div>
   </div>
 </div>
-

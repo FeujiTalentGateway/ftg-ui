@@ -32,7 +32,7 @@ export class ExamComponent implements OnInit {
   examDuration: string | undefined;
   questions: Paper = { id: 0, name: '', active: false, questions: [] };
   lock: boolean = false;
-  LOCKED_KEYS: string[] = ["MetaLeft", "MetaRight", "KeyN", "KeyT","KeyR","Escape", "AltLeft", "AltRight"];
+  LOCKED_KEYS: string[] = ["MetaLeft", "MetaRight", "KeyN", "KeyT","KeyR","Escape", "AltLeft", "AltRight","ControlLeft", "ControlRight"];
   warningcount:number=0;
   examAttempt$: Observable<any> | undefined;
   private unsubscribe$ = new Subject<void>();

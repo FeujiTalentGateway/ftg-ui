@@ -17,6 +17,7 @@ RUN npm install -g @angular/cli
 RUN npm install
 
 # Build your Angular app
+RUN npm run build
 
 # Start the Angular development server
-CMD ng serve --host 0.0.0.0
+CMD npm run start:prod

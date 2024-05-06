@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { Subject } from 'rxjs';
 import { Option } from 'src/app/models/option';
 import { Question } from 'src/app/models/question';
 import { QuestionsService } from 'src/app/services/questions.service';
@@ -22,6 +23,8 @@ export class AddEditQuestionComponent implements OnInit {
     rightOptions: [],
     options: [],
     optionSelected: [],
+    isCodeSnippet:false,
+    codeSnippet:''
   };
 
   difficultLevelList: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
@@ -35,6 +38,8 @@ export class AddEditQuestionComponent implements OnInit {
   editingQuestion!: string;
   editableQuestionId!: number;
   operation: string = 'Add Question';
+  selectedSubjectName:string='';
+  
   constructor(
     private service: QuestionsService,
     private subjectService: SubjectService,
@@ -62,10 +67,12 @@ export class AddEditQuestionComponent implements OnInit {
           this.question = value;
           this.setQuestionValueIntoQuestionForm(this.question);
           this.selectedSubject = value.subject.id;
+          this.selectedSubjectName= this.question.subject.name as string
         },
       });
     }
-    console.log(this.isEditForm);
+    
+    
   }
 
   //get subjects
@@ -216,4 +223,17 @@ export class AddEditQuestionComponent implements OnInit {
     }
     return false;
   }
+  setQuestionIsSnippetOrNot(isSnippet:boolean){
+    this.question.isCodeSnippet = isSnippet    
+  }
+  setSubject(subject:any){
+    console.log(subject.target.value);
+    console.log(this.selectedSubject);
+    console.log(this.subjects.find(item=>item.id == subject.target.value)?.name);
+    this.selectedSubjectName = (this.subjects.find(item=>item.id == subject.target.value)?.name as string).toLowerCase();
+  }
+  onCodeChanged(code:any){
+    this.question.codeSnippet = code;
+  }
+
 }

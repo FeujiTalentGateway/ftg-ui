@@ -12,6 +12,9 @@ export interface Question {
   options: Option[];
   optionSelected?: Option[];
   isMarkedForReview?: boolean;
+  isCodeSnippet:boolean;
+  codeSnippet:string;
+
 }
 
 export interface ResultTimeQuestion {

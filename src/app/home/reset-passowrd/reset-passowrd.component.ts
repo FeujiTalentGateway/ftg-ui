@@ -51,7 +51,6 @@ export class ResetPassowrdComponent {
   }
 
   register(data: FormGroup) {
-    console.log('Inside register component: register()');
     this.forgotPassword.setPasswordRequestForForgotPassword(data);
   }
 }

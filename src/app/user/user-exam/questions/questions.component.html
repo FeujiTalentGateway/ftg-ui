@@ -38,6 +38,9 @@
         <h4 class="question-name">
           {{ this.currentQuestion?.content }}
         </h4>
+        <div *ngIf="this.currentQuestion?.isCodeSnippet">
+          <app-code-snippet [code]="this.currentQuestion?.codeSnippet" [adminMode]='false' [subject]="this.getSubjectName()"></app-code-snippet>
+        </div>
         <ul>
           <li *ngFor="let option of currentQuestion?.options">
             <span *ngIf="currentQuestion?.questionType == 'single choice'">

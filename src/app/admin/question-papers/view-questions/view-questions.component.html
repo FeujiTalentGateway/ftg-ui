@@ -102,6 +102,9 @@
                   </div>
                 </div>
               </div>
+              <div *ngIf="question.isCodeSnippet">
+                <app-code-snippet [code]="question.codeSnippet" [adminMode]='false' [subject]="'python'"></app-code-snippet>
+              </div>
 
               <ol type="A" class="options-list">
                 <li

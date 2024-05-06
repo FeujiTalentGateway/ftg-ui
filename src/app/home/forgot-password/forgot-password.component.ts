@@ -40,7 +40,6 @@ export class ForgotPasswordComponent {
   sendOtpToEmail(loginData: FormGroup) {
     this.isOtpSentDisabled = true;
     const email = loginData.get('email')?.value;
-    console.log('email :' + email);
     this.forgotPassword.sendOtpToEmail(email);
     setTimeout(() => {
       this.isOtpSentDisabled = !this.isOtpSentDisabled;

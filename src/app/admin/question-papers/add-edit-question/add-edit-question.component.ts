@@ -62,7 +62,6 @@ export class AddEditQuestionComponent implements OnInit {
       let id = Number(this.activatedRoute.snapshot.paramMap.get('id'));
       this.service.getQuestionById(id).subscribe({
         next: (value) => {
-          console.log(value);
 
           this.question = value;
           this.setQuestionValueIntoQuestionForm(this.question);
@@ -97,7 +96,6 @@ export class AddEditQuestionComponent implements OnInit {
 
   //set value to update question
   setQuestionValueIntoQuestionForm(question: any = {}) {
-    console.log(question);
     if (question.options.length !== 2) {
       for (let i = 2; i < question.options.length; i++) {
         this.addAdditionalOption();
@@ -117,8 +115,6 @@ export class AddEditQuestionComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.questionForm.value);
-    console.log(this.questionForm.value.content);
     this.isFormSubmitted = false;
     if (this.questionForm.valid && this.question.rightOptions?.length != 0) {
       this.question.content = this.questionForm.value.content;
@@ -134,18 +130,14 @@ export class AddEditQuestionComponent implements OnInit {
       // this.question.rightOption  =
 
       this.question.subject.id = this.questionForm.value.subject;
-      console.log(typeof parseInt(this.questionForm.value.difficultyLevel));
 
       this.question.difficultyLevel = parseInt(
         this.questionForm.value.difficultyLevel
       );
       this.question.subject.name = '';
       if (this.isEditForm) {
-        console.log(this.question.options);
-        console.log(this.question);
         this.editQuestion(this.question);
       } else {
-        console.log(this.question);
         this.service.addQuestion(this.question);
       }
     } else {
@@ -159,7 +151,6 @@ export class AddEditQuestionComponent implements OnInit {
   }
   markFormControlsAsUntouched() {
     Object.values(this.questionForm.controls).forEach((control) => {
-      console.log(control);
       control.markAsUntouched();
     });
   }
@@ -175,7 +166,6 @@ export class AddEditQuestionComponent implements OnInit {
     this.editingQuestion = 'Are you sure you want to edit this question';
   }
   editQuestionAfterConfirmation() {
-    console.log(this.question);
     this.service.editQuestion(this.question);
     this.closeEditModal();
   }
@@ -187,20 +177,15 @@ export class AddEditQuestionComponent implements OnInit {
   }
 
   setQuestionType(questionType: string) {
-    console.log(questionType, this.questionType);
     this.questionType = questionType;
     this.question.questionType = this.questionType;
     this.question.rightOptions = [];
   }
   setRightOption(setRightOption: any) {
-    console.log(setRightOption.value);
     let option: Option = { optionName: setRightOption.value, active: true };
-    console.log(option);
-    console.log(this.question.rightOptions);
     const index = this.question.rightOptions?.findIndex(
       (opt) => opt.optionName === setRightOption.value
     );
-    console.log(index);
 
     if (index != -1 && typeof index === 'number') {
       this.question.rightOptions?.splice(index, 1);
@@ -212,7 +197,6 @@ export class AddEditQuestionComponent implements OnInit {
         this.question.rightOptions?.push(option);
       }
     }
-    console.log(this.question.rightOptions);
   }
   getRightOrnot(option: any): Boolean {
     const index = this.question.rightOptions?.findIndex(
@@ -227,9 +211,6 @@ export class AddEditQuestionComponent implements OnInit {
     this.question.isCodeSnippet = isSnippet    
   }
   setSubject(subject:any){
-    console.log(subject.target.value);
-    console.log(this.selectedSubject);
-    console.log(this.subjects.find(item=>item.id == subject.target.value)?.name);
     this.selectedSubjectName = (this.subjects.find(item=>item.id == subject.target.value)?.name as string).toLowerCase();
   }
   onCodeChanged(code:any){

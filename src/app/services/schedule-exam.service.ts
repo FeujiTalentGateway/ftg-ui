@@ -72,15 +72,11 @@ export class ScheduleExamService {
 
   // Optionally, you can have another method to handle the subscription in the component
   fetchExams(): void {
-    console.log('fetch exam');
-
     this.scheduleExamRepo.getExams().subscribe(
       (response: HttpResponse<any>) => {
         if (response.status === 200) {
           // Assuming that response.body is an array of exams
           this.examsSubject.next(response.body);
-          console.log('inside fetch');
-          console.log(this.examsSubject.value);
         } else {
           console.error('Unexpected response status:', response.status);
         }
@@ -94,9 +90,7 @@ export class ScheduleExamService {
   changeExamStatus(id: any) {
     this.scheduleExamRepo.changeExamStatus(id).subscribe({
       next: (response: any) => {
-        console.log(response);
         this.openSnackBar(response.message, 'Close');
-        console.log(response);
         if (response.status == 200) {
           this.openSnackBar('Exam status updated!!', 'Close');
 
@@ -112,7 +106,6 @@ export class ScheduleExamService {
             this.examsSubject.next(updatedExams);
           }
 
-          console.log(this.exams$);
         }
       },
       error: (error: any) => {

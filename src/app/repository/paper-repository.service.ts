@@ -42,7 +42,6 @@ export class PaperRepositoryService {
     let requestOptions = {
       headers: headers,
     };
-    console.log(paper);
     return this.http.put<Paper>(this.baseUrl + 'paper/', paper, requestOptions)
   }
   getPaperById(id: number) {

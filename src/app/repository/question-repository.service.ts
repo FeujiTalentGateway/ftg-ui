@@ -19,7 +19,6 @@ export class QuestionRepository {
     let requestOptions = {
       headers: headers,
     };
-    console.log('In restful service');
     return this.http.get<Question[]>(
       `${this.baseUrl}question/`,
       requestOptions
@@ -31,7 +30,6 @@ export class QuestionRepository {
     let requestOptions = {
       headers: headers,
     };
-    console.log('In restful service');
     return this.http.get<Question[]>(
       // `${this.baseUrl}question/subject/${subjectId}`,
       `${this.pythonUrl}/api/questions/${subjectId}/`,

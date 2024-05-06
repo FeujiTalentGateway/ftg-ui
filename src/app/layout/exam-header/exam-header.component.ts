@@ -216,7 +216,6 @@ export class ExamHeaderComponent implements OnInit, OnDestroy {
     )}:${this.padWithZero(remainingSeconds)}`;
   }
   updateSubjectStatus(status: any) {
-    console.log(status, 'status');
 
     this.sharedService.updateSubjectStatus(status);
   }

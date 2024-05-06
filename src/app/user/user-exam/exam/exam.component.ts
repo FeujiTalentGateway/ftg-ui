@@ -136,7 +136,7 @@ export class ExamComponent implements OnInit {
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       cancelButtonText: 'Cancel'
-    }).then((result) => {
+    }).then((result:any) => {
       if (result.isConfirmed) {
         this.onSubmit();
       } else {

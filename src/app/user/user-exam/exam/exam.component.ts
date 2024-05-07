@@ -7,7 +7,6 @@ import { Observable, Subject, takeUntil } from 'rxjs';
 import { SharedDataService } from 'src/app/services/shared-data.service';
 import { Exam } from 'src/app/models/exam.model';
 import { ExamInstructionsComponent } from '../exam-instructions/exam-instructions.component';
-import { DOCUMENT } from '@angular/common';
 import Swal from 'sweetalert2';
 import { MassageboxComponent } from 'src/app/utils/massagebox/massagebox.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -31,9 +30,9 @@ export class ExamComponent implements OnInit {
   examObjet: Exam | undefined;
   examDuration: string | undefined;
   questions: Paper = { id: 0, name: '', active: false, questions: [] };
-  lock: boolean = false;
+  toogleLock: boolean = false;
   LOCKED_KEYS: string[] = ["MetaLeft", "MetaRight", "KeyN", "KeyT","KeyR","Escape", "AltLeft", "AltRight","ControlLeft", "ControlRight"];
-  warningcount:number=0;
+  warningCount:number=0;
   examAttempt$: Observable<any> | undefined;
   private unsubscribe$ = new Subject<void>();
   constructor(
@@ -46,7 +45,7 @@ export class ExamComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.lockkeys()
+    this.lockKeys()
     this.examAttempt$ = this.sharedDataService.examAttempt$.pipe(
       takeUntil(this.unsubscribe$)
     );
@@ -74,31 +73,31 @@ export class ExamComponent implements OnInit {
 
   
 
-  async lockkeys(){
-    if (!this.lock) {
-      await (navigator as any).keyboard.lock(this.LOCKED_KEYS);
-      this.lock = true;
+  lockKeys(){
+    if (!this.toogleLock) {
+       (navigator as any).keyboard.lock(this.LOCKED_KEYS);
+      this.toogleLock = true;
       console.log("locked")
       return;
     }
     (navigator as any).keyboard.unlock();
-    this.lock = false;
+    this.toogleLock = false;
   } catch (err:any) {
-    this.lock = false;
+    this.toogleLock = false;
     alert(`${err.name}: ${err.message}`);
   }
   
   @HostListener('document:keydown', ['$event'])
   handleKeyPress(event: KeyboardEvent) {
-    if (this.lock && this.LOCKED_KEYS.includes(event.code)) {
+    if (this.toogleLock && this.LOCKED_KEYS.includes(event.code)) {
       event.preventDefault(); 
-      if(this.warningcount>=1){
+      if(this.warningCount>=1){
          this.onSubmit()
       }
       else{
         this.openSweetAlert()
       }
-      this.warningcount++
+      this.warningCount++
       
     }
   }

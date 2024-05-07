@@ -1,23 +1,39 @@
 <header class="row align-items-center header-nav">
-    <div class="nav-bar">
-     <div class=""> <i class="fa-solid fa-bars" (click)="onToggleLayout()"></i></div>
-     <div class="nav-items">
-         <!-- <div> <i class="fa-regular fa-bell"></i></div> -->
-         <div> <div class="image-placeholder"> <img  class="img-fluid" src="../../../assets/images/aravindimage.png" ></div> </div>
-         <div> {{userName}}</div>
-         <div >
-             <div>
-              <i class="fa-sharp fa-solid fa-gear" (click)="toggleDropdown()"></i>
-              <div>
-              <div *ngIf="showDropdown" class="menu-dropdown">
-               <ul>
-                  <li class="drop-item"><i class="fa-solid fa-user"></i> &nbsp;<span class="profile">Profile</span></li>
-                  <li class="drop-item logout" (click)="logOut()"> <i class="fa-solid fa-right-from-bracket fa-sm" style="color: #ff0000;"></i> &nbsp;<span class="logout">Logout</span></li>
+  <div class="nav-bar">
+    <div class="">
+      <i class="fa-solid fa-bars" (click)="onToggleLayout()"></i>
+    </div>
+    <div class="nav-items">
+      <!-- <div> <i class="fa-regular fa-bell"></i></div> -->
+      <div>
+        <div class="image-placeholder">
+          <img class="img-fluid" src="../../../assets/images/profile.png" />
+        </div>
+      </div>
+      <div>{{ userName }}</div>
+      <div>
+        <div>
+          <i class="fa-sharp fa-solid fa-gear" (click)="toggleDropdown()"></i>
+          <div>
+            <div *ngIf="showDropdown" class="menu-dropdown">
+              <ul>
+                <li class="drop-item">
+                  <i class="fa-solid fa-user"></i> &nbsp;<span class="profile"
+                    >Profile</span
+                  >
+                </li>
+                <li class="drop-item logout" (click)="logOut()">
+                  <i
+                    class="fa-solid fa-right-from-bracket fa-sm"
+                    style="color: #ff0000"
+                  ></i>
+                  &nbsp;<span class="logout">Logout</span>
+                </li>
               </ul>
-              </div>
-              </div>
-             </div>
-           </div>
-         </div>
-     </div>
- </header>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>

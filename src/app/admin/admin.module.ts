@@ -8,7 +8,6 @@ import { HighchartsChartModule } from 'highcharts-angular';
 import { CodeSnippetComponent } from './code-snippet/code-snippet.component';
 import { FormsModule } from '@angular/forms';
 
-
 @NgModule({
   declarations: [
 

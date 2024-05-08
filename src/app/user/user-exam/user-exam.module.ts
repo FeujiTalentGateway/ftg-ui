@@ -17,6 +17,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatOptionModule } from '@angular/material/core';
 import { QuestionNavigationComponent } from './question-navigation/question-navigation.component';
 import { AdminModule } from 'src/app/admin/admin.module';
+import { MatSelectModule } from '@angular/material/select';
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import { AdminModule } from 'src/app/admin/admin.module';
     UserExamRoutingModule,
     FormsModule,
     SharedModuleModule,
-    AdminModule
+    AdminModule,
+    MatSelectModule
   ],
 })
 export class UserExamModule {}

@@ -102,13 +102,13 @@
       </div>
     </div>
   </div>
-  <!-- <div class="user-name">
-    <div class="user-data">
-        Questions
-    </div>
+  <div class="user-name1">
+    <div class="user-data">Q/A</div>
     <div class="user-info">
-        <span>Coming Soon....</span>
+      <div class="row d-flex align-item-center justify-content-center">
+        <app-question-result [listOfQuestion]="questionsList" [examSubjects]="exam.examSubjects" ></app-question-result>
+      </div>
     </div>
-</div> -->
+  </div>
 </section>
 <ng-template #template></ng-template>

@@ -191,4 +191,10 @@ export class ExamService {
       question
     );
   }
-}
+  getStaticUserExamResults(examCode: string, userId : number):Observable<Question[]>{
+    return this.http.get<Question[]>('/assets/static_data/UserResult.json')
+    }
+    getUserExamResults(examCode: string, userId : number):Observable<Question[]>{
+    return this.http.get<Question[]>(`${this.resultUrl}result/response/${examCode}/${userId}`)
+    }
+  }

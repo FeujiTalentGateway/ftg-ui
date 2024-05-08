@@ -5,6 +5,8 @@ import { AbstractControl, FormControl } from '@angular/forms';
 import { CodingQuestion } from 'src/app/models/coding.question.model';
 import { CodingQuestionRepositoryService } from 'src/app/repository/coding-question-repository.service';
 import { DataType } from 'src/app/models/coding.datatype.model';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 import { TestCases } from 'src/app/models/coding.testcases.model';
 @Component({
   selector: 'app-coding-question',
@@ -35,7 +37,8 @@ export class CodingQuestionComponent implements OnInit {
   constructor(
     private activatedParam: ActivatedRoute,
     private _formBuilder: FormBuilder,
-    private codeRepo: CodingQuestionRepositoryService
+    private codeRepo: CodingQuestionRepositoryService,
+    private snackBar: MatSnackBar
   ) {
     this.codeRepo.getDataTypes().subscribe({
       next: (data: any) => {
@@ -442,17 +445,23 @@ export class CodingQuestionComponent implements OnInit {
     return testCase.value.isSample;
   }
   saveCodingQuestion() {
-    // console.log(this.codingQuestionDetailsForm.value);
 
     const formData = this.codingQuestionDetailsForm.value as CodingQuestion;
     console.log(formData);
     this.codeRepo.saveCodingQuestion(formData).subscribe({
       next: (data: any) => {
         console.log(data);
+        this.openSnackBar('Question added successfully', 'Close');
+        this.codingQuestionDetailsForm.reset(); // Reset t
       },
       error: (error: any) => {
         console.log(error);
       },
     });
   }
+  openSnackBar(message: string, action: string) {
+  this.snackBar.open(message, action, {
+    duration: 5000, // Duration in milliseconds
+  });
+}
 }

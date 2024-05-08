@@ -1,15 +1,15 @@
-import { Component, HostListener, Inject, OnInit, ViewChild } from '@angular/core';
+import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Observable, Subject, takeUntil } from 'rxjs';
+import { Exam } from 'src/app/models/exam.model';
 import { Paper } from 'src/app/models/paper';
 import { Question } from 'src/app/models/question';
 import { ExamService } from 'src/app/repository/exam.service';
-import { Observable, Subject, takeUntil } from 'rxjs';
 import { SharedDataService } from 'src/app/services/shared-data.service';
-import { Exam } from 'src/app/models/exam.model';
-import { ExamInstructionsComponent } from '../exam-instructions/exam-instructions.component';
-import Swal from 'sweetalert2';
 import { MassageboxComponent } from 'src/app/utils/massagebox/massagebox.component';
-import { MatDialog } from '@angular/material/dialog';
+import Swal from 'sweetalert2';
+import { ExamInstructionsComponent } from '../exam-instructions/exam-instructions.component';
 
 @Component({
   selector: 'app-exam',
@@ -17,8 +17,9 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./exam.component.css'],
 })
 export class ExamComponent implements OnInit {
-  @ViewChild(ExamInstructionsComponent) codeEditorComponent!: ExamInstructionsComponent;
-  
+  @ViewChild(ExamInstructionsComponent)
+  codeEditorComponent!: ExamInstructionsComponent;
+
   examCode: string | null = null;
   paper: Paper | null = null;
   currentQuestion: Question | undefined;
@@ -31,8 +32,19 @@ export class ExamComponent implements OnInit {
   examDuration: string | undefined;
   questions: Paper = { id: 0, name: '', active: false, questions: [] };
   toogleLock: boolean = false;
-  LOCKED_KEYS: string[] = ["MetaLeft", "MetaRight", "KeyN", "KeyT","KeyR","Escape", "AltLeft", "AltRight","ControlLeft", "ControlRight"];
-  warningCount:number=0;
+  LOCKED_KEYS: string[] = [
+    'MetaLeft',
+    'MetaRight',
+    'KeyN',
+    'KeyT',
+    'KeyR',
+    'Escape',
+    'AltLeft',
+    'AltRight',
+    'ControlLeft',
+    'ControlRight',
+  ];
+  warningCount: number = 0;
   examAttempt$: Observable<any> | undefined;
   private unsubscribe$ = new Subject<void>();
   constructor(
@@ -40,12 +52,11 @@ export class ExamComponent implements OnInit {
     private examService: ExamService,
     private sharedDataService: SharedDataService,
     private dialog: MatDialog,
-    private router: Router,
-
+    private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.lockKeys()
+    this.lockKeys();
     this.examAttempt$ = this.sharedDataService.examAttempt$.pipe(
       takeUntil(this.unsubscribe$)
     );
@@ -71,34 +82,31 @@ export class ExamComponent implements OnInit {
     }
   }
 
-  
-
-  lockKeys(){
-    if (!this.toogleLock) {
-       (navigator as any).keyboard.lock(this.LOCKED_KEYS);
-      this.toogleLock = true;
-      console.log("locked")
-      return;
+  lockKeys() {
+    try {
+      if (navigator && (navigator as any).keyboard && !this.toogleLock) {
+        (navigator as any).keyboard.lock(this.LOCKED_KEYS);
+        this.toogleLock = true;
+        console.log('locked');
+        return;
+      }
+      console.log('navigator.keyboard is not available');
+    } catch (err: any) {
+      this.toogleLock = false;
+      console.error(`${err.name}: ${err.message}`);
     }
-    (navigator as any).keyboard.unlock();
-    this.toogleLock = false;
-  } catch (err:any) {
-    this.toogleLock = false;
-    alert(`${err.name}: ${err.message}`);
   }
-  
+
   @HostListener('document:keydown', ['$event'])
   handleKeyPress(event: KeyboardEvent) {
     if (this.toogleLock && this.LOCKED_KEYS.includes(event.code)) {
-      event.preventDefault(); 
-      if(this.warningCount>=1){
-         this.onSubmit()
+      event.preventDefault();
+      if (this.warningCount >= 1) {
+        this.onSubmit();
+      } else {
+        this.openSweetAlert();
       }
-      else{
-        this.openSweetAlert()
-      }
-      this.warningCount++
-      
+      this.warningCount++;
     }
   }
 
@@ -106,7 +114,7 @@ export class ExamComponent implements OnInit {
     Swal.close();
     console.log('Cancel action triggered');
   }
-  
+
   onSubmit(): void {
     this.sharedDataService.updateLastQuestionAndSave(true);
     this.examService.submitExam(this.examAttemptId as number).subscribe(
@@ -118,31 +126,30 @@ export class ExamComponent implements OnInit {
             note: 'ok',
           },
         });
-        this.toggleFullscreen()
+        this.toggleFullscreen();
         this.router.navigateByUrl('/user/exam/exam-code');
       },
       (error) => {}
     );
   }
-  
+
   openSweetAlert(): void {
     Swal.fire({
       title: 'Invalid Action',
       text: `This operation is not allowed Zero warnings remaining next time exam will submit automatically`,
       icon: 'warning',
       showCancelButton: true,
-      showConfirmButton:false,
+      showConfirmButton: false,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      cancelButtonText: 'Cancel'
-    }).then((result:any) => {
+      cancelButtonText: 'Cancel',
+    }).then((result: any) => {
       if (result.isConfirmed) {
         this.onSubmit();
       } else {
         this.onCancel();
       }
     });
-  
   }
   toggleFullscreen() {
     const element = document.documentElement;
@@ -161,5 +168,4 @@ export class ExamComponent implements OnInit {
       }
     }
   }
- 
-  }
+}

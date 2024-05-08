@@ -14,16 +14,8 @@ import { SharedModuleModule } from 'src/app/shared-module/shared-module.module';
 import { DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HighchartsChartModule } from 'highcharts-angular';
-
-@NgModule({
-  declarations: [
-    // your components, directives, and pipes
-  ],
-  providers: [
-    DatePipe // Add DatePipe to the providers array
-  ]
-})
-export class YourModule { }
+import { QuestionResultComponent } from './question-result/question-result.component';
+import { MatSelectModule } from '@angular/material/select';
 
 
 @NgModule({
@@ -32,6 +24,7 @@ export class YourModule { }
     ExamSummaryComponent,
     UsersResultComponent,
     DetailedUserResultComponent,
+    QuestionResultComponent
   ],
   imports: [
     CommonModule,
@@ -44,8 +37,9 @@ export class YourModule { }
     MatFormFieldModule,
     SharedModuleModule,
     FormsModule,
-    HighchartsChartModule
-
+    HighchartsChartModule,
+    MatSelectModule
+    
   ],
   providers: [
     DatePipe // Add DatePipe to the providers array

@@ -1,0 +1,57 @@
+summary {
+    list-style-type: none;
+    cursor: pointer;
+  }
+  
+  summary::after {
+    margin-right: 5px;
+    font-size: 19.5em !important; /* Increase the font size */
+  }
+  
+  .collapsed::after {
+    content: "\25B8"; /* Unicode for right-pointing triangle */
+    font-size: 30px;
+  }
+  
+  .expanded::after {
+    /* content: "\25BE"; Unicode for down-pointing triangle */
+    font-size: 30px;
+  }
+.options{
+    padding: 5px;
+}
+.option{
+    padding: 7px;
+    margin: 5px 0px;
+}
+
+
+.correct {
+    background-color: #ccf8cf82;
+    color: black;
+  }
+  
+  .correct-selected {
+    background-color: #00dd0f33;
+    color: black; 
+    border-radius: 5px
+  }
+  
+  .incorrect-selected {
+    /* Define styles for incorrect and selected options */
+  }
+  
+  .incorrect {
+    /* Define styles for incorrect but not selected options */
+  }
+  
+  .icon-select{
+
+  }
+  .option-container{
+    display: flex;
+
+  }
+  .tic-mark-contaier{
+    min-width: 30px;
+  }

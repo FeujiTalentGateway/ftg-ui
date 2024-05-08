@@ -1,5 +1,5 @@
 # Use an official Node.js image with a specific version
-FROM node:18.13.0-alpine as iaangular
+FROM node:18.17.1-alpine as iaangular
 
 # Expose the port your Angular app will run on
 EXPOSE 4200
@@ -10,14 +10,14 @@ WORKDIR /app
 # Copy the contents of your Angular app to the container
 COPY . .
 
-# Install Angular CLI globally
-RUN npm install -g @angular/cli
+# Install Angular CLI globally with specific version
+RUN npm install -g @angular/cli@17.1.2
 
 # Install project dependencies
 RUN npm install
 
 # Build your Angular app
-RUN npm run build
+# RUN npm run build
 
 # Start the Angular development server
 CMD npm run start:prod

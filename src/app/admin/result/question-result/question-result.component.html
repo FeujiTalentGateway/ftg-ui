@@ -1,56 +1,114 @@
+<div class="d-flex align-item-center justify-content-between mb-3 m-1">
+  <div>
+    <select
+      id="subject"
+      class="form-select select header-child"
+      (change)="getAllQuestionsBasedOnSubject($event)"
+    >
+      <option value="all">All</option>
+      <option *ngFor="let subject of subjectList" [value]="subject.name">
+        {{ subject.name }}
+      </option>
+    </select>
+  </div>
+  <button (click)="expandAll()" class="btn btn-success btn-sm">
+    {{ isExpandedCount ? "Collapse All" : "Expand All" }}
+  </button>
+</div>
 <div *ngIf="filteredListOfQuestion.length > 0; else NoQuestions">
-    <div class="d-flex align-item-center justify-content-between mb-3 m-1">
-        <mat-form-field>
-            <mat-label>Choose Subject</mat-label>
-                <mat-select (selectionChange)="getAllQuestionsBasedOnSubject($event)">
-                    <mat-option [value]="'all'">all</mat-option>
-                    <mat-option *ngFor="let subject of subjectList" [value]="subject.name">{{subject.name}}</mat-option>
-                </mat-select>
-        </mat-form-field>
-        <button (click)="expandAll()" class="btn btn-success btn-sm">{{isExpandedCount?'Collapse All':'Expand All'}}</button>
-    </div>
-    <div class="col-sm-12 m-b-20 mb-2" *ngFor="let question of filteredListOfQuestion; let i = index">
-        <div class="card shadow rounded p-3">
-            <details class="question-header" [open]="isExpanded[i]">
-                <summary>
-                    <span [ngClass]="{'collapsed': !isExpanded[i], 'expanded': isExpanded[i]}" (click)="toggle(i)">
-                        Q. {{i+1}} &nbsp;&nbsp;{{question.content}} &nbsp;
-                    </span>
-                </summary>
-                <div class="options">
-                    <div *ngFor="let option of question.options" class="option" [ngClass]="getOptionStyle(option, question)">
-                        <div class="option-container">
-                            <div class="tic-mark-contaier">
-                                <div *ngIf="getIcon(option, question)" class="icon-select">
-                                    <span class="icon">
-                                        <svg *ngIf="getIcon(option, question) === 'correct'" stroke="#0BC279" width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M5.5 10.9997L9.16235 14.6663L16.5 7.33301" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                        </svg>
-                                        <svg *ngIf="getIcon(option, question) === 'wrong'" stroke="#FF7067" width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M6.41602 15.5838L15.5828 6.41699" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                            <path d="M15.5828 15.5838L6.41602 6.41699" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                        </svg>
-                                        <p *ngIf="getIcon(option,question == null)">&nbsp;</p>
-                                    </span>
-                                </div>
-                            </div>
-                            <div>
-                                <span *ngIf="(question.questionType=='single choice')">
-                                    <input type="radio" name="" id=""[checked]="getSelectedOption(question,option)" [disabled]="true">
-                                </span>
-                                <span *ngIf="!(question.questionType=='single choice')">
-                                    <input type="checkbox" name="" id=""[checked]="getSelectedOption(question,option)" [disabled]="true">
-                                </span>
-                                
-                                
-                                {{ option.optionName }}
-                               
-                            </div>
-                        </div>
-                    </div>
+  <div
+    class="col-sm-12 m-b-20 mb-2"
+    *ngFor="let question of filteredListOfQuestion; let i = index"
+  >
+    <div class="card shadow rounded p-3">
+      <details class="question-header" [open]="isExpanded[i]">
+        <summary>
+          <span
+            [ngClass]="{ collapsed: !isExpanded[i], expanded: isExpanded[i] }"
+            (click)="toggle(i)"
+          >
+            Q. {{ i + 1 }} &nbsp;&nbsp;{{ question.content }} &nbsp;
+          </span>
+        </summary>
+        <div class="options">
+          <div
+            *ngFor="let option of question.options"
+            class="option"
+            [ngClass]="getOptionStyle(option, question)"
+          >
+            <div class="option-container">
+              <div class="tic-mark-contaier">
+                <div *ngIf="getIcon(option, question)" class="icon-select">
+                  <span class="icon">
+                    <svg
+                      *ngIf="getIcon(option, question) === 'correct'"
+                      stroke="#0BC279"
+                      width="22"
+                      height="22"
+                      viewBox="0 0 22 22"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M5.5 10.9997L9.16235 14.6663L16.5 7.33301"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      ></path>
+                    </svg>
+                    <svg
+                      *ngIf="getIcon(option, question) === 'wrong'"
+                      stroke="#FF7067"
+                      width="22"
+                      height="22"
+                      viewBox="0 0 22 22"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M6.41602 15.5838L15.5828 6.41699"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      ></path>
+                      <path
+                        d="M15.5828 15.5838L6.41602 6.41699"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      ></path>
+                    </svg>
+                    <p *ngIf="getIcon(option, question == null)">&nbsp;</p>
+                  </span>
                 </div>
-            </details>
+              </div>
+              <div>
+                <span *ngIf="question.questionType == 'single choice'">
+                  <input
+                    type="radio"
+                    name=""
+                    id=""
+                    [checked]="getSelectedOption(question, option)"
+                    [disabled]="true"
+                  />
+                </span>
+                <span *ngIf="!(question.questionType == 'single choice')">
+                  <input
+                    type="checkbox"
+                    name=""
+                    id=""
+                    [checked]="getSelectedOption(question, option)"
+                    [disabled]="true"
+                  />
+                </span>
+
+                {{ option.optionName }}
+              </div>
+            </div>
+          </div>
         </div>
+      </details>
     </div>
+  </div>
 </div>
 <ng-template #NoQuestions>NoQuestions</ng-template>

@@ -10,28 +10,27 @@ import { User } from '../models/user.model';
 })
 export class AuthRepositoryService {
   baseUrl: string = environment.apiUrl;
+  authTokenKey: string = environment.authTokenKey;
   constructor(private http: HttpClient) {
     this.baseUrl = environment.apiUrl;
   }
 
   register(data: any): Observable<any> {
-
     return this.http.post(this.baseUrl + 'registration/register', data);
   }
 
   login(loginData: UserLoginModel): Observable<any> {
     return this.http.post(this.baseUrl + 'auth/login', loginData);
   }
-  sendOtpToEmail(email: string): Observable<any> {  
-    return this.http.get(
-      this.baseUrl + 'account/generate-otp/' + email,
-      { observe: 'response' }
-    );
+  sendOtpToEmail(email: string): Observable<any> {
+    return this.http.get(this.baseUrl + 'account/generate-otp/' + email, {
+      observe: 'response',
+    });
   }
   setPasswordRequestForForgotPassword(
     forgotPasswordRequest: any,
     options: any
-  ) { 
+  ) {
     return this.http.put(
       this.baseUrl + 'account/forgot-password',
       forgotPasswordRequest,
@@ -40,7 +39,7 @@ export class AuthRepositoryService {
   }
 
   getUserByRoleName(roleName: string): Observable<User[]> {
-    let token = localStorage.getItem('token');
+    let token = localStorage.getItem(this.authTokenKey);
     let headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     let requestOptions = {
       headers: headers,
@@ -50,5 +49,4 @@ export class AuthRepositoryService {
       requestOptions
     );
   }
-
 }

@@ -1,23 +1,20 @@
 import { Injectable } from '@angular/core';
-import { AuthRepositoryService } from '../repository/auth-repository.service';
-import { Router } from '@angular/router';
-import { UserdetailsService } from './userdetails.service';
 import { FormGroup } from '@angular/forms';
-import { UserLoginModel } from '../models/user-login.model';
-import { JwtHelperService } from '@auth0/angular-jwt';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { environment } from 'src/environments/environment';
+import { UserLoginModel } from '../models/user-login.model';
 import { User } from '../models/user.model';
-import { OtpVerificationComponent } from '../home/otp-verification/otp-verification.component';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { HttpHeaders } from '@angular/common/http';
-import { ResetPassowrdComponent } from '../home/reset-passowrd/reset-passowrd.component';
-import { ForgotPasswordRequest } from '../models/forgotPasswordRequest';
+import { AuthRepositoryService } from '../repository/auth-repository.service';
+import { UserdetailsService } from './userdetails.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   private userPayload: any;
+  authTokenKey: string = environment.authTokenKey;
   dialogRef: any;
   roles: any[] = [];
   constructor(
@@ -91,7 +88,7 @@ export class AuthService {
         }
       },
       error: (error: any) => {
-        if (error.status===400) {
+        if (error.status === 400) {
           this.openSnackBar(error.error.message, 'Close');
         } else {
           this.openSnackBar('Something went wrong', 'Close');
@@ -100,15 +97,15 @@ export class AuthService {
     });
   }
   setJwtToken(token: any) {
-    localStorage.setItem('token', token);
+    localStorage.setItem(this.authTokenKey, token);
   }
   removeJwtToken() {
-    localStorage.removeItem('token');
+    localStorage.removeItem(this.authTokenKey);
     localStorage.removeItem('role');
   }
   decodedToken() {
     const jwtHelper = new JwtHelperService();
-    const jwtToken = localStorage.getItem('token') || '';
+    const jwtToken = localStorage.getItem(this.authTokenKey) || '';
     try {
       this.userPayload = jwtHelper.decodeToken(jwtToken);
     } catch (error) {
@@ -120,7 +117,7 @@ export class AuthService {
   // Check if the JWT token has expired
   isTokenExpired() {
     const jwtHelper = new JwtHelperService();
-    const jwtToken = localStorage.getItem('token')!;
+    const jwtToken = localStorage.getItem(this.authTokenKey)!;
     return jwtHelper.isTokenExpired(jwtToken);
   }
 
@@ -142,8 +139,8 @@ export class AuthService {
   // Get the JWT token from local storage if it exists.
   // Returns the JWT token as a string or "no jwt token" if it doesn't exist.
   getJwtToken(): string {
-    if (localStorage.getItem('token')) {
-      return localStorage.getItem('token') + '';
+    if (localStorage.getItem(this.authTokenKey)) {
+      return localStorage.getItem(this.authTokenKey) + '';
     } else {
       return 'no jwt token';
     }
@@ -153,12 +150,12 @@ export class AuthService {
   // Returns true if the user is logged in, otherwise false.
   isLoggedin(): boolean {
     this.sessionExpired();
-    return !!localStorage.getItem('token');
+    return !!localStorage.getItem(this.authTokenKey);
   }
 
   sessionExpired() {
     if (this.isTokenExpired()) {
-      localStorage.removeItem('token');
+      localStorage.removeItem(this.authTokenKey);
       this.openSnackBar('Session expired. Please login again', 'close');
       // this.router.navigateByUrl('main/login');
     }

@@ -13,10 +13,19 @@
         <div>
           <mat-form-field>
             <mat-label>Choose Subject</mat-label>
-                <mat-select (selectionChange)="changeSubject($event)">
-                    <mat-option *ngFor="let subject of exam.examSubjects; index as i" [value]="i"  [disabled]="exam.examSubjects[i].isTimeUp"> {{ subject.subject.name }}</mat-option>
-                </mat-select>
-        </mat-form-field>
+            <mat-select
+              (selectionChange)="changeSubject($event)"
+              [(ngModel)]="defaultSubjectIndex"
+            >
+              <mat-option
+                *ngFor="let subject of exam.examSubjects; index as i"
+                [value]="i"
+                [disabled]="exam.examSubjects[i].isTimeUp"
+              >
+                {{ subject.subject.name }}</mat-option
+              >
+            </mat-select>
+          </mat-form-field>
         </div>
       </div>
     </div>
@@ -34,7 +43,11 @@
           {{ this.currentQuestion?.content }}
         </h4>
         <div *ngIf="this.currentQuestion?.isCodeSnippet">
-          <app-code-snippet [code]="this.currentQuestion?.codeSnippet" [adminMode]='false' [subject]="this.getSubjectName()"></app-code-snippet>
+          <app-code-snippet
+            [code]="this.currentQuestion?.codeSnippet"
+            [adminMode]="false"
+            [subject]="this.getSubjectName()"
+          ></app-code-snippet>
         </div>
         <ul>
           <li *ngFor="let option of currentQuestion?.options">

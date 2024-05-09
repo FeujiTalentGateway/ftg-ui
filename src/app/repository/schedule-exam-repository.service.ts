@@ -9,12 +9,13 @@ import { Exam } from '../models/exam.model';
 })
 export class ScheduleExamRepositoryService {
   adminUrl = environment.adminUrl;
+  authTokenKey: string = environment.authTokenKey;
 
   constructor(private http: HttpClient) {}
 
   setToken(): HttpHeaders {
     // Get the JWT token from wherever you store it (localStorage, a service, etc.)
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem(this.authTokenKey);
 
     // Set the Authorization header with the token
     return new HttpHeaders().set('Authorization', `Bearer ${token}`);
@@ -58,8 +59,6 @@ export class ScheduleExamRepositoryService {
   }
 
   updateExam(formData: Exam): Observable<HttpResponse<any>> {
-
-
     const requestOptions = { headers: this.setToken() };
 
     return this.http.put<any>(this.adminUrl + 'exam/', formData, {

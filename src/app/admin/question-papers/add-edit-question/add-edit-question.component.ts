@@ -39,7 +39,7 @@ export class AddEditQuestionComponent implements OnInit {
   editableQuestionId!: number;
   operation: string = 'Add Question';
   selectedSubjectName:string='';
-  
+
   constructor(
     private service: QuestionsService,
     private subjectService: SubjectService,
@@ -55,7 +55,7 @@ export class AddEditQuestionComponent implements OnInit {
     this.isEditForm = this.activatedRoute.snapshot.paramMap.get('id') !== null;
     const subjectQueryParam =
       this.activatedRoute.snapshot.queryParamMap.get('subject');
-    this.selectedSubject = subjectQueryParam !== null ? +subjectQueryParam : 0; // Use a default value (e.g., 0) if subjectQueryParam is null
+    this.selectedSubject = subjectQueryParam !== null ? +subjectQueryParam : 0;// Use a default value (e.g., 0) if subjectQueryParam is null
     this.initialiseQuestionForm();
     if (this.isEditForm) {
       this.operation = 'Edit Question';

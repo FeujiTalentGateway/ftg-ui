@@ -60,6 +60,7 @@ export class QuestionsService {
   }
   editQuestion(question: any) {
     this.questionRepository.editQuestion(question).subscribe({
+      
       next: (response) => {
         this.formSubmitSucceed.next();
         this.route.navigate(['/admin/questionPapers/viewQuestions'], {

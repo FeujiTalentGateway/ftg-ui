@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
   Subscription,
   debounceTime,
@@ -60,6 +60,7 @@ export class ViewQuestionsComponent implements OnInit {
    * @param activatedRoute - The ActivatedRoute used for retrieving route parameters.
    */
   constructor(
+    private router: Router,
     private service: QuestionsService,
     private questionRepository: QuestionRepository,
     private subjectRepository: SubjectRepositoryService,
@@ -72,23 +73,32 @@ export class ViewQuestionsComponent implements OnInit {
    * Initializes the component and sets up initial values and subscriptions.
    */
   ngOnInit(): void {
+    this.activatedRoute.queryParams.subscribe(params => {
+      const subjectId = params['subject'];
+      if (subjectId) {
+        console.log('Subject ID:', subjectId);
+        this.selectedSubject = parseInt(subjectId); // Convert to number if needed
+      }
+    });
+  
     this.searchSubject.pipe(debounceTime(1000)).subscribe(() => {
       this.handleFiltering();
     });
+  
     this.selectedLevel = 0;
-    this.selectedSubject = 0;
+  
     this.service.questionChanged$.subscribe(() => {
       this.handleFiltering();
-      
     });
+  
     this.subjectsSubscription = this.subjectRepository
       .getAllSubjectsByActiveStatus(true)
       .subscribe(
         (subjects: Subject[]) => {
           this.subjects = subjects;
           if (subjects.length > 0) {
-            if (this.selectedSubject == 0) {
-              this.selectedSubject = subjects[0].id;
+            if(!this.selectedSubject){
+            this.selectedSubject = subjects[0].id; 
             }
             this.handleFiltering();
           }
@@ -98,7 +108,7 @@ export class ViewQuestionsComponent implements OnInit {
         }
       );
   }
-
+  
   /**
    * Handles the search input event.
    * @param event - The input event object.
@@ -413,7 +423,14 @@ export class ViewQuestionsComponent implements OnInit {
   addloading() {
     this.isLoading = !this.isLoading;
   }
-  getSubjectName(subjectId:any){
-    let subjectName = (this.subjects.find(item=>item.id == subjectId)?.name as string).toLowerCase()
+  getSubjectName(subjectId: any) {
+    let subjectName = (this.subjects.find(item => item.id == subjectId)?.name as string).toLowerCase()
   }
+
+
+  editQuestion(questionId: any) {
+    this.router.navigate(['/admin/questionPapers/addEditQuestion', questionId]);
+    this.getAllQuestionsBasedOnSubjectId();
+  }
+  
 }

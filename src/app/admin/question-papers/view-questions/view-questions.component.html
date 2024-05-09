@@ -81,7 +81,10 @@
                     *ngIf="isDropdownOpen[question.id]"
                   >
                     <ul>
-                      <li
+                      <li (click)="editQuestion(question.id)">
+                        Edit &nbsp;<i class="far fa-edit" style="color: #6979ef"></i>
+                      </li>
+                      <!-- <li
                         [routerLink]="[
                           '/admin/questionPapers/addEditQuestion',
                           question.id
@@ -91,7 +94,7 @@
                           class="far fa-edit"
                           style="color: #6979ef"
                         ></i>
-                      </li>
+                      </li> -->
                       <li (click)="deleteQuestion(question.id)">
                         Delete &nbsp;<i
                           class="far fa-trash-alt"

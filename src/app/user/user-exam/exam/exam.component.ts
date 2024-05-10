@@ -19,7 +19,7 @@ import { ExamInstructionsComponent } from '../exam-instructions/exam-instruction
 export class ExamComponent implements OnInit {
   @ViewChild(ExamInstructionsComponent)
   codeEditorComponent!: ExamInstructionsComponent;
-  examsubmitted:boolean=false;
+  
   isFirstAttempt:boolean=true
   examCode: string | null = null;
   paper: Paper | null = null;
@@ -90,26 +90,26 @@ export class ExamComponent implements OnInit {
 
   onFullscreenChange(event: Event) {
     console.log('onFullscreenChange excecut');
-
-    if (document.fullscreenElement === null && !this.examsubmitted) {
-      this.openSweetAlert();
+    if (document.fullscreenElement === null && !(this.examService.examsubmitted)) {
+          this.openSweetAlert()
     }
+    
   }
 
-  lockKeys() {
-    try {
-      if (navigator && (navigator as any).keyboard && !this.toogleLock) {
-        (navigator as any).keyboard.lock(this.LOCKED_KEYS);
-        this.toogleLock = true;
-        console.log('locked');
-        return;
-      }
-      console.log('navigator.keyboard is not available');
-    } catch (err: any) {
-      this.toogleLock = false;
-      console.error(`${err.name}: ${err.message}`);
-    }
-  }
+  // lockKeys() {
+  //   try {
+  //     if (navigator && (navigator as any).keyboard && !this.toogleLock) {
+  //       (navigator as any).keyboard.lock(this.LOCKED_KEYS);
+  //       this.toogleLock = true;
+  //       console.log('locked');
+  //       return;
+  //     }
+  //     console.log('navigator.keyboard is not available');
+  //   } catch (err: any) {
+  //     this.toogleLock = false;
+  //     console.error(`${err.name}: ${err.message}`);
+  //   }
+  // }
 
   // @HostListener('document:keydown', ['$event'])
   // handleKeyPress(event: KeyboardEvent) {
@@ -137,18 +137,15 @@ export class ExamComponent implements OnInit {
             this.isFirstAttempt=false
             this.openSweetAlert()
           }
-
       }
     }
   
   onCancel(): void {
-    this.openFullScreen()
+   this.openFullScreen()
     Swal.close();
-    console.log('Cancel action triggered');
   }
 
   onSubmit(): void {
-    this.examsubmitted=true
     this.sharedDataService.updateLastQuestionAndSave(true);
     this.examService.submitExam(this.examAttemptId as number).subscribe(
       (response) => {

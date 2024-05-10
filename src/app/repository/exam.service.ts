@@ -18,6 +18,7 @@ export class ExamService {
   examUrl: string = ' http://127.0.0.1:8000/';
   javaExamUrl: string = environment.adminUrl + 'exam';
   resultUrl: string = environment.adminUrl;
+  examsubmitted:boolean=false;
   constructor(private http: HttpClient) {}
 
   getPaperByExamCode(examCode: string): Observable<Paper> {
@@ -66,6 +67,7 @@ export class ExamService {
     );
   }
   submitExam(attemptID: number): Observable<HttpResponse<any>> {
+    this.examsubmitted=true
     let data = {
       attemptId: attemptID,
       endDate: new Date().toISOString().slice(0, 23),

@@ -7,6 +7,7 @@ import { Option } from 'src/app/models/option';
 import { Question } from 'src/app/models/question';
 import { ExamService } from 'src/app/repository/exam.service';
 import { SharedDataService } from 'src/app/services/shared-data.service';
+import { SnackBarService } from 'src/app/services/snack-bar.service';
 import { QuestionNavigationComponent } from '../question-navigation/question-navigation.component';
 import { SubjectQuestions } from './subject.questions';
 
@@ -83,7 +84,10 @@ export class QuestionsComponent implements OnInit, OnDestroy {
           isVisited: true,
         });
       },
-      (error) => {}
+      (error) => {
+        console.log(error.error.message);
+        this.snackBar.openSnackBar(error.error.message);
+      }
     );
     this.sharedData.updateExamAttempt(this.examAttemptID as number);
     this.sharedData.updateSubjects(this.exam.examSubjects);
@@ -121,7 +125,8 @@ export class QuestionsComponent implements OnInit, OnDestroy {
   }
   constructor(
     private ExamRepo: ExamService,
-    private sharedData: SharedDataService
+    private sharedData: SharedDataService,
+    private snackBar: SnackBarService
   ) {}
 
   /**

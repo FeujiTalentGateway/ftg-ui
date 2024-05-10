@@ -19,7 +19,8 @@ import { ExamInstructionsComponent } from '../exam-instructions/exam-instruction
 export class ExamComponent implements OnInit {
   @ViewChild(ExamInstructionsComponent)
   codeEditorComponent!: ExamInstructionsComponent;
-
+  examsubmitted:boolean=false;
+  isFirstAttempt:boolean=true
   examCode: string | null = null;
   paper: Paper | null = null;
   currentQuestion: Question | undefined;
@@ -56,7 +57,7 @@ export class ExamComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.lockKeys();
+   // this.lockKeys();
     this.examAttempt$ = this.sharedDataService.examAttempt$.pipe(
       takeUntil(this.unsubscribe$)
     );
@@ -80,6 +81,19 @@ export class ExamComponent implements OnInit {
         this.examAttemptId = response;
       });
     }
+
+    document.addEventListener(
+      'fullscreenchange',
+      this.onFullscreenChange.bind(this)
+    );
+  }
+
+  onFullscreenChange(event: Event) {
+    console.log('onFullscreenChange excecut');
+
+    if (document.fullscreenElement === null && !this.examsubmitted) {
+      this.openSweetAlert();
+    }
   }
 
   lockKeys() {
@@ -97,25 +111,44 @@ export class ExamComponent implements OnInit {
     }
   }
 
+  // @HostListener('document:keydown', ['$event'])
+  // handleKeyPress(event: KeyboardEvent) {
+  //   if (this.toogleLock && this.LOCKED_KEYS.includes(event.code)) {
+  //     event.preventDefault();
+  //     if (this.warningCount >= 1) {
+  //       this.onSubmit();
+  //     } else {
+  //       this.openSweetAlert();
+  //     }
+  //     this.warningCount++;
+  //     console.log()
+  //   }
+  // }
+
   @HostListener('document:keydown', ['$event'])
   handleKeyPress(event: KeyboardEvent) {
-    if (this.toogleLock && this.LOCKED_KEYS.includes(event.code)) {
-      event.preventDefault();
-      if (this.warningCount >= 1) {
-        this.onSubmit();
-      } else {
-        this.openSweetAlert();
-      }
-      this.warningCount++;
-    }
-  }
+      if(event.code=="ControlLeft"|| event.code=="ControlRight"  || event.code=="AltLeft" || event.code=="AltRight" || event.code=="Escape" ){
+        console.log("esc")
+        this.openFullScreen()
+          if(!this.isFirstAttempt){
+            this.onSubmit()
+          }
+          else{
+            this.isFirstAttempt=false
+            this.openSweetAlert()
+          }
 
+      }
+    }
+  
   onCancel(): void {
+    this.openFullScreen()
     Swal.close();
     console.log('Cancel action triggered');
   }
 
   onSubmit(): void {
+    this.examsubmitted=true
     this.sharedDataService.updateLastQuestionAndSave(true);
     this.examService.submitExam(this.examAttemptId as number).subscribe(
       (response) => {
@@ -126,7 +159,7 @@ export class ExamComponent implements OnInit {
             note: 'ok',
           },
         });
-        this.toggleFullscreen();
+        this.exitFullScreen();
         this.router.navigateByUrl('/user/exam/exam-code');
       },
       (error) => {}
@@ -151,21 +184,34 @@ export class ExamComponent implements OnInit {
       }
     });
   }
-  toggleFullscreen() {
-    const element = document.documentElement;
+  // toggleFullscreen() {
+  //   const element = document.documentElement;
 
-    if (!document.fullscreenElement) {
-      // Request fullscreen
+  //   if (!document.fullscreenElement) {
+  //     // Request fullscreen
+  //     if (element.requestFullscreen) {
+  //       element.requestFullscreen();
+  //     }
+  //   } else {
+  //     // Exit fullscreen
+  //     if (document.exitFullscreen) {
+  //       document.exitFullscreen();
+  //     } else if (document.exitFullscreen) {
+  //       document.exitFullscreen();
+  //     }
+  //   }
+  // }
+  openFullScreen(){
+    const element = document.documentElement;
       if (element.requestFullscreen) {
         element.requestFullscreen();
       }
-    } else {
-      // Exit fullscreen
-      if (document.exitFullscreen) {
-        document.exitFullscreen();
-      } else if (document.exitFullscreen) {
-        document.exitFullscreen();
-      }
+  }
+  exitFullScreen(){
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
     }
   }
+  
+
 }

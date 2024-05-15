@@ -81,10 +81,11 @@
     <div class="card result-card shadow-lg">
       <div class="card-body">
         <h5 class="card-title text-center text-primary">SCORE CARD</h5>
-        <div class="score-summary text-center mb-4">
-          <span class="total-score">Total Score: {{ detailedUserResult.marksObtain }} / {{ detailedUserResult.totalMarks }}</span> &nbsp;&nbsp;
-          <span class="total-percentage">Total Percentage: {{detailedUserResult.overallPercentage}} %</span>
-        </div>
+        <div class="score-summary">
+          <span class="total-score"><b>Total Score: </b>{{ detailedUserResult.marksObtain }} / {{ detailedUserResult.totalMarks }}</span>
+          <span class="total-percentage"><b>Total Percentage: </b> {{detailedUserResult.overallPercentage | number:'1.2-2'}}76 %</span>
+      </div>
+
         <div class="table-responsive" style="max-height: 300px; overflow-y: auto;">
           <table class="table table-bordered  mb-0">
             <thead class="thead-dark">
@@ -101,11 +102,11 @@
                 <td>{{ result.subjectName }}</td>
                 <td>{{ result.obtainedMarks }}</td>
                 <td>{{ result.totalMarks }}</td>
-                <td>{{result.percentage}}%</td>
+                <td>{{ result.percentage | number:'1.2-2' }}%</td>
                 <td>
-                  <!-- <span [ngClass]="{'text-success': result.passFailStatus === 'Pass', 'text-danger': 'Fail' === 'Fail'}">
+                   <span [ngClass]="{'text-success': result.passFailStatus === 'pass', 'text-danger': result.passFailStatus === 'fail'}">
                     {{ result.passFailStatus }}
-                  </span> -->
+                  </span> 
                 </td>
               </tr>
             </tbody>

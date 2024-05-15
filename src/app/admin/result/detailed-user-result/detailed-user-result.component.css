@@ -161,3 +161,50 @@
 small{
     margin-left: 30px;
 }
+.result-card {
+    max-width: 100%;
+  }
+  
+  .card-body {
+    max-height: 400px; /* Adjust this value based on your needs */
+    overflow-y: auto;
+  }
+  
+  .table-responsive {
+    max-height: 300px; /* Fixed height for scrollable area */
+    overflow-y: auto;
+  }
+  
+  .table {
+    margin-bottom: 0; /* Ensure no extra margin at the bottom */
+  }
+  
+  .thead-dark th {
+    background-color: #f3752e;
+    color: #fff;
+  }
+  
+  .card-title {
+    font-weight: bold;
+  }
+  
+  .score-summary .total-score,
+  .score-summary .total-percentage {
+    font-size: 1.2em;
+    font-weight: 500;
+  }
+  
+  .text-success {
+    color: #28a745 !important;
+    font-weight: bold;
+  }
+  
+  .text-danger {
+    color: #dc3545 !important;
+    font-weight: bold;
+  }
+  
+  td {
+    text-align: center;
+  }
+  

@@ -6,5 +6,6 @@ export interface SubjectDuration{
     subjectMarks:number
     totalMarks:number;
     obtainedMarks:number;
-    
+    percentage:number;
+    passFailStatus:string;
 }

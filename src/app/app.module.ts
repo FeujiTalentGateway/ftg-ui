@@ -23,6 +23,7 @@ import { SharedModuleModule } from './shared-module/shared-module.module';
 import { RefreshDialogComponent } from './utils/refresh-dialog/refresh-dialog.component';
 import { ConfirmDialogforuserComponent } from './utils/confirm-dialogforuser/confirm-dialogforuser.component';
 import { MassageboxComponent } from './utils/massagebox/massagebox.component';
+import { NgxUiLoaderModule} from 'ngx-ui-loader';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { MassageboxComponent } from './utils/massagebox/massagebox.component';
     ReactiveFormsModule,
     MatDialogModule,
     SharedModuleModule,
+    NgxUiLoaderModule.forRoot({})
   ],
   providers: [
     SharedDataService,

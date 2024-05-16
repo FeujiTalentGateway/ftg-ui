@@ -55,9 +55,15 @@ Note: This documentation comment provides an overview of the structure and funct
           Total Score
         </th>
         <span class="mobile-label">Total Score: </span>
-        <td mat-cell *matCellDef="let userResult">
-          {{ userResult.marksObtain }}
+        <td mat-cell *matCellDef="let userResult" class="center-cell">
+          <ng-container *ngIf="userResult.totalMarks > 0; else noMarks">
+            {{ userResult.marksObtain }} / {{ userResult.totalMarks }}
+          </ng-container>
+          <ng-template #noMarks>
+            -
+          </ng-template>
         </td>
+        
       </ng-container>
       <ng-container matColumnDef="outCome">
         <th
@@ -80,35 +86,36 @@ Note: This documentation comment provides an overview of the structure and funct
       </ng-container>
 
       <ng-container matColumnDef="examStartDate">
-        <th
-          class="table-header"
-          mat-header-cell
-          *matHeaderCellDef
-          mat-sort-header
-        >
+        <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header>
           Exam Start Date
         </th>
         <span class="mobile-label">Exam Start Date : </span>
-        <td mat-cell *matCellDef="let userResult">
-          
-          {{ userResult.examStartedAt | date : "dd MMM yyyy HH:mm:ss" }}
+        <td mat-cell *matCellDef="let userResult" class="center-cell">
+          <ng-container *ngIf="userResult.examStartedAt; else noStartDate">
+            {{ userResult.examStartedAt | date : "dd MMM yyyy HH:mm:ss" }}
+          </ng-container>
+          <ng-template #noStartDate>
+            -
+          </ng-template>
         </td>
       </ng-container>
+      
 
       <ng-container matColumnDef="examCompletedAt">
-        <th
-          class="table-header"
-          mat-header-cell
-          *matHeaderCellDef
-          mat-sort-header
-        >
+        <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header>
           Exam Completed At
         </th>
         <span class="mobile-label">Exam Completed At : </span>
-        <td mat-cell *matCellDef="let userResult">
-          {{ userResult.examCompletedAt | date : "dd MMM yyyy HH:mm:ss" }}
+        <td mat-cell *matCellDef="let userResult" class="center-cell">
+          <ng-container *ngIf="userResult.examCompletedAt; else noCompletedDate">
+            {{ userResult.examCompletedAt | date : "dd MMM yyyy HH:mm:ss" }}
+          </ng-container>
+          <ng-template #noCompletedDate>
+            -
+          </ng-template>
         </td>
       </ng-container>
+      
 
       <ng-container matColumnDef="examStatus">
         <th

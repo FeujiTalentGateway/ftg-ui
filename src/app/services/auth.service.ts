@@ -8,6 +8,7 @@ import { UserLoginModel } from '../models/user-login.model';
 import { User } from '../models/user.model';
 import { AuthRepositoryService } from '../repository/auth-repository.service';
 import { UserdetailsService } from './userdetails.service';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 @Injectable({
   providedIn: 'root',
@@ -21,24 +22,29 @@ export class AuthService {
     private authRepo: AuthRepositoryService,
     private snackBar: MatSnackBar,
     private route: Router,
-    private userDetails: UserdetailsService
+    private userDetails: UserdetailsService,
+    private ngxLoader: NgxUiLoaderService
   ) {}
 
   // Handle user registration based on form data
 
   register(user: User) {
+    this.ngxLoader.start();
     // Send the registration data to the server and handle the response
     this.authRepo.register(user).subscribe({
       next: (response: any) => {
         const responseMessage: string = response.message;
+        this.ngxLoader.stop();
         this.openSnackBar(response.message, 'Close');
         if (responseMessage.includes('User successfully registered with')) {
           this.openSnackBar(responseMessage, 'Close');
           this.route.navigateByUrl('main/login');
         }
+        this.ngxLoader.stop();
       },
       error: (error: any) => {
         const responseMessage: string = error.error.message;
+        this.ngxLoader.stop();
         if (responseMessage == 'Username already exists') {
           this.openSnackBar(
             "Username '" + user.userName + "' already exists",
@@ -56,6 +62,7 @@ export class AuthService {
   }
   login(loginData: FormGroup) {
     localStorage.removeItem('Email-Token');
+    this.ngxLoader.start();
     // Create a new instance of LoginUser with the form data
     const user: UserLoginModel = {
       userName: loginData.value.userName,
@@ -64,6 +71,7 @@ export class AuthService {
 
     this.authRepo.login(user).subscribe({
       next: (response: any) => {
+        this.ngxLoader.stop();
         if (response.message == 'Successfully logged in') {
           this.openSnackBar('Login successfully', 'Close');
           this.setJwtToken(response.token);
@@ -88,6 +96,7 @@ export class AuthService {
         }
       },
       error: (error: any) => {
+        this.ngxLoader.stop();
         if (error.status === 400) {
           this.openSnackBar(error.error.message, 'Close');
         } else {

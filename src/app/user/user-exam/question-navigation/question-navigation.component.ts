@@ -34,7 +34,11 @@ export class QuestionNavigationComponent implements OnInit {
   previousQuestion(index: number): void {
     this.displayedNumber = index;
     this.changeQuestion(index+1);
-
    }
+
+   changeSubject(){
+    this.displayedNumber=0
+   }
+
   }
 

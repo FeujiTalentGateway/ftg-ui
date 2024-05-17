@@ -30,15 +30,14 @@
         disabled: i >= listOfQuestion.length,
         answered:
           listOfQuestion[i]?.optionSelected?.length !== 0 &&
-          i !== displayedNumber,
+          i !== displayedNumber && !(listOfQuestion[i]?.isMarkedForReview),
         'not-answered':
           listOfQuestion[i]?.optionSelected?.length === 0 &&
           i !== displayedNumber,
         '':
           listOfQuestion[i]?.optionSelected?.length === 0 &&
-          i === displayedNumber || listOfQuestion[i]?.optionSelected?.length !== 0 &&
           i === displayedNumber,
-        marked: listOfQuestion[i]?.isMarkedForReview && i !== displayedNumber
+        marked: listOfQuestion[i]?.isMarkedForReview
       }"
       (click)="i < listOfQuestion.length && previousQuestion(i)"
     >

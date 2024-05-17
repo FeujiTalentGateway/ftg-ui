@@ -8,6 +8,7 @@ import {
   ValidatorFn,
   ValidationErrors,
 } from '@angular/forms';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -47,7 +48,7 @@ export function passwordMatch(
 export class UserRegistrationComponent {
   @ViewChild('form') form!: NgForm;
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private ngxLoader: NgxUiLoaderService) {}
   name: string = '';
   confirmPassword: string = '';
   formSubmitted: boolean = false;
@@ -60,6 +61,10 @@ export class UserRegistrationComponent {
       emailId: this.registerForm.get('email')?.value,
       password: btoa(this.registerForm.get('password')?.value as string),
     };
+    this.ngxLoader.start(); // Show the loader
+      setTimeout(() => {
+        this.ngxLoader.stop(); // Hide the loader after some delay
+      }, 2000);
     this.authService.register(userData);
   }
 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -9,7 +10,7 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./user-login.component.css'],
 })
 export class UserLoginComponent implements OnInit {
-  constructor(private router: Router, private authService: AuthService) {}
+  constructor(private router: Router, private authService: AuthService, private ngxLoader: NgxUiLoaderService) {}
 
   // Properties to store user input and form state
   username: string = '';
@@ -40,6 +41,10 @@ export class UserLoginComponent implements OnInit {
 
     // Check if the form is valid
     if (this.userForm?.valid) {
+      this.ngxLoader.start(); // Show the loader
+      setTimeout(() => {
+        this.ngxLoader.stop(); // Hide the loader after some delay
+      }, 2000);
       this.authService.login(this.userForm);
     }
   }

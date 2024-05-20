@@ -196,7 +196,7 @@ export const ROUTES: RouteInfo[] = [
     role: ['Admin'],
     submenu: [
       {
-        path: '/admin/users/allUsers',
+        path: '/admin/users/view',
         title: 'All Users',
         modulename: 'users',
         iconType: '',

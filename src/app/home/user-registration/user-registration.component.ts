@@ -8,8 +8,10 @@ import {
   ValidatorFn,
   ValidationErrors,
 } from '@angular/forms';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth.service';
+import { EmailVerificationComponent } from '../email-verification/email-verification.component';
 
 // Custom validator function for username format
 function usernameFormatValidator(
@@ -47,12 +49,15 @@ export function passwordMatch(
 export class UserRegistrationComponent {
   @ViewChild('form') form!: NgForm;
 
-  constructor(private authService: AuthService) {}
+  constructor(public dialog: MatDialog,private authService:AuthService) {
+    
+  }
   name: string = '';
   confirmPassword: string = '';
   formSubmitted: boolean = false;
   newuser: User = new User();
-  createUser() {
+  dialogRef: any;
+  createUser() :User{
     const userData: User = {
       firstName: this.registerForm.get('firstName')?.value,
       lastName: this.registerForm.get('lastName')?.value,
@@ -60,7 +65,7 @@ export class UserRegistrationComponent {
       emailId: this.registerForm.get('email')?.value,
       password: btoa(this.registerForm.get('password')?.value as string),
     };
-    this.authService.register(userData);
+    return userData
   }
 
   registeredEmail!: string;
@@ -136,5 +141,22 @@ export class UserRegistrationComponent {
   // Function to handle user registration
   register(data: FormGroup) {
     this.createUser();
+    this.openDialog()
+  }
+
+
+  openDialog() {
+    let dialogConfig: MatDialogConfig = {
+      width: '50%',
+      height: '50%',
+      disableClose: true,
+    };
+    dialogConfig.data = {
+      user:this.createUser()
+    };
+    this.dialogRef = this.dialog.open(EmailVerificationComponent, dialogConfig);
+    this.dialogRef.afterClosed().subscribe((userData: any) => {
+        this.authService.register(userData);
+    });
   }
 }

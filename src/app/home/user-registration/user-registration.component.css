@@ -126,3 +126,7 @@ input {
 .icon-label i {
   color: #555;
 }
+.modal{
+  display: flex;
+}
+

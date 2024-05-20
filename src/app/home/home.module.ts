@@ -14,7 +14,11 @@ import { OtpVerificationComponent } from './otp-verification/otp-verification.co
 import { ResetPassowrdComponent } from './reset-passowrd/reset-passowrd.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
-
+import { MatCardModule } from '@angular/material/card';
+import { EmailVerificationComponent } from './email-verification/email-verification.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
+import { NgOtpInputComponent, NgOtpInputModule } from 'ng-otp-input';
 @NgModule({
   declarations: [
     UserRegistrationComponent,
@@ -27,7 +31,9 @@ import { MatDialogModule } from '@angular/material/dialog';
     ForgotPasswordComponent,
     OtpVerificationComponent,
     ResetPassowrdComponent,
+    EmailVerificationComponent,
   ],
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, HomeRoutingModule, MatIconModule, MatDialogModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, HomeRoutingModule, MatIconModule, MatDialogModule,
+    MatCardModule,MatFormFieldModule,MatButtonModule,NgOtpInputModule],
 })
 export class  HomeModule {}

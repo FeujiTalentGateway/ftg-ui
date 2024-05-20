@@ -23,9 +23,7 @@ export class AuthRepositoryService {
     return this.http.post(this.baseUrl + 'auth/login', loginData);
   }
   sendOtpToEmail(email: string): Observable<any> {
-    return this.http.get(this.baseUrl + 'account/generate-otp/' + email, {
-      observe: 'response',
-    });
+    return this.http.get(this.baseUrl + 'account/generate-otp/' + email)
   }
   setPasswordRequestForForgotPassword(
     forgotPasswordRequest: any,

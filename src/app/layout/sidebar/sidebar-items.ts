@@ -81,26 +81,6 @@ export const ROUTES: RouteInfo[] = [
     class: 'menu-toggle',
     role: ['Admin'],
     submenu: [
-      // {
-      //   path: '/admin/questionPapers/viewPapers',
-      //   title: 'View Papers',
-      //   modulename: 'questionPapers',
-      //   iconType: '',
-      //   icon: '',
-      //   class: 'ml-menu',
-      //   role: [''],
-      //   submenu: [],
-      // },
-      // {
-      //   path: "/admin/questionPapers/createPaper",
-      //   title: "Create Paper",
-      //   modulename: "questionPapers",
-      //   iconType: "",
-      //   icon: "",
-      //   class: "ml-menu",
-      //   role: [""],
-      //   submenu: [],
-      // },
       {
         path: '/admin/questionPapers/viewQuestions',
         title: 'View Questions',
@@ -164,16 +144,6 @@ export const ROUTES: RouteInfo[] = [
     class: 'menu-toggle',
     role: ['user'],
     submenu: [
-      // {
-      //   path: '/user/exam/view-exam',
-      //   title: 'List of Exams',
-      //   modulename: 'users',
-      //   iconType: '',
-      //   icon: '',
-      //   class: 'ml-menu',
-      //   role: [''],
-      //   submenu: [],
-      // },
       {
         path: '/user/exam/exam-code',
         title: 'Take-exam',
@@ -204,17 +174,7 @@ export const ROUTES: RouteInfo[] = [
         class: 'ml-menu',
         role: [''],
         submenu: [],
-      },
-      {
-        path: '/admin/users/editUser',
-        title: 'Edit User',
-        modulename: 'users',
-        iconType: '',
-        icon: '',
-        class: 'ml-menu',
-        role: [''],
-        submenu: [],
-      },
+      }
     ],
   },
   {
@@ -224,17 +184,39 @@ export const ROUTES: RouteInfo[] = [
     iconType: 'father',
     icon: 'fa-solid fa-user',
     class: 'menu-toggle',
-    role: ['Admin', 'invigilator', 'user'],
-    submenu: [],
+    role: ['Admin', 'invigilator'],
+    submenu: [
+      {
+        path: '/admin/profile',
+        title: 'Profile',
+        modulename: 'Profile',
+        iconType: '',
+        icon: '',
+        class: 'ml-menu',
+        role: [''],
+        submenu: [],
+      }
+    ],
   },
-  // {
-  //   path: '',
-  //   title: 'Settings',
-  //   modulename: 'Settings',
-  //   iconType: 'father',
-  //   icon: 'fa-solid fa-wrench',
-  //   class: 'menu-toggle',
-  //   role: ['Admin', 'invigilator', 'user'],
-  //   submenu: [],
-  // },
+  {
+    path: '',
+    title: 'Profile',
+    modulename: 'Profile',
+    iconType: 'father',
+    icon: 'fa-solid fa-user',
+    class: 'menu-toggle',
+    role: ['user'],
+    submenu: [
+      {
+        path: '/user/profile',
+        title: 'Profile',
+        modulename: 'Profile',
+        iconType: '',
+        icon: '',
+        class: 'ml-menu',
+        role: [''],
+        submenu: [],
+      }
+    ],
+  }
 ];

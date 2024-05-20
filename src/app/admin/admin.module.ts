@@ -7,6 +7,7 @@ import { HomeComponent } from './home/home.component';
 import { HighchartsChartModule } from 'highcharts-angular';
 import { CodeSnippetComponent } from './code-snippet/code-snippet.component';
 import { FormsModule } from '@angular/forms';
+import { ProfileComponent } from './profile/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { FormsModule } from '@angular/forms';
     AdminHomeComponent,
     HomeComponent,
     CodeSnippetComponent,
+    ProfileComponent,
     
   ],
   imports: [

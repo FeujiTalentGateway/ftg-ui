@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -22,11 +22,10 @@ export class AuthRepositoryService {
   login(loginData: UserLoginModel): Observable<any> {
     return this.http.post(this.baseUrl + 'auth/login', loginData);
   }
-  sendOtpToEmail(email: string): Observable<any> {
-    return this.http.get(this.baseUrl + 'account/generate-otp/' + email, {
-      observe: 'response',
-    });
+  sendOtpToEmail(email: string): Observable<HttpResponse<any>> {
+    return this.http.get<any>(`${this.baseUrl}account/generate-otp/${email}`, { observe: 'response' });
   }
+  
   setPasswordRequestForForgotPassword(
     forgotPasswordRequest: any,
     options: any

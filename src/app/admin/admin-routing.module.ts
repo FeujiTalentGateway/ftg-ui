@@ -3,11 +3,16 @@ import { RouterModule, Routes } from '@angular/router';
 import { AdminHomeComponent } from './admin-home/admin-home.component';
 import { adminGuard, loginGuard } from '../guards/auth.guard';
 import { HomeComponent } from './home/home.component';
+import { ProfileComponent } from './profile/profile/profile.component';
 
 const routes: Routes = [
   {
     path: 'home',
     component: AdminHomeComponent,
+  },
+  {
+    path :'profile',
+    component : ProfileComponent
   },
   {
     path: 'exams',
@@ -19,6 +24,7 @@ const routes: Routes = [
     path: 'users',
     loadChildren: () =>
       import('./users/users.module').then((m) => m.UsersModule),
+    canActivate: [adminGuard, loginGuard]
   },
   {
     path: 'questionPapers',

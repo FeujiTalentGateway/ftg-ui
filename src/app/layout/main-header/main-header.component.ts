@@ -41,4 +41,12 @@ export class MainHeaderComponent implements OnInit {
     this.toggleLayout.emit();
 
     }
+  
+    getProfile(){
+      if(this.auth.checkAdminRole()){
+        this.route.navigateByUrl('admin/profile')
+      }else if(this.auth.checkUserRole()){
+        this.route.navigateByUrl('user/profile')
+      }
+    }
 }

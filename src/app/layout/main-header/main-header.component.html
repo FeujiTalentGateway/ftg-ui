@@ -17,7 +17,7 @@
           <div>
             <div *ngIf="showDropdown" class="menu-dropdown">
               <ul>
-                <li class="drop-item">
+                <li class="drop-item" (click)="getProfile()">
                   <i class="fa-solid fa-user"></i> &nbsp;<span class="profile"
                     >Profile</span
                   >

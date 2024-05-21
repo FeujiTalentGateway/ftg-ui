@@ -91,8 +91,10 @@ export class OtpVerificationComponent {
   }
 
   resendOTP() {
-    const userName = this.userData.user.userName;
+    console.log(this.userData);
+    
+    // const userName = this.userData.user.userName;
     this.closeDialog();
-    this.forgotPassword.sendOtpToEmail(userName);
+    this.forgotPassword.sendOtpToEmail(this.userData.registeredEmail);
   }
 }

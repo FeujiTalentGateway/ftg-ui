@@ -5,6 +5,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Subscription } from 'rxjs';
 import { timer } from 'rxjs';
 import { ForgotPasswordService } from 'src/app/services/forgot-password.service';
@@ -32,6 +33,7 @@ export class OtpVerificationComponent {
     private ngZone: NgZone,
     private forgotPassword: ForgotPasswordService,
     public dialogRef: MatDialogRef<OtpVerificationComponent>,
+    private ngxLoaderService: NgxUiLoaderService,
     @Inject(MAT_DIALOG_DATA) public userData: any
   ) {}
 
@@ -91,10 +93,8 @@ export class OtpVerificationComponent {
   }
 
   resendOTP() {
-    console.log(this.userData);
-    
-    // const userName = this.userData.user.userName;
-    this.closeDialog();
+    this.ngxLoaderService.start();
+    // this.closeDialog();
     this.forgotPassword.sendOtpToEmail(this.userData.registeredEmail);
   }
 }

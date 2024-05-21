@@ -21,6 +21,7 @@ export class ForgotPasswordService {
     private matDialog: MatDialog,
     private ngxLoader: NgxUiLoaderService
   ) {}
+  
   openSnackBar(message: string, action: string) {
     this.snackBar.open(message, action, {
       duration: 3000,
@@ -30,10 +31,10 @@ export class ForgotPasswordService {
     });
   }
   sendOtpToEmail(email: string) {
-    this.ngxLoader.start();
+    this.ngxLoader.start()
     this.authRepo.sendOtpToEmail(email).subscribe({
       next: (response: HttpResponse<any>) => { 
-        this.ngxLoader.stop();     
+        this.ngxLoader.stopAll();    
         const responseBody = response.body;
         const responseStatus = response.status;
         
@@ -45,7 +46,6 @@ export class ForgotPasswordService {
           user = {
             registeredEmail: responseBody.email,
           };
-             
           this.dialogRef = this.openOtpVerifyComponent(user);
           
         }
@@ -55,7 +55,7 @@ export class ForgotPasswordService {
         }
       },
       error: (error: any) => {
-        this.ngxLoader.stop();
+        this.ngxLoader.stopAll();
         const errorMessage = error.error.message;
         console.error('Error received:', errorMessage);
         
@@ -69,19 +69,16 @@ export class ForgotPasswordService {
   }
   
   openOtpVerifyComponent(user: any) {
-    this.ngxLoader.start();
     const dialogConfig: MatDialogConfig = {
       width: '70%',
-      height: '50%',
+      height: '60%',
       disableClose: true,
       data: user,
     };
-  
     return this.matDialog.open(OtpVerificationComponent, dialogConfig);
   }
   
   verifyOtp(otp: String) {
-    this.ngxLoader.start();
     const headerKey: string = 'password-token';
     const passwordToken: string = sessionStorage.getItem(headerKey) as string;
     if(passwordToken === otp){
@@ -95,7 +92,6 @@ export class ForgotPasswordService {
     }
   }
   openResetPasswordComponent() {
-    this.ngxLoader.start();
     let dialogConfig: MatDialogConfig = {
       width: '100%',
       height: '100%',
@@ -104,8 +100,7 @@ export class ForgotPasswordService {
     this.route.navigate(['/main/reset-password']);
   }
 
-  setPasswordRequestForForgotPassword(forgotPasswordRequestForm: FormGroup) {
-    this.ngxLoader.start();
+  forgotPassword(forgotPasswordRequestForm: FormGroup) {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
@@ -122,7 +117,6 @@ export class ForgotPasswordService {
       .setPasswordRequestForForgotPassword(forgotPasswordRequest, options)
       .subscribe({
         next: (response: any) => {
-          this.ngxLoader.stop();
           if (response.message === 'password changed') {
             this.openSnackBar('Password changed successfully', 'Close');
             sessionStorage.removeItem('password-token');
@@ -130,7 +124,6 @@ export class ForgotPasswordService {
           }
         },
         error: (error: any) => {
-          this.ngxLoader.stop();
           this.openSnackBar( error.error.message, 'Close');
           sessionStorage.removeItem('password-token');
         },

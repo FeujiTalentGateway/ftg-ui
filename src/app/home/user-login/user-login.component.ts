@@ -41,10 +41,10 @@ export class UserLoginComponent implements OnInit {
 
     // Check if the form is valid
     if (this.userForm?.valid) {
-      // this.ngxLoader.start(); // Show the loader
-      // setTimeout(() => {
-      //   this.ngxLoader.stop(); // Hide the loader after some delay
-      // }, 2000);
+      this.ngxLoader.start(); // Show the loader
+      setTimeout(() => {
+        this.ngxLoader.stop(); // Hide the loader after some delay
+      }, 2000);
       this.authService.login(this.userForm);
     }
   }

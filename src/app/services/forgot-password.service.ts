@@ -38,7 +38,7 @@ export class ForgotPasswordService {
           sessionStorage.setItem('email', email);
           user = {
             //userName: responseBody.userName,
-            registeredEmail: responseBody.registeredEmail,
+            registeredEmail:response.body.email,
           };
           this.dialogRef = this.openOtpVerifyComponent(user);
         }

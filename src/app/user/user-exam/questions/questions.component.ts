@@ -53,7 +53,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
   arrow: boolean = false;
   questionNavigation: boolean = false;
   defaultSubjectIndex: number = 0;
-
+  subjectIsExits:boolean=false;
   ngOnInit(): void {
     this.currentSubject = this.exam.examSubjects[this.indexPositionOfTheExam];
     this.indexPositionOfSubject$ = this.sharedData.indexPositionOfSubject$;
@@ -66,7 +66,6 @@ export class QuestionsComponent implements OnInit, OnDestroy {
       (response) => {
         this.nextSubjectLoading = true;
         response.question['optionSelected'] = [];
-        response.question['isMarkedForReview'] = false;
         this.currentQuestion = response.question;
 
         this.examAttemptID = response.attemptId;
@@ -204,9 +203,10 @@ export class QuestionsComponent implements OnInit, OnDestroy {
       isUpdating
     );
     if (isSkipped) {
-      currentQuestionData.isMarkedForReview = false;
+      // currentQuestionData.isMarkedForReview = false;
       this.skipTheCurrentQuestionAndGetNewQuestion(currentQuestionData);
-    } else if (this.currentQuestionIndex < this.listOfQuestion.length - 1) {
+    }
+     else if (this.currentQuestionIndex < this.listOfQuestion.length - 1) {
       this.currentQuestion = this.listOfQuestion[this.currentQuestionIndex];
       currentQuestionData.isUpdating = true;
       this.updateOption(currentQuestionData);
@@ -227,7 +227,9 @@ export class QuestionsComponent implements OnInit, OnDestroy {
    */
 
   saveOptionAndGetNewQuestion(currentQuestionData: any) {
-    currentQuestionData.isMarkedForReview = false;
+    if(currentQuestionData.isMarkedForReview==null){
+    currentQuestionData.isMarkedForReview=false;
+    }
     this.question$ = this.ExamRepo.submitQuestion(currentQuestionData);
     this.question$.subscribe((response) => {
       if (response != null) {
@@ -246,7 +248,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
    * @method updateOption() this method is for updating the option
    */
   updateOption(currentQuestionData: any) {
-    currentQuestionData.isMarkedForReview = false;
+
     this.question$ = this.ExamRepo.submitQuestion(currentQuestionData);
     this.question$.subscribe((response) => {
       if (response != null) {
@@ -256,6 +258,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
       }
       this.currentQuestion = this.listOfQuestion[this.currentQuestionIndex];
     });
+
   }
 
   /**
@@ -293,7 +296,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
    * @method getSelectedOptions() this method is for getting the selected options
    */
   getSelectedOptions(): [] {
-    let optionArray = [];
+    let optionArray =  [];
     optionArray = this.currentQuestion?.optionSelected?.map(
       (opt) => opt.id
     ) as [];
@@ -319,7 +322,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
   }
 
   /**
- 
+
    * @returns it will return the true or false
   * @method checkLastQuestionOrNot() this method is for checking the last question or not
    */
@@ -390,9 +393,9 @@ export class QuestionsComponent implements OnInit, OnDestroy {
     let subject = this.exam.examSubjects[indexPositionOfSubject.value];
     this.sharedData.updateSubjectIndex(indexPositionOfSubject.value);
     this.currentSubject = subject;
-    let subjectIsExits = this.checkSubjectIsExitsOrNot(this.currentSubject);
+    this.subjectIsExits = this.checkSubjectIsExitsOrNot(this.currentSubject);
 
-    if (!subjectIsExits) {
+    if (!this.subjectIsExits) {
       this.listOfQuestion = [];
       this.currentQuestionIndex = 0;
       this.currentSubject = subject;
@@ -412,7 +415,11 @@ export class QuestionsComponent implements OnInit, OnDestroy {
         (item) => item.subjectId === subject.subject.id
       )?.questions as Question[];
       this.currentQuestion = this.listOfQuestion[this.currentQuestionIndex];
+
+      console.log(this.childComponent.listOfQuestion)
+
     }
+   this.childComponent.changeSubject()
   }
 
   /**

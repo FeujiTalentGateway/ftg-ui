@@ -1,4 +1,4 @@
-import { Component, NgZone, Inject  } from '@angular/core';
+import { Component, NgZone, Inject } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
@@ -6,8 +6,7 @@ import {
 } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
-import { Subscription } from 'rxjs';
-import { timer } from 'rxjs';
+import { Subscription, timer } from 'rxjs';
 import { ForgotPasswordService } from 'src/app/services/forgot-password.service';
 
 @Component({
@@ -26,6 +25,7 @@ export class OtpVerificationComponent {
   });
 
   remainingTime = 60; // 1 minute in seconds
+  isResendDisabled = true; // Initially disable resend button
   timerSubscription!: Subscription;
 
   constructor(
@@ -48,7 +48,6 @@ export class OtpVerificationComponent {
     }
   }
 
-  // otp-verify.component.ts
   focusNextInput(index: number) {
     const nextIndex = index + 1;
     if (nextIndex < 6) {
@@ -68,6 +67,7 @@ export class OtpVerificationComponent {
         this.remainingTime--;
 
         if (this.remainingTime <= 0) {
+          this.isResendDisabled = false; // Enable resend button after 1 minute
           this.timerSubscription.unsubscribe();
         }
       });
@@ -93,8 +93,10 @@ export class OtpVerificationComponent {
   }
 
   resendOTP() {
-    this.ngxLoaderService.start();
-    this.forgotPassword.sendOtpToEmail(this.userData.registeredEmail);
-    this.closeDialog();
+    if (!this.isResendDisabled) {
+      this.ngxLoaderService.start();
+      this.forgotPassword.sendOtpToEmail(this.userData.registeredEmail);
+      this.closeDialog();
+    }
   }
 }

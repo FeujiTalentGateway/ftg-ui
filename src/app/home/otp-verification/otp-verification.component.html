@@ -63,7 +63,15 @@
                       value="Submit OTP"
                     />
                   </div>
-                  <div class="rout" (click)="resendOTP()">Resend OTP</div>
+                  <div class="rout">
+                    <button
+                    type="button"
+                    class="btn btn-link"
+                    (click)="resendOTP()"
+                    [disabled]="isResendDisabled"
+                  >Resend OTP
+                  </button>
+                </div>
                 </div>
               </form>
             </div>

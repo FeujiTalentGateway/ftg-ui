@@ -94,7 +94,7 @@ export class OtpVerificationComponent {
 
   resendOTP() {
     this.ngxLoaderService.start();
-    // this.closeDialog();
     this.forgotPassword.sendOtpToEmail(this.userData.registeredEmail);
+    this.closeDialog();
   }
 }

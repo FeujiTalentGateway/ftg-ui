@@ -4,9 +4,10 @@ import { Router } from '@angular/router';
 import { FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { HttpHeaders } from '@angular/common/http';
+import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ForgotPasswordRequest } from '../models/forgotPasswordRequest';
 import { OtpVerificationComponent } from '../home/otp-verification/otp-verification.component';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 @Injectable({
   providedIn: 'root'
 })
@@ -18,6 +19,7 @@ export class ForgotPasswordService {
     private snackBar: MatSnackBar,
     private route: Router,
     private matDialog: MatDialog,
+    private ngxLoader: NgxUiLoaderService
   ) {}
   openSnackBar(message: string, action: string) {
     this.snackBar.open(message, action, {
@@ -28,48 +30,58 @@ export class ForgotPasswordService {
     });
   }
   sendOtpToEmail(email: string) {
+    this.ngxLoader.start();
     this.authRepo.sendOtpToEmail(email).subscribe({
-      next: (response: any) => {
-        const responseBody = response;
+      next: (response: HttpResponse<any>) => { 
+        this.ngxLoader.stop();     
+        const responseBody = response.body;
         const responseStatus = response.status;
-        if(responseStatus === 200){
+        
+        if (responseStatus === 200) {          
           let user: any;
-          sessionStorage.setItem('password-token',response.body.otp);
+          sessionStorage.setItem('password-token', responseBody.otp);
           sessionStorage.setItem('email', email);
+          
           user = {
-            //userName: responseBody.userName,
-            registeredEmail:response.body.email,
+            registeredEmail: responseBody.email,
           };
+             
           this.dialogRef = this.openOtpVerifyComponent(user);
+          
         }
-        if(response.message==='email not found'){
+        
+        if (responseBody.message === 'email not found') {
           this.openSnackBar("Account not found", 'Close');
         }
       },
       error: (error: any) => {
+        this.ngxLoader.stop();
         const errorMessage = error.error.message;
-        if(errorMessage==='email not found'){
+        console.error('Error received:', errorMessage);
+        
+        if (errorMessage === 'email not found') {
           this.openSnackBar("Account not found", 'Close');
+        } else {
+          this.openSnackBar(errorMessage, 'Close');
         }
-        else this.openSnackBar(errorMessage, 'Close');
-        // if (errorMessage === 'No user exists with email: ' + email) {
-        //   this.openSnackBar(errorMessage, 'Close');
-        // }
       },
     });
   }
+  
   openOtpVerifyComponent(user: any) {
-    let dialogConfig: MatDialogConfig = {
+    this.ngxLoader.start();
+    const dialogConfig: MatDialogConfig = {
       width: '70%',
       height: '50%',
       disableClose: true,
+      data: user,
     };
-    dialogConfig.data = {
-      user: user,
-    };
+  
     return this.matDialog.open(OtpVerificationComponent, dialogConfig);
   }
+  
   verifyOtp(otp: String) {
+    this.ngxLoader.start();
     const headerKey: string = 'password-token';
     const passwordToken: string = sessionStorage.getItem(headerKey) as string;
     if(passwordToken === otp){
@@ -83,6 +95,7 @@ export class ForgotPasswordService {
     }
   }
   openResetPasswordComponent() {
+    this.ngxLoader.start();
     let dialogConfig: MatDialogConfig = {
       width: '100%',
       height: '100%',
@@ -92,6 +105,7 @@ export class ForgotPasswordService {
   }
 
   setPasswordRequestForForgotPassword(forgotPasswordRequestForm: FormGroup) {
+    this.ngxLoader.start();
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
@@ -103,18 +117,20 @@ export class ForgotPasswordService {
 
     const options = { headers: headers };
 
+
     this.authRepo
       .setPasswordRequestForForgotPassword(forgotPasswordRequest, options)
       .subscribe({
         next: (response: any) => {
+          this.ngxLoader.stop();
           if (response.message === 'password changed') {
-            
             this.openSnackBar('Password changed successfully', 'Close');
             sessionStorage.removeItem('password-token');
             this.route.navigate(['/main/login']);
           }
         },
         error: (error: any) => {
+          this.ngxLoader.stop();
           this.openSnackBar( error.error.message, 'Close');
           sessionStorage.removeItem('password-token');
         },

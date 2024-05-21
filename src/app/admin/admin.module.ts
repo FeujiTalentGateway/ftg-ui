@@ -11,8 +11,6 @@ import { ProfileComponent } from './profile/profile/profile.component';
 
 @NgModule({
   declarations: [
-
-  
     AdminHomeComponent,
     HomeComponent,
     CodeSnippetComponent,

@@ -61,10 +61,6 @@ export class UserRegistrationComponent {
       emailId: this.registerForm.get('email')?.value,
       password: btoa(this.registerForm.get('password')?.value as string),
     };
-    // this.ngxLoader.start(); // Show the loader
-    //   setTimeout(() => {
-    //     this.ngxLoader.stop(); // Hide the loader after some delay
-    //   }, 2000);
     this.authService.register(userData);
   }
 

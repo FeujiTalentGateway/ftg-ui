@@ -22,10 +22,11 @@ export class AuthRepositoryService {
   login(loginData: UserLoginModel): Observable<any> {
     return this.http.post(this.baseUrl + 'auth/login', loginData);
   }
-  sendOtpToEmail(email: string): Observable<any> {
-    return this.http.get(this.baseUrl + 'account/generate-otp/' + email,{ observe: 'response' })
+  sendOtpToEmail(email: string): Observable<HttpResponse<any>> {
+    return this.http.get<any>(`${this.baseUrl}account/generate-otp/${email}`, { observe: 'response' });
   }
-    setPasswordRequestForForgotPassword(
+  
+  setPasswordRequestForForgotPassword(
     forgotPasswordRequest: any,
     options: any
   ) {

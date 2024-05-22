@@ -49,4 +49,8 @@ export class AuthRepositoryService {
       requestOptions
     );
   }
+
+  changePassword(data: any): Observable<any> {
+    return this.http.put(this.baseUrl + 'user/changePassword', data);
+  }
 }

@@ -41,4 +41,8 @@ export class MainHeaderComponent implements OnInit {
     this.toggleLayout.emit();
 
     }
+    forgotPassword(){
+      console.log("Hi Forgot Password");
+      
+    }
 }

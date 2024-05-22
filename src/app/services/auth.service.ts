@@ -133,9 +133,10 @@ export class AuthService {
   openSnackBar(message: string, action: string) {
     this.snackBar.open(message, action, {
       duration: 3000,
-      panelClass: 'centered-snackbar',
+      // panelClass: 'centered-snackbar',
       verticalPosition: 'top',
       horizontalPosition: 'center',
+      panelClass: ['custom-snackbar']
     });
   }
   templogin(loginData: FormGroup) {

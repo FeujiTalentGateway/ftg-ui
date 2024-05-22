@@ -1,12 +1,12 @@
-import { Component, NgZone, Inject  } from '@angular/core';
+import { Component, NgZone, Inject } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
   Validators,
 } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Subscription } from 'rxjs';
-import { timer } from 'rxjs';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { Subscription, timer } from 'rxjs';
 import { ForgotPasswordService } from 'src/app/services/forgot-password.service';
 
 @Component({
@@ -25,6 +25,7 @@ export class OtpVerificationComponent {
   });
 
   remainingTime = 60; // 1 minute in seconds
+  isResendDisabled = true; // Initially disable resend button
   timerSubscription!: Subscription;
 
   constructor(
@@ -32,6 +33,7 @@ export class OtpVerificationComponent {
     private ngZone: NgZone,
     private forgotPassword: ForgotPasswordService,
     public dialogRef: MatDialogRef<OtpVerificationComponent>,
+    private ngxLoaderService: NgxUiLoaderService,
     @Inject(MAT_DIALOG_DATA) public userData: any
   ) {}
 
@@ -46,7 +48,6 @@ export class OtpVerificationComponent {
     }
   }
 
-  // otp-verify.component.ts
   focusNextInput(index: number) {
     const nextIndex = index + 1;
     if (nextIndex < 6) {
@@ -66,6 +67,7 @@ export class OtpVerificationComponent {
         this.remainingTime--;
 
         if (this.remainingTime <= 0) {
+          this.isResendDisabled = false; // Enable resend button after 1 minute
           this.timerSubscription.unsubscribe();
         }
       });
@@ -91,10 +93,10 @@ export class OtpVerificationComponent {
   }
 
   resendOTP() {
-    console.log(this.userData);
-    
-    // const userName = this.userData.user.userName;
-    this.closeDialog();
-    this.forgotPassword.sendOtpToEmail(this.userData.registeredEmail);
+    if (!this.isResendDisabled) {
+      this.ngxLoaderService.start();
+      this.forgotPassword.sendOtpToEmail(this.userData.registeredEmail);
+      this.closeDialog();
+    }
   }
 }

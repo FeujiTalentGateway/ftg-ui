@@ -16,7 +16,7 @@ import { ForgotPasswordService } from 'src/app/services/forgot-password.service'
 export class ResetPassowrdComponent {
   passwordVisible: boolean = false;
   confirmPasswordVisible: boolean = false;
-  constructor(private forgotPassword: ForgotPasswordService) {}
+  constructor(private forgotPasswordService: ForgotPasswordService) {}
 
   // Form group for registration
   forgotPasswordRequestForm = new FormGroup(
@@ -50,7 +50,7 @@ export class ResetPassowrdComponent {
     this.confirmPasswordVisible = !this.confirmPasswordVisible;
   }
 
-  register(data: FormGroup) {
-    this.forgotPassword.setPasswordRequestForForgotPassword(data);
+  forgotPassword(data: FormGroup) {
+    this.forgotPasswordService.forgotPassword(data);
   }
 }

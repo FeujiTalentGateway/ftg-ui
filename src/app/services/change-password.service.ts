@@ -6,27 +6,31 @@ import { MatDialog } from '@angular/material/dialog';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ChangePasswordService {
-
-  constructor(private authRepo: AuthRepositoryService,
+  constructor(
+    private authRepo: AuthRepositoryService,
     private snackBar: MatSnackBar,
     private router: Router,
-    private matDialog: MatDialog,) { }
+    private matDialog: MatDialog
+  ) {}
 
   private snackBarConfig: MatSnackBarConfig = {
     duration: 3000,
     horizontalPosition: 'right',
-    verticalPosition: 'top'
+    verticalPosition: 'top',
   };
 
   changePassword(data: any): Observable<any> {
     return this.authRepo.changePassword(data).pipe(
       map((response) => {
-        console.log(response)
         // Handle success
-        this.snackBar.open('Password changed successfully!', 'Close', this.snackBarConfig);
+        this.snackBar.open(
+          'Password changed successfully!',
+          'Close',
+          this.snackBarConfig
+        );
         this.matDialog.closeAll();
         this.router.navigate(['main/login']);
         return response;
@@ -34,12 +38,10 @@ export class ChangePasswordService {
       catchError((error) => {
         //Handle Error
         let errorMessage = error.error.message;
-
-        if (error.status === 0 || error.status===500) {
-
-          errorMessage = 'An internal server error occurred. Please try again later.';
+        if (error.status === 0 || error.status === 500) {
+          errorMessage =
+            'An internal server error occurred. Please try again later.';
         }
-
         this.snackBar.open(errorMessage, 'Close', this.snackBarConfig);
         return throwError(error);
       })

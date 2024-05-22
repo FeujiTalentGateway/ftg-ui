@@ -65,24 +65,22 @@ export class ChangePasswordComponent {
   }
   onSubmit() {
     if (this.changePasswordRequestForm.valid) {
-      const pass ={
-        oldPassword : btoa(this.changePasswordRequestForm.get('oldPassword')?.value as string),
-        newPassword : btoa(this.changePasswordRequestForm.get('password')?.value as string)
-      }
-     //btoa(this.registerForm.get('password')?.value as string)
-      console.log('Form Submitted', pass);
-      this.changePasswordService
-        .changePassword(pass)
-        .subscribe(
-          (response) => {
-            console.log(response)
-            console.log('Password changed successfully', response);
-          },
-          (error) => {
-            console.log(error)
-            console.error('Error changing password', error);
-          }
-        );
+      const pass = {
+        oldPassword: btoa(
+          this.changePasswordRequestForm.get('oldPassword')?.value as string
+        ),
+        newPassword: btoa(
+          this.changePasswordRequestForm.get('password')?.value as string
+        ),
+      };
+      this.changePasswordService.changePassword(pass).subscribe(
+        (response) => {
+          console.log('Password changed successfully', response);
+        },
+        (error) => {
+          console.error('Error changing password', error);
+        }
+      );
     }
   }
 }

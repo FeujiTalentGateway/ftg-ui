@@ -85,7 +85,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
       },
       (error) => {
         console.log(error.error.message);
-        this.snackBar.openSnackBar(error.error.message);
+        this.snackBar.openRedAlertSnackBar(error.error.message);
       }
     );
     this.sharedData.updateExamAttempt(this.examAttemptID as number);

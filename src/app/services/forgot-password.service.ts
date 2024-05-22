@@ -8,6 +8,7 @@ import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ForgotPasswordRequest } from '../models/forgotPasswordRequest';
 import { OtpVerificationComponent } from '../home/otp-verification/otp-verification.component';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { SnackBarService } from './snack-bar.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -16,20 +17,12 @@ export class ForgotPasswordService {
   roles :any []=[];
   constructor(
     private authRepo: AuthRepositoryService,
-    private snackBar: MatSnackBar,
+    private snackBar: SnackBarService,
     private route: Router,
     private matDialog: MatDialog,
-    private ngxLoader: NgxUiLoaderService
+    private ngxLoader: NgxUiLoaderService,
+
   ) {}
-  
-  openSnackBar(message: string, action: string) {
-    this.snackBar.open(message, action, {
-      duration: 3000,
-      panelClass: 'centered-snackbar', // Apply a custom CSS class
-      verticalPosition: 'top',
-      horizontalPosition: 'center',
-    });
-  }
   sendOtpToEmail(email: string) {
     this.ngxLoader.start()
     this.authRepo.sendOtpToEmail(email).subscribe({
@@ -51,7 +44,7 @@ export class ForgotPasswordService {
         }
         
         if (responseBody.message === 'email not found') {
-          this.openSnackBar("Account not found", 'Close');
+          this.snackBar.openSnackBarForError("Account not found", 'Close');
         }
       },
       error: (error: any) => {
@@ -60,9 +53,9 @@ export class ForgotPasswordService {
         console.error('Error received:', errorMessage);
         
         if (errorMessage === 'email not found') {
-          this.openSnackBar("Account not found", 'Close');
+          this.snackBar.openSnackBarForError("Account not found", 'Close');
         } else {
-          this.openSnackBar(errorMessage, 'Close');
+          this.snackBar.openSnackBarForError(errorMessage, 'Close');
         }
       },
     });
@@ -82,13 +75,13 @@ export class ForgotPasswordService {
     const headerKey: string = 'password-token';
     const passwordToken: string = sessionStorage.getItem(headerKey) as string;
     if(passwordToken === otp){
-      this.openSnackBar("Success", 'Close');
+      this.snackBar.openSnackBarSuccessMessage("Success", 'Close');
       this.dialogRef.close();
       this.dialogRef = this.openResetPasswordComponent();
     }
     else{
-      if(otp===null)this.openSnackBar("Something went wrong. Try later", 'Close');
-      else this.openSnackBar("Incorrect otp", 'Close');
+      if(otp===null)this.snackBar.openSnackBarForError("Something went wrong. Try later", 'Close');
+      else this.snackBar.openSnackBarForError("Incorrect otp", 'Close');
     }
   }
   openResetPasswordComponent() {
@@ -118,13 +111,13 @@ export class ForgotPasswordService {
       .subscribe({
         next: (response: any) => {
           if (response.message === 'password changed') {
-            this.openSnackBar('Password changed successfully', 'Close');
+            this.snackBar.openSnackBarSuccessMessage('Password changed successfully', 'Close');
             sessionStorage.removeItem('password-token');
             this.route.navigate(['/main/login']);
           }
         },
         error: (error: any) => {
-          this.openSnackBar( error.error.message, 'Close');
+          this.snackBar.openSnackBarForError( error.error.message, 'Close');
           sessionStorage.removeItem('password-token');
         },
       });

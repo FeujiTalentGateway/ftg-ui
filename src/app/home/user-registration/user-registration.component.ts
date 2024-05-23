@@ -11,7 +11,6 @@ import {
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth.service';
-import { EmailVerificationComponent } from '../email-verification/email-verification.component';
 
 // Custom validator function for username format
 function usernameFormatValidator(
@@ -147,18 +146,5 @@ export class UserRegistrationComponent {
   }
 
 
-  openDialog() {
-    let dialogConfig: MatDialogConfig = {
-      width: '50%',
-      height: '50%',
-      disableClose: true,
-    };
-    dialogConfig.data = {
-      user:this.createUser()
-    };
-    this.dialogRef = this.dialog.open(EmailVerificationComponent, dialogConfig);
-    this.dialogRef.afterClosed().subscribe((userData: any) => {
-        this.authService.register(userData);
-    });
-  }
+ 
 }

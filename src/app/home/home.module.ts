@@ -15,7 +15,6 @@ import { ResetPassowrdComponent } from './reset-passowrd/reset-passowrd.componen
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatCardModule } from '@angular/material/card';
-import { EmailVerificationComponent } from './email-verification/email-verification.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { NgOtpInputComponent, NgOtpInputModule } from 'ng-otp-input';
@@ -31,7 +30,6 @@ import { NgOtpInputComponent, NgOtpInputModule } from 'ng-otp-input';
     ForgotPasswordComponent,
     OtpVerificationComponent,
     ResetPassowrdComponent,
-    EmailVerificationComponent,
   ],
   imports: [CommonModule, FormsModule, ReactiveFormsModule, HomeRoutingModule, MatIconModule, MatDialogModule,
     MatCardModule,MatFormFieldModule,MatButtonModule,NgOtpInputModule],

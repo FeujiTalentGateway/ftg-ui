@@ -38,6 +38,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
     examSubjects: [],
     users: []
   };
+  defaultSubjectIndex:number=0
   alredyVisited:boolean=false
   codingSubjectName="Coding Questions"
   currentQuestionIndex = 0;

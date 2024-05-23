@@ -143,24 +143,24 @@
     <div class="exam-header d-flex justify-content-center align-items-center">
       <!-- Buttons -->
       <div class="ml-auto">
-        <button class="btn btn-primary btn-sm" 
+        <button class="btn btn-primary btn-sm"
         (click)="runCode()">
         <i class="fas fa-play"></i>
          Run
         </button> &nbsp;&nbsp;
         <button class="btn btn-success btn-sm"
          (click)="submitCode()">
-         <i class="fas fa-check"></i> 
+         <i class="fas fa-check"></i>
          Submit
         </button> &nbsp;&nbsp;
-        <button class="btn btn-info btn-sm" 
+        <button class="btn btn-info btn-sm"
         *ngIf="!(this.currentCodingQuestionIndex == 0)" (click)="previousCodingQuestion()">
         <i class="fas fa-chevron-left"></i>
          Previous
         </button>&nbsp;&nbsp;
-        <button class="btn btn-info btn-sm" 
+        <button class="btn btn-info btn-sm"
         *ngIf="!(this.currentCodingQuestionIndex==codingQuestions.length-1)"
-        (click)="nextCodingQuestion()">Next 
+        (click)="nextCodingQuestion()">Next
         <i class="fas fa-chevron-right"></i>
       </button>
       </div>

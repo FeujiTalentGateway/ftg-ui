@@ -50,7 +50,7 @@ import { MatIconModule } from '@angular/material/icon';
     FormsModule,
     SharedModuleModule,
     AdminModule,
-    MatSelectModule
+    MatSelectModule,
     MatIconModule
   ],
 })

@@ -8,6 +8,7 @@ import { UserLoginModel } from '../models/user-login.model';
 import { User } from '../models/user.model';
 import { AuthRepositoryService } from '../repository/auth-repository.service';
 import { UserdetailsService } from './userdetails.service';
+import { ForgotPasswordService } from './forgot-password.service';
 
 @Injectable({
   providedIn: 'root',
@@ -16,41 +17,45 @@ export class AuthService {
   private userPayload: any;
   authTokenKey: string = environment.authTokenKey;
   dialogRef: any;
+  user!:User;
   roles: any[] = [];
   constructor(
     private authRepo: AuthRepositoryService,
     private snackBar: MatSnackBar,
     private route: Router,
-    private userDetails: UserdetailsService
+    private userDetails: UserdetailsService,
+    private forgotPasswordService:ForgotPasswordService,
   ) {}
 
   // Handle user registration based on form data
 
   register(user: User) {
+    this.user=user;
     // Send the registration data to the server and handle the response
     this.authRepo.register(user).subscribe({
       next: (response: any) => {
         const responseMessage: string = response.message;
         this.openSnackBar(response.message, 'Close');
-        if (responseMessage.includes('User successfully registered with')) {
-          this.openSnackBar(responseMessage, 'Close');
-          this.route.navigateByUrl('main/login');
-        }
+        this.forgotPasswordService.openOtpVerifyComponent(this.userDetails);
       },
       error: (error: any) => {
         const responseMessage: string = error.error.message;
+        console.log(error)
         if (responseMessage == 'Username already exists') {
           this.openSnackBar(
             "Username '" + user.userName + "' already exists",
             'Close'
           );
-        } else if (responseMessage == 'Email already exists') {
+        } else if (responseMessage == 'Email not verified. Please verify the email') {
           this.openSnackBar(
-            "Email '" + user.emailId + "' already exists",
+            "Email '" + user.emailId + "' already exists.Email not verified.Please verify the email",
             'Close'
           );
+          this.forgotPasswordService.openOtpVerifyComponent(this.user);
         }
-        this.openSnackBar(responseMessage, 'Close');
+        else{
+          this.openSnackBar(responseMessage, 'Close');
+        }
       },
     });
   }

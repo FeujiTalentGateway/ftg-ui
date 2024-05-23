@@ -65,7 +65,9 @@ export class UserRegistrationComponent {
       emailId: this.registerForm.get('email')?.value,
       password: btoa(this.registerForm.get('password')?.value as string),
     };
+    this.authService.register(userData);
     return userData
+    
   }
 
   registeredEmail!: string;
@@ -141,7 +143,7 @@ export class UserRegistrationComponent {
   // Function to handle user registration
   register(data: FormGroup) {
     this.createUser();
-    this.openDialog()
+    //this.openDialog()
   }
 
 

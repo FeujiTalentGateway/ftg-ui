@@ -7,6 +7,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { HttpHeaders } from '@angular/common/http';
 import { ForgotPasswordRequest } from '../models/forgotPasswordRequest';
 import { OtpVerificationComponent } from '../home/otp-verification/otp-verification.component';
+import { Otp } from '../models/otpDto.model';
 @Injectable({
   providedIn: 'root'
 })
@@ -69,18 +70,37 @@ export class ForgotPasswordService {
     };
     return this.matDialog.open(OtpVerificationComponent, dialogConfig);
   }
-  verifyOtp(otp: String) {
-    const headerKey: string = 'password-token';
-    const passwordToken: string = sessionStorage.getItem(headerKey) as string;
-    if(passwordToken === otp){
-      this.openSnackBar("Success", 'Close');
-      this.dialogRef.close();
-      this.dialogRef = this.openResetPasswordComponent();
-    }
-    else{
-      if(otp===null)this.openSnackBar("Something went wrong. Try later", 'Close');
-      else this.openSnackBar("Incorrect otp", 'Close');
-    }
+  verifyOtp(otp: Otp) {
+    this.authRepo.verifyOtp(otp)
+    .subscribe({
+      next: (response: any) => {
+        if (response.message === 'Account verified successfully. Please login') {
+          this.openSnackBar('Account verified successfully. Please login', 'Close');
+          this.dialogRef.close();
+          this.route.navigate(['/main/login']);
+        }
+        else if(response.message ==='Invalid OTP'){
+          this.openSnackBar("Incorrect otp", 'Close')
+        }
+        else{
+          this.openSnackBar("Something went wrong. Try later", 'Close');
+        }
+      },
+      error: (error: any) => {
+        this.openSnackBar( error.error.message, 'Close');
+      },
+    });
+    // const headerKey: string = 'password-token';
+    // const passwordToken: string = sessionStorage.getItem(headerKey) as string;
+    // if(passwordToken === otp){
+    //   this.openSnackBar("Success", 'Close');
+    //   this.dialogRef.close();
+    //   this.dialogRef = this.openResetPasswordComponent();
+    // }
+    // else{
+    //   if(otp===null)this.openSnackBar("Something went wrong. Try later", 'Close');
+    //   else this.openSnackBar("Incorrect otp", 'Close');
+    // }
   }
   openResetPasswordComponent() {
     let dialogConfig: MatDialogConfig = {

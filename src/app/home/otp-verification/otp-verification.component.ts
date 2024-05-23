@@ -7,6 +7,7 @@ import {
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { timer } from 'rxjs';
+import { Otp } from 'src/app/models/otpDto.model';
 import { ForgotPasswordService } from 'src/app/services/forgot-password.service';
 
 @Component({
@@ -26,7 +27,7 @@ export class OtpVerificationComponent {
 
   remainingTime = 60; // 1 minute in seconds
   timerSubscription!: Subscription;
-
+  otpModel!:Otp;
   constructor(
     private fb: FormBuilder,
     private ngZone: NgZone,
@@ -85,14 +86,16 @@ export class OtpVerificationComponent {
   submitOtp() {
     if (this.otpForm.valid) {
       const enteredOtp = Object.values(this.otpForm.value).join('');
-      this.forgotPassword.verifyOtp(enteredOtp);
+      this.otpModel.otp=enteredOtp
+      this.otpModel.email=this.userData.emailId
+      this.forgotPassword.verifyOtp(this.otpModel);
       this.timerSubscription.unsubscribe();
     }
   }
 
   resendOTP() {
-    const userName = this.userData.user.userName;
-    this.closeDialog();
+    const userName = this.userData.emailId;
+    //this.closeDialog();
     this.forgotPassword.sendOtpToEmail(userName);
   }
 }

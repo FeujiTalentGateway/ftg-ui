@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { UserLoginModel } from '../models/user-login.model';
 import { User } from '../models/user.model';
+import { Otp } from '../models/otpDto.model';
 
 @Injectable({
   providedIn: 'root',
@@ -21,6 +22,9 @@ export class AuthRepositoryService {
 
   login(loginData: UserLoginModel): Observable<any> {
     return this.http.post(this.baseUrl + 'auth/login', loginData);
+  }
+  verifyOtp(otp:Otp){
+    return this.http.post(this.baseUrl+'account/verify-account',otp)
   }
   sendOtpToEmail(email: string): Observable<any> {
     return this.http.get(this.baseUrl + 'account/generate-otp/' + email, {

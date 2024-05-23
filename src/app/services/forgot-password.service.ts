@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { HttpHeaders } from '@angular/common/http';
+import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ForgotPasswordRequest } from '../models/forgotPasswordRequest';
 import { OtpVerificationComponent } from '../home/otp-verification/otp-verification.component';
 @Injectable({
@@ -29,48 +29,51 @@ export class ForgotPasswordService {
   }
   sendOtpToEmail(email: string) {
     this.authRepo.sendOtpToEmail(email).subscribe({
-      next: (response: any) => {
-        const responseBody = response;
+      next: (response: HttpResponse<any>) => {      
+        const responseBody = response.body;
         const responseStatus = response.status;
-        console.log(response);
-        if(responseStatus === 200){
-          console.log("hello2");
+        
+        if (responseStatus === 200) {          
           let user: any;
-          sessionStorage.setItem('password-token',response.body.otp);
+          sessionStorage.setItem('password-token', responseBody.otp);
           sessionStorage.setItem('email', email);
+          
           user = {
-            //userName: responseBody.userName,
-            registeredEmail: responseBody.registeredEmail,
+            registeredEmail: responseBody.email,
           };
+             
           this.dialogRef = this.openOtpVerifyComponent(user);
+          
         }
-        if(response.message==='email not found'){
+        
+        if (responseBody.message === 'email not found') {
           this.openSnackBar("Account not found", 'Close');
         }
       },
       error: (error: any) => {
         const errorMessage = error.error.message;
-        if(errorMessage==='email not found'){
+        console.error('Error received:', errorMessage);
+        
+        if (errorMessage === 'email not found') {
           this.openSnackBar("Account not found", 'Close');
+        } else {
+          this.openSnackBar(errorMessage, 'Close');
         }
-        else this.openSnackBar(errorMessage, 'Close');
-        // if (errorMessage === 'No user exists with email: ' + email) {
-        //   this.openSnackBar(errorMessage, 'Close');
-        // }
       },
     });
   }
+  
   openOtpVerifyComponent(user: any) {
-    let dialogConfig: MatDialogConfig = {
+    const dialogConfig: MatDialogConfig = {
       width: '70%',
       height: '50%',
       disableClose: true,
+      data: user,
     };
-    dialogConfig.data = {
-      user: user,
-    };
+  
     return this.matDialog.open(OtpVerificationComponent, dialogConfig);
   }
+  
   verifyOtp(otp: String) {
     const headerKey: string = 'password-token';
     const passwordToken: string = sessionStorage.getItem(headerKey) as string;
@@ -110,7 +113,6 @@ export class ForgotPasswordService {
       .subscribe({
         next: (response: any) => {
           if (response.message === 'password changed') {
-            console.log("hello1");
             
             this.openSnackBar('Password changed successfully', 'Close');
             sessionStorage.removeItem('password-token');
@@ -118,7 +120,6 @@ export class ForgotPasswordService {
           }
         },
         error: (error: any) => {
-          console.log("hello3");
           this.openSnackBar( error.error.message, 'Close');
           sessionStorage.removeItem('password-token');
         },

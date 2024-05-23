@@ -67,7 +67,6 @@ export class OtpVerificationComponent {
 
         if (this.remainingTime <= 0) {
           this.timerSubscription.unsubscribe();
-          console.log('OTP expired...');
         }
       });
     });
@@ -86,17 +85,16 @@ export class OtpVerificationComponent {
   submitOtp() {
     if (this.otpForm.valid) {
       const enteredOtp = Object.values(this.otpForm.value).join('');
-      console.log('Entered OTP:', enteredOtp);
       this.forgotPassword.verifyOtp(enteredOtp);
       this.timerSubscription.unsubscribe();
     }
   }
 
   resendOTP() {
-    console.log(this.userData)
-    const userName = this.userData.user.userName;
-    console.log(userName);
+    console.log(this.userData);
+    
+    // const userName = this.userData.user.userName;
     this.closeDialog();
-    this.forgotPassword.sendOtpToEmail(userName);
+    this.forgotPassword.sendOtpToEmail(this.userData.registeredEmail);
   }
 }

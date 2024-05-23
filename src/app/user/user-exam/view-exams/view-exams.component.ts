@@ -30,7 +30,6 @@ export class ViewExamsComponent implements OnInit,OnDestroy{
   getExams(){
     this.examService.getExams().subscribe(
       (response)=>{
-        console.log(response)
         // this.listOfExams = response.body
         this.listOfExams = this.listOfExams.concat(response.body)
       },

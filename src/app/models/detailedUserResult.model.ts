@@ -8,6 +8,7 @@ export interface DetailedUserResult{
     examDuration:string;
     totalMarks:number;
     marksObtain:number;
+    overallPercentage:number;
     subjectWiseResult:SubjectDuration[]
     codingQuestionResults:CodingQuestionResult[];
 

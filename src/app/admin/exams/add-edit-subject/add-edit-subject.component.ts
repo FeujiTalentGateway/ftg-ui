@@ -47,7 +47,7 @@ export class AddEditSubjectComponent {
         },
       });
     }
-    console.log(this.subjectId);
+   
   }
 
   //subject form
@@ -62,7 +62,7 @@ export class AddEditSubjectComponent {
 
   //set value to update subject
   setSubjectValueIntoSubjectForm(subject: Subject) {
-    console.log(subject);
+ 
     this.subjectForm.patchValue({
       id: subject.id,
       name: subject.name,
@@ -71,16 +71,16 @@ export class AddEditSubjectComponent {
   }
 
   onSubmit() {
-    console.log(this.subjectForm.value);
+    
     this.isFormSubmitted = true;
     if (this.subjectForm.valid) {
       this.subject.name = this.subjectForm.value.name;
       this.subject.id = this.subjectForm.value.id;
       if (this.subjectId) {
-        console.log(this.subject);
+       
         this.editSubject(this.subject);
       } else {
-        console.log(this.subject);
+       
         this.questionService.addSubject(this.subject);
       }
     }

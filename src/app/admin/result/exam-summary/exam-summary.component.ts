@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { Exam } from 'src/app/models/exam.model';
 import { ExamStatsModel } from 'src/app/models/exam.stats.model';
 import { ExamService } from 'src/app/repository/exam.service';
-import { TimeFormatPipe } from 'src/app/pips/time-format.pipe';
+import { TimeFormatPipe } from 'src/app/pipes/time-format.pipe';
 import * as Highcharts from 'highcharts';
 
 @Component({
@@ -42,7 +42,6 @@ export class ExamSummaryComponent implements OnInit {
 
   ngOnInit() {
     this.examCode = this.activateRoute.snapshot.paramMap.get('examCode') as string;
-    console.log(this.examCode);
     this.examObject$ = this.examService.getExamByCode(this.examCode);
     this.examStatObject$ = this.examService.getExamStatsByExamCode(this.examCode);
     this.examStatObject$.subscribe((examStat: ExamStatsModel) => {

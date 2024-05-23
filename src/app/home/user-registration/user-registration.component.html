@@ -1,3 +1,4 @@
+<ngx-ui-loader></ngx-ui-loader>
 <app-header></app-header>
 <div class="container">
   <div class="row justify-content-center">
@@ -14,14 +15,16 @@
           >
             <div class="form-group no-border">
               <div class="input-wrapper">
-                  <input
-                    type="text"
-                    class="form-control input-fields"
-                    id="firstName"
-                    placeholder="First Name"
-                    formControlName="firstName"
-                  />
-                  <label for="firstName" class="icon-label"><i class="fa fa-user"></i></label>
+                <input
+                  type="text"
+                  class="form-control input-fields"
+                  id="firstName"
+                  placeholder="First Name"
+                  formControlName="firstName"
+                />
+                <label for="firstName" class="icon-label"
+                  ><i class="fa fa-user"></i
+                ></label>
               </div>
               <div
                 *ngIf="getControl('firstName')?.errors && getControl('firstName')?.touched">
@@ -41,97 +44,114 @@
                   >Only 32 characters are allowed.
                 </span>
               </div>
-          </div>
-                <div class="form-group no-border">
-                  <div class="input-wrapper">
-                      <input
-                        type="text"
-                        class="form-control input-fields"
-                        id="lastName"
-                        placeholder="Last Name"
-                        formControlName="lastName"
-                      />
-                      <label for="lastName" class="icon-label"><i class="fa fa-user"></i></label>
-                  </div>
-                  <div
-                    *ngIf="getControl('lastName')?.errors && getControl('lastName')?.touched">
-                    <span
-                      class="text-danger"
-                      *ngIf="getControl('lastName')?.errors?.['required']"
-                      >Last name is required.
-                    </span>
-                    <span
-                      class="text-danger"
-                      *ngIf="getControl('lastName')?.errors?.['pattern']"
-                      >Invalid last name.
-                    </span>
-                    <span
-                      class="text-danger"
-                      *ngIf="getControl('lastName')?.errors?.['maxlength']"
-                      >Only 32 characters are allowed.
-                    </span>
-                  </div>
+            </div>
+            <div class="form-group no-border">
+              <div class="input-wrapper">
+                <input
+                  type="text"
+                  class="form-control input-fields"
+                  id="lastName"
+                  placeholder="Last Name"
+                  formControlName="lastName"
+                />
+                <label for="lastName" class="icon-label"
+                  ><i class="fa fa-user"></i
+                ></label>
               </div>
-                <div class="form-group no-border">
-                  <div class="input-wrapper">
-                      <input
-                        type="email"
-                        class="form-control input-fields"
-                        id="email"
-                        placeholder="Email"
-                        formControlName="email"
-                      />
-                      <label for="email" class="icon-label"><i class="fa fa-envelope"></i></label>
-                  </div>
-                  <div
-                    *ngIf="getControl('email')?.errors && getControl('email')?.touched">
-                    <span
-                      class="text-danger"
-                      *ngIf="getControl('email')?.errors?.['required']"
-                      >Email is required.
-                    </span>
-                    <span
-                      class="text-danger"
-                      *ngIf="getControl('email')?.errors?.['maxlength']"
-                      >Only 32 characters are allowed.
-                    </span>
-                    <span
-                      class="text-danger"
-                      *ngIf="getControl('email')?.errors?.['pattern']"
-                      >Please enter a valid email.
-                    </span>
-                  </div>
+              <div
+                *ngIf="
+                  getControl('lastName')?.errors &&
+                  getControl('lastName')?.touched
+                "
+              >
+                <span
+                  class="text-danger"
+                  *ngIf="getControl('lastName')?.errors?.['required']"
+                  >Last name is required.
+                </span>
+                <span
+                  class="text-danger"
+                  *ngIf="getControl('lastName')?.errors?.['pattern']"
+                  >Invalid last name.
+                </span>
+                <span
+                  class="text-danger"
+                  *ngIf="getControl('lastName')?.errors?.['maxlength']"
+                  >Only 32 characters are allowed.
+                </span>
               </div>
-                <div class="form-group no-border">
-                  <div class="input-wrapper">
-                      <input
-                        type="text"
-                        class="form-control input-fields"
-                        id="userName"
-                        placeholder="Username"
-                        formControlName="userName"
-                      />
-                      <label for="userName" class="icon-label"><i class="fa fa-user"></i></label>
-                  </div>
-                  <div
-                    *ngIf="getControl('userName')?.errors && getControl('userName')?.touched">
-                    <span
-                      class="text-danger"
-                      *ngIf="getControl('userName')?.errors?.['required']"
-                      >Username is required.
-                    </span>
-                    <span
-                      class="text-danger"
-                      *ngIf="getControl('userName')?.errors?.['invalidUsername']"
-                      >First 4 letters should only be letters.
-                    </span>
-                    <span
-                      class="text-danger"
-                      *ngIf="getControl('userName')?.errors?.['minlength'] || getControl('userName')?.errors?.['maxlength']"
-                      >Username should be between 8 and 20 characters.
-                    </span>
-                  </div>
+            </div>
+            <div class="form-group no-border">
+              <div class="input-wrapper">
+                <input
+                  type="email"
+                  class="form-control input-fields"
+                  id="email"
+                  placeholder="Email"
+                  formControlName="email"
+                />
+                <label for="email" class="icon-label"
+                  ><i class="fa fa-envelope"></i
+                ></label>
               </div>
+              <div
+                *ngIf="
+                  getControl('email')?.errors && getControl('email')?.touched
+                "
+              >
+                <span
+                  class="text-danger"
+                  *ngIf="getControl('email')?.errors?.['required']"
+                  >Email is required.
+                </span>
+                <span
+                  class="text-danger"
+                  *ngIf="getControl('email')?.errors?.['maxlength']"
+                  >Only 32 characters are allowed.
+                </span>
+                <span
+                  class="text-danger"
+                  *ngIf="getControl('email')?.errors?.['pattern']"
+                  >Please enter a valid email.
+                </span>
+              </div>
+            </div>
+            <div class="form-group no-border">
+              <div class="input-wrapper">
+                <input
+                  type="text"
+                  class="form-control input-fields"
+                  id="userName"
+                  placeholder="Username"
+                  formControlName="userName"
+                />
+                <label for="userName" class="icon-label"
+                  ><i class="fa fa-user"></i
+                ></label>
+              </div>
+              <div
+                *ngIf="
+                  getControl('userName')?.errors &&
+                  getControl('userName')?.touched
+                "
+              >
+                <span
+                  class="text-danger"
+                  *ngIf="getControl('userName')?.errors?.['required']"
+                  >Username is required.
+                </span>
+                <span
+                  class="text-danger"
+                  *ngIf="getControl('userName')?.errors?.['invalidUsername']"
+                  >First 4 letters should only be letters.
+                </span>
+                <span
+                  class="text-danger"
+                  *ngIf="getControl('userName')?.errors?.['minlength'] || getControl('userName')?.errors?.['maxlength']"
+                  >Username should be between 8 and 20 characters.
+                </span>
+              </div>
+            </div>
 
             <div class="form-group no-border">
               <label for="password" class="form-label img"
@@ -184,43 +204,53 @@
             </div>
             <div class="form-group no-border">
               <div class="input-wrapper">
-                  <label for="confirmPassword" class="form-label img">
-                      <img src="../../../assets/images/lock_outline_black_18dp.svg" alt="Lock icon">
-                  </label>
-                  <input
-                      [type]="confirmPasswordVisible ? 'text' : 'password'"
-                      class="form-control input-fields"
-                      id="confirmPassword"
-                      placeholder="Confirm Password"
-                      formControlName="confirmPassword"
-                      [ngClass]="{
-                          error: getControl('confirmPassword')?.errors && getControl('confirmPassword')?.touched
-                      }"/>
-                  <i
-                      class="fa-solid"
-                      [ngClass]="confirmPasswordVisible ? 'fa-eye-slash' : 'fa-eye'"
-                      id="eye"
-                      (click)="confirmPasswordVisibility()"
-                  ></i>
-              </div>
-              <div
-
-                  *ngIf="getControl('confirmPassword')?.errors && getControl('confirmPassword')?.touched">
-                  <span
-                      class="text-danger"
-                      *ngIf="getControl('confirmPassword')?.hasError('required')">
-                      Confirm Password is required.
-                  </span>
-              </div>
-              <div
-                  *ngIf="
-                      registerForm.hasError('passwordMismatch') &&
+                <label for="confirmPassword" class="form-label img">
+                  <img
+                    src="../../../assets/images/lock_outline_black_18dp.svg"
+                    alt="Lock icon"
+                  />
+                </label>
+                <input
+                  [type]="confirmPasswordVisible ? 'text' : 'password'"
+                  class="form-control input-fields"
+                  id="confirmPassword"
+                  placeholder="Confirm Password"
+                  formControlName="confirmPassword"
+                  [ngClass]="{
+                    error:
+                      getControl('confirmPassword')?.errors &&
                       getControl('confirmPassword')?.touched
-                  "
->
-                  <span class="text-danger">Passwords do not match. </span>
+                  }"
+                />
+                <i
+                  class="fa-solid"
+                  [ngClass]="confirmPasswordVisible ? 'fa-eye-slash' : 'fa-eye'"
+                  id="eye"
+                  (click)="confirmPasswordVisibility()"
+                ></i>
               </div>
-          </div>
+              <div
+                *ngIf="
+                  getControl('confirmPassword')?.errors &&
+                  getControl('confirmPassword')?.touched
+                "
+              >
+                <span
+                  class="text-danger"
+                  *ngIf="getControl('confirmPassword')?.hasError('required')"
+                >
+                  Confirm Password is required.
+                </span>
+              </div>
+              <div
+                *ngIf="
+                  registerForm.hasError('passwordMismatch') &&
+                  getControl('confirmPassword')?.touched
+                "
+              >
+                <span class="text-danger">Passwords do not match. </span>
+              </div>
+            </div>
             <button
               class="button reg-btn global-background-color"
               type="submit"

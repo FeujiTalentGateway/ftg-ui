@@ -10,15 +10,15 @@ import { Subject } from '../models/subject';
 })
 export class SubjectRepositoryService {
   baseUrl: string = environment.adminUrl;
+  authTokenKey: string = environment.authTokenKey;
 
   constructor(private http: HttpClient) {}
   getAllSubjectsByActiveStatus(isActive: boolean): Observable<Subject[]> {
-    let token = localStorage.getItem('token');
+    let token = localStorage.getItem(this.authTokenKey);
     let headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     let requestOptions = {
       headers: headers,
     };
-    console.log('In restful service');
     return this.http.get<Subject[]>(
       this.baseUrl + 'subject/active-status/' + isActive,
       requestOptions
@@ -26,16 +26,15 @@ export class SubjectRepositoryService {
   }
 
   getAllSubjects(): Observable<Subject[]> {
-    let token = localStorage.getItem('token');
+    let token = localStorage.getItem(this.authTokenKey);
     let headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     let requestOptions = {
       headers: headers,
     };
-    console.log('In restful service');
     return this.http.get<Subject[]>(this.baseUrl + 'subject/', requestOptions);
   }
   deleteSubject(id: number) {
-    let token = localStorage.getItem('token');
+    let token = localStorage.getItem(this.authTokenKey);
     let headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     let requestOptions = {
       headers: headers,
@@ -46,7 +45,7 @@ export class SubjectRepositoryService {
     );
   }
   getSubjectById(id: number): Observable<Question> {
-    let token = localStorage.getItem('token');
+    let token = localStorage.getItem(this.authTokenKey);
     let headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     let requestOptions = {
       headers: headers,
@@ -58,7 +57,7 @@ export class SubjectRepositoryService {
   }
 
   addSubject(subject: Subject) {
-    let token = localStorage.getItem('token');
+    let token = localStorage.getItem(this.authTokenKey);
     let headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     let requestOptions = {
       headers: headers,
@@ -67,7 +66,7 @@ export class SubjectRepositoryService {
     return this.http.post(this.baseUrl + 'subject/', subject, requestOptions);
   }
   editSubject(subject: Subject) {
-    let token = localStorage.getItem('token');
+    let token = localStorage.getItem(this.authTokenKey);
     let headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     let requestOptions = {
       headers: headers,
@@ -76,7 +75,7 @@ export class SubjectRepositoryService {
   }
 
   activateSubject(subjectId: number) {
-    let token = localStorage.getItem('token');
+    let token = localStorage.getItem(this.authTokenKey);
     let headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     let requestOptions = {
       headers: headers,

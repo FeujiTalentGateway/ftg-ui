@@ -88,7 +88,6 @@ export class ViewExamsComponent implements OnInit, AfterViewInit {
     let messages = '';
     let active = exam.active;
     let id = exam.id;
-    console.log(active);
     if (!active) {
       messages = 'Do you want to activate this exam?';
     } else if (active) {
@@ -128,22 +127,14 @@ export class ViewExamsComponent implements OnInit, AfterViewInit {
   // Method to fetch exams from the service
   getExams() {
     // this.ngAfterViewInit();
-    console.log('get exam');
     this.service.exams$.subscribe(
       (exams) => {
-        console.log(exams);
 
         const reversedData = exams.slice().reverse(); // Create a copy of the array before reversing
         this.dataSource = new MatTableDataSource(reversedData);
-        console.log(reversedData);
 
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-        console.log('reverse data');
-        console.log(this.paginator);
-        console.log(this.dataSource.paginator);
-
-        console.log(reversedData);
       },
       (error) => {
         console.error('Error fetching exams:', error);
@@ -165,7 +156,7 @@ export class ViewExamsComponent implements OnInit, AfterViewInit {
   }
 
   getStatusButtonClass(status: boolean): string {
-    
+    console.log(status);
     return status ? 'status-button active' : 'status-button in-active';
   }
 }

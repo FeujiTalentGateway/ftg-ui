@@ -11,17 +11,21 @@
       </div>
       <div>
         <div>
-          <label for="subject">Select a subject:</label>
-          <select id="subject" (change)="changeSubject($event.target)">
-            <option
-              *ngFor="let subject of exam.examSubjects; index as i"
-              [value]="i"
-              [selected]="subject.id === this.currentSubject?.id"
-              [disabled]="exam.examSubjects[i].isTimeUp"
+          <mat-form-field>
+            <mat-label>Choose Subject</mat-label>
+            <mat-select
+              (selectionChange)="changeSubject($event)"
+              [(ngModel)]="defaultSubjectIndex"
             >
-              {{ subject.subject.name }}
-            </option>
-          </select>
+              <mat-option
+                *ngFor="let subject of exam.examSubjects; index as i"
+                [value]="i"
+                [disabled]="exam.examSubjects[i].isTimeUp"
+              >
+                {{ subject.subject.name }}</mat-option
+              >
+            </mat-select>
+          </mat-form-field>
         </div>
       </div>
     </div>
@@ -39,6 +43,13 @@
         <h4 class="question-name">
           {{ this.currentQuestion?.content }}
         </h4>
+        <div *ngIf="this.currentQuestion?.isCodeSnippet">
+          <app-code-snippet
+            [code]="this.currentQuestion?.codeSnippet"
+            [adminMode]="false"
+            [subject]="this.getSubjectName()"
+          ></app-code-snippet>
+        </div>
         <ul>
           <li *ngFor="let option of currentQuestion?.options">
             <span *ngIf="currentQuestion?.questionType == 'single choice'">
@@ -101,13 +112,13 @@
     <div class="question-navigation" [ngClass]="{ 'arrow-true': arrow }">
       <div class="button-choice">
         <i
-          class="fa fa-arrow-circle-left fa-2x"
+          class="fa fa-arrow-left fa-2x"
           aria-hidden="true"
           *ngIf="!arrow"
           (click)="toggleArrow()"
         ></i>
         <i
-          class="fa fa-arrow-circle-right fa-2x"
+          class="fa fa-arrow-right fa-2x"
           aria-hidden="true"
           *ngIf="arrow"
           (click)="toggleArrow()"

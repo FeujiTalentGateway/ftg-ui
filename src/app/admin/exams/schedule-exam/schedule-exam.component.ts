@@ -63,13 +63,12 @@ export class ScheduleExamComponent implements OnInit {
   }
   ngOnInit(): void {
 
-    
+
     this.isEditing = this.activatedRoute.snapshot.paramMap.get('id') !== null;
     if (this.isEditing) {
       this.editableExamId = Number(
         this.activatedRoute.snapshot.paramMap.get('id')
       );
-      console.log(this.editableExamId);
       this.examRepo.getExamById(this.editableExamId).subscribe({
         next: (exam) => {
           this.exam = exam;
@@ -81,9 +80,9 @@ export class ScheduleExamComponent implements OnInit {
     this.subjectRepo.getAllSubjects().subscribe((response) => {
       this.subjects = response;
     });
-    
+
   }
- 
+
   // Constructor to inject services and dependencies
 
   // Initialize the exam form with form controls and validators
@@ -111,13 +110,13 @@ export class ScheduleExamComponent implements OnInit {
         users: this.fb.array([] as FormGroup[]),
       },
       { validators: this.dateRangeValidator },
-      
-      
+
+
     );
     // Set the minimum start date for date inputs
     this.minStartDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd')!;
-   
-    
+
+
   }
   // Trigger error message
   openErrorToaster(message: string) {
@@ -134,7 +133,7 @@ export class ScheduleExamComponent implements OnInit {
   get examUsersArray() {
     return this.examForm.get('users') as FormArray;
   }
-  
+
   onSubjectSelected() {
     this.selectedSubjectIds.forEach((selectedSubjectId) => {
       let selectedSubject = this.subjects.find(
@@ -168,7 +167,7 @@ export class ScheduleExamComponent implements OnInit {
   getExamSubjectsControls() {
     return (this.examForm.get('examSubjects') as FormArray).controls;
   }
-   
+
   setUsersToExamForm(users: User[]) {
     if (users) {
       users.forEach((user) => {
@@ -221,7 +220,7 @@ export class ScheduleExamComponent implements OnInit {
             this.codingQuestionsArray=examSubject.codingQuestions
           }
     });
-   
+
     console.log(this.examForm.value);
     if (this.exam!.examSubjects) {
       this.exam!.examSubjects.forEach((examSubject: ExamSubject) => {
@@ -243,7 +242,7 @@ export class ScheduleExamComponent implements OnInit {
     this.selectedSubjectIds = this.exam?.examSubjects.map(
       (exam) => exam.subject.id
     ) as number[];
-    
+
     this.setcodingQuestionsToExamForm(this.codingQuestionsArray)
   }
 
@@ -264,7 +263,6 @@ export class ScheduleExamComponent implements OnInit {
   }
 
   addUsers(event: Event) {
-    console.log(this.examForm.value);
     this.setUsersToExamForm(this.updatedUsers);
     this.openAddUserModel();
     event.preventDefault();
@@ -274,7 +272,7 @@ export class ScheduleExamComponent implements OnInit {
     if (this.selectedExamId) {
       this.service.updateExam(this.examForm.value);
       // this.goBack();
-    } 
+    }
     else {
       this.codingQuestionObject= this.examSubjectsArray.value.find((subject: any) => subject.subjectName.toLowerCase() === this.CodingSubjectName.toLowerCase());
       if(this.codingQuestionObject){
@@ -337,8 +335,6 @@ export class ScheduleExamComponent implements OnInit {
     this.dialogRef.afterClosed().subscribe((result: any) => {
       this.updatedUsers = result.examDataWithUsers.users;
       this.setUsersToExamForm(this.updatedUsers);
-      console.log(this.examForm.value);
-      console.log(this.updatedUsers);
     });
   }
 
@@ -370,7 +366,7 @@ export class ScheduleExamComponent implements OnInit {
 
   getMaxCodingQuestions(): number {
     this.codingQuestionObject= this.examSubjectsArray.value.find((subject: any) => subject.subjectName.toLowerCase() === this.CodingSubjectName.toLowerCase());
-     return this.codingQuestionObject ? this.codingQuestionObject.maxQuestions : 0; 
+     return this.codingQuestionObject ? this.codingQuestionObject.maxQuestions : 0;
    }
 
   openCodingQuestionsModel(questions:number){
@@ -403,8 +399,8 @@ checkCodingQuestions(){
         subject.codingQuestions=codingquestions
       }
     });
-    
+
   }
-  
+
 }
 

@@ -42,10 +42,6 @@ const routes: Routes = [
         (m) => m.ErrorPagesModule
       ),
   },
-  { path: 'exams', loadChildren: () => import('./admin/exams/exams.module').then(m => m.ExamsModule) },
-  { path: 'users',
-    loadChildren: () => import('./admin/users/users.module').then(m => m.UsersModule),
-  },
   { path: 'qp', loadChildren: () => import('./admin/question-papers/question-papers.module').then(m => m.QuestionPapersModule) },
 ];
 

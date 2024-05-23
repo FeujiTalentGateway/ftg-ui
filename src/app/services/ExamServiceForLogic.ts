@@ -16,12 +16,10 @@ export class ExamServiceForLogic {
   checkExamAvailableForUserOrNot(examCode: string) {
     this.examRepo.checkExamAvailableForUserOrNot(examCode).subscribe(
       (response) => {
-        console.log(response);
         return response;
       },
       (error) => {
         this.auth.openSnackBar('Re enter your Exam Code', 'close');
-        console.log(error);
         if (error.status == 400) {
           this.route.navigateByUrl('/user/exam/exam-code');
         }

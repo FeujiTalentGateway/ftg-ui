@@ -22,6 +22,16 @@ import { ConfirmationDialogComponent } from './utils/confirmation-dialog/confirm
 import { SharedModuleModule } from './shared-module/shared-module.module';
 import { ConfirmDialogforuserComponent } from './utils/confirm-dialogforuser/confirm-dialogforuser.component';
 import { MassageboxComponent } from './utils/massagebox/massagebox.component';
+import { NgxUiLoaderModule,  NgxUiLoaderConfig} from 'ngx-ui-loader';
+
+const ngxUiLoaderConfig: NgxUiLoaderConfig = {
+  fgsColor: '#f3752e', 
+  fgsType: 'ball-spin-clockwise', 
+  pbColor: 'transparent',
+  pbDirection: 'ltr', 
+  pbThickness: 0, 
+
+};
 
 @NgModule({
   declarations: [
@@ -48,6 +58,7 @@ import { MassageboxComponent } from './utils/massagebox/massagebox.component';
     ReactiveFormsModule,
     MatDialogModule,
     SharedModuleModule,
+    NgxUiLoaderModule.forRoot(ngxUiLoaderConfig)
   ],
   providers: [
     SharedDataService,

@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { Exam } from 'src/app/models/exam.model';
 import { ExamService } from 'src/app/repository/exam.service';
 import { DetailedUserResult } from 'src/app/models/detailedUserResult.model';
+import { Question } from 'src/app/models/question';
+import { Option } from 'src/app/models/option';
 
 @Component({
   selector: 'app-detailed-user-result',
@@ -18,6 +20,10 @@ export class DetailedUserResultComponent implements OnInit {
   examDuration:string | undefined;
   duration:string | undefined;
   strokeWidth: number = 10;
+  questionsList: Question[] = [];
+  pageSize = 5;
+  isDropdownOpen: boolean[] = [];
+  page = 1;
   circumference: number = Math.PI * 180;
   detailedUserResultObject : DetailedUserResult | undefined;
   detailedUserResultObject$ : Observable<DetailedUserResult> | undefined;
@@ -35,6 +41,13 @@ export class DetailedUserResultComponent implements OnInit {
       console.log(res)
     }))
     this.calculateProgress();
+    this.examService.getUserExamResults(this.examCode, this.userId as number)
+      .subscribe((questions: Question[]) => {
+        this.questionsList = questions;
+        
+      }, error => {
+        console.error('Error fetching questions:', error);
+      });
   }
   
   parseDurationToSeconds(durationString: string): number {
@@ -65,4 +78,99 @@ export class DetailedUserResultComponent implements OnInit {
     return true
   }
 
+  getStatusButtonClass(level: number): string {
+    switch (level) {
+      case 1:
+        return 'level-1';
+      case 2:
+        return 'level-2';
+      case 3:
+        return 'level-3';
+      case 4:
+        return 'level-4';
+      case 5:
+        return 'level-5';
+      case 6:
+        return 'level-6';
+      case 7:
+        return 'level-7';
+      case 8:
+        return 'level-8';
+      case 9:
+        return 'level-9';
+      case 10:
+        return 'level-10';
+
+      default:
+        return 'common-level';
+    }
+  }
+
+  toggleDropdown(index: number) {
+    if (!this.isDropdownOpen[index]) {
+      this.isDropdownOpen = Array(this.questionsList.length).fill(false);
+      this.isDropdownOpen[index] = !this.isDropdownOpen[index];
+    } else {
+      this.isDropdownOpen[index] = !this.isDropdownOpen[index];
+    }
+  }
+
+ isRightAndSelected(option: any, question: Question): boolean {
+    const isRight = this.isRightOption(option, question);
+    const isSelected = this.isSelectedOption(option, question);
+    return isRight && isSelected;
+  }
+
+  isSelectedButNotRight(option: any, question: Question): boolean {
+    const isRight = this.isRightOption(option, question);
+    const isSelected = this.isSelectedOption(option, question);
+    return !isRight && isSelected;
+  }
+
+  isRightButNotSelected(option: any, question: Question): boolean {
+    const isRight = this.isRightOption(option, question);
+    const isSelected = this.isSelectedOption(option, question);
+    return isRight && !isSelected;
+  }
+
+  private isRightOption(option: any, question: Question): boolean {
+    return !!question.rightOptions?.find((opt) => opt.id === option.id);
+  }
+
+  private isSelectedOption(option: any, question: Question): boolean {
+    return !!question.optionSelected?.find((opt) => opt.id === option.id);
+  }
+  getOptionStyle(option: any,question:Question) {
+    if (question.rightOptions.some(rightOption => rightOption.id === option.id)) {
+      if (question.optionSelected?.some(selectedOption => selectedOption.id === option.id)) {
+        return { color: 'green' }; // Correct and selected
+      } else {
+        return { color: 'black' }; // Correct but not selected
+      }
+    } else {
+      if (question.optionSelected?.some(selectedOption => selectedOption.id === option.id)) {
+        return { color: 'red' }; // Incorrect and selected
+      } else {
+        return { color: 'black' }; // Incorrect and not selected
+      }
+    }
+  }
+
+  isOptionChosen(question:Question,option:Option):boolean{
+    let isChosen = question.optionSelected?.some(op=>op.id === option.id) || false
+    return isChosen
+  }
+
+  isOptionIsCorrectOrNot(question:Question,option:Option):boolean{
+    let isCorrect = question.rightOptions.some(op =>op.id === option.id) || false;
+    return isCorrect    
+  }
+
+  getIndex(selectedOption:Option,question:Question):number{
+    let indexOfOption = question.options.findIndex(op=>op.id === selectedOption.id)
+    return(indexOfOption+1)
+  }
+  getFinalResult(question:Question){
+
+  }
 }

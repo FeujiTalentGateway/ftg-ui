@@ -24,7 +24,11 @@ import { RefreshDialogComponent } from './utils/refresh-dialog/refresh-dialog.co
 import { ConfirmDialogforuserComponent } from './utils/confirm-dialogforuser/confirm-dialogforuser.component';
 import { MassageboxComponent } from './utils/massagebox/massagebox.component';
 import { NgxUiLoaderModule,  NgxUiLoaderConfig} from 'ngx-ui-loader';
-
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { MatDrawer, MatSidenavModule } from '@angular/material/sidenav';
+import { MatButtonModule } from '@angular/material/button';
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   fgsColor: '#f3752e', 
   fgsType: 'ball-spin-clockwise', 
@@ -60,6 +64,11 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     ReactiveFormsModule,
     MatDialogModule,
     SharedModuleModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatListModule,
+    MatButtonModule,
+    MatSidenavModule,
     NgxUiLoaderModule.forRoot(ngxUiLoaderConfig)
   ],
   providers: [

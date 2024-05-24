@@ -43,7 +43,7 @@ export class AddEditSubjectComponent {
           this.setSubjectValueIntoSubjectForm(this.subject);
         },
         error: (error) => {
-          this.snackBarService.openSnackBar(error.error.message);
+          this.snackBarService.openSnackBarForError(error.error.message);
         },
       });
     }

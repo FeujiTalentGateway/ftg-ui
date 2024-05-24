@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Exam } from 'src/app/models/exam.model';
 import { ScheduleExamRepositoryService } from '../repository/schedule-exam-repository.service';
+import { SnackBarService } from './snack-bar.service';
 
 @Injectable({
   providedIn: 'root',
@@ -19,8 +20,8 @@ export class ScheduleExamService {
 
   constructor(
     private scheduleExamRepo: ScheduleExamRepositoryService,
-    private snackBar: MatSnackBar,
-    private route: Router
+    private route: Router,
+    private snackBar:SnackBarService,
   ) {
     this.fetchExams();
   }
@@ -37,12 +38,12 @@ export class ScheduleExamService {
           // Reverse the order of the array
           const reversedExams = updatedExams;
           this.examsSubject.next(reversedExams);
-          this.openSnackBar('Exam updated successfully', 'Close');
+          this.snackBar.openSnackBarSuccessMessage('Exam updated successfully', 'Close');
           this.route.navigate(['/admin/exams/viewExams']);
         }
       },
       (error: any) => {
-        this.openSnackBar(error.error.message, 'Close');
+        this.snackBar.openSnackBarForError(error.error.message, 'Close');
       }
     );
   }
@@ -52,7 +53,7 @@ export class ScheduleExamService {
       (response: HttpResponse<any>) => {
         if (response.status == 201) {
           this.goBackSubject.next(true);
-          this.openSnackBar('Exam scheduled successfully', 'Close');
+          this.snackBar.openSnackBarSuccessMessage('Exam scheduled successfully', 'Close');
           this.route.navigate(['/admin/exams/viewExams']);
           // Use unshift to add the new response to the beginning of the array
           this.examsSubject.next([...this.examsSubject.value, response.body]);
@@ -60,7 +61,7 @@ export class ScheduleExamService {
       },
       (error: any) => {
         if (error) {
-          this.openSnackBar(error.error.message, 'Close');
+          this.snackBar.openSnackBarForError(error.error.message, 'Close');
         }
       }
     );
@@ -90,9 +91,9 @@ export class ScheduleExamService {
   changeExamStatus(id: any) {
     this.scheduleExamRepo.changeExamStatus(id).subscribe({
       next: (response: any) => {
-        this.openSnackBar(response.message, 'Close');
+        this.snackBar.openSnackBarSuccessMessage(response.message, 'Close');
         if (response.status == 200) {
-          this.openSnackBar('Exam status updated!!', 'Close');
+          this.snackBar.openSnackBarForError('Exam status updated!!', 'Close');
 
           // Find the index of the existing object with the same ID
           const index = this.examsSubject.value.findIndex(
@@ -109,17 +110,8 @@ export class ScheduleExamService {
         }
       },
       error: (error: any) => {
-        this.openSnackBar(error.error.message, 'Close');
+        this.snackBar.openSnackBarForError(error.error.message, 'Close');
       },
-    });
-  }
-
-  openSnackBar(message: string, action: string) {
-    this.snackBar.open(message, action, {
-      duration: 3000,
-      panelClass: 'centered-snackbar',
-      verticalPosition: 'top',
-      horizontalPosition: 'center',
     });
   }
 

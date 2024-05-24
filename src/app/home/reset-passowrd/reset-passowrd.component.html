@@ -1,4 +1,4 @@
-
+<ngx-ui-loader></ngx-ui-loader>
 <app-header></app-header>
 <div class="container-fluid custom">
   <div class="row justify-content-center align-items-center">
@@ -14,7 +14,7 @@
                   <h4 class="welcome-back">Reset your password!</h4>
                 </div>
                 <form [formGroup]="forgotPasswordRequestForm"
-                    (ngSubmit)="forgotPasswordRequestForm.status !== 'INVALID' && register(forgotPasswordRequestForm)"
+                    (ngSubmit)="forgotPasswordRequestForm.status !== 'INVALID' && forgotPassword(forgotPasswordRequestForm)"
                     class="form-container">
                     <img
                         src="../../../assets/images/lock_outline_black_18dp.svg"
@@ -76,7 +76,7 @@
                 <div class="row justify-content-center submit-div">
                     <input id="submit-input" type="submit" class="btn btn-primary btn-custom"
                         [disabled]="forgotPasswordRequestForm.status === 'INVALID'" value="Submit"
-                        (click)="register(forgotPasswordRequestForm)" />
+                        (click)="forgotPassword(forgotPasswordRequestForm)" />
             </div>
             </div>
             </div>

@@ -30,7 +30,9 @@ export class SidebarComponent implements OnInit {
     // this.roles = this.auth.roles;
     // this.roles = this.auth.printRoleFromToken();
     // this.roles = this.roles.map((e) => e.authority);
-
+    console.log(this.roles);
+    console.log(this.listOfRoutes);
+    
     if (this.roles) {
       this.listOfRoutes = ROUTES.filter((item) => {
         // Check if any role in item.role array matches with roles array
@@ -39,6 +41,8 @@ export class SidebarComponent implements OnInit {
         );
       });
       // Output the filtered list
+    console.log(this.listOfRoutes);
+
     }
   }
 

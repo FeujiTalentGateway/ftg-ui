@@ -27,14 +27,17 @@ export class OtpVerificationComponent {
 
   remainingTime = 60; // 1 minute in seconds
   timerSubscription!: Subscription;
-  otpModel!:Otp;
+  otpModel !:Otp;
   constructor(
     private fb: FormBuilder,
     private ngZone: NgZone,
     private forgotPassword: ForgotPasswordService,
     public dialogRef: MatDialogRef<OtpVerificationComponent>,
     @Inject(MAT_DIALOG_DATA) public userData: any
-  ) {}
+  ) {
+
+    this.otpModel = { otp: '', email: '' };
+  }
 
   ngOnInit() {
     this.startTimer();
@@ -85,16 +88,18 @@ export class OtpVerificationComponent {
 
   submitOtp() {
     if (this.otpForm.valid) {
-      const enteredOtp = Object.values(this.otpForm.value).join('');
+      var enteredOtp = Object.values(this.otpForm.value).join('');
+      console.log(typeof(enteredOtp));
+      console.log((enteredOtp));
       this.otpModel.otp=enteredOtp
-      this.otpModel.email=this.userData.emailId
+      this.otpModel.email=this.userData.user.emailId
       this.forgotPassword.verifyOtp(this.otpModel);
       this.timerSubscription.unsubscribe();
     }
   }
 
   resendOTP() {
-    const userName = this.userData.emailId;
+    const userName = this.userData.user.emailId;
     //this.closeDialog();
     this.forgotPassword.sendOtpToEmail(userName);
   }

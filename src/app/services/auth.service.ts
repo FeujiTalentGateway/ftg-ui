@@ -17,7 +17,7 @@ export class AuthService {
   private userPayload: any;
   authTokenKey: string = environment.authTokenKey;
   dialogRef: any;
-  user!:User;
+  userDetail!:User;
   roles: any[] = [];
   constructor(
     private authRepo: AuthRepositoryService,
@@ -30,13 +30,13 @@ export class AuthService {
   // Handle user registration based on form data
 
   register(user: User) {
-    this.user=user;
+    this.userDetail=user;
     // Send the registration data to the server and handle the response
     this.authRepo.register(user).subscribe({
       next: (response: any) => {
         const responseMessage: string = response.message;
         this.openSnackBar(response.message, 'Close');
-        this.forgotPasswordService.openOtpVerifyComponent(this.userDetails);
+        this.forgotPasswordService.openOtpVerifyComponent(this.userDetail);
       },
       error: (error: any) => {
         const responseMessage: string = error.error.message;
@@ -51,7 +51,6 @@ export class AuthService {
             "Email '" + user.emailId + "' already exists.Email not verified.Please verify the email",
             'Close'
           );
-          this.forgotPasswordService.openOtpVerifyComponent(this.user);
         }
         else{
           this.openSnackBar(responseMessage, 'Close');

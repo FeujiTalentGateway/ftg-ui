@@ -17,11 +17,16 @@
           <div>
             <div *ngIf="showDropdown" class="menu-dropdown">
               <ul>
-                <li class="drop-item">
-                  <i class="fa-solid fa-user"></i> &nbsp;<span class="profile"
-                    >Profile</span
-                  >
-                </li>
+                <ul>
+                  <li class="drop-item" (click)="forgotPassword()" [routerLink]="['/main/change-password']">
+                    <i class="fa-solid fa-key"></i> &nbsp;<span class="profile">Change Password</span>
+                  </li>
+                  <li class="drop-item" [routerLink]="['/main/profile']">
+                    <i class="fa-solid fa-user"></i> &nbsp;<span class="profile">Profile</span>
+                  </li>
+                </ul>
+                
+                
                 <li class="drop-item logout" (click)="logOut()">
                   <i
                     class="fa-solid fa-right-from-bracket fa-sm"

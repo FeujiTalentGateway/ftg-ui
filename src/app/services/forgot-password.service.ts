@@ -14,6 +14,7 @@ import { Otp } from '../models/otpDto.model';
 export class ForgotPasswordService {
   dialogRef: any;
   roles :any []=[];
+  otpStatus:boolean=false
   constructor(
     private authRepo: AuthRepositoryService,
     private snackBar: MatSnackBar,
@@ -39,9 +40,11 @@ export class ForgotPasswordService {
           sessionStorage.setItem('email', email);
           user = {
             //userName: responseBody.userName,
-            registeredEmail: responseBody.registeredEmail,
+            emailId: email,
           };
-          this.dialogRef = this.openOtpVerifyComponent(user);
+          console.log(responseBody.registeredEmail)
+          console.log(user)
+           this.openOtpVerifyComponent(user);
         }
         if(response.message==='email not found'){
           this.openSnackBar("Account not found", 'Close');
@@ -68,39 +71,39 @@ export class ForgotPasswordService {
     dialogConfig.data = {
       user: user,
     };
-    return this.matDialog.open(OtpVerificationComponent, dialogConfig);
+    this.dialogRef= this.matDialog.open(OtpVerificationComponent, dialogConfig);
   }
   verifyOtp(otp: Otp) {
-    this.authRepo.verifyOtp(otp)
-    .subscribe({
-      next: (response: any) => {
+    this.authRepo.verifyOtp(otp).subscribe({
+      next:(response: any) => {
         if (response.message === 'Account verified successfully. Please login') {
           this.openSnackBar('Account verified successfully. Please login', 'Close');
           this.dialogRef.close();
+          sessionStorage.setItem('otp', otp.otp);
+          this.otpStatus=true
           this.route.navigate(['/main/login']);
         }
-        else if(response.message ==='Invalid OTP'){
-          this.openSnackBar("Incorrect otp", 'Close')
+        else if(response.message === 'Account verified successfully. Please change your password.'){
+            this.otpStatus=true;
+            this.dialogRef.close()
+            sessionStorage.setItem('otp', otp.otp);
+            this.route.navigate(['/main/reset-password']);
         }
         else{
           this.openSnackBar("Something went wrong. Try later", 'Close');
         }
       },
       error: (error: any) => {
-        this.openSnackBar( error.error.message, 'Close');
+        console.log(error)
+        if(error.error.message==='Invalid OTP'){
+          this.openSnackBar("Incorrect otp", 'Close')
+        }
+        else{
+          this.openSnackBar( error.error.message, 'Close');
+        }
+        
       },
     });
-    // const headerKey: string = 'password-token';
-    // const passwordToken: string = sessionStorage.getItem(headerKey) as string;
-    // if(passwordToken === otp){
-    //   this.openSnackBar("Success", 'Close');
-    //   this.dialogRef.close();
-    //   this.dialogRef = this.openResetPasswordComponent();
-    // }
-    // else{
-    //   if(otp===null)this.openSnackBar("Something went wrong. Try later", 'Close');
-    //   else this.openSnackBar("Incorrect otp", 'Close');
-    // }
   }
   openResetPasswordComponent() {
     let dialogConfig: MatDialogConfig = {
@@ -117,6 +120,7 @@ export class ForgotPasswordService {
     });
 
     const forgotPasswordRequest: ForgotPasswordRequest = {
+      otp: sessionStorage.getItem('otp') as string,
       email: sessionStorage.getItem('email') as string,
       newPassword: btoa(forgotPasswordRequestForm.value.password),
     };

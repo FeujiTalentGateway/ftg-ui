@@ -91,16 +91,25 @@ export class OtpVerificationComponent {
       var enteredOtp = Object.values(this.otpForm.value).join('');
       console.log(typeof(enteredOtp));
       console.log((enteredOtp));
+      console.log(this.userData.user)
+      console.log(this.userData)
       this.otpModel.otp=enteredOtp
       this.otpModel.email=this.userData.user.emailId
-      this.forgotPassword.verifyOtp(this.otpModel);
-      this.timerSubscription.unsubscribe();
+      this.forgotPassword.verifyOtp(this.otpModel)
+      if(this.forgotPassword.otpStatus){
+        this.closeDialog()
+        this.timerSubscription.unsubscribe();
+      }
+      else{
+        this.startTimer()
+      }
+      
     }
   }
 
   resendOTP() {
     const userName = this.userData.user.emailId;
-    //this.closeDialog();
+    this.closeDialog();
     this.forgotPassword.sendOtpToEmail(userName);
   }
 }

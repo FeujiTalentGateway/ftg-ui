@@ -89,10 +89,6 @@ export class OtpVerificationComponent {
   submitOtp() {
     if (this.otpForm.valid) {
       var enteredOtp = Object.values(this.otpForm.value).join('');
-      console.log(typeof(enteredOtp));
-      console.log((enteredOtp));
-      console.log(this.userData.user)
-      console.log(this.userData)
       this.otpModel.otp=enteredOtp
       this.otpModel.email=this.userData.user.emailId
       this.forgotPassword.verifyOtp(this.otpModel)

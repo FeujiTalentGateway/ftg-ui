@@ -23,13 +23,29 @@
     <div class="card shadow rounded p-3">
       <details class="question-header" [open]="isExpanded[i]">
         <summary>
-          <span
-            [ngClass]="{ collapsed: !isExpanded[i], expanded: isExpanded[i] }"
-            (click)="toggle(i)"
-          >
-            Q. {{ i + 1 }} &nbsp;&nbsp;{{ question.content }} &nbsp;
-          </span>
+          <div class="card-body">
+            <div class="content">
+              <span
+                [ngClass]="{
+                  collapsed: !isExpanded[i],
+                  expanded: isExpanded[i]
+                }"
+                (click)="toggle(i)"
+              >
+                Q. {{ i + 1 }} &nbsp;&nbsp;{{ question.content }} &nbsp;
+              </span>
+            </div>
+
+            <div class="dropdown">
+              <span class="common-level"
+                                  [ngClass]="getStatusButtonClass(question.difficultyLevel)"
+
+                >Level : {{ question.difficultyLevel }}</span
+              >
+            </div>
+          </div>
         </summary>
+
         <div class="options">
           <div
             *ngFor="let option of question.options"

@@ -104,7 +104,7 @@
                 <td>{{ result.totalMarks }}</td>
                 <td>{{ result.percentage | number:'1.2-2' }}%</td>
                 <td>
-                   <span [ngClass]="{'text-success': result.passFailStatus === 'pass', 'text-danger': result.passFailStatus === 'fail'}">
+                   <span [ngClass]="{'text-success': result.passFailStatus === 'Pass', 'text-danger': result.passFailStatus === 'Fail'}">
                     {{ result.passFailStatus }}
                   </span> 
                 </td>

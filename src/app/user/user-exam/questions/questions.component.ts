@@ -81,7 +81,6 @@ export class QuestionsComponent implements OnInit, OnDestroy {
         response.question['isMarkedForReview'] = false;
         this.currentQuestion = response.question;
         this.codingQuestions = response.examCodingQuestionDTO;
-        console.log('line 83');
 
         console.log(this.codingQuestions);
 
@@ -804,16 +803,15 @@ export class QuestionsComponent implements OnInit, OnDestroy {
     }
   }
   saveQuestion(code: string, index: number) {
-    if (this.userCodingLogic[index] != null) {
-      this.userCodingLogic.splice(index, 1);
-    }
+    // if (this.userCodingLogic[index] != null) {
+    //   this.userCodingLogic.splice(index, 1);
+    // }
     this.codingLanguages.splice(
       index,
-      0,
+      1,
       this.codeEditorComponent.selectedLanguage
     );
-    this.userCodingLogic.splice(index, 0, code);
-    console.log(this.userCodingLogic);
+    this.userCodingLogic.splice(index, 1, code);
   }
 
   setUsedWrittenCodetoEditor(index: number) {

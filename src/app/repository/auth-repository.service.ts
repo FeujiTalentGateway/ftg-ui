@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { UserLoginModel } from '../models/user-login.model';
 import { User } from '../models/user.model';
+import { GoogleUser } from '../models/google-user.model';
 
 @Injectable({
   providedIn: 'root',
@@ -50,5 +51,9 @@ export class AuthRepositoryService {
       `${this.baseUrl}user/role/${roleName}`,
       requestOptions
     );
+  }
+
+  loginWithGoogle(googleUser: GoogleUser): Observable<any> {
+    return this.http.post(`${this.baseUrl}/login/google`, googleUser);
   }
 }

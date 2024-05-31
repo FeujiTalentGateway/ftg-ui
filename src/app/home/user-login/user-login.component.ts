@@ -2,14 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { GoogleUser } from 'src/app/models/google-user.model';
 import { AuthService } from 'src/app/services/auth.service';
 
+declare var google: any;
 @Component({
   selector: 'app-user-login',
   templateUrl: './user-login.component.html',
   styleUrls: ['./user-login.component.css'],
 })
 export class UserLoginComponent implements OnInit {
+
   constructor(private router: Router, private authService: AuthService, private ngxLoader: NgxUiLoaderService) {}
 
   // Properties to store user input and form state
@@ -24,6 +27,25 @@ export class UserLoginComponent implements OnInit {
       userName: new FormControl(null, Validators.required),
       password: new FormControl(null, Validators.required),
     });
+
+    google.accounts.id.initialize({
+      client_id: '842949696777-b3duehfjqha22vsqefbp2ql8lnisgeaa.apps.googleusercontent.com',
+      callback: (response: any) => {
+        console.log(response.credential);
+        
+        this.handleGoogleCredentialResponse(response);
+      }
+    });
+
+    google.accounts.id.renderButton(
+      document.getElementById("google-btn"),
+      {
+        theme: 'filled_blue',
+        size: 'large',
+        shape: 'circle',
+        width: '150',
+      }
+    );
   }
 
   // Function to toggle the visibility of the password
@@ -48,4 +70,22 @@ export class UserLoginComponent implements OnInit {
       this.authService.login(this.userForm);
     }
   }
+
+
+  private decodeToken(token: string): GoogleUser {
+    const decodedToken = JSON.parse(atob(token.split(".")[1]));
+    return {
+      name: decodedToken.name,
+      email: decodedToken.email
+    };
+  }
+  handleGoogleCredentialResponse(response: any) {
+    if (response) {
+      const googleUser: GoogleUser = this.decodeToken(response.credential);
+      localStorage.setItem('google-user', JSON.stringify(googleUser));
+      this.authService.loginWithGoogle(googleUser);
+    }
+  }
+
+  
 }

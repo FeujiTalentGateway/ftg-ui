@@ -156,3 +156,17 @@ p {
     margin-top: 20px;
   }
 }
+
+#google-btn{
+  margin-top: 7px;
+  display: flex;
+  justify-content: center;
+}
+
+.register {
+  display: flex;
+  justify-content: flex-end; /* Align to the right */
+  margin-top: 3px; /* Adjust as needed */
+}
+
+

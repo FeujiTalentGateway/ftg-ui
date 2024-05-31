@@ -184,4 +184,20 @@ export class AuthService {
     localStorage.clear();
     sessionStorage.clear();
   }
+
+  loginWithGoogle(GoogleUser:any){
+    console.log(GoogleUser);
+    
+    this.authRepo.loginWithGoogle(GoogleUser).subscribe(
+      (next) =>{
+        console.log(next);
+        
+      },
+      (error) =>{
+        console.log(error);
+        
+      }
+    )
+
+  }
 }

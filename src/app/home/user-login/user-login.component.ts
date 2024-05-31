@@ -48,6 +48,7 @@ export class UserLoginComponent implements OnInit {
     );
   }
 
+
   // Function to toggle the visibility of the password
   ToggleEye() {
     this.isPasswordVisible = !this.isPasswordVisible;

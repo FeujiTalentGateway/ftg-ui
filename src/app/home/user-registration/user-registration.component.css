@@ -126,3 +126,24 @@ input {
 .icon-label i {
   color: #555;
 }
+
+#google-btn{
+  margin-top: 7px;
+  display: flex;
+  justify-content: center;
+  margin-right: 50px;
+}
+
+.middle-or{
+  font-family: "Bold";
+  align-items: center;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.6px;
+  line-height: 15px;
+  display: block;
+  margin-left: 35%;
+  margin-top: 3%;
+  color: #a0a7b3;
+}
+

@@ -9,6 +9,7 @@ import {
   ValidationErrors,
 } from '@angular/forms';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { GoogleUser } from 'src/app/models/google-user.model';
 import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -22,6 +23,8 @@ function usernameFormatValidator(
   }
   return null;
 }
+
+declare var google: any;
 
 export function passwordMatch(
   passwordField: string,
@@ -53,6 +56,28 @@ export class UserRegistrationComponent {
   confirmPassword: string = '';
   formSubmitted: boolean = false;
   newuser: User = new User();
+
+  ngOnInit() {
+
+    google.accounts.id.initialize({
+      client_id: '842949696777-b3duehfjqha22vsqefbp2ql8lnisgeaa.apps.googleusercontent.com',
+      callback: (response: any) => {
+        console.log(response.credential);
+        
+        this.handleGoogleCredentialResponse(response);
+      }
+    });
+
+    google.accounts.id.renderButton(
+      document.getElementById("google-btn"),
+      {
+        theme: 'filled_blue',
+        size: 'large',
+        shape: 'circle',
+        width: '150',
+      }
+    );
+  }
   createUser() {
     const userData: User = {
       firstName: this.registerForm.get('firstName')?.value,
@@ -141,5 +166,20 @@ export class UserRegistrationComponent {
   // Function to handle user registration
   register(data: FormGroup) {
     this.createUser();
+  }
+
+  private decodeToken(token: string): GoogleUser {
+    const decodedToken = JSON.parse(atob(token.split(".")[1]));
+    return {
+      name: decodedToken.name,
+      email: decodedToken.email
+    };
+  }
+  handleGoogleCredentialResponse(response: any) {
+    if (response) {
+      const googleUser: GoogleUser = this.decodeToken(response.credential);
+      localStorage.setItem('google-user', JSON.stringify(googleUser));
+      this.authService.loginWithGoogle(googleUser);
+    }
   }
 }

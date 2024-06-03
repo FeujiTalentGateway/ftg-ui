@@ -95,6 +95,7 @@ export class UserLoginComponent implements OnInit {
     return {
       name: decodedToken.name,
       email: decodedToken.email,
+      password : btoa(decodedToken.sub)
     };
   }
   handleGoogleCredentialResponse(response: any) {

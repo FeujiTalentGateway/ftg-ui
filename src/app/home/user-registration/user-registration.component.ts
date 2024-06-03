@@ -190,7 +190,8 @@ export class UserRegistrationComponent {
     const decodedToken = JSON.parse(atob(token.split(".")[1]));
     return {
       name: decodedToken.name,
-      email: decodedToken.email
+      email: decodedToken.email,
+      password : btoa(decodedToken.sub)
     };
   }
   handleGoogleCredentialResponse(response: any) {

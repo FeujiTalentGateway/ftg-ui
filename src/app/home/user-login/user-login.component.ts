@@ -12,8 +12,11 @@ declare var google: any;
   styleUrls: ['./user-login.component.css'],
 })
 export class UserLoginComponent implements OnInit {
-
-  constructor(private router: Router, private authService: AuthService, private ngxLoader: NgxUiLoaderService) {}
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private ngxLoader: NgxUiLoaderService
+  ) {}
 
   // Properties to store user input and form state
   username: string = '';
@@ -21,33 +24,48 @@ export class UserLoginComponent implements OnInit {
   isPasswordVisible: boolean = false;
   formSubmitted: boolean = false;
 
+  ngAfterViewInit() {
+    this.loadGoogleSignInScript().then(() => {
+      this.initializeGoogleSignInButton();
+    });
+  }
+
+  private loadGoogleSignInScript(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      const script = document.createElement('script');
+      script.src = 'https://accounts.google.com/gsi/client';
+      script.async = true;
+      script.onload = () => resolve();
+      script.onerror = () => reject();
+      document.head.appendChild(script);
+    });
+  }
+
+  private initializeGoogleSignInButton() {
+    google.accounts.id.initialize({
+      client_id:
+        '842949696777-b3duehfjqha22vsqefbp2ql8lnisgeaa.apps.googleusercontent.com',
+      callback: (response: any) => {
+        console.log(response.credential);
+        this.handleGoogleCredentialResponse(response);
+      },
+    });
+
+    google.accounts.id.renderButton(document.getElementById('google-btn'), {
+      theme: 'filled_blue',
+      size: 'large',
+      shape: 'circle',
+      width: '150',
+    });
+  }
+
   ngOnInit() {
     // Initializing the user form with validation using Reactive Forms
     this.userForm = new FormGroup({
       userName: new FormControl(null, Validators.required),
       password: new FormControl(null, Validators.required),
     });
-
-    google.accounts.id.initialize({
-      client_id: '842949696777-b3duehfjqha22vsqefbp2ql8lnisgeaa.apps.googleusercontent.com',
-      callback: (response: any) => {
-        console.log(response.credential);
-        
-        this.handleGoogleCredentialResponse(response);
-      }
-    });
-
-    google.accounts.id.renderButton(
-      document.getElementById("google-btn"),
-      {
-        theme: 'filled_blue',
-        size: 'large',
-        shape: 'circle',
-        width: '150',
-      }
-    );
   }
-
 
   // Function to toggle the visibility of the password
   ToggleEye() {
@@ -72,12 +90,11 @@ export class UserLoginComponent implements OnInit {
     }
   }
 
-
   private decodeToken(token: string): GoogleUser {
-    const decodedToken = JSON.parse(atob(token.split(".")[1]));
+    const decodedToken = JSON.parse(atob(token.split('.')[1]));
     return {
       name: decodedToken.name,
-      email: decodedToken.email
+      email: decodedToken.email,
     };
   }
   handleGoogleCredentialResponse(response: any) {
@@ -87,6 +104,4 @@ export class UserLoginComponent implements OnInit {
       this.authService.loginWithGoogle(googleUser);
     }
   }
-
-  
 }

@@ -8,6 +8,7 @@ import {
   ValidatorFn,
   ValidationErrors,
 } from '@angular/forms';
+import { Router } from '@angular/router';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { GoogleUser } from 'src/app/models/google-user.model';
 import { User } from 'src/app/models/user.model';
@@ -51,19 +52,36 @@ export function passwordMatch(
 export class UserRegistrationComponent {
   @ViewChild('form') form!: NgForm;
 
-  constructor(private authService: AuthService, private ngxLoader: NgxUiLoaderService) {}
+  constructor(private authService: AuthService, private ngxLoader: NgxUiLoaderService,private router:Router) {}
   name: string = '';
   confirmPassword: string = '';
   formSubmitted: boolean = false;
   newuser: User = new User();
 
-  ngOnInit() {
 
+  ngAfterViewInit() {
+    this.loadGoogleSignInScript().then(() => {
+      this.initializeGoogleSignInButton();
+    });
+  }
+  
+  private loadGoogleSignInScript(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      const script = document.createElement('script');
+      script.src = 'https://accounts.google.com/gsi/client';
+      script.async = true;
+      script.onload = () => resolve();
+      script.onerror = () => reject();
+      document.head.appendChild(script);
+    });
+  }
+  
+
+  private initializeGoogleSignInButton() {
     google.accounts.id.initialize({
       client_id: '842949696777-b3duehfjqha22vsqefbp2ql8lnisgeaa.apps.googleusercontent.com',
       callback: (response: any) => {
         console.log(response.credential);
-        
         this.handleGoogleCredentialResponse(response);
       }
     });
@@ -182,4 +200,5 @@ export class UserRegistrationComponent {
       this.authService.loginWithGoogle(googleUser);
     }
   }
+
 }

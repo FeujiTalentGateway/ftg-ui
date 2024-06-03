@@ -46,7 +46,6 @@ export class UserLoginComponent implements OnInit {
       client_id:
         '842949696777-b3duehfjqha22vsqefbp2ql8lnisgeaa.apps.googleusercontent.com',
       callback: (response: any) => {
-        console.log(response.credential);
         this.handleGoogleCredentialResponse(response);
       },
     });
@@ -101,7 +100,7 @@ export class UserLoginComponent implements OnInit {
   handleGoogleCredentialResponse(response: any) {
     if (response) {
       const googleUser: GoogleUser = this.decodeToken(response.credential);
-      localStorage.setItem('google-user', JSON.stringify(googleUser));
+      // localStorage.setItem('google-user', JSON.stringify(googleUser));
       this.authService.loginWithGoogle(googleUser);
     }
   }

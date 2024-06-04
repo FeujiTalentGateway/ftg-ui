@@ -22,14 +22,32 @@ export class SnackBarService {
       horizontalPosition: 'end', // Change to 'end' for top-right corner
     });
   }
+
   showSnackbar(message: string) {
     const config: MatSnackBarConfig = {
-        duration: 3000, // 3 seconds
-        horizontalPosition: 'end',
-        verticalPosition: 'top',
-        panelClass: ['red-snackbar'] // Add a custom CSS class for red color
+      duration: 3000, // 3 seconds
+      horizontalPosition: 'end',
+      verticalPosition: 'top',
+      panelClass: ['red-snackbar'], // Add a custom CSS class for red color
     };
 
-    this.snackBar.open(message,'', config);
-}
+    this.snackBar.open(message, '', config);
+  }
+  openSnackBarSuccessMessage(message: string, action: string = 'Close') {
+    this.snackBar.open(message, action, {
+      duration: 2000,
+      panelClass: ['custom-snackbar-success'], // Apply a custom CSS class
+      verticalPosition: 'top',
+      horizontalPosition: 'center',
+    });
+  }
+
+  openSnackBarForError(message: string, action: string = 'Close') {
+    this.snackBar.open(message, action, {
+      duration: 2000,
+      panelClass: ['custom-snackbar-error'], // Apply custom CSS classes
+      verticalPosition: 'top',
+      horizontalPosition: 'center', // Change to 'end' for top-right corner
+    });
+  }
 }

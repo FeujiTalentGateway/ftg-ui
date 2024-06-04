@@ -11,7 +11,6 @@
 .heading {
   background-color: aquamarine;
 }
-
 .heading h2 {
   font-family: "Regular";
 }
@@ -32,7 +31,10 @@ h5 {
   /* padding: 20px; */
   justify-content: space-around;
 }
-
+.btn-custom {
+  background-color: #0bc279;
+  border: 1px solid #0bc279;
+}
 .subject-name {
   margin: 10px 0px 0px 0px;
   text-align: center;
@@ -73,10 +75,10 @@ h5 {
   display: grid;
   grid-template-columns: 1fr 1fr; /* Two columns, each occupying 50% of the container width */
   grid-template-rows: 40vh; /* One row, occupying 100% of the viewport height */
-  grid-template-areas: 
+  grid-template-areas:
     "coding-question code-editor"
     "coding-question test-cases"; /* Define grid areas */
-    row-gap: 0.5rem;
+  row-gap: 0.5rem;
 }
 
 .coding-question {
@@ -94,8 +96,6 @@ h5 {
   overflow-y: auto; /* Enable vertical scrolling if content overflows */
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); /* Add a box shadow */
 }
-
-
 
 @media (min-width: 300px) and (max-width: 400px) {
   .question-navigation {

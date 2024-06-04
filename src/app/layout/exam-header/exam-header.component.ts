@@ -1,14 +1,14 @@
-import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Observable, Subject, Subscription, interval } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { ExamSubject } from 'src/app/models/examSubject';
 import { ExamService } from 'src/app/repository/exam.service';
 import { SharedDataService } from 'src/app/services/shared-data.service';
 import { SnackBarService } from 'src/app/services/snack-bar.service';
 import { ConfirmDialogforuserComponent } from 'src/app/utils/confirm-dialogforuser/confirm-dialogforuser.component';
 import { MassageboxComponent } from 'src/app/utils/massagebox/massagebox.component';
-import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-exam-header',
@@ -216,7 +216,6 @@ export class ExamHeaderComponent implements OnInit, OnDestroy {
     )}:${this.padWithZero(remainingSeconds)}`;
   }
   updateSubjectStatus(status: any) {
-
     this.sharedService.updateSubjectStatus(status);
   }
   checkSubjectsAvailability(): boolean {
@@ -234,31 +233,4 @@ export class ExamHeaderComponent implements OnInit, OnDestroy {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
   }
-
-  // @HostListener('window:visibilitychange', ['$event'])
-  // @HostListener('window:focus', ['$event'])
-  // visibilityChangeOrFocusHandler(event: Event) {
-  //   console.log('Visibility state changed or window focused');
-  //   // If the countdown is still running, prompt the user
-  //   if (this.countdownDuration > 0 && (document.visibilityState === 'hidden' || document.hasFocus())) {
-  //     // Show confirmation dialog when switching tabs or returning focus
-  //     const confirmation = confirm('Are you sure you want to switch tabs? Your exam will be submitted.');
-  //     if (!confirmation) {
-  //       // Prevent tab switch if user cancels
-  //       if (document.visibilityState === 'hidden') {
-  //         window.focus(); // Bring focus back to the current tab if visibility state is hidden
-  //       } else {
-  //         event.preventDefault(); // Prevent switching tabs if focus is returned to the window
-  //       }
-  //     }
-  //   }
-  // }
-  
-  
-
-  // submitExam1() {
-  //   // Logic to submit exam
-  //   // You can put your code here to submit the exam
-  //   alert('Exam submitted successfully!');
-  // }
 }

@@ -1,74 +1,83 @@
+<ngx-ui-loader></ngx-ui-loader>
 <div id="modal-body">
-    <button id="close-button" mat-icon-button mat-dialog-close aria-label="Close">
-      <mat-icon>close</mat-icon>
-    </button>
-    <div id="grid-1">
-      <img id="otp-img" src="assets/images/enter_otp.png" alt="" />
-    </div>
-    <div id="grid-2">
-      <div id="content">
-        <div id="otp-name">OTP Verification</div>
-        <div id="msg">
-          <div id="enter-otp-msg">
-            Enter 6 digits OTP sent to registered email
-          </div>
-          <span id="email-name">{{ userData.registeredEmail}}</span>
+  <button id="close-button" mat-icon-button mat-dialog-close aria-label="Close">
+    <mat-icon>close</mat-icon>
+  </button>
+  <div id="grid-1">
+    <img id="otp-img" src="assets/images/enter_otp.png" alt="" />
+  </div>
+  <div id="grid-2">
+    <div id="content">
+      <div id="otp-name">OTP Verification</div>
+      <div id="msg">
+        <div id="enter-otp-msg">
+          Enter 6 digits OTP sent to registered email
         </div>
-  
-        <div id="login-page">
-          <div class="container mt-2">
-            <div
-              class="d-flex justify-content-center align-items-center h-100 one"
-            >
-              <form [formGroup]="otpForm" (ngSubmit)="submitOtp()">
-                <div class="otp-input-container">
-                  <input
-                    *ngFor="
-                      let digit of [
-                        'digit1',
-                        'digit2',
-                        'digit3',
-                        'digit4',
-                        'digit5',
-                        'digit6'
-                      ];
-                      let i = index
-                    "
-                    type="text"
-                    [id]="digit"
-                    formControlName="{{ digit }}"
-                    maxlength="1"
-                    (input)="moveToNextInput($event, i)"
-                  />
-                </div>
-                <div id="otp-timer">
-                  <p *ngIf="remainingTime > 0">
-                    OTP expires in: {{ formatTime(remainingTime) }}
-                  </p>
-                  <p *ngIf="remainingTime <= 0">Time limit exceeded</p>
-                </div>
-  
-                <!-- <div>
+        <span id="email-name">{{ userData.registeredEmail }}</span>
+      </div>
+
+      <div id="login-page">
+        <div class="container mt-2">
+          <div
+            class="d-flex justify-content-center align-items-center h-100 one"
+          >
+            <form [formGroup]="otpForm" (ngSubmit)="submitOtp()">
+              <div class="otp-input-container">
+                <input
+                  *ngFor="
+                    let digit of [
+                      'digit1',
+                      'digit2',
+                      'digit3',
+                      'digit4',
+                      'digit5',
+                      'digit6'
+                    ];
+                    let i = index
+                  "
+                  type="text"
+                  [id]="digit"
+                  formControlName="{{ digit }}"
+                  maxlength="1"
+                  (input)="moveToNextInput($event, i)"
+                />
+              </div>
+              <div id="otp-timer">
+                <p *ngIf="remainingTime > 0">
+                  OTP expires in: {{ formatTime(remainingTime) }}
+                </p>
+                <p *ngIf="remainingTime <= 0">Time limit exceeded</p>
+              </div>
+
+              <!-- <div>
                   <button type="submit" id="submit-input">Submit OTP</button
                   ><span>Resend OTP</span>
                 </div> -->
-                <div id="sub-rout">
-                  <div class="mb-3 submit-div">
-                    <input
-                      id="submit-input"
-                      type="submit"
-                      class="btn btn-success"
-                      [disabled]="otpForm.status === 'INVALID'"
-                      value="Submit OTP"
-                    />
-                  </div>
-                  <div class="rout" (click)="resendOTP()">Resend OTP</div>
+              <div id="sub-rout">
+                <div class="mb-3 submit-div">
+                  <input
+                    id="submit-input"
+                    type="submit"
+                    class="btn btn-success"
+                    [disabled]="otpForm.status === 'INVALID'"
+                    value="Submit OTP"
+                  />
                 </div>
-              </form>
-            </div>
+                <div class="rout">
+                  <button
+                    type="button"
+                    class="btn btn-link"
+                    (click)="resendOTP()"
+                    [disabled]="isResendDisabled"
+                  >
+                    Resend OTP
+                  </button>
+                </div>
+              </div>
+            </form>
           </div>
         </div>
       </div>
     </div>
   </div>
-  
+</div>

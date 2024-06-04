@@ -78,6 +78,34 @@ export class QuestionResultComponent implements OnInit, OnChanges {
     }
   }
 
+  getStatusButtonClass(level: number): string {
+    switch (level) {
+      case 1:
+        return 'level-1';
+      case 2:
+        return 'level-2';
+      case 3:
+        return 'level-3';
+      case 4:
+        return 'level-4';
+      case 5:
+        return 'level-5';
+      case 6:
+        return 'level-6';
+      case 7:
+        return 'level-7';
+      case 8:
+        return 'level-8';
+      case 9:
+        return 'level-9';
+      case 10:
+        return 'level-10';
+
+      default:
+        return 'common-level';
+    }
+  }
+
   getOptionStyle(option: any, question: any): string {
     const isSelected = question.optionSelected?.some(
       (selectedOption: { id: any }) => selectedOption.id === option.id

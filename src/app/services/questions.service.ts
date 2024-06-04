@@ -45,13 +45,16 @@ export class QuestionsService {
     this.questionRepository.addQuestion(question).subscribe({
       next: (response: any) => {
         this.formSubmitSucceed.next();
-        this.snackBarService.openSnackBar(
+        this.snackBarService.openSnackBarSuccessMessage(
           'Question added successfully',
           'Close'
         );
       },
       error: (error) => {
-        this.snackBarService.openSnackBar(error.error.message, 'Close');
+        this.snackBarService.openSnackBarSuccessMessage(
+          error.error.message,
+          'Close'
+        );
       },
     });
   }
@@ -60,17 +63,18 @@ export class QuestionsService {
   }
   editQuestion(question: any) {
     this.questionRepository.editQuestion(question).subscribe({
-      
       next: (response) => {
         this.formSubmitSucceed.next();
         this.route.navigate(['/admin/questionPapers/viewQuestions'], {
           queryParams: { subject: question.subject.id },
         });
 
-        this.snackBarService.openSnackBar('Quesiton updated successfully');
+        this.snackBarService.openSnackBarSuccessMessage(
+          'Question updated successfully'
+        );
       },
       error: (error) => {
-        this.snackBarService.openSnackBar(error.error.message);
+        this.snackBarService.openSnackBarForError(error.error.message);
       },
     });
   }
@@ -78,13 +82,13 @@ export class QuestionsService {
     this.questionRepository.deleteQuestion(id).subscribe({
       next: (response: any) => {
         this.questionChanged.next();
-        this.snackBarService.openSnackBar(
+        this.snackBarService.openSnackBarSuccessMessage(
           'Question deleted successfully',
           'Close'
         );
       },
       error: (error) => {
-        this.snackBarService.openSnackBar(error.error.message, 'Close');
+        this.snackBarService.openSnackBarForError(error.error.message, 'Close');
       },
     });
   }

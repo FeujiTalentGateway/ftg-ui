@@ -1,0 +1,1934 @@
+{
+    "browsers": {
+      "99966064": {
+        "id": "99966064",
+        "fullName": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+        "name": "Chrome 124.0.0.0 (Windows 10)",
+        "state": "DISCONNECTED",
+        "lastResult": {
+          "startTime": 1716457881262,
+          "total": 84,
+          "success": 47,
+          "failed": 37,
+          "skipped": 0,
+          "totalTime": 930,
+          "netTime": 792,
+          "error": false,
+          "disconnected": false
+        },
+        "disconnectsCount": 1,
+        "noActivityTimeout": 30000,
+        "disconnectDelay": 2000
+      }
+    },
+    "result": {
+      "99966064": [
+        {
+          "fullName": "UserLoginComponent should create",
+          "description": "should create",
+          "id": "spec46",
+          "log": [
+            "NullInjectorError: R3InjectorError(DynamicTestModule)[AuthService -> AuthRepositoryService -> HttpClient -> HttpClient]: \n  NullInjectorError: No provider for HttpClient!\nerror properties: Object({ ngTempTokenPath: null, ngTokenPath: [ 'AuthService', 'AuthRepositoryService', 'HttpClient', 'HttpClient' ] })\n    at NullInjector.get (node_modules/@angular/core/fesm2022/core.mjs:8890:27)\n    at R3Injector.get (node_modules/@angular/core/fesm2022/core.mjs:9334:33)\n    at R3Injector.get (node_modules/@angular/core/fesm2022/core.mjs:9334:33)\n    at injectInjectorOnly (node_modules/@angular/core/fesm2022/core.mjs:842:40)\n    at ɵɵinject (node_modules/@angular/core/fesm2022/core.mjs:848:60)\n    at Object.factory (ng:///AuthRepositoryService/ɵfac.js:4:49)\n    at callback (node_modules/@angular/core/fesm2022/core.mjs:9454:43)\n    at runInInjectorProfilerContext (node_modules/@angular/core/fesm2022/core.mjs:798:9)\n    at R3Injector.hydrate (node_modules/@angular/core/fesm2022/core.mjs:9453:17)\n    at R3Injector.get (node_modules/@angular/core/fesm2022/core.mjs:9323:33)"
+          ],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": false,
+          "suite": [
+            "UserLoginComponent"
+          ],
+          "time": 32,
+          "executedExpectationsCount": 1,
+          "passedExpectations": [],
+          "properties": null,
+          "debug_url": "http://localhost:9876/debug.html?spec=UserLoginComponent%20should%20create"
+        },
+        {
+          "fullName": "HeaderComponent should create",
+          "description": "should create",
+          "id": "spec44",
+          "log": [
+            "Error: NG0303: Can't bind to 'routerLink' since it isn't a known property of 'a' (used in the 'HeaderComponent' component template).\n1. If 'a' is an Angular component and it has the 'routerLink' input, then verify that it is a part of an @NgModule where this component is declared.\n2. To allow any property add 'NO_ERRORS_SCHEMA' to the '@NgModule.schemas' of this component.\nerror properties: Object({ code: 303 })\n    at reportUnknownPropertyError (node_modules/@angular/core/fesm2022/core.mjs:6304:15)\n    at handleUnknownPropertyError (node_modules/@angular/core/fesm2022/core.mjs:6300:5)\n    at elementPropertyInternal (node_modules/@angular/core/fesm2022/core.mjs:12426:17)\n    at ɵɵproperty (node_modules/@angular/core/fesm2022/core.mjs:16255:9)\n    at templateFn (ng:///HeaderComponent.js:154:9)\n    at executeTemplate (node_modules/@angular/core/fesm2022/core.mjs:12003:13)\n    at refreshView (node_modules/@angular/core/fesm2022/core.mjs:13498:13)\n    at detectChangesInView (node_modules/@angular/core/fesm2022/core.mjs:13663:9)\n    at detectChangesInComponent (node_modules/@angular/core/fesm2022/core.mjs:13638:5)\n    at detectChangesInChildComponents (node_modules/@angular/core/fesm2022/core.mjs:13676:9)"
+          ],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": false,
+          "suite": [
+            "HeaderComponent"
+          ],
+          "time": 19,
+          "executedExpectationsCount": 1,
+          "passedExpectations": [],
+          "properties": null,
+          "debug_url": "http://localhost:9876/debug.html?spec=HeaderComponent%20should%20create"
+        },
+        {
+          "fullName": "Error403Component should create",
+          "description": "should create",
+          "id": "spec28",
+          "log": [],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": true,
+          "suite": [
+            "Error403Component"
+          ],
+          "time": 3,
+          "executedExpectationsCount": 1,
+          "passedExpectations": [
+            {
+              "matcherName": "toBeTruthy",
+              "message": "Passed.",
+              "stack": "",
+              "passed": true
+            }
+          ],
+          "properties": null
+        },
+        {
+          "fullName": "ResultChartComponent should create",
+          "description": "should create",
+          "id": "spec80",
+          "log": [],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": true,
+          "suite": [
+            "ResultChartComponent"
+          ],
+          "time": 3,
+          "executedExpectationsCount": 1,
+          "passedExpectations": [
+            {
+              "matcherName": "toBeTruthy",
+              "message": "Passed.",
+              "stack": "",
+              "passed": true
+            }
+          ],
+          "properties": null
+        },
+        {
+          "fullName": "TokenInterceptor should be created",
+          "description": "should be created",
+          "id": "spec22",
+          "log": [
+            "NullInjectorError: R3InjectorError(DynamicTestModule)[TokenInterceptor -> AuthService -> AuthRepositoryService -> HttpClient -> HttpClient]: \n  NullInjectorError: No provider for HttpClient!\nerror properties: Object({ ngTempTokenPath: null, ngTokenPath: [ 'TokenInterceptor', 'AuthService', 'AuthRepositoryService', 'HttpClient', 'HttpClient' ] })\n    at NullInjector.get (node_modules/@angular/core/fesm2022/core.mjs:8890:27)\n    at R3Injector.get (node_modules/@angular/core/fesm2022/core.mjs:9334:33)\n    at R3Injector.get (node_modules/@angular/core/fesm2022/core.mjs:9334:33)\n    at injectInjectorOnly (node_modules/@angular/core/fesm2022/core.mjs:842:40)\n    at ɵɵinject (node_modules/@angular/core/fesm2022/core.mjs:848:60)\n    at Object.factory (ng:///AuthRepositoryService/ɵfac.js:4:49)\n    at callback (node_modules/@angular/core/fesm2022/core.mjs:9454:43)\n    at runInInjectorProfilerContext (node_modules/@angular/core/fesm2022/core.mjs:798:9)\n    at R3Injector.hydrate (node_modules/@angular/core/fesm2022/core.mjs:9453:17)\n    at R3Injector.get (node_modules/@angular/core/fesm2022/core.mjs:9323:33)"
+          ],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": false,
+          "suite": [
+            "TokenInterceptor"
+          ],
+          "time": 3,
+          "executedExpectationsCount": 1,
+          "passedExpectations": [],
+          "properties": null,
+          "debug_url": "http://localhost:9876/debug.html?spec=TokenInterceptor%20should%20be%20created"
+        },
+        {
+          "fullName": "MainLayoutComponent should create",
+          "description": "should create",
+          "id": "spec71",
+          "log": [
+            "Error: NG0304: 'mat-drawer-container' is not a known element (used in the 'MainLayoutComponent' component template):\n1. If 'mat-drawer-container' is an Angular component, then verify that it is a part of an @NgModule where this component is declared.\n2. If 'mat-drawer-container' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message.\nerror properties: Object({ code: 304 })\n    at validateElementIsKnown (node_modules/@angular/core/fesm2022/core.mjs:6212:23)\n    at ɵɵelementStart (node_modules/@angular/core/fesm2022/core.mjs:16319:9)\n    at templateFn (ng:///MainLayoutComponent.js:16:9)\n    at executeTemplate (node_modules/@angular/core/fesm2022/core.mjs:12003:13)\n    at renderView (node_modules/@angular/core/fesm2022/core.mjs:13201:13)\n    at renderComponent (node_modules/@angular/core/fesm2022/core.mjs:13148:5)\n    at renderChildComponents (node_modules/@angular/core/fesm2022/core.mjs:13246:9)\n    at renderView (node_modules/@angular/core/fesm2022/core.mjs:13226:13)\n    at ComponentFactory.create (node_modules/@angular/core/fesm2022/core.mjs:14138:13)\n    at initComponent (node_modules/@angular/core/fesm2022/testing.mjs:27492:51)"
+          ],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": false,
+          "suite": [
+            "MainLayoutComponent"
+          ],
+          "time": 7,
+          "executedExpectationsCount": 1,
+          "passedExpectations": [],
+          "properties": null,
+          "debug_url": "http://localhost:9876/debug.html?spec=MainLayoutComponent%20should%20create"
+        },
+        {
+          "fullName": "OtpVerificationComponent should create",
+          "description": "should create",
+          "id": "spec45",
+          "log": [
+            "NullInjectorError: R3InjectorError(DynamicTestModule)[ForgotPasswordService -> AuthRepositoryService -> HttpClient -> HttpClient]: \n  NullInjectorError: No provider for HttpClient!\nerror properties: Object({ ngTempTokenPath: null, ngTokenPath: [ 'ForgotPasswordService', 'AuthRepositoryService', 'HttpClient', 'HttpClient' ] })\n    at NullInjector.get (node_modules/@angular/core/fesm2022/core.mjs:8890:27)\n    at R3Injector.get (node_modules/@angular/core/fesm2022/core.mjs:9334:33)\n    at R3Injector.get (node_modules/@angular/core/fesm2022/core.mjs:9334:33)\n    at injectInjectorOnly (node_modules/@angular/core/fesm2022/core.mjs:842:40)\n    at ɵɵinject (node_modules/@angular/core/fesm2022/core.mjs:848:60)\n    at Object.factory (ng:///AuthRepositoryService/ɵfac.js:4:49)\n    at callback (node_modules/@angular/core/fesm2022/core.mjs:9454:43)\n    at runInInjectorProfilerContext (node_modules/@angular/core/fesm2022/core.mjs:798:9)\n    at R3Injector.hydrate (node_modules/@angular/core/fesm2022/core.mjs:9453:17)\n    at R3Injector.get (node_modules/@angular/core/fesm2022/core.mjs:9323:33)"
+          ],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": false,
+          "suite": [
+            "OtpVerificationComponent"
+          ],
+          "time": 12,
+          "executedExpectationsCount": 1,
+          "passedExpectations": [],
+          "properties": null,
+          "debug_url": "http://localhost:9876/debug.html?spec=OtpVerificationComponent%20should%20create"
+        },
+        {
+          "fullName": "ExamServiceForLogic should be created",
+          "description": "should be created",
+          "id": "spec14",
+          "log": [],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": true,
+          "suite": [
+            "ExamServiceForLogic"
+          ],
+          "time": 8,
+          "executedExpectationsCount": 1,
+          "passedExpectations": [
+            {
+              "matcherName": "toBeTruthy",
+              "message": "Passed.",
+              "stack": "",
+              "passed": true
+            }
+          ],
+          "properties": null
+        },
+        {
+          "fullName": "questionRepository should be created",
+          "description": "should be created",
+          "id": "spec11",
+          "log": [
+            "NullInjectorError: R3InjectorError(DynamicTestModule)[QuestionRepository -> HttpClient -> HttpClient]: \n  NullInjectorError: No provider for HttpClient!\nerror properties: Object({ ngTempTokenPath: null, ngTokenPath: [ 'QuestionRepository', 'HttpClient', 'HttpClient' ] })\n    at NullInjector.get (node_modules/@angular/core/fesm2022/core.mjs:8890:27)\n    at R3Injector.get (node_modules/@angular/core/fesm2022/core.mjs:9334:33)\n    at R3Injector.get (node_modules/@angular/core/fesm2022/core.mjs:9334:33)\n    at injectInjectorOnly (node_modules/@angular/core/fesm2022/core.mjs:842:40)\n    at ɵɵinject (node_modules/@angular/core/fesm2022/core.mjs:848:60)\n    at Object.factory (ng:///QuestionRepository/ɵfac.js:4:46)\n    at callback (node_modules/@angular/core/fesm2022/core.mjs:9454:43)\n    at runInInjectorProfilerContext (node_modules/@angular/core/fesm2022/core.mjs:798:9)\n    at R3Injector.hydrate (node_modules/@angular/core/fesm2022/core.mjs:9453:17)\n    at R3Injector.get (node_modules/@angular/core/fesm2022/core.mjs:9323:33)"
+          ],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": false,
+          "suite": [
+            "questionRepository"
+          ],
+          "time": 4,
+          "executedExpectationsCount": 1,
+          "passedExpectations": [],
+          "properties": null,
+          "debug_url": "http://localhost:9876/debug.html?spec=questionRepository%20should%20be%20created"
+        },
+        {
+          "fullName": "MainHomeComponent should create",
+          "description": "should create",
+          "id": "spec43",
+          "log": [
+            "Error: NG0304: 'app-header' is not a known element (used in the 'MainHomeComponent' component template):\n1. If 'app-header' is an Angular component, then verify that it is a part of an @NgModule where this component is declared.\n2. If 'app-header' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message.\nerror properties: Object({ code: 304 })\n    at validateElementIsKnown (node_modules/@angular/core/fesm2022/core.mjs:6212:23)\n    at ɵɵelementStart (node_modules/@angular/core/fesm2022/core.mjs:16319:9)\n    at ɵɵelement (node_modules/@angular/core/fesm2022/core.mjs:16394:5)\n    at templateFn (ng:///MainHomeComponent.js:23:9)\n    at executeTemplate (node_modules/@angular/core/fesm2022/core.mjs:12003:13)\n    at renderView (node_modules/@angular/core/fesm2022/core.mjs:13201:13)\n    at renderComponent (node_modules/@angular/core/fesm2022/core.mjs:13148:5)\n    at renderChildComponents (node_modules/@angular/core/fesm2022/core.mjs:13246:9)\n    at renderView (node_modules/@angular/core/fesm2022/core.mjs:13226:13)\n    at ComponentFactory.create (node_modules/@angular/core/fesm2022/core.mjs:14138:13)"
+          ],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": false,
+          "suite": [
+            "MainHomeComponent"
+          ],
+          "time": 13,
+          "executedExpectationsCount": 1,
+          "passedExpectations": [],
+          "properties": null,
+          "debug_url": "http://localhost:9876/debug.html?spec=MainHomeComponent%20should%20create"
+        },
+        {
+          "fullName": "RemoveInspectComponent should create",
+          "description": "should create",
+          "id": "spec81",
+          "log": [],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": true,
+          "suite": [
+            "RemoveInspectComponent"
+          ],
+          "time": 4,
+          "executedExpectationsCount": 1,
+          "passedExpectations": [
+            {
+              "matcherName": "toBeTruthy",
+              "message": "Passed.",
+              "stack": "",
+              "passed": true
+            }
+          ],
+          "properties": null
+        },
+        {
+          "fullName": "HomeComponent should create",
+          "description": "should create",
+          "id": "spec25",
+          "log": [],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": true,
+          "suite": [
+            "HomeComponent"
+          ],
+          "time": 3,
+          "executedExpectationsCount": 1,
+          "passedExpectations": [
+            {
+              "matcherName": "toBeTruthy",
+              "message": "Passed.",
+              "stack": "",
+              "passed": true
+            }
+          ],
+          "properties": null
+        },
+        {
+          "fullName": "UserExamLayoutComponent should create",
+          "description": "should create",
+          "id": "spec72",
+          "log": [
+            "Error: NG0304: 'app-exam-header' is not a known element (used in the 'UserExamLayoutComponent' component template):\n1. If 'app-exam-header' is an Angular component, then verify that it is a part of an @NgModule where this component is declared.\n2. If 'app-exam-header' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message.\nerror properties: Object({ code: 304 })\n    at validateElementIsKnown (node_modules/@angular/core/fesm2022/core.mjs:6212:23)\n    at ɵɵelementStart (node_modules/@angular/core/fesm2022/core.mjs:16319:9)\n    at ɵɵelement (node_modules/@angular/core/fesm2022/core.mjs:16394:5)\n    at templateFn (ng:///UserExamLayoutComponent.js:7:9)\n    at executeTemplate (node_modules/@angular/core/fesm2022/core.mjs:12003:13)\n    at renderView (node_modules/@angular/core/fesm2022/core.mjs:13201:13)\n    at renderComponent (node_modules/@angular/core/fesm2022/core.mjs:13148:5)\n    at renderChildComponents (node_modules/@angular/core/fesm2022/core.mjs:13246:9)\n    at renderView (node_modules/@angular/core/fesm2022/core.mjs:13226:13)\n    at ComponentFactory.create (node_modules/@angular/core/fesm2022/core.mjs:14138:13)"
+          ],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": false,
+          "suite": [
+            "UserExamLayoutComponent"
+          ],
+          "time": 9,
+          "executedExpectationsCount": 1,
+          "passedExpectations": [],
+          "properties": null,
+          "debug_url": "http://localhost:9876/debug.html?spec=UserExamLayoutComponent%20should%20create"
+        },
+        {
+          "fullName": "ViewExamsComponent should create",
+          "description": "should create",
+          "id": "spec82",
+          "log": [
+            "NullInjectorError: R3InjectorError(DynamicTestModule)[ScheduleExamService -> ScheduleExamRepositoryService -> HttpClient -> HttpClient]: \n  NullInjectorError: No provider for HttpClient!\nerror properties: Object({ ngTempTokenPath: null, ngTokenPath: [ 'ScheduleExamService', 'ScheduleExamRepositoryService', 'HttpClient', 'HttpClient' ] })\n    at NullInjector.get (node_modules/@angular/core/fesm2022/core.mjs:8890:27)\n    at R3Injector.get (node_modules/@angular/core/fesm2022/core.mjs:9334:33)\n    at R3Injector.get (node_modules/@angular/core/fesm2022/core.mjs:9334:33)\n    at injectInjectorOnly (node_modules/@angular/core/fesm2022/core.mjs:842:40)\n    at ɵɵinject (node_modules/@angular/core/fesm2022/core.mjs:848:60)\n    at Object.factory (ng:///ScheduleExamRepositoryService/ɵfac.js:4:57)\n    at callback (node_modules/@angular/core/fesm2022/core.mjs:9454:43)\n    at runInInjectorProfilerContext (node_modules/@angular/core/fesm2022/core.mjs:798:9)\n    at R3Injector.hydrate (node_modules/@angular/core/fesm2022/core.mjs:9453:17)\n    at R3Injector.get (node_modules/@angular/core/fesm2022/core.mjs:9323:33)"
+          ],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": false,
+          "suite": [
+            "ViewExamsComponent"
+          ],
+          "time": 8,
+          "executedExpectationsCount": 1,
+          "passedExpectations": [],
+          "properties": null,
+          "debug_url": "http://localhost:9876/debug.html?spec=ViewExamsComponent%20should%20create"
+        },
+        {
+          "fullName": "SubjectRepositoryService should be created",
+          "description": "should be created",
+          "id": "spec12",
+          "log": [],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": true,
+          "suite": [
+            "SubjectRepositoryService"
+          ],
+          "time": 7,
+          "executedExpectationsCount": 1,
+          "passedExpectations": [
+            {
+              "matcherName": "toBeTruthy",
+              "message": "Passed.",
+              "stack": "",
+              "passed": true
+            }
+          ],
+          "properties": null
+        },
+        {
+          "fullName": "Error400Component should create",
+          "description": "should create",
+          "id": "spec26",
+          "log": [],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": true,
+          "suite": [
+            "Error400Component"
+          ],
+          "time": 2,
+          "executedExpectationsCount": 1,
+          "passedExpectations": [
+            {
+              "matcherName": "toBeTruthy",
+              "message": "Passed.",
+              "stack": "",
+              "passed": true
+            }
+          ],
+          "properties": null
+        },
+        {
+          "fullName": "ForgotPasswordComponent should create",
+          "description": "should create",
+          "id": "spec42",
+          "log": [
+            "NullInjectorError: R3InjectorError(DynamicTestModule)[ForgotPasswordService -> AuthRepositoryService -> HttpClient -> HttpClient]: \n  NullInjectorError: No provider for HttpClient!\nerror properties: Object({ ngTempTokenPath: null, ngTokenPath: [ 'ForgotPasswordService', 'AuthRepositoryService', 'HttpClient', 'HttpClient' ] })\n    at NullInjector.get (node_modules/@angular/core/fesm2022/core.mjs:8890:27)\n    at R3Injector.get (node_modules/@angular/core/fesm2022/core.mjs:9334:33)\n    at R3Injector.get (node_modules/@angular/core/fesm2022/core.mjs:9334:33)\n    at injectInjectorOnly (node_modules/@angular/core/fesm2022/core.mjs:842:40)\n    at ɵɵinject (node_modules/@angular/core/fesm2022/core.mjs:848:60)\n    at Object.factory (ng:///AuthRepositoryService/ɵfac.js:4:49)\n    at callback (node_modules/@angular/core/fesm2022/core.mjs:9454:43)\n    at runInInjectorProfilerContext (node_modules/@angular/core/fesm2022/core.mjs:798:9)\n    at R3Injector.hydrate (node_modules/@angular/core/fesm2022/core.mjs:9453:17)\n    at R3Injector.get (node_modules/@angular/core/fesm2022/core.mjs:9323:33)"
+          ],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": false,
+          "suite": [
+            "ForgotPasswordComponent"
+          ],
+          "time": 13,
+          "executedExpectationsCount": 1,
+          "passedExpectations": [],
+          "properties": null,
+          "debug_url": "http://localhost:9876/debug.html?spec=ForgotPasswordComponent%20should%20create"
+        },
+        {
+          "fullName": "ContactComponent should call onLogin method when form is submitted with valid data",
+          "description": "should call onLogin method when form is submitted with valid data",
+          "id": "spec39",
+          "log": [],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": true,
+          "suite": [
+            "ContactComponent"
+          ],
+          "time": 21,
+          "executedExpectationsCount": 5,
+          "passedExpectations": [
+            {
+              "matcherName": "toHaveBeenCalled",
+              "message": "Passed.",
+              "stack": "",
+              "passed": true
+            },
+            {
+              "matcherName": "toHaveBeenCalledWith",
+              "message": "Passed.",
+              "stack": "",
+              "passed": true
+            },
+            {
+              "matcherName": "toBeNull",
+              "message": "Passed.",
+              "stack": "",
+              "passed": true
+            },
+            {
+              "matcherName": "toBeNull",
+              "message": "Passed.",
+              "stack": "",
+              "passed": true
+            },
+            {
+              "matcherName": "toBeNull",
+              "message": "Passed.",
+              "stack": "",
+              "passed": true
+            }
+          ],
+          "properties": null
+        },
+        {
+          "fullName": "ContactComponent should create",
+          "description": "should create",
+          "id": "spec38",
+          "log": [],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": true,
+          "suite": [
+            "ContactComponent"
+          ],
+          "time": 12,
+          "executedExpectationsCount": 1,
+          "passedExpectations": [
+            {
+              "matcherName": "toBeTruthy",
+              "message": "Passed.",
+              "stack": "",
+              "passed": true
+            }
+          ],
+          "properties": null
+        },
+        {
+          "fullName": "ContactComponent should not call onLogin method when form is submitted with invalid data",
+          "description": "should not call onLogin method when form is submitted with invalid data",
+          "id": "spec40",
+          "log": [],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": true,
+          "suite": [
+            "ContactComponent"
+          ],
+          "time": 11,
+          "executedExpectationsCount": 2,
+          "passedExpectations": [
+            {
+              "matcherName": "toHaveBeenCalled",
+              "message": "Passed.",
+              "stack": "",
+              "passed": true
+            },
+            {
+              "matcherName": "toHaveBeenCalled",
+              "message": "Passed.",
+              "stack": "",
+              "passed": true
+            }
+          ],
+          "properties": null
+        },
+        {
+          "fullName": "AboutComponent should create",
+          "description": "should create",
+          "id": "spec41",
+          "log": [
+            "Error: NG0304: 'app-header' is not a known element (used in the 'AboutComponent' component template):\n1. If 'app-header' is an Angular component, then verify that it is a part of an @NgModule where this component is declared.\n2. If 'app-header' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message.\nerror properties: Object({ code: 304 })\n    at validateElementIsKnown (node_modules/@angular/core/fesm2022/core.mjs:6212:23)\n    at ɵɵelementStart (node_modules/@angular/core/fesm2022/core.mjs:16319:9)\n    at ɵɵelement (node_modules/@angular/core/fesm2022/core.mjs:16394:5)\n    at templateFn (ng:///AboutComponent.js:19:9)\n    at executeTemplate (node_modules/@angular/core/fesm2022/core.mjs:12003:13)\n    at renderView (node_modules/@angular/core/fesm2022/core.mjs:13201:13)\n    at renderComponent (node_modules/@angular/core/fesm2022/core.mjs:13148:5)\n    at renderChildComponents (node_modules/@angular/core/fesm2022/core.mjs:13246:9)\n    at renderView (node_modules/@angular/core/fesm2022/core.mjs:13226:13)\n    at ComponentFactory.create (node_modules/@angular/core/fesm2022/core.mjs:14138:13)"
+          ],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": false,
+          "suite": [
+            "AboutComponent"
+          ],
+          "time": 6,
+          "executedExpectationsCount": 1,
+          "passedExpectations": [],
+          "properties": null,
+          "debug_url": "http://localhost:9876/debug.html?spec=AboutComponent%20should%20create"
+        },
+        {
+          "fullName": "ViewResultComponent should create",
+          "description": "should create",
+          "id": "spec83",
+          "log": [
+            "NullInjectorError: R3InjectorError(DynamicTestModule)[ActivatedRoute -> ActivatedRoute]: \n  NullInjectorError: No provider for ActivatedRoute!\nerror properties: Object({ ngTempTokenPath: null, ngTokenPath: [ 'ActivatedRoute', 'ActivatedRoute' ] })\n    at NullInjector.get (node_modules/@angular/core/fesm2022/core.mjs:8890:27)\n    at R3Injector.get (node_modules/@angular/core/fesm2022/core.mjs:9334:33)\n    at R3Injector.get (node_modules/@angular/core/fesm2022/core.mjs:9334:33)\n    at ChainedInjector.get (node_modules/@angular/core/fesm2022/core.mjs:14018:36)\n    at lookupTokenUsingModuleInjector (node_modules/@angular/core/fesm2022/core.mjs:4608:39)\n    at getOrCreateInjectable (node_modules/@angular/core/fesm2022/core.mjs:4656:12)\n    at ɵɵdirectiveInject (node_modules/@angular/core/fesm2022/core.mjs:11801:19)\n    at NodeInjectorFactory.factory (ng:///ViewResultComponent/ɵfac.js:5:7)\n    at getNodeInjectable (node_modules/@angular/core/fesm2022/core.mjs:4862:44)\n    at createRootComponent (node_modules/@angular/core/fesm2022/core.mjs:14273:35)"
+          ],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": false,
+          "suite": [
+            "ViewResultComponent"
+          ],
+          "time": 8,
+          "executedExpectationsCount": 1,
+          "passedExpectations": [],
+          "properties": null,
+          "debug_url": "http://localhost:9876/debug.html?spec=ViewResultComponent%20should%20create"
+        },
+        {
+          "fullName": "FooterComponent should create",
+          "description": "should create",
+          "id": "spec37",
+          "log": [],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": true,
+          "suite": [
+            "FooterComponent"
+          ],
+          "time": 2,
+          "executedExpectationsCount": 1,
+          "passedExpectations": [
+            {
+              "matcherName": "toBeTruthy",
+              "message": "Passed.",
+              "stack": "",
+              "passed": true
+            }
+          ],
+          "properties": null
+        },
+        {
+          "fullName": "UsersResultComponent should create",
+          "description": "should create",
+          "id": "spec70",
+          "log": [],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": true,
+          "suite": [
+            "UsersResultComponent"
+          ],
+          "time": 39,
+          "executedExpectationsCount": 1,
+          "passedExpectations": [
+            {
+              "matcherName": "toBeTruthy",
+              "message": "Passed.",
+              "stack": "",
+              "passed": true
+            }
+          ],
+          "properties": null
+        },
+        {
+          "fullName": "SidebarComponent should create",
+          "description": "should create",
+          "id": "spec33",
+          "log": [],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": true,
+          "suite": [
+            "SidebarComponent"
+          ],
+          "time": 7,
+          "executedExpectationsCount": 1,
+          "passedExpectations": [
+            {
+              "matcherName": "toBeTruthy",
+              "message": "Passed.",
+              "stack": "",
+              "passed": true
+            }
+          ],
+          "properties": null
+        },
+        {
+          "fullName": "SidebarComponent should activate inactive route when toggled",
+          "description": "should activate inactive route when toggled",
+          "id": "spec35",
+          "log": [],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": true,
+          "suite": [
+            "SidebarComponent"
+          ],
+          "time": 3,
+          "executedExpectationsCount": 1,
+          "passedExpectations": [
+            {
+              "matcherName": "toBe",
+              "message": "Passed.",
+              "stack": "",
+              "passed": true
+            }
+          ],
+          "properties": null
+        },
+        {
+          "fullName": "SidebarComponent should activate inactive route when toggled",
+          "description": "should activate inactive route when toggled",
+          "id": "spec34",
+          "log": [],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": true,
+          "suite": [
+            "SidebarComponent"
+          ],
+          "time": 5,
+          "executedExpectationsCount": 1,
+          "passedExpectations": [
+            {
+              "matcherName": "toBe",
+              "message": "Passed.",
+              "stack": "",
+              "passed": true
+            }
+          ],
+          "properties": null
+        },
+        {
+          "fullName": "SubjectService should be created",
+          "description": "should be created",
+          "id": "spec20",
+          "log": [],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": true,
+          "suite": [
+            "SubjectService"
+          ],
+          "time": 3,
+          "executedExpectationsCount": 1,
+          "passedExpectations": [
+            {
+              "matcherName": "toBeTruthy",
+              "message": "Passed.",
+              "stack": "",
+              "passed": true
+            }
+          ],
+          "properties": null
+        },
+        {
+          "fullName": "Error404Component should create",
+          "description": "should create",
+          "id": "spec29",
+          "log": [],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": true,
+          "suite": [
+            "Error404Component"
+          ],
+          "time": 2,
+          "executedExpectationsCount": 1,
+          "passedExpectations": [
+            {
+              "matcherName": "toBeTruthy",
+              "message": "Passed.",
+              "stack": "",
+              "passed": true
+            }
+          ],
+          "properties": null
+        },
+        {
+          "fullName": "AdminHomeComponent should create",
+          "description": "should create",
+          "id": "spec23",
+          "log": [
+            "Error: NG0304: 'highcharts-chart' is not a known element (used in the 'AdminHomeComponent' component template):\n1. If 'highcharts-chart' is an Angular component, then verify that it is a part of an @NgModule where this component is declared.\n2. If 'highcharts-chart' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message.\nerror properties: Object({ code: 304 })\n    at validateElementIsKnown (node_modules/@angular/core/fesm2022/core.mjs:6212:23)\n    at ɵɵelementStart (node_modules/@angular/core/fesm2022/core.mjs:16319:9)\n    at ɵɵelement (node_modules/@angular/core/fesm2022/core.mjs:16394:5)\n    at templateFn (ng:///AdminHomeComponent.js:13:9)\n    at executeTemplate (node_modules/@angular/core/fesm2022/core.mjs:12003:13)\n    at renderView (node_modules/@angular/core/fesm2022/core.mjs:13201:13)\n    at renderComponent (node_modules/@angular/core/fesm2022/core.mjs:13148:5)\n    at renderChildComponents (node_modules/@angular/core/fesm2022/core.mjs:13246:9)\n    at renderView (node_modules/@angular/core/fesm2022/core.mjs:13226:13)\n    at ComponentFactory.create (node_modules/@angular/core/fesm2022/core.mjs:14138:13)"
+          ],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": false,
+          "suite": [
+            "AdminHomeComponent"
+          ],
+          "time": 4,
+          "executedExpectationsCount": 1,
+          "passedExpectations": [],
+          "properties": null,
+          "debug_url": "http://localhost:9876/debug.html?spec=AdminHomeComponent%20should%20create"
+        },
+        {
+          "fullName": "ForgotPasswordService should be created",
+          "description": "should be created",
+          "id": "spec15",
+          "log": [],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": true,
+          "suite": [
+            "ForgotPasswordService"
+          ],
+          "time": 4,
+          "executedExpectationsCount": 1,
+          "passedExpectations": [
+            {
+              "matcherName": "toBeTruthy",
+              "message": "Passed.",
+              "stack": "",
+              "passed": true
+            }
+          ],
+          "properties": null
+        },
+        {
+          "fullName": "QuestionsService should be created",
+          "description": "should be created",
+          "id": "spec17",
+          "log": [
+            "NullInjectorError: R3InjectorError(DynamicTestModule)[QuestionsService -> QuestionRepository -> HttpClient -> HttpClient]: \n  NullInjectorError: No provider for HttpClient!\nerror properties: Object({ ngTempTokenPath: null, ngTokenPath: [ 'QuestionsService', 'QuestionRepository', 'HttpClient', 'HttpClient' ] })\n    at NullInjector.get (node_modules/@angular/core/fesm2022/core.mjs:8890:27)\n    at R3Injector.get (node_modules/@angular/core/fesm2022/core.mjs:9334:33)\n    at R3Injector.get (node_modules/@angular/core/fesm2022/core.mjs:9334:33)\n    at injectInjectorOnly (node_modules/@angular/core/fesm2022/core.mjs:842:40)\n    at ɵɵinject (node_modules/@angular/core/fesm2022/core.mjs:848:60)\n    at Object.factory (ng:///QuestionRepository/ɵfac.js:4:46)\n    at callback (node_modules/@angular/core/fesm2022/core.mjs:9454:43)\n    at runInInjectorProfilerContext (node_modules/@angular/core/fesm2022/core.mjs:798:9)\n    at R3Injector.hydrate (node_modules/@angular/core/fesm2022/core.mjs:9453:17)\n    at R3Injector.get (node_modules/@angular/core/fesm2022/core.mjs:9323:33)"
+          ],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": false,
+          "suite": [
+            "QuestionsService"
+          ],
+          "time": 2,
+          "executedExpectationsCount": 1,
+          "passedExpectations": [],
+          "properties": null,
+          "debug_url": "http://localhost:9876/debug.html?spec=QuestionsService%20should%20be%20created"
+        },
+        {
+          "fullName": "ExamSummaryComponent should create",
+          "description": "should create",
+          "id": "spec69",
+          "log": [
+            "NullInjectorError: R3InjectorError(DynamicTestModule)[ActivatedRoute -> ActivatedRoute]: \n  NullInjectorError: No provider for ActivatedRoute!\nerror properties: Object({ ngTempTokenPath: null, ngTokenPath: [ 'ActivatedRoute', 'ActivatedRoute' ] })\n    at NullInjector.get (node_modules/@angular/core/fesm2022/core.mjs:8890:27)\n    at R3Injector.get (node_modules/@angular/core/fesm2022/core.mjs:9334:33)\n    at R3Injector.get (node_modules/@angular/core/fesm2022/core.mjs:9334:33)\n    at ChainedInjector.get (node_modules/@angular/core/fesm2022/core.mjs:14018:36)\n    at lookupTokenUsingModuleInjector (node_modules/@angular/core/fesm2022/core.mjs:4608:39)\n    at getOrCreateInjectable (node_modules/@angular/core/fesm2022/core.mjs:4656:12)\n    at ɵɵdirectiveInject (node_modules/@angular/core/fesm2022/core.mjs:11801:19)\n    at NodeInjectorFactory.factory (ng:///ExamSummaryComponent/ɵfac.js:5:7)\n    at getNodeInjectable (node_modules/@angular/core/fesm2022/core.mjs:4862:44)\n    at createRootComponent (node_modules/@angular/core/fesm2022/core.mjs:14273:35)"
+          ],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": false,
+          "suite": [
+            "ExamSummaryComponent"
+          ],
+          "time": 7,
+          "executedExpectationsCount": 1,
+          "passedExpectations": [],
+          "properties": null,
+          "debug_url": "http://localhost:9876/debug.html?spec=ExamSummaryComponent%20should%20create"
+        },
+        {
+          "fullName": "Error409Component should create",
+          "description": "should create",
+          "id": "spec30",
+          "log": [],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": true,
+          "suite": [
+            "Error409Component"
+          ],
+          "time": 5,
+          "executedExpectationsCount": 1,
+          "passedExpectations": [
+            {
+              "matcherName": "toBeTruthy",
+              "message": "Passed.",
+              "stack": "",
+              "passed": true
+            }
+          ],
+          "properties": null
+        },
+        {
+          "fullName": "CodeSnippetComponent should create",
+          "description": "should create",
+          "id": "spec24",
+          "log": [],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": true,
+          "suite": [
+            "CodeSnippetComponent"
+          ],
+          "time": 14,
+          "executedExpectationsCount": 1,
+          "passedExpectations": [
+            {
+              "matcherName": "toBeTruthy",
+              "message": "Passed.",
+              "stack": "",
+              "passed": true
+            }
+          ],
+          "properties": null
+        },
+        {
+          "fullName": "Error500Component should create",
+          "description": "should create",
+          "id": "spec31",
+          "log": [],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": true,
+          "suite": [
+            "Error500Component"
+          ],
+          "time": 3,
+          "executedExpectationsCount": 1,
+          "passedExpectations": [
+            {
+              "matcherName": "toBeTruthy",
+              "message": "Passed.",
+              "stack": "",
+              "passed": true
+            }
+          ],
+          "properties": null
+        },
+        {
+          "fullName": "PaperService should be created",
+          "description": "should be created",
+          "id": "spec16",
+          "log": [
+            "NullInjectorError: R3InjectorError(DynamicTestModule)[PaperService -> PaperRepositoryService -> HttpClient -> HttpClient]: \n  NullInjectorError: No provider for HttpClient!\nerror properties: Object({ ngTempTokenPath: null, ngTokenPath: [ 'PaperService', 'PaperRepositoryService', 'HttpClient', 'HttpClient' ] })\n    at NullInjector.get (node_modules/@angular/core/fesm2022/core.mjs:8890:27)\n    at R3Injector.get (node_modules/@angular/core/fesm2022/core.mjs:9334:33)\n    at R3Injector.get (node_modules/@angular/core/fesm2022/core.mjs:9334:33)\n    at injectInjectorOnly (node_modules/@angular/core/fesm2022/core.mjs:842:40)\n    at ɵɵinject (node_modules/@angular/core/fesm2022/core.mjs:848:60)\n    at Object.factory (ng:///PaperRepositoryService/ɵfac.js:4:50)\n    at callback (node_modules/@angular/core/fesm2022/core.mjs:9454:43)\n    at runInInjectorProfilerContext (node_modules/@angular/core/fesm2022/core.mjs:798:9)\n    at R3Injector.hydrate (node_modules/@angular/core/fesm2022/core.mjs:9453:17)\n    at R3Injector.get (node_modules/@angular/core/fesm2022/core.mjs:9323:33)"
+          ],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": false,
+          "suite": [
+            "PaperService"
+          ],
+          "time": 3,
+          "executedExpectationsCount": 1,
+          "passedExpectations": [],
+          "properties": null,
+          "debug_url": "http://localhost:9876/debug.html?spec=PaperService%20should%20be%20created"
+        },
+        {
+          "fullName": "SharedDataService should be created",
+          "description": "should be created",
+          "id": "spec18",
+          "log": [],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": true,
+          "suite": [
+            "SharedDataService"
+          ],
+          "time": 1,
+          "executedExpectationsCount": 1,
+          "passedExpectations": [
+            {
+              "matcherName": "toBeTruthy",
+              "message": "Passed.",
+              "stack": "",
+              "passed": true
+            }
+          ],
+          "properties": null
+        },
+        {
+          "fullName": "ExamHeaderComponent should create",
+          "description": "should create",
+          "id": "spec36",
+          "log": [],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": true,
+          "suite": [
+            "ExamHeaderComponent"
+          ],
+          "time": 9,
+          "executedExpectationsCount": 1,
+          "passedExpectations": [
+            {
+              "matcherName": "toBeTruthy",
+              "message": "Passed.",
+              "stack": "",
+              "passed": true
+            }
+          ],
+          "properties": null
+        },
+        {
+          "fullName": "Error401Component should create",
+          "description": "should create",
+          "id": "spec27",
+          "log": [],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": true,
+          "suite": [
+            "Error401Component"
+          ],
+          "time": 2,
+          "executedExpectationsCount": 1,
+          "passedExpectations": [
+            {
+              "matcherName": "toBeTruthy",
+              "message": "Passed.",
+              "stack": "",
+              "passed": true
+            }
+          ],
+          "properties": null
+        },
+        {
+          "fullName": "Service: Userdetails should ...",
+          "description": "should ...",
+          "id": "spec21",
+          "log": [],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": true,
+          "suite": [
+            "Service: Userdetails"
+          ],
+          "time": 1,
+          "executedExpectationsCount": 1,
+          "passedExpectations": [
+            {
+              "matcherName": "toBeTruthy",
+              "message": "Passed.",
+              "stack": "",
+              "passed": true
+            }
+          ],
+          "properties": null
+        },
+        {
+          "fullName": "AuthService should be created",
+          "description": "should be created",
+          "id": "spec13",
+          "log": [],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": true,
+          "suite": [
+            "AuthService"
+          ],
+          "time": 5,
+          "executedExpectationsCount": 1,
+          "passedExpectations": [
+            {
+              "matcherName": "toBeTruthy",
+              "message": "Passed.",
+              "stack": "",
+              "passed": true
+            }
+          ],
+          "properties": null
+        },
+        {
+          "fullName": "CreatePaperComponent should create",
+          "description": "should create",
+          "id": "spec65",
+          "log": [],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": true,
+          "suite": [
+            "CreatePaperComponent"
+          ],
+          "time": 3,
+          "executedExpectationsCount": 1,
+          "passedExpectations": [
+            {
+              "matcherName": "toBeTruthy",
+              "message": "Passed.",
+              "stack": "",
+              "passed": true
+            }
+          ],
+          "properties": null
+        },
+        {
+          "fullName": "RouteGurdService should be created",
+          "description": "should be created",
+          "id": "spec3",
+          "log": [],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": true,
+          "suite": [
+            "RouteGurdService"
+          ],
+          "time": 2,
+          "executedExpectationsCount": 1,
+          "passedExpectations": [
+            {
+              "matcherName": "toBeTruthy",
+              "message": "Passed.",
+              "stack": "",
+              "passed": true
+            }
+          ],
+          "properties": null
+        },
+        {
+          "fullName": "ViewExamsComponent should create",
+          "description": "should create",
+          "id": "spec59",
+          "log": [
+            "NullInjectorError: R3InjectorError(DynamicTestModule)[ScheduleExamService -> ScheduleExamRepositoryService -> HttpClient -> HttpClient]: \n  NullInjectorError: No provider for HttpClient!\nerror properties: Object({ ngTempTokenPath: null, ngTokenPath: [ 'ScheduleExamService', 'ScheduleExamRepositoryService', 'HttpClient', 'HttpClient' ] })\n    at NullInjector.get (node_modules/@angular/core/fesm2022/core.mjs:8890:27)\n    at R3Injector.get (node_modules/@angular/core/fesm2022/core.mjs:9334:33)\n    at R3Injector.get (node_modules/@angular/core/fesm2022/core.mjs:9334:33)\n    at injectInjectorOnly (node_modules/@angular/core/fesm2022/core.mjs:842:40)\n    at ɵɵinject (node_modules/@angular/core/fesm2022/core.mjs:848:60)\n    at Object.factory (ng:///ScheduleExamRepositoryService/ɵfac.js:4:57)\n    at callback (node_modules/@angular/core/fesm2022/core.mjs:9454:43)\n    at runInInjectorProfilerContext (node_modules/@angular/core/fesm2022/core.mjs:798:9)\n    at R3Injector.hydrate (node_modules/@angular/core/fesm2022/core.mjs:9453:17)\n    at R3Injector.get (node_modules/@angular/core/fesm2022/core.mjs:9323:33)"
+          ],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": false,
+          "suite": [
+            "ViewExamsComponent"
+          ],
+          "time": 11,
+          "executedExpectationsCount": 1,
+          "passedExpectations": [],
+          "properties": null,
+          "debug_url": "http://localhost:9876/debug.html?spec=ViewExamsComponent%20should%20create"
+        },
+        {
+          "fullName": "DetailedUserResultComponent should create",
+          "description": "should create",
+          "id": "spec66",
+          "log": [],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": true,
+          "suite": [
+            "DetailedUserResultComponent"
+          ],
+          "time": 13,
+          "executedExpectationsCount": 1,
+          "passedExpectations": [
+            {
+              "matcherName": "toBeTruthy",
+              "message": "Passed.",
+              "stack": "",
+              "passed": true
+            }
+          ],
+          "properties": null
+        },
+        {
+          "fullName": "ViewPapersComponent should create",
+          "description": "should create",
+          "id": "spec64",
+          "log": [],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": true,
+          "suite": [
+            "ViewPapersComponent"
+          ],
+          "time": 16,
+          "executedExpectationsCount": 1,
+          "passedExpectations": [
+            {
+              "matcherName": "toBeTruthy",
+              "message": "Passed.",
+              "stack": "",
+              "passed": true
+            }
+          ],
+          "properties": null
+        },
+        {
+          "fullName": "AppComponent should create the app",
+          "description": "should create the app",
+          "id": "spec0",
+          "log": [],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": true,
+          "suite": [
+            "AppComponent"
+          ],
+          "time": 2,
+          "executedExpectationsCount": 1,
+          "passedExpectations": [
+            {
+              "matcherName": "toBeTruthy",
+              "message": "Passed.",
+              "stack": "",
+              "passed": true
+            }
+          ],
+          "properties": null
+        },
+        {
+          "fullName": "AppComponent should render title",
+          "description": "should render title",
+          "id": "spec2",
+          "log": [
+            "Expected undefined to contain 'ui-online-exam-portal app is running!'.\n    at <Jasmine>\n    at UserContext.apply (src/app/app.component.spec.ts:27:66)\n    at _ZoneDelegate.invoke (node_modules/zone.js/fesm2015/zone.js:368:26)\n    at ProxyZoneSpec.onInvoke (node_modules/zone.js/fesm2015/zone-testing.js:273:39)\n    at _ZoneDelegate.invoke (node_modules/zone.js/fesm2015/zone.js:367:52)"
+          ],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": false,
+          "suite": [
+            "AppComponent"
+          ],
+          "time": 2,
+          "executedExpectationsCount": 1,
+          "passedExpectations": [],
+          "properties": null,
+          "debug_url": "http://localhost:9876/debug.html?spec=AppComponent%20should%20render%20title"
+        },
+        {
+          "fullName": "AppComponent should have as title 'ui-online-exam-portal'",
+          "description": "should have as title 'ui-online-exam-portal'",
+          "id": "spec1",
+          "log": [],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": true,
+          "suite": [
+            "AppComponent"
+          ],
+          "time": 2,
+          "executedExpectationsCount": 1,
+          "passedExpectations": [
+            {
+              "matcherName": "toEqual",
+              "message": "Passed.",
+              "stack": "",
+              "passed": true
+            }
+          ],
+          "properties": null
+        },
+        {
+          "fullName": "MainHeaderComponent should create",
+          "description": "should create",
+          "id": "spec32",
+          "log": [
+            "NullInjectorError: R3InjectorError(DynamicTestModule)[AuthService -> AuthRepositoryService -> HttpClient -> HttpClient]: \n  NullInjectorError: No provider for HttpClient!\nerror properties: Object({ ngTempTokenPath: null, ngTokenPath: [ 'AuthService', 'AuthRepositoryService', 'HttpClient', 'HttpClient' ] })\n    at NullInjector.get (node_modules/@angular/core/fesm2022/core.mjs:8890:27)\n    at R3Injector.get (node_modules/@angular/core/fesm2022/core.mjs:9334:33)\n    at R3Injector.get (node_modules/@angular/core/fesm2022/core.mjs:9334:33)\n    at injectInjectorOnly (node_modules/@angular/core/fesm2022/core.mjs:842:40)\n    at ɵɵinject (node_modules/@angular/core/fesm2022/core.mjs:848:60)\n    at Object.factory (ng:///AuthRepositoryService/ɵfac.js:4:49)\n    at callback (node_modules/@angular/core/fesm2022/core.mjs:9454:43)\n    at runInInjectorProfilerContext (node_modules/@angular/core/fesm2022/core.mjs:798:9)\n    at R3Injector.hydrate (node_modules/@angular/core/fesm2022/core.mjs:9453:17)\n    at R3Injector.get (node_modules/@angular/core/fesm2022/core.mjs:9323:33)"
+          ],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": false,
+          "suite": [
+            "MainHeaderComponent"
+          ],
+          "time": 7,
+          "executedExpectationsCount": 1,
+          "passedExpectations": [],
+          "properties": null,
+          "debug_url": "http://localhost:9876/debug.html?spec=MainHeaderComponent%20should%20create"
+        },
+        {
+          "fullName": "AddEditSubjectComponent should create",
+          "description": "should create",
+          "id": "spec58",
+          "log": [
+            "NullInjectorError: R3InjectorError(DynamicTestModule)[SubjectService -> SubjectRepositoryService -> HttpClient -> HttpClient]: \n  NullInjectorError: No provider for HttpClient!\nerror properties: Object({ ngTempTokenPath: null, ngTokenPath: [ 'SubjectService', 'SubjectRepositoryService', 'HttpClient', 'HttpClient' ] })\n    at NullInjector.get (node_modules/@angular/core/fesm2022/core.mjs:8890:27)\n    at R3Injector.get (node_modules/@angular/core/fesm2022/core.mjs:9334:33)\n    at R3Injector.get (node_modules/@angular/core/fesm2022/core.mjs:9334:33)\n    at injectInjectorOnly (node_modules/@angular/core/fesm2022/core.mjs:842:40)\n    at ɵɵinject (node_modules/@angular/core/fesm2022/core.mjs:848:60)\n    at Object.factory (ng:///SubjectRepositoryService/ɵfac.js:4:52)\n    at callback (node_modules/@angular/core/fesm2022/core.mjs:9454:43)\n    at runInInjectorProfilerContext (node_modules/@angular/core/fesm2022/core.mjs:798:9)\n    at R3Injector.hydrate (node_modules/@angular/core/fesm2022/core.mjs:9453:17)\n    at R3Injector.get (node_modules/@angular/core/fesm2022/core.mjs:9323:33)"
+          ],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": false,
+          "suite": [
+            "AddEditSubjectComponent"
+          ],
+          "time": 6,
+          "executedExpectationsCount": 1,
+          "passedExpectations": [],
+          "properties": null,
+          "debug_url": "http://localhost:9876/debug.html?spec=AddEditSubjectComponent%20should%20create"
+        },
+        {
+          "fullName": "SnackBarService should be created",
+          "description": "should be created",
+          "id": "spec19",
+          "log": [
+            "NullInjectorError: R3InjectorError(DynamicTestModule)[SnackBarService -> MatSnackBar -> MatSnackBar]: \n  NullInjectorError: No provider for MatSnackBar!\nerror properties: Object({ ngTempTokenPath: null, ngTokenPath: [ 'SnackBarService', 'MatSnackBar', 'MatSnackBar' ] })\n    at NullInjector.get (node_modules/@angular/core/fesm2022/core.mjs:8890:27)\n    at R3Injector.get (node_modules/@angular/core/fesm2022/core.mjs:9334:33)\n    at R3Injector.get (node_modules/@angular/core/fesm2022/core.mjs:9334:33)\n    at injectInjectorOnly (node_modules/@angular/core/fesm2022/core.mjs:842:40)\n    at ɵɵinject (node_modules/@angular/core/fesm2022/core.mjs:848:60)\n    at Object.factory (ng:///SnackBarService/ɵfac.js:4:43)\n    at callback (node_modules/@angular/core/fesm2022/core.mjs:9454:43)\n    at runInInjectorProfilerContext (node_modules/@angular/core/fesm2022/core.mjs:798:9)\n    at R3Injector.hydrate (node_modules/@angular/core/fesm2022/core.mjs:9453:17)\n    at R3Injector.get (node_modules/@angular/core/fesm2022/core.mjs:9323:33)"
+          ],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": false,
+          "suite": [
+            "SnackBarService"
+          ],
+          "time": 3,
+          "executedExpectationsCount": 1,
+          "passedExpectations": [],
+          "properties": null,
+          "debug_url": "http://localhost:9876/debug.html?spec=SnackBarService%20should%20be%20created"
+        },
+        {
+          "fullName": "ExamsPageComponent should create",
+          "description": "should create",
+          "id": "spec68",
+          "log": [
+            "NullInjectorError: R3InjectorError(DynamicTestModule)[ExamService -> HttpClient -> HttpClient]: \n  NullInjectorError: No provider for HttpClient!\nerror properties: Object({ ngTempTokenPath: null, ngTokenPath: [ 'ExamService', 'HttpClient', 'HttpClient' ] })\n    at NullInjector.get (node_modules/@angular/core/fesm2022/core.mjs:8890:27)\n    at R3Injector.get (node_modules/@angular/core/fesm2022/core.mjs:9334:33)\n    at R3Injector.get (node_modules/@angular/core/fesm2022/core.mjs:9334:33)\n    at injectInjectorOnly (node_modules/@angular/core/fesm2022/core.mjs:842:40)\n    at ɵɵinject (node_modules/@angular/core/fesm2022/core.mjs:848:60)\n    at Object.factory (ng:///ExamService/ɵfac.js:4:39)\n    at callback (node_modules/@angular/core/fesm2022/core.mjs:9454:43)\n    at runInInjectorProfilerContext (node_modules/@angular/core/fesm2022/core.mjs:798:9)\n    at R3Injector.hydrate (node_modules/@angular/core/fesm2022/core.mjs:9453:17)\n    at R3Injector.get (node_modules/@angular/core/fesm2022/core.mjs:9323:33)"
+          ],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": false,
+          "suite": [
+            "ExamsPageComponent"
+          ],
+          "time": 11,
+          "executedExpectationsCount": 1,
+          "passedExpectations": [],
+          "properties": null,
+          "debug_url": "http://localhost:9876/debug.html?spec=ExamsPageComponent%20should%20create"
+        },
+        {
+          "fullName": "QuestionsComponent should create",
+          "description": "should create",
+          "id": "spec78",
+          "log": [
+            "NullInjectorError: R3InjectorError(DynamicTestModule)[ExamService -> HttpClient -> HttpClient]: \n  NullInjectorError: No provider for HttpClient!\nerror properties: Object({ ngTempTokenPath: null, ngTokenPath: [ 'ExamService', 'HttpClient', 'HttpClient' ] })\n    at NullInjector.get (node_modules/@angular/core/fesm2022/core.mjs:8890:27)\n    at R3Injector.get (node_modules/@angular/core/fesm2022/core.mjs:9334:33)\n    at R3Injector.get (node_modules/@angular/core/fesm2022/core.mjs:9334:33)\n    at injectInjectorOnly (node_modules/@angular/core/fesm2022/core.mjs:842:40)\n    at ɵɵinject (node_modules/@angular/core/fesm2022/core.mjs:848:60)\n    at Object.factory (ng:///ExamService/ɵfac.js:4:39)\n    at callback (node_modules/@angular/core/fesm2022/core.mjs:9454:43)\n    at runInInjectorProfilerContext (node_modules/@angular/core/fesm2022/core.mjs:798:9)\n    at R3Injector.hydrate (node_modules/@angular/core/fesm2022/core.mjs:9453:17)\n    at R3Injector.get (node_modules/@angular/core/fesm2022/core.mjs:9323:33)"
+          ],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": false,
+          "suite": [
+            "QuestionsComponent"
+          ],
+          "time": 11,
+          "executedExpectationsCount": 1,
+          "passedExpectations": [],
+          "properties": null,
+          "debug_url": "http://localhost:9876/debug.html?spec=QuestionsComponent%20should%20create"
+        },
+        {
+          "fullName": "PaperRepositoryService should be created",
+          "description": "should be created",
+          "id": "spec9",
+          "log": [
+            "NullInjectorError: R3InjectorError(DynamicTestModule)[PaperRepositoryService -> HttpClient -> HttpClient]: \n  NullInjectorError: No provider for HttpClient!\nerror properties: Object({ ngTempTokenPath: null, ngTokenPath: [ 'PaperRepositoryService', 'HttpClient', 'HttpClient' ] })\n    at NullInjector.get (node_modules/@angular/core/fesm2022/core.mjs:8890:27)\n    at R3Injector.get (node_modules/@angular/core/fesm2022/core.mjs:9334:33)\n    at R3Injector.get (node_modules/@angular/core/fesm2022/core.mjs:9334:33)\n    at injectInjectorOnly (node_modules/@angular/core/fesm2022/core.mjs:842:40)\n    at ɵɵinject (node_modules/@angular/core/fesm2022/core.mjs:848:60)\n    at Object.factory (ng:///PaperRepositoryService/ɵfac.js:4:50)\n    at callback (node_modules/@angular/core/fesm2022/core.mjs:9454:43)\n    at runInInjectorProfilerContext (node_modules/@angular/core/fesm2022/core.mjs:798:9)\n    at R3Injector.hydrate (node_modules/@angular/core/fesm2022/core.mjs:9453:17)\n    at R3Injector.get (node_modules/@angular/core/fesm2022/core.mjs:9323:33)"
+          ],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": false,
+          "suite": [
+            "PaperRepositoryService"
+          ],
+          "time": 2,
+          "executedExpectationsCount": 1,
+          "passedExpectations": [],
+          "properties": null,
+          "debug_url": "http://localhost:9876/debug.html?spec=PaperRepositoryService%20should%20be%20created"
+        },
+        {
+          "fullName": "ConfirmationDialogComponent should create",
+          "description": "should create",
+          "id": "spec56",
+          "log": [],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": true,
+          "suite": [
+            "ConfirmationDialogComponent"
+          ],
+          "time": 5,
+          "executedExpectationsCount": 1,
+          "passedExpectations": [
+            {
+              "matcherName": "toBeTruthy",
+              "message": "Passed.",
+              "stack": "",
+              "passed": true
+            }
+          ],
+          "properties": null
+        },
+        {
+          "fullName": "ConfirmationDialogComponent should initialize with correct data",
+          "description": "should initialize with correct data",
+          "id": "spec57",
+          "log": [],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": true,
+          "suite": [
+            "ConfirmationDialogComponent"
+          ],
+          "time": 6,
+          "executedExpectationsCount": 1,
+          "passedExpectations": [
+            {
+              "matcherName": "toEqual",
+              "message": "Passed.",
+              "stack": "",
+              "passed": true
+            }
+          ],
+          "properties": null
+        },
+        {
+          "fullName": "QuestionNavigationComponent should create",
+          "description": "should create",
+          "id": "spec79",
+          "log": [],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": true,
+          "suite": [
+            "QuestionNavigationComponent"
+          ],
+          "time": 5,
+          "executedExpectationsCount": 1,
+          "passedExpectations": [
+            {
+              "matcherName": "toBeTruthy",
+              "message": "Passed.",
+              "stack": "",
+              "passed": true
+            }
+          ],
+          "properties": null
+        },
+        {
+          "fullName": "QuestionResultComponent should create",
+          "description": "should create",
+          "id": "spec67",
+          "log": [],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": true,
+          "suite": [
+            "QuestionResultComponent"
+          ],
+          "time": 14,
+          "executedExpectationsCount": 1,
+          "passedExpectations": [
+            {
+              "matcherName": "toBeTruthy",
+              "message": "Passed.",
+              "stack": "",
+              "passed": true
+            }
+          ],
+          "properties": null
+        },
+        {
+          "fullName": "ExamComponent should create",
+          "description": "should create",
+          "id": "spec76",
+          "log": [
+            "NullInjectorError: R3InjectorError(DynamicTestModule)[ActivatedRoute -> ActivatedRoute]: \n  NullInjectorError: No provider for ActivatedRoute!\nerror properties: Object({ ngTempTokenPath: null, ngTokenPath: [ 'ActivatedRoute', 'ActivatedRoute' ] })\n    at NullInjector.get (node_modules/@angular/core/fesm2022/core.mjs:8890:27)\n    at R3Injector.get (node_modules/@angular/core/fesm2022/core.mjs:9334:33)\n    at R3Injector.get (node_modules/@angular/core/fesm2022/core.mjs:9334:33)\n    at ChainedInjector.get (node_modules/@angular/core/fesm2022/core.mjs:14018:36)\n    at lookupTokenUsingModuleInjector (node_modules/@angular/core/fesm2022/core.mjs:4608:39)\n    at getOrCreateInjectable (node_modules/@angular/core/fesm2022/core.mjs:4656:12)\n    at ɵɵdirectiveInject (node_modules/@angular/core/fesm2022/core.mjs:11801:19)\n    at NodeInjectorFactory.factory (ng:///ExamComponent/ɵfac.js:4:41)\n    at getNodeInjectable (node_modules/@angular/core/fesm2022/core.mjs:4862:44)\n    at createRootComponent (node_modules/@angular/core/fesm2022/core.mjs:14273:35)"
+          ],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": false,
+          "suite": [
+            "ExamComponent"
+          ],
+          "time": 6,
+          "executedExpectationsCount": 1,
+          "passedExpectations": [],
+          "properties": null,
+          "debug_url": "http://localhost:9876/debug.html?spec=ExamComponent%20should%20create"
+        },
+        {
+          "fullName": "ProfileComponent should create",
+          "description": "should create",
+          "id": "spec61",
+          "log": [
+            "NullInjectorError: R3InjectorError(DynamicTestModule)[ProfileRepositoryService -> HttpClient -> HttpClient]: \n  NullInjectorError: No provider for HttpClient!\nerror properties: Object({ ngTempTokenPath: null, ngTokenPath: [ 'ProfileRepositoryService', 'HttpClient', 'HttpClient' ] })\n    at NullInjector.get (node_modules/@angular/core/fesm2022/core.mjs:8890:27)\n    at R3Injector.get (node_modules/@angular/core/fesm2022/core.mjs:9334:33)\n    at R3Injector.get (node_modules/@angular/core/fesm2022/core.mjs:9334:33)\n    at injectInjectorOnly (node_modules/@angular/core/fesm2022/core.mjs:842:40)\n    at ɵɵinject (node_modules/@angular/core/fesm2022/core.mjs:848:60)\n    at Object.factory (ng:///ProfileRepositoryService/ɵfac.js:4:52)\n    at callback (node_modules/@angular/core/fesm2022/core.mjs:9454:43)\n    at runInInjectorProfilerContext (node_modules/@angular/core/fesm2022/core.mjs:798:9)\n    at R3Injector.hydrate (node_modules/@angular/core/fesm2022/core.mjs:9453:17)\n    at R3Injector.get (node_modules/@angular/core/fesm2022/core.mjs:9323:33)"
+          ],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": false,
+          "suite": [
+            "ProfileComponent"
+          ],
+          "time": 9,
+          "executedExpectationsCount": 1,
+          "passedExpectations": [],
+          "properties": null,
+          "debug_url": "http://localhost:9876/debug.html?spec=ProfileComponent%20should%20create"
+        },
+        {
+          "fullName": "MassageboxComponent should create",
+          "description": "should create",
+          "id": "spec55",
+          "log": [
+            "NullInjectorError: R3InjectorError(DynamicTestModule)[MatDialogRef -> MatDialogRef]: \n  NullInjectorError: No provider for MatDialogRef!\nerror properties: Object({ ngTempTokenPath: null, ngTokenPath: [ 'MatDialogRef', 'MatDialogRef' ] })\n    at NullInjector.get (node_modules/@angular/core/fesm2022/core.mjs:8890:27)\n    at R3Injector.get (node_modules/@angular/core/fesm2022/core.mjs:9334:33)\n    at R3Injector.get (node_modules/@angular/core/fesm2022/core.mjs:9334:33)\n    at ChainedInjector.get (node_modules/@angular/core/fesm2022/core.mjs:14018:36)\n    at lookupTokenUsingModuleInjector (node_modules/@angular/core/fesm2022/core.mjs:4608:39)\n    at getOrCreateInjectable (node_modules/@angular/core/fesm2022/core.mjs:4656:12)\n    at ɵɵdirectiveInject (node_modules/@angular/core/fesm2022/core.mjs:11801:19)\n    at NodeInjectorFactory.factory (ng:///MassageboxComponent/ɵfac.js:4:47)\n    at getNodeInjectable (node_modules/@angular/core/fesm2022/core.mjs:4862:44)\n    at createRootComponent (node_modules/@angular/core/fesm2022/core.mjs:14273:35)"
+          ],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": false,
+          "suite": [
+            "MassageboxComponent"
+          ],
+          "time": 7,
+          "executedExpectationsCount": 1,
+          "passedExpectations": [],
+          "properties": null,
+          "debug_url": "http://localhost:9876/debug.html?spec=MassageboxComponent%20should%20create"
+        },
+        {
+          "fullName": "ExamCodeComponent should create",
+          "description": "should create",
+          "id": "spec77",
+          "log": [
+            "NullInjectorError: R3InjectorError(DynamicTestModule)[ExamService -> HttpClient -> HttpClient]: \n  NullInjectorError: No provider for HttpClient!\nerror properties: Object({ ngTempTokenPath: null, ngTokenPath: [ 'ExamService', 'HttpClient', 'HttpClient' ] })\n    at NullInjector.get (node_modules/@angular/core/fesm2022/core.mjs:8890:27)\n    at R3Injector.get (node_modules/@angular/core/fesm2022/core.mjs:9334:33)\n    at R3Injector.get (node_modules/@angular/core/fesm2022/core.mjs:9334:33)\n    at injectInjectorOnly (node_modules/@angular/core/fesm2022/core.mjs:842:40)\n    at ɵɵinject (node_modules/@angular/core/fesm2022/core.mjs:848:60)\n    at Object.factory (ng:///ExamService/ɵfac.js:4:39)\n    at callback (node_modules/@angular/core/fesm2022/core.mjs:9454:43)\n    at runInInjectorProfilerContext (node_modules/@angular/core/fesm2022/core.mjs:798:9)\n    at R3Injector.hydrate (node_modules/@angular/core/fesm2022/core.mjs:9453:17)\n    at R3Injector.get (node_modules/@angular/core/fesm2022/core.mjs:9323:33)"
+          ],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": false,
+          "suite": [
+            "ExamCodeComponent"
+          ],
+          "time": 8,
+          "executedExpectationsCount": 1,
+          "passedExpectations": [],
+          "properties": null,
+          "debug_url": "http://localhost:9876/debug.html?spec=ExamCodeComponent%20should%20create"
+        },
+        {
+          "fullName": "ViewSubjectsComponent should create",
+          "description": "should create",
+          "id": "spec60",
+          "log": [
+            "NullInjectorError: R3InjectorError(DynamicTestModule)[SubjectRepositoryService -> HttpClient -> HttpClient]: \n  NullInjectorError: No provider for HttpClient!\nerror properties: Object({ ngTempTokenPath: null, ngTokenPath: [ 'SubjectRepositoryService', 'HttpClient', 'HttpClient' ] })\n    at NullInjector.get (node_modules/@angular/core/fesm2022/core.mjs:8890:27)\n    at R3Injector.get (node_modules/@angular/core/fesm2022/core.mjs:9334:33)\n    at R3Injector.get (node_modules/@angular/core/fesm2022/core.mjs:9334:33)\n    at injectInjectorOnly (node_modules/@angular/core/fesm2022/core.mjs:842:40)\n    at ɵɵinject (node_modules/@angular/core/fesm2022/core.mjs:848:60)\n    at Object.factory (ng:///SubjectRepositoryService/ɵfac.js:4:52)\n    at callback (node_modules/@angular/core/fesm2022/core.mjs:9454:43)\n    at runInInjectorProfilerContext (node_modules/@angular/core/fesm2022/core.mjs:798:9)\n    at R3Injector.hydrate (node_modules/@angular/core/fesm2022/core.mjs:9453:17)\n    at R3Injector.get (node_modules/@angular/core/fesm2022/core.mjs:9323:33)"
+          ],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": false,
+          "suite": [
+            "ViewSubjectsComponent"
+          ],
+          "time": 13,
+          "executedExpectationsCount": 1,
+          "passedExpectations": [],
+          "properties": null,
+          "debug_url": "http://localhost:9876/debug.html?spec=ViewSubjectsComponent%20should%20create"
+        },
+        {
+          "fullName": "ExamInstructionsComponent should create",
+          "description": "should create",
+          "id": "spec74",
+          "log": [
+            "NullInjectorError: R3InjectorError(DynamicTestModule)[ActivatedRoute -> ActivatedRoute]: \n  NullInjectorError: No provider for ActivatedRoute!\nerror properties: Object({ ngTempTokenPath: null, ngTokenPath: [ 'ActivatedRoute', 'ActivatedRoute' ] })\n    at NullInjector.get (node_modules/@angular/core/fesm2022/core.mjs:8890:27)\n    at R3Injector.get (node_modules/@angular/core/fesm2022/core.mjs:9334:33)\n    at R3Injector.get (node_modules/@angular/core/fesm2022/core.mjs:9334:33)\n    at ChainedInjector.get (node_modules/@angular/core/fesm2022/core.mjs:14018:36)\n    at lookupTokenUsingModuleInjector (node_modules/@angular/core/fesm2022/core.mjs:4608:39)\n    at getOrCreateInjectable (node_modules/@angular/core/fesm2022/core.mjs:4656:12)\n    at ɵɵdirectiveInject (node_modules/@angular/core/fesm2022/core.mjs:11801:19)\n    at NodeInjectorFactory.factory (ng:///ExamInstructionsComponent/ɵfac.js:4:53)\n    at getNodeInjectable (node_modules/@angular/core/fesm2022/core.mjs:4862:44)\n    at createRootComponent (node_modules/@angular/core/fesm2022/core.mjs:14273:35)"
+          ],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": false,
+          "suite": [
+            "ExamInstructionsComponent"
+          ],
+          "time": 16,
+          "executedExpectationsCount": 1,
+          "passedExpectations": [],
+          "properties": null,
+          "debug_url": "http://localhost:9876/debug.html?spec=ExamInstructionsComponent%20should%20create"
+        },
+        {
+          "fullName": "ViewQuestionsComponent should create",
+          "description": "should create",
+          "id": "spec63",
+          "log": [
+            "NullInjectorError: R3InjectorError(DynamicTestModule)[QuestionsService -> QuestionRepository -> HttpClient -> HttpClient]: \n  NullInjectorError: No provider for HttpClient!\nerror properties: Object({ ngTempTokenPath: null, ngTokenPath: [ 'QuestionsService', 'QuestionRepository', 'HttpClient', 'HttpClient' ] })\n    at NullInjector.get (node_modules/@angular/core/fesm2022/core.mjs:8890:27)\n    at R3Injector.get (node_modules/@angular/core/fesm2022/core.mjs:9334:33)\n    at R3Injector.get (node_modules/@angular/core/fesm2022/core.mjs:9334:33)\n    at injectInjectorOnly (node_modules/@angular/core/fesm2022/core.mjs:842:40)\n    at ɵɵinject (node_modules/@angular/core/fesm2022/core.mjs:848:60)\n    at Object.factory (ng:///QuestionRepository/ɵfac.js:4:46)\n    at callback (node_modules/@angular/core/fesm2022/core.mjs:9454:43)\n    at runInInjectorProfilerContext (node_modules/@angular/core/fesm2022/core.mjs:798:9)\n    at R3Injector.hydrate (node_modules/@angular/core/fesm2022/core.mjs:9453:17)\n    at R3Injector.get (node_modules/@angular/core/fesm2022/core.mjs:9323:33)"
+          ],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": false,
+          "suite": [
+            "ViewQuestionsComponent"
+          ],
+          "time": 14,
+          "executedExpectationsCount": 1,
+          "passedExpectations": [],
+          "properties": null,
+          "debug_url": "http://localhost:9876/debug.html?spec=ViewQuestionsComponent%20should%20create"
+        },
+        {
+          "fullName": "ConfirmDialogforuserComponent should close the dialog on confirm",
+          "description": "should close the dialog on confirm",
+          "id": "spec53",
+          "log": [],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": true,
+          "suite": [
+            "ConfirmDialogforuserComponent"
+          ],
+          "time": 6,
+          "executedExpectationsCount": 1,
+          "passedExpectations": [
+            {
+              "matcherName": "toHaveBeenCalled",
+              "message": "Passed.",
+              "stack": "",
+              "passed": true
+            }
+          ],
+          "properties": null
+        },
+        {
+          "fullName": "ConfirmDialogforuserComponent should close the dialog on cancel",
+          "description": "should close the dialog on cancel",
+          "id": "spec54",
+          "log": [],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": true,
+          "suite": [
+            "ConfirmDialogforuserComponent"
+          ],
+          "time": 6,
+          "executedExpectationsCount": 1,
+          "passedExpectations": [
+            {
+              "matcherName": "toHaveBeenCalled",
+              "message": "Passed.",
+              "stack": "",
+              "passed": true
+            }
+          ],
+          "properties": null
+        },
+        {
+          "fullName": "ConfirmDialogforuserComponent should emit true on confirm",
+          "description": "should emit true on confirm",
+          "id": "spec51",
+          "log": [],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": true,
+          "suite": [
+            "ConfirmDialogforuserComponent"
+          ],
+          "time": 4,
+          "executedExpectationsCount": 1,
+          "passedExpectations": [
+            {
+              "matcherName": "toHaveBeenCalledWith",
+              "message": "Passed.",
+              "stack": "",
+              "passed": true
+            }
+          ],
+          "properties": null
+        },
+        {
+          "fullName": "ConfirmDialogforuserComponent should emit false on cancel",
+          "description": "should emit false on cancel",
+          "id": "spec52",
+          "log": [],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": true,
+          "suite": [
+            "ConfirmDialogforuserComponent"
+          ],
+          "time": 4,
+          "executedExpectationsCount": 1,
+          "passedExpectations": [
+            {
+              "matcherName": "toHaveBeenCalledWith",
+              "message": "Passed.",
+              "stack": "",
+              "passed": true
+            }
+          ],
+          "properties": null
+        },
+        {
+          "fullName": "ConfirmDialogforuserComponent should create",
+          "description": "should create",
+          "id": "spec50",
+          "log": [],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": true,
+          "suite": [
+            "ConfirmDialogforuserComponent"
+          ],
+          "time": 6,
+          "executedExpectationsCount": 1,
+          "passedExpectations": [
+            {
+              "matcherName": "toBeTruthy",
+              "message": "Passed.",
+              "stack": "",
+              "passed": true
+            }
+          ],
+          "properties": null
+        },
+        {
+          "fullName": "UserHomePageComponent should create",
+          "description": "should create",
+          "id": "spec48",
+          "log": [],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": true,
+          "suite": [
+            "UserHomePageComponent"
+          ],
+          "time": 4,
+          "executedExpectationsCount": 1,
+          "passedExpectations": [
+            {
+              "matcherName": "toBeTruthy",
+              "message": "Passed.",
+              "stack": "",
+              "passed": true
+            }
+          ],
+          "properties": null
+        },
+        {
+          "fullName": "ProfileRepositoryService should be created",
+          "description": "should be created",
+          "id": "spec10",
+          "log": [],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": true,
+          "suite": [
+            "ProfileRepositoryService"
+          ],
+          "time": 2,
+          "executedExpectationsCount": 1,
+          "passedExpectations": [
+            {
+              "matcherName": "toBeTruthy",
+              "message": "Passed.",
+              "stack": "",
+              "passed": true
+            }
+          ],
+          "properties": null
+        },
+        {
+          "fullName": "ExamSubmittedComponent should create",
+          "description": "should create",
+          "id": "spec75",
+          "log": [],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": true,
+          "suite": [
+            "ExamSubmittedComponent"
+          ],
+          "time": 7,
+          "executedExpectationsCount": 1,
+          "passedExpectations": [
+            {
+              "matcherName": "toBeTruthy",
+              "message": "Passed.",
+              "stack": "",
+              "passed": true
+            }
+          ],
+          "properties": null
+        },
+        {
+          "fullName": "ResetPassowrdComponent should create",
+          "description": "should create",
+          "id": "spec47",
+          "log": [
+            "Error: NG0304: 'ngx-ui-loader' is not a known element (used in the 'ResetPassowrdComponent' component template):\n1. If 'ngx-ui-loader' is an Angular component, then verify that it is a part of an @NgModule where this component is declared.\n2. If 'ngx-ui-loader' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message.\nerror properties: Object({ code: 304 })\n    at validateElementIsKnown (node_modules/@angular/core/fesm2022/core.mjs:6212:23)\n    at ɵɵelementStart (node_modules/@angular/core/fesm2022/core.mjs:16319:9)\n    at ɵɵelement (node_modules/@angular/core/fesm2022/core.mjs:16394:5)\n    at templateFn (ng:///ResetPassowrdComponent.js:99:9)\n    at executeTemplate (node_modules/@angular/core/fesm2022/core.mjs:12003:13)\n    at renderView (node_modules/@angular/core/fesm2022/core.mjs:13201:13)\n    at renderComponent (node_modules/@angular/core/fesm2022/core.mjs:13148:5)\n    at renderChildComponents (node_modules/@angular/core/fesm2022/core.mjs:13246:9)\n    at renderView (node_modules/@angular/core/fesm2022/core.mjs:13226:13)\n    at ComponentFactory.create (node_modules/@angular/core/fesm2022/core.mjs:14138:13)"
+          ],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": false,
+          "suite": [
+            "ResetPassowrdComponent"
+          ],
+          "time": 17,
+          "executedExpectationsCount": 1,
+          "passedExpectations": [],
+          "properties": null,
+          "debug_url": "http://localhost:9876/debug.html?spec=ResetPassowrdComponent%20should%20create"
+        },
+        {
+          "fullName": "AuthLayoutComponent should create",
+          "description": "should create",
+          "id": "spec73",
+          "log": [
+            "Error: NG0304: 'router-outlet' is not a known element (used in the 'AuthLayoutComponent' component template):\n1. If 'router-outlet' is an Angular component, then verify that it is a part of an @NgModule where this component is declared.\n2. If 'router-outlet' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message.\nerror properties: Object({ code: 304 })\n    at validateElementIsKnown (node_modules/@angular/core/fesm2022/core.mjs:6212:23)\n    at ɵɵelementStart (node_modules/@angular/core/fesm2022/core.mjs:16319:9)\n    at ɵɵelement (node_modules/@angular/core/fesm2022/core.mjs:16394:5)\n    at templateFn (ng:///AuthLayoutComponent.js:5:21)\n    at executeTemplate (node_modules/@angular/core/fesm2022/core.mjs:12003:13)\n    at renderView (node_modules/@angular/core/fesm2022/core.mjs:13201:13)\n    at renderComponent (node_modules/@angular/core/fesm2022/core.mjs:13148:5)\n    at renderChildComponents (node_modules/@angular/core/fesm2022/core.mjs:13246:9)\n    at renderView (node_modules/@angular/core/fesm2022/core.mjs:13226:13)\n    at ComponentFactory.create (node_modules/@angular/core/fesm2022/core.mjs:14138:13)"
+          ],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": false,
+          "suite": [
+            "AuthLayoutComponent"
+          ],
+          "time": 4,
+          "executedExpectationsCount": 1,
+          "passedExpectations": [],
+          "properties": null,
+          "debug_url": "http://localhost:9876/debug.html?spec=AuthLayoutComponent%20should%20create"
+        },
+        {
+          "fullName": "AddEditQuestionComponent should create",
+          "description": "should create",
+          "id": "spec62",
+          "log": [
+            "NullInjectorError: R3InjectorError(DynamicTestModule)[QuestionsService -> QuestionRepository -> HttpClient -> HttpClient]: \n  NullInjectorError: No provider for HttpClient!\nerror properties: Object({ ngTempTokenPath: null, ngTokenPath: [ 'QuestionsService', 'QuestionRepository', 'HttpClient', 'HttpClient' ] })\n    at NullInjector.get (node_modules/@angular/core/fesm2022/core.mjs:8890:27)\n    at R3Injector.get (node_modules/@angular/core/fesm2022/core.mjs:9334:33)\n    at R3Injector.get (node_modules/@angular/core/fesm2022/core.mjs:9334:33)\n    at injectInjectorOnly (node_modules/@angular/core/fesm2022/core.mjs:842:40)\n    at ɵɵinject (node_modules/@angular/core/fesm2022/core.mjs:848:60)\n    at Object.factory (ng:///QuestionRepository/ɵfac.js:4:46)\n    at callback (node_modules/@angular/core/fesm2022/core.mjs:9454:43)\n    at runInInjectorProfilerContext (node_modules/@angular/core/fesm2022/core.mjs:798:9)\n    at R3Injector.hydrate (node_modules/@angular/core/fesm2022/core.mjs:9453:17)\n    at R3Injector.get (node_modules/@angular/core/fesm2022/core.mjs:9323:33)"
+          ],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": false,
+          "suite": [
+            "AddEditQuestionComponent"
+          ],
+          "time": 15,
+          "executedExpectationsCount": 1,
+          "passedExpectations": [],
+          "properties": null,
+          "debug_url": "http://localhost:9876/debug.html?spec=AddEditQuestionComponent%20should%20create"
+        },
+        {
+          "fullName": "GlobalExceptionHandlerService should be created",
+          "description": "should be created",
+          "id": "spec4",
+          "log": [],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": true,
+          "suite": [
+            "GlobalExceptionHandlerService"
+          ],
+          "time": 4,
+          "executedExpectationsCount": 1,
+          "passedExpectations": [
+            {
+              "matcherName": "toBeTruthy",
+              "message": "Passed.",
+              "stack": "",
+              "passed": true
+            }
+          ],
+          "properties": null
+        },
+        {
+          "fullName": "UserRegistrationComponent should create",
+          "description": "should create",
+          "id": "spec49",
+          "log": [
+            "NullInjectorError: R3InjectorError(DynamicTestModule)[AuthService -> AuthRepositoryService -> HttpClient -> HttpClient]: \n  NullInjectorError: No provider for HttpClient!\nerror properties: Object({ ngTempTokenPath: null, ngTokenPath: [ 'AuthService', 'AuthRepositoryService', 'HttpClient', 'HttpClient' ] })\n    at NullInjector.get (node_modules/@angular/core/fesm2022/core.mjs:8890:27)\n    at R3Injector.get (node_modules/@angular/core/fesm2022/core.mjs:9334:33)\n    at R3Injector.get (node_modules/@angular/core/fesm2022/core.mjs:9334:33)\n    at injectInjectorOnly (node_modules/@angular/core/fesm2022/core.mjs:842:40)\n    at ɵɵinject (node_modules/@angular/core/fesm2022/core.mjs:848:60)\n    at Object.factory (ng:///AuthRepositoryService/ɵfac.js:4:49)\n    at callback (node_modules/@angular/core/fesm2022/core.mjs:9454:43)\n    at runInInjectorProfilerContext (node_modules/@angular/core/fesm2022/core.mjs:798:9)\n    at R3Injector.hydrate (node_modules/@angular/core/fesm2022/core.mjs:9453:17)\n    at R3Injector.get (node_modules/@angular/core/fesm2022/core.mjs:9323:33)"
+          ],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": false,
+          "suite": [
+            "UserRegistrationComponent"
+          ],
+          "time": 11,
+          "executedExpectationsCount": 1,
+          "passedExpectations": [],
+          "properties": null,
+          "debug_url": "http://localhost:9876/debug.html?spec=UserRegistrationComponent%20should%20create"
+        },
+        {
+          "fullName": "ExamService should be created",
+          "description": "should be created",
+          "id": "spec8",
+          "log": [
+            "NullInjectorError: R3InjectorError(DynamicTestModule)[ExamService -> HttpClient -> HttpClient]: \n  NullInjectorError: No provider for HttpClient!\nerror properties: Object({ ngTempTokenPath: null, ngTokenPath: [ 'ExamService', 'HttpClient', 'HttpClient' ] })\n    at NullInjector.get (node_modules/@angular/core/fesm2022/core.mjs:8890:27)\n    at R3Injector.get (node_modules/@angular/core/fesm2022/core.mjs:9334:33)\n    at R3Injector.get (node_modules/@angular/core/fesm2022/core.mjs:9334:33)\n    at injectInjectorOnly (node_modules/@angular/core/fesm2022/core.mjs:842:40)\n    at ɵɵinject (node_modules/@angular/core/fesm2022/core.mjs:848:60)\n    at Object.factory (ng:///ExamService/ɵfac.js:4:39)\n    at callback (node_modules/@angular/core/fesm2022/core.mjs:9454:43)\n    at runInInjectorProfilerContext (node_modules/@angular/core/fesm2022/core.mjs:798:9)\n    at R3Injector.hydrate (node_modules/@angular/core/fesm2022/core.mjs:9453:17)\n    at R3Injector.get (node_modules/@angular/core/fesm2022/core.mjs:9323:33)"
+          ],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": false,
+          "suite": [
+            "ExamService"
+          ],
+          "time": 3,
+          "executedExpectationsCount": 1,
+          "passedExpectations": [],
+          "properties": null,
+          "debug_url": "http://localhost:9876/debug.html?spec=ExamService%20should%20be%20created"
+        },
+        {
+          "fullName": "authGuard should be created",
+          "description": "should be created",
+          "id": "spec5",
+          "log": [],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": true,
+          "suite": [
+            "authGuard"
+          ],
+          "time": 1,
+          "executedExpectationsCount": 1,
+          "passedExpectations": [
+            {
+              "matcherName": "toBeTruthy",
+              "message": "Passed.",
+              "stack": "",
+              "passed": true
+            }
+          ],
+          "properties": null
+        },
+        {
+          "fullName": "AuthRepositoryService should be created",
+          "description": "should be created",
+          "id": "spec7",
+          "log": [
+            "NullInjectorError: R3InjectorError(DynamicTestModule)[AuthRepositoryService -> HttpClient -> HttpClient]: \n  NullInjectorError: No provider for HttpClient!\nerror properties: Object({ ngTempTokenPath: null, ngTokenPath: [ 'AuthRepositoryService', 'HttpClient', 'HttpClient' ] })\n    at NullInjector.get (node_modules/@angular/core/fesm2022/core.mjs:8890:27)\n    at R3Injector.get (node_modules/@angular/core/fesm2022/core.mjs:9334:33)\n    at R3Injector.get (node_modules/@angular/core/fesm2022/core.mjs:9334:33)\n    at injectInjectorOnly (node_modules/@angular/core/fesm2022/core.mjs:842:40)\n    at ɵɵinject (node_modules/@angular/core/fesm2022/core.mjs:848:60)\n    at Object.factory (ng:///AuthRepositoryService/ɵfac.js:4:49)\n    at callback (node_modules/@angular/core/fesm2022/core.mjs:9454:43)\n    at runInInjectorProfilerContext (node_modules/@angular/core/fesm2022/core.mjs:798:9)\n    at R3Injector.hydrate (node_modules/@angular/core/fesm2022/core.mjs:9453:17)\n    at R3Injector.get (node_modules/@angular/core/fesm2022/core.mjs:9323:33)"
+          ],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": false,
+          "suite": [
+            "AuthRepositoryService"
+          ],
+          "time": 2,
+          "executedExpectationsCount": 1,
+          "passedExpectations": [],
+          "properties": null,
+          "debug_url": "http://localhost:9876/debug.html?spec=AuthRepositoryService%20should%20be%20created"
+        },
+        {
+          "fullName": "TimeFormatPipe create an instance",
+          "description": "create an instance",
+          "id": "spec6",
+          "log": [],
+          "skipped": false,
+          "disabled": false,
+          "pending": false,
+          "success": true,
+          "suite": [
+            "TimeFormatPipe"
+          ],
+          "time": 0,
+          "executedExpectationsCount": 1,
+          "passedExpectations": [
+            {
+              "matcherName": "toBeTruthy",
+              "message": "Passed.",
+              "stack": "",
+              "passed": true
+            }
+          ],
+          "properties": null
+        }
+      ]
+    },
+    "summary": {
+      "success": 47,
+      "failed": 37,
+      "skipped": 0,
+      "error": false,
+      "disconnected": false,
+      "exitCode": 1
+    }
+  }

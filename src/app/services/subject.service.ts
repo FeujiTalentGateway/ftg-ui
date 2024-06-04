@@ -30,7 +30,7 @@ export class SubjectService {
         this.subjects = response;
       },
       error: (error) => {
-        this.snackBarService.openSnackBar(error.error.message);
+        this.snackBarService.openRedAlertSnackBar(error.error.message);
       },
     });
   }
@@ -48,10 +48,12 @@ export class SubjectService {
     this.subjectRepositoryService.deleteSubject(id).subscribe({
       next: (response: any) => {
         this.subjectChanged.next();
-        this.snackBarService.openSnackBar('Subject deactivated successfully');
+        this.snackBarService.openSnackBarSuccessMessage(
+          'Subject deactivated successfully'
+        );
       },
       error: (error) => {
-        this.snackBarService.openSnackBar(error.error.message, 'Close');
+        this.snackBarService.openSnackBarForError(error.error.message, 'Close');
       },
     });
   }
@@ -63,13 +65,13 @@ export class SubjectService {
       next: (response: any) => {
         this.subjectChanged.next();
         this.dialogRef.close();
-        this.snackBarService.openSnackBar(
+        this.snackBarService.openSnackBarSuccessMessage(
           'Subject added successfully',
           'Close'
         );
       },
       error: (error) => {
-        this.snackBarService.openSnackBar(error.error.message, 'Close');
+        this.snackBarService.openSnackBarForError(error.error.message, 'Close');
       },
     });
   }
@@ -79,13 +81,13 @@ export class SubjectService {
       next: (response) => {
         this.subjectChanged.next();
         this.dialogRef.close();
-        this.snackBarService.openSnackBar(
+        this.snackBarService.openSnackBarSuccessMessage(
           'Subject updated successfully',
           'Close'
         );
       },
       error: (error) => {
-        this.snackBarService.openSnackBar(error.error.message);
+        this.snackBarService.openSnackBarForError(error.error.message);
       },
     });
   }
@@ -94,13 +96,13 @@ export class SubjectService {
     this.subjectRepositoryService.activateSubject(subjectId).subscribe({
       next: (response) => {
         this.subjectChanged.next();
-        this.snackBarService.openSnackBar(
+        this.snackBarService.openSnackBarSuccessMessage(
           'Subject activated successfully',
           'Close'
         );
       },
       error: (error) => {
-        this.snackBarService.openSnackBar(error.error.message);
+        this.snackBarService.openSnackBarForError(error.error.message);
       },
     });
   }

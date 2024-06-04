@@ -9,6 +9,7 @@ import { User } from '../models/user.model';
 import { AuthRepositoryService } from '../repository/auth-repository.service';
 import { UserdetailsService } from './userdetails.service';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { SnackBarService } from './snack-bar.service';
 
 @Injectable({
   providedIn: 'root',
@@ -20,7 +21,7 @@ export class AuthService {
   roles: any[] = [];
   constructor(
     private authRepo: AuthRepositoryService,
-    private snackBar: MatSnackBar,
+    private snackBar: SnackBarService,
     private route: Router,
     private userDetails: UserdetailsService,
     private ngxLoader: NgxUiLoaderService
@@ -35,9 +36,9 @@ export class AuthService {
       next: (response: any) => {
         const responseMessage: string = response.message;
         this.ngxLoader.stop();
-        this.openSnackBar(response.message, 'Close');
+        this.snackBar.openSnackBar(response.message, 'Close');
         if (responseMessage.includes('User successfully registered with')) {
-          this.openSnackBar(responseMessage, 'Close');
+          this.snackBar.openSnackBarSuccessMessage(responseMessage, 'Close');
           this.route.navigateByUrl('main/login');
         }
         this.ngxLoader.stop();
@@ -46,17 +47,17 @@ export class AuthService {
         const responseMessage: string = error.error.message;
         this.ngxLoader.stop();
         if (responseMessage == 'Username already exists') {
-          this.openSnackBar(
+          this.snackBar.openSnackBarForError(
             "Username '" + user.userName + "' already exists",
             'Close'
           );
         } else if (responseMessage == 'Email already exists') {
-          this.openSnackBar(
+          this.snackBar.openSnackBarForError(
             "Email '" + user.emailId + "' already exists",
             'Close'
           );
         }
-        this.openSnackBar(responseMessage, 'Close');
+        this.snackBar.openSnackBarForError(responseMessage, 'Close');
       },
     });
   }
@@ -73,7 +74,10 @@ export class AuthService {
       next: (response: any) => {
         this.ngxLoader.stop();
         if (response.message == 'Successfully logged in') {
-          this.openSnackBar('Login successfully', 'Close');
+          this.snackBar.openSnackBarSuccessMessage(
+            'Login successfully',
+            'Close'
+          );
           this.setJwtToken(response.token);
           this.decodedToken();
           localStorage.setItem('userName', this.userPayload.sub);
@@ -98,9 +102,9 @@ export class AuthService {
       error: (error: any) => {
         this.ngxLoader.stop();
         if (error.status === 400) {
-          this.openSnackBar(error.error.message, 'Close');
+          this.snackBar.openSnackBarForError(error.error.message, 'Close');
         } else {
-          this.openSnackBar('Something went wrong', 'Close');
+          this.snackBar.openSnackBarForError('Something went wrong', 'Close');
         }
       },
     });
@@ -130,14 +134,6 @@ export class AuthService {
     return jwtHelper.isTokenExpired(jwtToken);
   }
 
-  openSnackBar(message: string, action: string) {
-    this.snackBar.open(message, action, {
-      duration: 3000,
-      panelClass: 'centered-snackbar',
-      verticalPosition: 'top',
-      horizontalPosition: 'center',
-    });
-  }
   templogin(loginData: FormGroup) {
     if (loginData) {
       localStorage.setItem('role', loginData.value.userName);
@@ -165,7 +161,10 @@ export class AuthService {
   sessionExpired() {
     if (this.isTokenExpired()) {
       localStorage.removeItem(this.authTokenKey);
-      this.openSnackBar('Session expired. Please login again', 'close');
+      this.snackBar.openSnackBarSuccessMessage(
+        'Session expired. Please login again',
+        'close'
+      );
       // this.router.navigateByUrl('main/login');
     }
   }

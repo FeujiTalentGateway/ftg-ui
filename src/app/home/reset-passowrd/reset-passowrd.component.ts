@@ -5,18 +5,18 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { passwordMatch } from 'src/app/validators/passwordMatch';
 import { ForgotPasswordService } from 'src/app/services/forgot-password.service';
+import { passwordMatch } from 'src/app/validators/passwordMatch';
 
 @Component({
   selector: 'app-reset-passowrd',
   templateUrl: './reset-passowrd.component.html',
-  styleUrls: ['./reset-passowrd.component.css']
+  styleUrls: ['./reset-passowrd.component.css'],
 })
 export class ResetPassowrdComponent {
   passwordVisible: boolean = false;
   confirmPasswordVisible: boolean = false;
-  constructor(private forgotPassword: ForgotPasswordService) {}
+  constructor(private forgotPasswordService: ForgotPasswordService) {}
 
   // Form group for registration
   forgotPasswordRequestForm = new FormGroup(
@@ -50,7 +50,7 @@ export class ResetPassowrdComponent {
     this.confirmPasswordVisible = !this.confirmPasswordVisible;
   }
 
-  register(data: FormGroup) {
-    this.forgotPassword.setPasswordRequestForForgotPassword(data);
+  forgotPassword(data: FormGroup) {
+    this.forgotPasswordService.forgotPassword(data);
   }
 }

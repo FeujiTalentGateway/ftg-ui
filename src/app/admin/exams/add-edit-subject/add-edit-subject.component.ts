@@ -43,11 +43,10 @@ export class AddEditSubjectComponent {
           this.setSubjectValueIntoSubjectForm(this.subject);
         },
         error: (error) => {
-          this.snackBarService.openSnackBar(error.error.message);
+          this.snackBarService.openSnackBarForError(error.error.message);
         },
       });
     }
-   
   }
 
   //subject form
@@ -62,7 +61,6 @@ export class AddEditSubjectComponent {
 
   //set value to update subject
   setSubjectValueIntoSubjectForm(subject: Subject) {
- 
     this.subjectForm.patchValue({
       id: subject.id,
       name: subject.name,
@@ -71,16 +69,13 @@ export class AddEditSubjectComponent {
   }
 
   onSubmit() {
-    
     this.isFormSubmitted = true;
     if (this.subjectForm.valid) {
       this.subject.name = this.subjectForm.value.name;
       this.subject.id = this.subjectForm.value.id;
       if (this.subjectId) {
-       
         this.editSubject(this.subject);
       } else {
-       
         this.questionService.addSubject(this.subject);
       }
     }

@@ -129,7 +129,6 @@ export class ViewExamsComponent implements OnInit, AfterViewInit {
     // this.ngAfterViewInit();
     this.service.exams$.subscribe(
       (exams) => {
-
         const reversedData = exams.slice().reverse(); // Create a copy of the array before reversing
         this.dataSource = new MatTableDataSource(reversedData);
 
@@ -156,7 +155,6 @@ export class ViewExamsComponent implements OnInit, AfterViewInit {
   }
 
   getStatusButtonClass(status: boolean): string {
-    console.log(status);
     return status ? 'status-button active' : 'status-button in-active';
   }
 }

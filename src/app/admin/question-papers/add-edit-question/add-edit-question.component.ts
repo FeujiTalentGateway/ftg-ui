@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { Subject } from 'rxjs';
 import { Option } from 'src/app/models/option';
 import { Question } from 'src/app/models/question';
 import { QuestionsService } from 'src/app/services/questions.service';
@@ -23,8 +22,8 @@ export class AddEditQuestionComponent implements OnInit {
     rightOptions: [],
     options: [],
     optionSelected: [],
-    isCodeSnippet:false,
-    codeSnippet:''
+    isCodeSnippet: false,
+    codeSnippet: '',
   };
 
   difficultLevelList: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
@@ -38,7 +37,7 @@ export class AddEditQuestionComponent implements OnInit {
   editingQuestion!: string;
   editableQuestionId!: number;
   operation: string = 'Add Question';
-  selectedSubjectName:string='';
+  selectedSubjectName: string = '';
 
   constructor(
     private service: QuestionsService,
@@ -55,23 +54,20 @@ export class AddEditQuestionComponent implements OnInit {
     this.isEditForm = this.activatedRoute.snapshot.paramMap.get('id') !== null;
     const subjectQueryParam =
       this.activatedRoute.snapshot.queryParamMap.get('subject');
-    this.selectedSubject = subjectQueryParam !== null ? +subjectQueryParam : 0;// Use a default value (e.g., 0) if subjectQueryParam is null
+    this.selectedSubject = subjectQueryParam !== null ? +subjectQueryParam : 0; // Use a default value (e.g., 0) if subjectQueryParam is null
     this.initialiseQuestionForm();
     if (this.isEditForm) {
       this.operation = 'Edit Question';
       let id = Number(this.activatedRoute.snapshot.paramMap.get('id'));
       this.service.getQuestionById(id).subscribe({
         next: (value) => {
-
           this.question = value;
           this.setQuestionValueIntoQuestionForm(this.question);
           this.selectedSubject = value.subject.id;
-          this.selectedSubjectName= this.question.subject.name as string
+          this.selectedSubjectName = this.question.subject.name as string;
         },
       });
     }
-    
-    
   }
 
   //get subjects
@@ -207,14 +203,16 @@ export class AddEditQuestionComponent implements OnInit {
     }
     return false;
   }
-  setQuestionIsSnippetOrNot(isSnippet:boolean){
-    this.question.isCodeSnippet = isSnippet    
+  setQuestionIsSnippetOrNot(isSnippet: boolean) {
+    this.question.isCodeSnippet = isSnippet;
   }
-  setSubject(subject:any){
-    this.selectedSubjectName = (this.subjects.find(item=>item.id == subject.target.value)?.name as string).toLowerCase();
+  setSubject(subject: any) {
+    this.selectedSubjectName = (
+      this.subjects.find((item) => item.id == subject.target.value)
+        ?.name as string
+    ).toLowerCase();
   }
-  onCodeChanged(code:any){
+  onCodeChanged(code: any) {
     this.question.codeSnippet = code;
   }
-
 }

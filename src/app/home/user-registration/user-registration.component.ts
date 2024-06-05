@@ -3,10 +3,10 @@ import {
   AbstractControl,
   FormControl,
   FormGroup,
-  Validators,
   NgForm,
-  ValidatorFn,
   ValidationErrors,
+  ValidatorFn,
+  Validators,
 } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { NgxUiLoaderService } from 'ngx-ui-loader';

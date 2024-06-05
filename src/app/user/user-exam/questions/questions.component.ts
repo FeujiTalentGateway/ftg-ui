@@ -328,7 +328,6 @@ export class QuestionsComponent implements OnInit, OnDestroy {
     optionArray = this.currentQuestion?.optionSelected?.map(
       (opt) => opt.id
     ) as [];
-    console.log(optionArray, 'optionArray');
     if (optionArray === undefined) {
       return [];
     }

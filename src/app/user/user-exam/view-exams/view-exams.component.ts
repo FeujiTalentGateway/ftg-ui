@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { GlobalExceptionHandlerService } from 'src/app/Exception_handler_service/global-exception-handler.service';
 import { Exam } from 'src/app/models/exam.model';
@@ -9,7 +9,7 @@ import { ScheduleExamService } from 'src/app/services/schedule-exam.service';
   templateUrl: './view-exams.component.html',
   styleUrls: ['./view-exams.component.css'],
 })
-export class ViewExamsComponent implements OnInit,OnDestroy{
+export class ViewExamsComponent implements OnInit{
   listOfExams :Exam[] =[]
 
 
@@ -45,8 +45,5 @@ formatDate(date :string){
 }
 getStatus(status: boolean){
   return  status ?"ACTIVE":'INACTIVE';
-}
-ngOnDestroy(): void {
-  
 }
 }

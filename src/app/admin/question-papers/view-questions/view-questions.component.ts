@@ -278,8 +278,6 @@ export class ViewQuestionsComponent implements OnInit {
       )
       .subscribe(
         (response) => {
-          console.log(response);
-          console.log(response.results);
           this.questionsList = response.results;
           this.questionsLength = response.count;
           this.addloading();

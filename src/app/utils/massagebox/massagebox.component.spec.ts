@@ -1,27 +1,51 @@
-// import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MassageboxComponent } from './massagebox.component';
 
-// import { MassageboxComponent } from './massagebox.component';
-// import { HttpClientTestingModule } from '@angular/common/http/testing';
-// import { MatSnackBarModule } from '@angular/material/snack-bar';
-// import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-// import { RouterTestingModule } from '@angular/router/testing';
-// import { MatDialogModule } from '@angular/material/dialog';
+describe('MassageboxComponent', () => {
+  let component: MassageboxComponent;
+  let fixture: ComponentFixture<MassageboxComponent>;
+  let mockDialogRef: jasmine.SpyObj<MatDialogRef<MassageboxComponent>>;
 
-// describe('MassageboxComponent', () => {
-//   let component: MassageboxComponent;
-//   let fixture: ComponentFixture<MassageboxComponent>;
+  beforeEach(async () => {
+    mockDialogRef = jasmine.createSpyObj('MatDialogRef', ['close']);
 
-//   beforeEach(() => {
-//     TestBed.configureTestingModule({
-//       declarations: [MassageboxComponent],
-//       imports:[HttpClientTestingModule,MatSnackBarModule,FormsModule,ReactiveFormsModule,RouterTestingModule,MatDialogModule]
-//     });
-//     fixture = TestBed.createComponent(MassageboxComponent);
-//     component = fixture.componentInstance;
-//     fixture.detectChanges();
-//   });
+    await TestBed.configureTestingModule({
+      declarations: [MassageboxComponent],
+      imports: [BrowserAnimationsModule],
+      providers: [
+        { provide: MatDialogRef, useValue: mockDialogRef },
+        { provide: MAT_DIALOG_DATA, useValue: {} }
+      ]
+    }).compileComponents();
+  });
 
-//   it('should create', () => {
-//     expect(component).toBeTruthy();
-//   });
-// });
+  beforeEach(() => {
+    fixture = TestBed.createComponent(MassageboxComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+
+  it('should emit true and close dialog on confirm', () => {
+    const emitSpy = spyOn(component.confirmBox, 'emit');
+
+    component.confirm();
+    
+    expect(emitSpy).toHaveBeenCalledWith(true);
+    expect(mockDialogRef.close).toHaveBeenCalled();
+  });
+
+  it('should emit false and close dialog on cancel', () => {
+    const emitSpy = spyOn(component.confirmBox, 'emit');
+
+    component.cancel();
+    
+    expect(emitSpy).toHaveBeenCalledWith(false);
+    expect(mockDialogRef.close).toHaveBeenCalled();
+  });
+});

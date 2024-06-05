@@ -51,6 +51,7 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     MassageboxComponent,
   ],
   imports: [
+    MatSidenavModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule,

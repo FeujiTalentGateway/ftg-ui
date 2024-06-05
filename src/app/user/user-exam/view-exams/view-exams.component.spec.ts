@@ -22,4 +22,12 @@ describe('ViewExamsComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+  it('should return Active when it true',()=>{
+    let result = component.getStatus(true)
+    expect(result).toBe('ACTIVE')
+  })
+  it('should return INActive when it true',()=>{
+    let result = component.getStatus(false)
+    expect(result).toBe('INACTIVE')
+  })
 });

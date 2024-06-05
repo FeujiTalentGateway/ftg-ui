@@ -17,13 +17,10 @@ export class AuthRepositoryService {
   }
 
   register(data: any): Observable<any> {
-    console.log(data.password);
-    console.log(data);
     return this.http.post(this.baseUrl + 'registration/register', data);
   }
 
   login(loginData: UserLoginModel): Observable<any> {
-    console.log(loginData.password);
     return this.http.post(this.baseUrl + 'auth/login', loginData);
   }
   sendOtpToEmail(email: string): Observable<HttpResponse<any>> {
@@ -54,6 +51,6 @@ export class AuthRepositoryService {
   }
 
   loginWithGoogle(googleUser: GoogleUser): Observable<any> {
-    return this.http.post(`${this.baseUrl}/login/google`, googleUser);
+    return this.http.post(`${this.baseUrl}registration/googleregister`, googleUser);
   }
 }

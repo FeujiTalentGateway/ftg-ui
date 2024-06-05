@@ -1,13 +1,13 @@
-import { Injectable } from '@angular/core';
-import { AuthRepositoryService } from '../repository/auth-repository.service';
-import { Router } from '@angular/router';
-import { FormGroup } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
-import { ForgotPasswordRequest } from '../models/forgotPasswordRequest';
-import { OtpVerificationComponent } from '../home/otp-verification/otp-verification.component';
+import { Injectable } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { OtpVerificationComponent } from '../home/otp-verification/otp-verification.component';
+import { ForgotPasswordRequest } from '../models/forgotPasswordRequest';
+import { Otp } from '../models/otpDto.model';
+import { AuthRepositoryService } from '../repository/auth-repository.service';
 import { SnackBarService } from './snack-bar.service';
 @Injectable({
   providedIn: 'root',
@@ -15,6 +15,7 @@ import { SnackBarService } from './snack-bar.service';
 export class ForgotPasswordService {
   dialogRef: any;
   roles: any[] = [];
+  otpStatus: boolean = false;
   constructor(
     private authRepo: AuthRepositoryService,
     private snackBar: SnackBarService,
@@ -36,7 +37,7 @@ export class ForgotPasswordService {
           sessionStorage.setItem('email', email);
 
           user = {
-            registeredEmail: responseBody.email,
+            emailId: email,
           };
           this.dialogRef = this.openOtpVerifyComponent(user);
         }
@@ -58,32 +59,58 @@ export class ForgotPasswordService {
       },
     });
   }
-
   openOtpVerifyComponent(user: any) {
-    const dialogConfig: MatDialogConfig = {
+    let dialogConfig: MatDialogConfig = {
       width: '70%',
-      height: '60%',
+      height: '50%',
       disableClose: true,
-      data: user,
     };
-    return this.matDialog.open(OtpVerificationComponent, dialogConfig);
+    dialogConfig.data = {
+      user: user,
+    };
+    this.dialogRef = this.matDialog.open(
+      OtpVerificationComponent,
+      dialogConfig
+    );
   }
-
-  verifyOtp(otp: String) {
-    const headerKey: string = 'password-token';
-    const passwordToken: string = sessionStorage.getItem(headerKey) as string;
-    if (passwordToken === otp) {
-      this.snackBar.openSnackBarSuccessMessage('Success', 'Close');
-      this.dialogRef.close();
-      this.dialogRef = this.openResetPasswordComponent();
-    } else {
-      if (otp === null)
-        this.snackBar.openSnackBarForError(
-          'Something went wrong. Try later',
-          'Close'
-        );
-      else this.snackBar.openSnackBarForError('Incorrect otp', 'Close');
-    }
+  verifyOtp(otp: Otp) {
+    this.authRepo.verifyOtp(otp).subscribe({
+      next: (response: any) => {
+        if (
+          response.message === 'Account verified successfully. Please login'
+        ) {
+          this.snackBar.openSnackBarSuccessMessage(
+            'Account verified successfully. Please login',
+            'Close'
+          );
+          this.dialogRef.close();
+          sessionStorage.setItem('otp', otp.otp);
+          this.otpStatus = true;
+          this.route.navigate(['/main/login']);
+        } else if (
+          response.message ===
+          'Account verified successfully. Please change your password.'
+        ) {
+          this.otpStatus = true;
+          this.dialogRef.close();
+          sessionStorage.setItem('otp', otp.otp);
+          this.route.navigate(['/main/reset-password']);
+        } else {
+          this.snackBar.openRedAlertSnackBar(
+            'Something went wrong. Try later',
+            'Close'
+          );
+        }
+      },
+      error: (error: any) => {
+        console.log(error);
+        if (error.error.message === 'Invalid OTP') {
+          this.snackBar.openRedAlertSnackBar('Incorrect otp', 'Close');
+        } else {
+          this.snackBar.openRedAlertSnackBar(error.error.message, 'Close');
+        }
+      },
+    });
   }
   openResetPasswordComponent() {
     let dialogConfig: MatDialogConfig = {
@@ -94,12 +121,13 @@ export class ForgotPasswordService {
     this.route.navigate(['/main/reset-password']);
   }
 
-  forgotPassword(forgotPasswordRequestForm: FormGroup) {
+  setPasswordRequestForForgotPassword(forgotPasswordRequestForm: FormGroup) {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
 
     const forgotPasswordRequest: ForgotPasswordRequest = {
+      otp: sessionStorage.getItem('otp') as string,
       email: sessionStorage.getItem('email') as string,
       newPassword: btoa(forgotPasswordRequestForm.value.password),
     };

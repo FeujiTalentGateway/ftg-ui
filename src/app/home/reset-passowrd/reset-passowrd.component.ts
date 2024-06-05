@@ -51,6 +51,6 @@ export class ResetPassowrdComponent {
   }
 
   forgotPassword(data: FormGroup) {
-    this.forgotPasswordService.forgotPassword(data);
+    this.forgotPasswordService.setPasswordRequestForForgotPassword(data);
   }
 }

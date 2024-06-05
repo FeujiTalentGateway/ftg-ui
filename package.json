@@ -30,6 +30,7 @@
     "highcharts": "^11.0.0",
     "highcharts-angular": "4.0.0",
     "ldrs": "^1.0.1",
+    "ng-otp-input": "^1.9.3",
     "ngx-ui-loader": "^13.0.0",
     "primeicons": "^5.0.0",
     "primeng": "^16.9.1",

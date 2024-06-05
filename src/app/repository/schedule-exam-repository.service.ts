@@ -24,7 +24,7 @@ export class ScheduleExamRepositoryService {
   scheduleExam(formData: Exam): Observable<HttpResponse<any>> {
     const requestOptions = { headers: this.setToken() };
 
-    return this.http.post(this.adminUrl + 'exam/', formData, {
+    return this.http.post(this.adminUrl + 'exam/schedule-exam', formData, {
       ...requestOptions,
       observe: 'response',
     });
@@ -34,7 +34,7 @@ export class ScheduleExamRepositoryService {
     const requestOptions = { headers: this.setToken() };
 
     // Make the HTTP request
-    return this.http.get(this.adminUrl + 'exam/', {
+    return this.http.get(this.adminUrl + 'exam/list', {
       ...requestOptions,
       observe: 'response',
     });
@@ -61,7 +61,7 @@ export class ScheduleExamRepositoryService {
   updateExam(formData: Exam): Observable<HttpResponse<any>> {
     const requestOptions = { headers: this.setToken() };
 
-    return this.http.put<any>(this.adminUrl + 'exam/', formData, {
+    return this.http.put<any>(this.adminUrl + 'exam/update-exam', formData, {
       ...requestOptions,
       observe: 'response',
     });

@@ -8,6 +8,7 @@ import {
   ValidatorFn,
   ValidationErrors,
 } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth.service';
@@ -48,11 +49,16 @@ export function passwordMatch(
 export class UserRegistrationComponent {
   @ViewChild('form') form!: NgForm;
 
-  constructor(private authService: AuthService, private ngxLoader: NgxUiLoaderService) {}
+  constructor(
+    public dialog: MatDialog,
+    private authService: AuthService,
+    private ngxLoader: NgxUiLoaderService
+  ) {}
   name: string = '';
   confirmPassword: string = '';
   formSubmitted: boolean = false;
   newuser: User = new User();
+  dialogRef: any;
   createUser() {
     const userData: User = {
       firstName: this.registerForm.get('firstName')?.value,
@@ -62,10 +68,11 @@ export class UserRegistrationComponent {
       password: btoa(this.registerForm.get('password')?.value as string),
     };
     this.ngxLoader.start(); // Show the loader
-      setTimeout(() => {
-        this.ngxLoader.stop(); // Hide the loader after some delay
-      }, 2000);
+    setTimeout(() => {
+      this.ngxLoader.stop(); // Hide the loader after some delay
+    }, 2000);
     this.authService.register(userData);
+    return userData;
   }
 
   registeredEmail!: string;

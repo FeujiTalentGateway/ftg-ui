@@ -1,6 +1,7 @@
 export interface GoogleUser {
     name: string;
-    email: string;
+    emailId : string;
     password : string;
+    isActive : boolean
   }
   

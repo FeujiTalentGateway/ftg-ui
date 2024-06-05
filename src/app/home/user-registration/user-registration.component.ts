@@ -189,8 +189,9 @@ export class UserRegistrationComponent {
   
     return {
       name: decodedToken.name,
-      email: decodedToken.email,
-      password: btoa(decodedToken.sub)
+      emailId: decodedToken.email,
+      password: btoa(decodedToken.sub),
+      isActive : decodedToken.email_verified
     };
   }
   

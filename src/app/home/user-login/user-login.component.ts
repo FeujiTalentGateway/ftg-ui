@@ -93,8 +93,10 @@ export class UserLoginComponent implements OnInit {
     const decodedToken = JSON.parse(atob(token.split('.')[1]));
     return {
       name: decodedToken.name,
-      email: decodedToken.email,
-      password : btoa(decodedToken.sub)
+      emailId : decodedToken.email,
+      password : btoa(decodedToken.sub),
+      isActive : decodedToken.email_verified
+
     };
   }
   handleGoogleCredentialResponse(response: any) {

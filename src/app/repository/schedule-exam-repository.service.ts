@@ -34,7 +34,7 @@ export class ScheduleExamRepositoryService {
     const requestOptions = { headers: this.setToken() };
 
     // Make the HTTP request
-    return this.http.get(this.adminUrl + 'exam/list', {
+    return this.http.get(this.adminUrl + 'exam/', {
       ...requestOptions,
       observe: 'response',
     });

@@ -36,7 +36,7 @@ export class ExamService {
   }
 
   getAllExamData(): Observable<Exam[]> {
-    const url = `${this.javaExamUrl}/list`;
+    const url = `${this.javaExamUrl}/`;
     return this.http.get<Exam[]>(url);
   }
 

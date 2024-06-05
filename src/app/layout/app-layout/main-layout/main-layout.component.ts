@@ -14,9 +14,7 @@ export class MainLayoutComponent implements OnInit {
   userName: any;
   userName$ = new Observable<string>();
   showFiller = false;
-  showFiller = false;
   constructor(private userDetails: UserdetailsService) {}
-  @ViewChild('drawer') drawer!: MatDrawer;
   @ViewChild('drawer') drawer!: MatDrawer;
   ngOnInit(): void {
     this.userName$ = this.userDetails.getUserNameFromToken();

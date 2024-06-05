@@ -14,8 +14,8 @@
     <i class="fa-sharp fa-solid fa-gear" (click)="toggleDropdown()"></i>
     <div *ngIf="showDropdown" class="menu-dropdown">
       <ul>
-        <li class="drop-item">
-          <i class="fa-solid fa-user"></i> &nbsp;<span class="profile"
+        <li class="drop-item" (click)="getProfile()">
+          <i class="fa-solid fa-user" ></i> &nbsp;<span class="profile"
             >Profile</span
           >
         </li>

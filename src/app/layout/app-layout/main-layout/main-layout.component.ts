@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDrawer } from '@angular/material/sidenav';
+import { Observable } from 'rxjs';
 import { User } from 'src/app/models/user.model';
 import { UserdetailsService } from 'src/app/services/userdetails.service';
-import { Observable } from 'rxjs';
-import { MatDrawer } from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-main-layout',
@@ -14,7 +14,9 @@ export class MainLayoutComponent implements OnInit {
   userName: any;
   userName$ = new Observable<string>();
   showFiller = false;
+  showFiller = false;
   constructor(private userDetails: UserdetailsService) {}
+  @ViewChild('drawer') drawer!: MatDrawer;
   @ViewChild('drawer') drawer!: MatDrawer;
   ngOnInit(): void {
     this.userName$ = this.userDetails.getUserNameFromToken();
@@ -34,6 +36,7 @@ export class MainLayoutComponent implements OnInit {
     roles_list_: 1,
   };
   toggleLayout() {
+    this.drawer.toggle();
     this.drawer.toggle();
   }
 }

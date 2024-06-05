@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
+import { UserdetailsService } from 'src/app/services/userdetails.service';
 import { ROUTES } from './sidebar-items';
 import { RouteInfo } from './sidebar-metadata';
-import { UserdetailsService } from 'src/app/services/userdetails.service';
-import { AuthService } from 'src/app/services/auth.service';
-import { Router } from '@angular/router';
-
 
 @Component({
   selector: 'app-sidebar',
@@ -47,7 +46,7 @@ export class SidebarComponent implements OnInit {
   }
   loadMenu() {
     this.roles = localStorage.getItem('roles')?.split(',') as string[];
-    
+
     if (this.roles) {
       this.listOfRoutes = ROUTES.filter((item) => {
         // Check if any role in item.role array matches with roles array
@@ -55,13 +54,11 @@ export class SidebarComponent implements OnInit {
           this.roles.includes(role.toUpperCase())
         );
       });
-
-      // Output the filtered list
     }
   }
 
   isActiveDropdown(activeModule: string) {}
-  
+
   toggleActiveRoute(route: any) {
     if (this.activeRoute === route) {
       this.activeRoute = null; // Deactivate the route if it's already active
@@ -69,15 +66,14 @@ export class SidebarComponent implements OnInit {
       this.activeRoute = route; // Activate the clicked route
     }
   }
-  loadHomePage(){
+  loadHomePage() {
     if (this.roles) {
-      let isAdmin = this.roles.some((item)=>item === 'ADMIN')
-      if(isAdmin){
-        this.route.navigateByUrl('/admin/home')
+      let isAdmin = this.roles.some((item) => item === 'ADMIN');
+      if (isAdmin) {
+        this.route.navigateByUrl('/admin/home');
+      } else {
+        this.route.navigateByUrl('/user/home');
       }
-      else{
-        this.route.navigateByUrl('/user/home')
-
-      }
-    }}
+    }
+  }
 }

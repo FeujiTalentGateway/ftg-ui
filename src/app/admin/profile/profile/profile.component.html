@@ -1,0 +1,20 @@
+<div class="profile-container" *ngIf="profile">
+    <h2>User Profile</h2>
+    <div class="profile-item">
+      <span class="label">First Name :</span>
+      <span class="value">{{ profile.firstName }}</span>
+    </div>
+    <div class="profile-item">
+      <span class="label">Last Name :</span>
+      <span class="value">{{ profile.lastName }}</span>
+    </div>
+    <div class="profile-item">
+      <span class="label">Username :</span>
+      <span class="value">{{ profile.userName }}</span>
+    </div>
+    <div class="profile-item">
+      <span class="label">Email &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;:</span>
+      <span class="value">{{ profile.emailId }}</span>
+    </div>
+  </div>
+  

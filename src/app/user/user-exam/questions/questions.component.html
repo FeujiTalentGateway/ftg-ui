@@ -3,7 +3,7 @@
 </div>
 
 <ng-template #examDetails>
-  <div class="shadow p-2 bg-white rounded subject-name">
+    <div class="shadow p-2 bg-white rounded subject-name">
     <div class="exam-header">
       <div></div>
       <div>
@@ -11,21 +11,26 @@
       </div>
       <div>
         <div>
-          <label for="subject">Select a subject:</label>
-          <select id="subject" (change)="changeSubject($event.target)">
-            <option
-              *ngFor="let subject of exam.examSubjects; index as i"
-              [value]="i"
-              [selected]="subject.id === this.currentSubject?.id"
-              [disabled]="exam.examSubjects[i].isTimeUp"
+          <mat-form-field>
+            <mat-label>Choose Subject</mat-label>
+            <mat-select
+              (selectionChange)="changeSubject($event)"
+              [(ngModel)]="defaultSubjectIndex"
             >
-              {{ subject.subject.name }}
-            </option>
-          </select>
+              <mat-option
+                *ngFor="let subject of exam.examSubjects; index as i"
+                [value]="i"
+                [disabled]="exam.examSubjects[i].isTimeUp"
+              >
+                {{ subject.subject.name }}</mat-option
+              >
+            </mat-select>
+          </mat-form-field>
         </div>
       </div>
     </div>
   </div>
+  <div *ngIf="currentSubject?.subject?.name?.toLowerCase()!=codingSubjectName.toLowerCase()">
   <div class="container shadow p-3 mb-5 bg-white rounded">
     <div style="width: 100%">
       <div class="heading"></div>
@@ -38,6 +43,13 @@
         <h4 class="question-name">
           {{ this.currentQuestion?.content }}
         </h4>
+        <div *ngIf="this.currentQuestion?.isCodeSnippet">
+          <app-code-snippet
+            [code]="this.currentQuestion?.codeSnippet"
+            [adminMode]="false"
+            [subject]="this.getSubjectName()"
+          ></app-code-snippet>
+        </div>
         <ul>
           <li *ngFor="let option of currentQuestion?.options">
             <span *ngIf="currentQuestion?.questionType == 'single choice'">
@@ -100,13 +112,13 @@
     <div class="question-navigation" [ngClass]="{ 'arrow-true': arrow }">
       <div class="button-choice">
         <i
-          class="fa fa-arrow-circle-left fa-2x"
+          class="fa fa-arrow-left fa-2x"
           aria-hidden="true"
           *ngIf="!arrow"
           (click)="toggleArrow()"
         ></i>
         <i
-          class="fa fa-arrow-circle-right fa-2x"
+          class="fa fa-arrow-right fa-2x"
           aria-hidden="true"
           *ngIf="arrow"
           (click)="toggleArrow()"
@@ -122,6 +134,57 @@
       </div>
     </div>
   </div>
-
   <ng-template #loadingSubject> </ng-template>
+</div>
+
+<div *ngIf="currentSubject?.subject?.name?.toLowerCase() == codingSubjectName.toLowerCase()">
+  <!-- app.component.html -->
+  <div class="shadow p-2 bg-white rounded subject-name">
+    <div class="exam-header d-flex justify-content-center align-items-center">
+      <!-- Buttons -->
+      <div class="ml-auto">
+        <button class="btn btn-primary btn-sm"
+        (click)="runCode()">
+        <i class="fas fa-play"></i>
+         Run
+        </button> &nbsp;&nbsp;
+        <button class="btn btn-success btn-sm"
+         (click)="submitCode()">
+         <i class="fas fa-check"></i>
+         Submit
+        </button> &nbsp;&nbsp;
+        <button class="btn btn-info btn-sm"
+        *ngIf="!(this.currentCodingQuestionIndex == 0)" (click)="previousCodingQuestion()">
+        <i class="fas fa-chevron-left"></i>
+         Previous
+        </button>&nbsp;&nbsp;
+        <button class="btn btn-info btn-sm"
+        *ngIf="!(this.currentCodingQuestionIndex==codingQuestions.length-1)"
+        (click)="nextCodingQuestion()">Next
+        <i class="fas fa-chevron-right"></i>
+      </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-container">
+    <div class="coding-question">
+      <app-coding-questions [codingQuestionIndex]="currentCodingQuestionIndex" [currentCodingQuestion]="codingQuestions[currentCodingQuestionIndex]"></app-coding-questions>
+    </div>
+    <div class="code-editor">
+      <app-code-editor [code]="userCodingLogic[currentCodingQuestionIndex]"  [codingQuestionIndex]="currentCodingQuestionIndex" [currentCodingQuestion]="codingQuestions[currentCodingQuestionIndex]"
+      ></app-code-editor>
+    </div>
+    <div class="test-cases">
+      <app-test-cases [codingQuestionIndex]="currentCodingQuestionIndex" [currentCodingQuestion]="codingQuestions[currentCodingQuestionIndex]"></app-test-cases>
+    </div>
+  </div>
+  </div>
+
 </ng-template>
+
+
+
+
+
+

@@ -1,17 +1,22 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatIconModule } from '@angular/material/icon';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSelectModule } from '@angular/material/select';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { AdminModule } from '../admin.module';
+import { AddEditQuestionComponent } from './add-edit-question/add-edit-question.component';
+import { CreatePaperComponent } from './create-paper/create-paper.component';
 import { QuestionPapersRoutingModule } from './question-papers-routing.module';
 import { ViewPapersComponent } from './view-papers/view-papers.component';
-import { CreatePaperComponent } from './create-paper/create-paper.component';
 import { ViewQuestionsComponent } from './view-questions/view-questions.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AddEditQuestionComponent } from './add-edit-question/add-edit-question.component';
-import { MatIconModule } from '@angular/material/icon';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatSelectModule } from '@angular/material/select';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { CodingQuestionComponent } from './coding-question/coding-question.component';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   imports: [
@@ -20,8 +25,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   ],
   // Other module configurations
 })
-export class AppModule { }
-
+export class AppModule {}
 
 @NgModule({
   declarations: [
@@ -29,6 +33,7 @@ export class AppModule { }
     CreatePaperComponent,
     ViewQuestionsComponent,
     AddEditQuestionComponent,
+    CodingQuestionComponent,
   ],
   imports: [
     CommonModule,
@@ -39,8 +44,11 @@ export class AppModule { }
     MatTooltipModule,
     MatPaginatorModule,
     MatSelectModule,
-    MatProgressSpinnerModule
-
+    MatProgressSpinnerModule,
+    AdminModule,
+    MatStepperModule,
+    MatFormFieldModule,
+    MatInputModule,
   ],
 })
 export class QuestionPapersModule {}

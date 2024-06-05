@@ -14,7 +14,7 @@ import { OtpVerificationComponent } from './otp-verification/otp-verification.co
 import { ResetPassowrdComponent } from './reset-passowrd/reset-passowrd.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
-
+import { NgxUiLoaderModule } from 'ngx-ui-loader';
 @NgModule({
   declarations: [
     UserRegistrationComponent,
@@ -28,6 +28,6 @@ import { MatDialogModule } from '@angular/material/dialog';
     OtpVerificationComponent,
     ResetPassowrdComponent,
   ],
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, HomeRoutingModule, MatIconModule, MatDialogModule],
+  imports: [NgxUiLoaderModule.forRoot({}), CommonModule, FormsModule, ReactiveFormsModule, HomeRoutingModule, MatIconModule, MatDialogModule],
 })
 export class  HomeModule {}

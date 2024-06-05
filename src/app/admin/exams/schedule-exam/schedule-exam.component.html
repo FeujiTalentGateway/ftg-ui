@@ -1,3 +1,5 @@
+
+
 <div>
   <div class="header">
     <h1>{{ isEditing ? "Update Exam" : "Schedule Exam" }}</h1>
@@ -258,6 +260,7 @@
         formArrayName="examSubjects"
         *ngFor="let subjectGroup of getExamSubjectsControls(); let i = index"
       >
+      
         <div [formGroupName]="i" class="exam-subject-item form-row">
           <div>
             <label for="subjectName{{ i }}"
@@ -271,6 +274,8 @@
             />
           </div>
 
+
+           
           <div>
             <label for="maxQuestions{{ i }}"
               >Max Questions<span class="required-field">*</span></label
@@ -317,13 +322,14 @@
                 subjectGroup
                   .get('startingDifficultyLevel')
                   ?.hasError('required') &&
-                subjectGroup.get('startingDifficultyLevel')?.touched
+                subjectGroup.get('startingDifficultyLevel')?.touched 
               "
               class="error-msg"
             >
-              Strting Difficulty Level is required.
+              Starting Difficulty Level is required.
             </div>
           </div>
+
 
           <button
             class="btn btn-outline-secondary remove-subject"
@@ -341,6 +347,8 @@
           <!-- Add other form controls for the subject as needed -->
         </div>
       </ng-container>
+
+      <div>
       <p
         mat-raised-button
         #tooltip="matTooltip"
@@ -355,6 +363,9 @@
           >person_add</mat-icon
         >
       </p>
+        <button class="btn btn-outline-secondary" (click)="AddCodingQuestions($event)">Coding Questions</button>
+      </div>
+
     </form>
     <div class="d-flex justify-content-end btn-div">
       <button

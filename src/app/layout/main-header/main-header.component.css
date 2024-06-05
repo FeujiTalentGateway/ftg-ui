@@ -41,6 +41,7 @@
   border: 1px solid #f3752e;
   box-shadow: 0px 0px 5px var(--home-background-color);
   z-index: 1000;
+  z-index: 1000;
 }
 .menu-dropdown ul {
   list-style: none;
@@ -58,25 +59,23 @@
   text-decoration: none;
   color: #333;
 }
-.drop-item{
+.drop-item {
   cursor: pointer;
 }
-.drop-item>.profile:hover{
+.drop-item > .profile:hover {
   cursor: pointer !important;
   color: #f3752e !important;
-} 
+}
 .logout {
   color: red !important;
 }
-.fa-gear{
+.fa-gear {
   cursor: pointer !important;
 }
 
-
 /* ---------- */
-.header-container{
-  height: 6vh;
-  background-color: #fff;
+.header-container {
+  background-color: #fff !important;
   padding: 11px;
   display: flex;
   justify-content: space-between;

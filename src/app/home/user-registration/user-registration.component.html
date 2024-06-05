@@ -1,3 +1,4 @@
+<ngx-ui-loader></ngx-ui-loader>
 <app-header></app-header>
 <div class="container">
   <div class="row justify-content-center">
@@ -13,22 +14,20 @@
             class="form-container"
           >
             <div class="form-group no-border">
-              <label for="firstName" class="form-label"
-                ><i class="far fa-user"></i
-              ></label>
-              <input
-                type="text"
-                class="form-control input-fields"
-                id="firstName"
-                placeholder="First Name"
-                formControlName="firstName"
-              />
+              <div class="input-wrapper">
+                <input
+                  type="text"
+                  class="form-control input-fields"
+                  id="firstName"
+                  placeholder="First Name"
+                  formControlName="firstName"
+                />
+                <label for="firstName" class="icon-label"
+                  ><i class="fa fa-user"></i
+                ></label>
+              </div>
               <div
-                *ngIf="
-                  getControl('firstName')?.errors &&
-                  getControl('firstName')?.touched
-                "
-              >
+                *ngIf="getControl('firstName')?.errors && getControl('firstName')?.touched">
                 <span
                   class="text-danger"
                   *ngIf="getControl('firstName')?.errors?.['required']"
@@ -47,16 +46,18 @@
               </div>
             </div>
             <div class="form-group no-border">
-              <label for="lastName" class="form-label"
-                ><i class="far fa-user"></i
-              ></label>
-              <input
-                type="text"
-                class="form-control input-fields"
-                id="lastName"
-                placeholder="Last Name"
-                formControlName="lastName"
-              />
+              <div class="input-wrapper">
+                <input
+                  type="text"
+                  class="form-control input-fields"
+                  id="lastName"
+                  placeholder="Last Name"
+                  formControlName="lastName"
+                />
+                <label for="lastName" class="icon-label"
+                  ><i class="fa fa-user"></i
+                ></label>
+              </div>
               <div
                 *ngIf="
                   getControl('lastName')?.errors &&
@@ -81,16 +82,18 @@
               </div>
             </div>
             <div class="form-group no-border">
-              <label for="email" class="form-label"
-                ><i class="far fa-envelope"></i
-              ></label>
-              <input
-                type="email"
-                class="form-control input-fields"
-                id="email"
-                placeholder="Email"
-                formControlName="email"
-              />
+              <div class="input-wrapper">
+                <input
+                  type="email"
+                  class="form-control input-fields"
+                  id="email"
+                  placeholder="Email"
+                  formControlName="email"
+                />
+                <label for="email" class="icon-label"
+                  ><i class="fa fa-envelope"></i
+                ></label>
+              </div>
               <div
                 *ngIf="
                   getControl('email')?.errors && getControl('email')?.touched
@@ -114,16 +117,18 @@
               </div>
             </div>
             <div class="form-group no-border">
-              <label for="userName" class="form-label"
-                ><i class="far fa-user"></i
-              ></label>
-              <input
-                type="text"
-                class="form-control input-fields"
-                id="userName"
-                placeholder="Username"
-                formControlName="userName"
-              />
+              <div class="input-wrapper">
+                <input
+                  type="text"
+                  class="form-control input-fields"
+                  id="userName"
+                  placeholder="Username"
+                  formControlName="userName"
+                />
+                <label for="userName" class="icon-label"
+                  ><i class="fa fa-user"></i
+                ></label>
+              </div>
               <div
                 *ngIf="
                   getControl('userName')?.errors &&
@@ -147,6 +152,7 @@
                 </span>
               </div>
             </div>
+
             <div class="form-group no-border">
               <label for="password" class="form-label img"
                 ><img
@@ -196,54 +202,54 @@
                 >Password should be between 8 and 32 characters long.
               </span>
             </div>
-
             <div class="form-group no-border">
-              <label for="confirmPassword" class="form-label img"
-                ><img
-                  src="../../../assets/images/lock_outline_black_18dp.svg"
-                  alt=""
-                  srcset=""
-              /></label>
-              <input
-                [type]="passwordVisible ? 'text' : 'password'"
-                class="form-control input-fields"
-                id="confirmPassword"
-                placeholder="Confirm Password"
-                formControlName="confirmPassword"
-                [ngClass]="{
-                  error:
-                    getControl('confirmPassword')?.errors &&
-                    getControl('confirmPassword')?.touched
-                }"
-              />
-              <i
-                class="fa-solid {{
-                  confirmPasswordVisible ? 'fa-eye-slash' : 'fa-eye'
-                }}"
-                id="eye"
-                (click)="confirmPasswordVisibility()"
-              ></i>
-            </div>
-            <div
-              class="password-fields"
-              *ngIf="
-                getControl('confirmPassword')?.errors &&
-                getControl('confirmPassword')?.touched
-              "
-            >
-              <span
-                class="text-danger"
-                *ngIf="getControl('confirmPassword')?.hasError('required')"
-                >Confirm Password is required.
-              </span>
-            </div>
-            <div
-              *ngIf="
-                registerForm.hasError('passwordMismatch') &&
-                getControl('confirmPassword')?.touched
-              "
-            >
-              <span class="text-danger">Passwords do not match. </span>
+              <div class="input-wrapper">
+                <label for="confirmPassword" class="form-label img">
+                  <img
+                    src="../../../assets/images/lock_outline_black_18dp.svg"
+                    alt="Lock icon"
+                  />
+                </label>
+                <input
+                  [type]="confirmPasswordVisible ? 'text' : 'password'"
+                  class="form-control input-fields"
+                  id="confirmPassword"
+                  placeholder="Confirm Password"
+                  formControlName="confirmPassword"
+                  [ngClass]="{
+                    error:
+                      getControl('confirmPassword')?.errors &&
+                      getControl('confirmPassword')?.touched
+                  }"
+                />
+                <i
+                  class="fa-solid"
+                  [ngClass]="confirmPasswordVisible ? 'fa-eye-slash' : 'fa-eye'"
+                  id="eye"
+                  (click)="confirmPasswordVisibility()"
+                ></i>
+              </div>
+              <div
+                *ngIf="
+                  getControl('confirmPassword')?.errors &&
+                  getControl('confirmPassword')?.touched
+                "
+              >
+                <span
+                  class="text-danger"
+                  *ngIf="getControl('confirmPassword')?.hasError('required')"
+                >
+                  Confirm Password is required.
+                </span>
+              </div>
+              <div
+                *ngIf="
+                  registerForm.hasError('passwordMismatch') &&
+                  getControl('confirmPassword')?.touched
+                "
+              >
+                <span class="text-danger">Passwords do not match. </span>
+              </div>
             </div>
             <button
               class="button reg-btn global-background-color"

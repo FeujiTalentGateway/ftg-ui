@@ -2,14 +2,19 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
+import { CodingQuestionsDTO } from 'src/app/models/codingQuestionDTO.model';
+import { CodingQuestions } from 'src/app/models/codingquestions.model';
 import { Exam } from 'src/app/models/exam.model';
 import { ExamSubject } from 'src/app/models/examSubject';
 import { Subject } from 'src/app/models/subject';
 import { User } from 'src/app/models/user.model';
+import { ExamService } from 'src/app/repository/exam.service';
 import { ScheduleExamRepositoryService } from 'src/app/repository/schedule-exam-repository.service';
 import { SubjectRepositoryService } from 'src/app/repository/subject-repository.service';
 import { ScheduleExamService } from 'src/app/services/schedule-exam.service';
+import { CodingQuestionsComponent } from '../coding-questions/coding-questions.component';
 import { ExamUserComponent } from '../exam-user/exam-user.component';
 
 @Component({
@@ -20,6 +25,8 @@ import { ExamUserComponent } from '../exam-user/exam-user.component';
 })
 export class ScheduleExamComponent implements OnInit {
   exam: Exam | null = null;
+  CodingSubjectName: string = 'Coding Questions';
+  codingQuestionObject!: ExamSubject | undefined;
   dialogRef: any;
   isEditing: boolean = false;
   editableExamId!: number;
@@ -28,7 +35,9 @@ export class ScheduleExamComponent implements OnInit {
   selectedExamId: any;
   subjects!: Subject[];
   updatedUsers!: User[];
+  updatedQuestions!: CodingQuestions[];
   selectedSubjectIds!: number[];
+  codingQuestionsArray: CodingQuestionsDTO[] = [];
   maxQuestionsArray: number[] = Array.from(
     { length: 50 },
     (_, index) => index + 1
@@ -40,12 +49,14 @@ export class ScheduleExamComponent implements OnInit {
 
   constructor(
     private service: ScheduleExamService,
+    private examService: ExamService,
     private fb: FormBuilder,
     private datePipe: DatePipe,
     private examRepo: ScheduleExamRepositoryService,
     private matDialog: MatDialog,
     private subjectRepo: SubjectRepositoryService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private snackBar: MatSnackBar
   ) {
     this.initializeExamForm();
   }
@@ -58,6 +69,7 @@ export class ScheduleExamComponent implements OnInit {
       this.examRepo.getExamById(this.editableExamId).subscribe({
         next: (exam) => {
           this.exam = exam;
+          console.log(this.exam.examSubjects);
           this.editExam();
         },
       });
@@ -93,11 +105,18 @@ export class ScheduleExamComponent implements OnInit {
         examSubjects: this.fb.array([] as FormGroup[]),
         users: this.fb.array([] as FormGroup[]),
       },
-
       { validators: this.dateRangeValidator }
     );
     // Set the minimum start date for date inputs
     this.minStartDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd')!;
+  }
+  // Trigger error message
+  openErrorToaster(message: string) {
+    const config = new MatSnackBarConfig();
+    config.verticalPosition = 'top';
+    config.horizontalPosition = 'center';
+    config.duration = 3000; // Duration in milliseconds
+    this.snackBar.open(message, 'Close', config);
   }
   // Custom validator for date range
   get examSubjectsArray() {
@@ -106,6 +125,7 @@ export class ScheduleExamComponent implements OnInit {
   get examUsersArray() {
     return this.examForm.get('users') as FormArray;
   }
+
   onSubjectSelected() {
     this.selectedSubjectIds.forEach((selectedSubjectId) => {
       let selectedSubject = this.subjects.find(
@@ -187,6 +207,16 @@ export class ScheduleExamComponent implements OnInit {
     });
     this.updatedUsers = this.exam!.users;
     this.setUsersToExamForm(this.exam?.users as User[]);
+    this.exam!.examSubjects.forEach((examSubject: ExamSubject) => {
+      if (
+        examSubject.subject.name?.toLowerCase() ==
+        this.CodingSubjectName.toLowerCase()
+      ) {
+        this.codingQuestionsArray = examSubject.codingQuestions;
+      }
+    });
+
+    console.log(this.examForm.value);
     if (this.exam!.examSubjects) {
       this.exam!.examSubjects.forEach((examSubject: ExamSubject) => {
         this.examSubjectsArray.push(
@@ -207,6 +237,8 @@ export class ScheduleExamComponent implements OnInit {
     this.selectedSubjectIds = this.exam?.examSubjects.map(
       (exam) => exam.subject.id
     ) as number[];
+
+    this.setcodingQuestionsToExamForm(this.codingQuestionsArray);
   }
 
   removeExamSubject(index: number) {
@@ -231,11 +263,26 @@ export class ScheduleExamComponent implements OnInit {
     event.preventDefault();
   }
   onSubmit(): void {
+    console.log(this.examForm.value);
     if (this.selectedExamId) {
       this.service.updateExam(this.examForm.value);
       // this.goBack();
     } else {
-      this.service.scheduleExam(this.examForm.value);
+      this.codingQuestionObject = this.examSubjectsArray.value.find(
+        (subject: any) =>
+          subject.subjectName.toLowerCase() ===
+          this.CodingSubjectName.toLowerCase()
+      );
+      if (this.codingQuestionObject) {
+        const { boolValue, errorMessage } = this.checkCodingQuestions();
+        if (boolValue) {
+          this.service.scheduleExam(this.examForm.value);
+        } else {
+          this.openErrorToaster(errorMessage);
+        }
+      } else {
+        this.service.scheduleExam(this.examForm.value);
+      }
     }
   }
 
@@ -304,4 +351,64 @@ export class ScheduleExamComponent implements OnInit {
   secondsArray: string[] = Array.from({ length: 60 }, (_, i) =>
     i.toString().padStart(2, '0')
   );
+
+  AddCodingQuestions(event: Event) {
+    var maxQuestions = this.getMaxCodingQuestions();
+    this.setcodingQuestionsToExamForm(this.codingQuestionsArray);
+    this.openCodingQuestionsModel(maxQuestions);
+    event.preventDefault();
+  }
+
+  getMaxCodingQuestions(): number {
+    this.codingQuestionObject = this.examSubjectsArray.value.find(
+      (subject: any) =>
+        subject.subjectName.toLowerCase() ===
+        this.CodingSubjectName.toLowerCase()
+    );
+    return this.codingQuestionObject
+      ? this.codingQuestionObject.maxQuestions
+      : 0;
+  }
+
+  openCodingQuestionsModel(questions: number) {
+    console.log(this.examForm.value);
+    let dialogConfig: MatDialogConfig = {
+      width: '100%',
+      height: '100%',
+      disableClose: true,
+    };
+    dialogConfig.data = {
+      examData: this.examForm.value,
+      maxQuestions: questions,
+    };
+    this.dialogRef = this.matDialog.open(
+      CodingQuestionsComponent,
+      dialogConfig
+    );
+    this.dialogRef.afterClosed().subscribe((result: any) => {
+      this.updatedQuestions = result.examDataWithQuestions.codingQuestions;
+    });
+  }
+
+  checkCodingQuestions() {
+    var maxCodingQuestions = this.getMaxCodingQuestions();
+    var selectedCodingQuestions =
+      this.codingQuestionObject?.codingQuestions.length;
+    var message = `Max Coding Questions are ${maxCodingQuestions} and Selected Coding Questions are ${selectedCodingQuestions}`;
+    return {
+      boolValue: maxCodingQuestions == selectedCodingQuestions,
+      errorMessage: message,
+    };
+  }
+
+  setcodingQuestionsToExamForm(codingquestions: CodingQuestionsDTO[]) {
+    this.examForm.get('examSubjects')?.value.forEach((subject: any) => {
+      if (
+        subject.subjectName.toLowerCase() ==
+        this.CodingSubjectName.toLowerCase()
+      ) {
+        subject.codingQuestions = codingquestions;
+      }
+    });
+  }
 }

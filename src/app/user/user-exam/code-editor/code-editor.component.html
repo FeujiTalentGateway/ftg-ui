@@ -1,0 +1,14 @@
+<div class="code-editor-container">
+  <div class="code-editor-box">
+    <select [(ngModel)]="selectedLanguage" (change)="setLanguage(selectedLanguage)">
+      <option value="java">Java &nbsp;</option>
+      <option value="python">Python &nbsp;</option>
+    </select>
+    &nbsp; &nbsp;
+    <select [(ngModel)]="selectedTheme" (change)="setTheme(selectedTheme)">
+      <option value="monokai">Dark &nbsp;</option>
+      <option value="github">Light &nbsp;</option>
+    </select>
+    <div class="app-ace-editor" #editor style="width: 100%; min-height:300px"></div>
+  </div>
+</div>

@@ -14,8 +14,14 @@ describe('SidebarComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [SidebarComponent],
-      imports:[HttpClientTestingModule,MatSnackBarModule,FormsModule,ReactiveFormsModule,RouterTestingModule,MatDialogModule]
-
+      imports: [
+        HttpClientTestingModule,
+        MatSnackBarModule,
+        FormsModule,
+        ReactiveFormsModule,
+        RouterTestingModule,
+        MatDialogModule,
+      ],
     });
     fixture = TestBed.createComponent(SidebarComponent);
     component = fixture.componentInstance;
@@ -36,6 +42,4 @@ describe('SidebarComponent', () => {
     component.toggleActiveRoute(route);
     expect(route.active).toBe(false);
   });
-
-  
 });

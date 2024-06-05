@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TimeFormatPipe } from '../pips/time-format.pipe';
+import { TimeFormatPipe } from '../pipes/time-format.pipe';
 
 
 

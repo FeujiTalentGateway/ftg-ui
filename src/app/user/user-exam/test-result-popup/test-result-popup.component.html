@@ -1,0 +1,14 @@
+<!-- test-result-popup.component.html -->
+
+<div class="popup-container">
+    <div class="popup-header">
+      <h2 class="header-effect">Test Results</h2>
+      <button mat-icon-button (click)="closeDialog()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <div class="popup-content">
+      <div><b>{{ data.passed }}</b> Test cases passed successfully</div>
+      <div><b>{{ data.failed }}</b>Test cases failed</div>
+    </div>
+</div>

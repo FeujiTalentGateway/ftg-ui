@@ -1,3 +1,4 @@
+import { CodingQuestions } from "./codingquestions.model";
 import { ExamSubject } from "./examSubject";
 import { User } from "./user.model";
 

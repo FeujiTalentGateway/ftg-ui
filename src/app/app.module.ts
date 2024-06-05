@@ -6,7 +6,6 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ring } from 'ldrs';
 import { TokenInterceptor } from './TokenInterceptor/token.interceptor';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -19,14 +18,23 @@ import { SidebarComponent } from './layout/sidebar/sidebar.component';
 import { SharedDataService } from './services/shared-data.service';
 import { ConfirmationDialogComponent } from './utils/confirmation-dialog/confirmation-dialog.component';
 
-import { SharedModuleModule } from './shared-module/shared-module.module';
-import { ConfirmDialogforuserComponent } from './utils/confirm-dialogforuser/confirm-dialogforuser.component';
-import { MassageboxComponent } from './utils/massagebox/massagebox.component';
-import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatButtonModule } from '@angular/material/button';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { NgxUiLoaderConfig, NgxUiLoaderModule } from 'ngx-ui-loader';
+import { SharedModuleModule } from './shared-module/shared-module.module';
+import { ConfirmDialogforuserComponent } from './utils/confirm-dialogforuser/confirm-dialogforuser.component';
+import { MassageboxComponent } from './utils/massagebox/massagebox.component';
+import { RefreshDialogComponent } from './utils/refresh-dialog/refresh-dialog.component';
+const ngxUiLoaderConfig: NgxUiLoaderConfig = {
+  fgsColor: '#f3752e',
+  fgsType: 'ball-spin-clockwise',
+  pbColor: 'transparent',
+  pbDirection: 'ltr',
+  pbThickness: 0,
+};
 
 @NgModule({
   declarations: [
@@ -38,6 +46,7 @@ import { MatButtonModule } from '@angular/material/button';
     ConfirmationDialogComponent,
     UserExamLayoutComponent,
     ExamHeaderComponent,
+    RefreshDialogComponent,
     ConfirmDialogforuserComponent,
     MassageboxComponent,
   ],
@@ -58,6 +67,8 @@ import { MatButtonModule } from '@angular/material/button';
     MatIconModule,
     MatListModule,
     MatButtonModule,
+    MatSidenavModule,
+    NgxUiLoaderModule.forRoot(ngxUiLoaderConfig),
   ],
   providers: [
     SharedDataService,

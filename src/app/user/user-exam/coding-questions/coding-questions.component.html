@@ -1,0 +1,48 @@
+<div class="coding-question-container">
+  <div class="coding-question-box">
+    <div
+      class="coding-question"
+    >
+      <!-- Problem Statement -->
+      <h2 class="larger-text custom-heading">
+        {{ codingQuestionIndex + 1 }}. {{ currentCodingQuestion.content }}
+      </h2>
+      <!-- Description -->
+      <p>{{ currentCodingQuestion.description }}</p>
+      <!-- Test Cases -->
+      <div *ngIf="currentCodingQuestion.testCases && currentCodingQuestion.testCases.length > 0">
+        <div *ngFor="let testCase of currentCodingQuestion.testCases; let j = index">
+          <h3 class="custom-heading">Example {{ j + 1 }}</h3>
+          <div class="test-case">
+            <div class="test-case-input">
+              <strong>Input:</strong>
+              <ul>
+                <li *ngFor="let input of testCase.input | keyvalue">
+                  {{ input.key }}: {{ input.value }}
+                </li>
+              </ul>
+              <div class="test-case-output">
+                <strong>Output:</strong> {{ testCase.output }}
+              </div>
+              <strong>Explanation:</strong>
+              <p>{{ testCase.explanationExample }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Constraints -->
+      <div
+        *ngIf="currentCodingQuestion.constraints && currentCodingQuestion.constraints.length > 0"
+        class="constraints"
+      >
+        <h3 class="custom-heading">Constraints</h3>
+        <ul>
+          <li *ngFor="let constraint of currentCodingQuestion.constraints">
+            {{ constraint }}
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

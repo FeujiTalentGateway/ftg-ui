@@ -1,18 +1,15 @@
-import { Component, NgZone, Inject  } from '@angular/core';
-import {
-  AbstractControl,
-  FormBuilder,
-  Validators,
-} from '@angular/forms';
+import { Component, Inject, NgZone } from '@angular/core';
+import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Subscription } from 'rxjs';
-import { timer } from 'rxjs';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { Subscription, timer } from 'rxjs';
+import { Otp } from 'src/app/models/otpDto.model';
 import { ForgotPasswordService } from 'src/app/services/forgot-password.service';
 
 @Component({
   selector: 'app-otp-verification',
   templateUrl: './otp-verification.component.html',
-  styleUrls: ['./otp-verification.component.css']
+  styleUrls: ['./otp-verification.component.css'],
 })
 export class OtpVerificationComponent {
   otpForm = this.fb.group({
@@ -25,15 +22,19 @@ export class OtpVerificationComponent {
   });
 
   remainingTime = 60; // 1 minute in seconds
+  isResendDisabled = true; // Initially disable resend button
   timerSubscription!: Subscription;
-
+  otpModel!: Otp;
   constructor(
     private fb: FormBuilder,
     private ngZone: NgZone,
     private forgotPassword: ForgotPasswordService,
     public dialogRef: MatDialogRef<OtpVerificationComponent>,
+    private ngxLoaderService: NgxUiLoaderService,
     @Inject(MAT_DIALOG_DATA) public userData: any
-  ) {}
+  ) {
+    this.otpModel = { otp: '', email: '' };
+  }
 
   ngOnInit() {
     this.startTimer();
@@ -66,6 +67,7 @@ export class OtpVerificationComponent {
         this.remainingTime--;
 
         if (this.remainingTime <= 0) {
+          this.isResendDisabled = false; // Enable resend button after 1 minute
           this.timerSubscription.unsubscribe();
         }
       });
@@ -84,15 +86,24 @@ export class OtpVerificationComponent {
 
   submitOtp() {
     if (this.otpForm.valid) {
-      const enteredOtp = Object.values(this.otpForm.value).join('');
-      this.forgotPassword.verifyOtp(enteredOtp);
-      this.timerSubscription.unsubscribe();
+      var enteredOtp = Object.values(this.otpForm.value).join('');
+      this.otpModel.otp = enteredOtp;
+      this.otpModel.email = this.userData.user.emailId;
+      this.forgotPassword.verifyOtp(this.otpModel);
+      if (this.forgotPassword.otpStatus) {
+        this.closeDialog();
+        this.timerSubscription.unsubscribe();
+      } else {
+        this.startTimer();
+      }
     }
   }
 
   resendOTP() {
-    const userName = this.userData.user.userName;
-    this.closeDialog();
-    this.forgotPassword.sendOtpToEmail(userName);
+    if (!this.isResendDisabled) {
+      this.ngxLoaderService.start();
+      this.forgotPassword.sendOtpToEmail(this.userData.registeredEmail);
+      this.closeDialog();
+    }
   }
 }

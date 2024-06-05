@@ -22,6 +22,8 @@ export class AddEditQuestionComponent implements OnInit {
     rightOptions: [],
     options: [],
     optionSelected: [],
+    isCodeSnippet: false,
+    codeSnippet: '',
   };
 
   difficultLevelList: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
@@ -35,6 +37,8 @@ export class AddEditQuestionComponent implements OnInit {
   editingQuestion!: string;
   editableQuestionId!: number;
   operation: string = 'Add Question';
+  selectedSubjectName: string = '';
+
   constructor(
     private service: QuestionsService,
     private subjectService: SubjectService,
@@ -57,10 +61,10 @@ export class AddEditQuestionComponent implements OnInit {
       let id = Number(this.activatedRoute.snapshot.paramMap.get('id'));
       this.service.getQuestionById(id).subscribe({
         next: (value) => {
-
           this.question = value;
           this.setQuestionValueIntoQuestionForm(this.question);
           this.selectedSubject = value.subject.id;
+          this.selectedSubjectName = this.question.subject.name as string;
         },
       });
     }
@@ -198,5 +202,17 @@ export class AddEditQuestionComponent implements OnInit {
       return true;
     }
     return false;
+  }
+  setQuestionIsSnippetOrNot(isSnippet: boolean) {
+    this.question.isCodeSnippet = isSnippet;
+  }
+  setSubject(subject: any) {
+    this.selectedSubjectName = (
+      this.subjects.find((item) => item.id == subject.target.value)
+        ?.name as string
+    ).toLowerCase();
+  }
+  onCodeChanged(code: any) {
+    this.question.codeSnippet = code;
   }
 }

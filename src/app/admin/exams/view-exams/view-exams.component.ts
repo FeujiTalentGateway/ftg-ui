@@ -129,13 +129,11 @@ export class ViewExamsComponent implements OnInit, AfterViewInit {
     // this.ngAfterViewInit();
     this.service.exams$.subscribe(
       (exams) => {
-
         const reversedData = exams.slice().reverse(); // Create a copy of the array before reversing
         this.dataSource = new MatTableDataSource(reversedData);
 
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-
       },
       (error) => {
         console.error('Error fetching exams:', error);

@@ -1,14 +1,14 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Observable, Subject, Subscription, interval } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { ExamSubject } from 'src/app/models/examSubject';
 import { ExamService } from 'src/app/repository/exam.service';
 import { SharedDataService } from 'src/app/services/shared-data.service';
 import { SnackBarService } from 'src/app/services/snack-bar.service';
 import { ConfirmDialogforuserComponent } from 'src/app/utils/confirm-dialogforuser/confirm-dialogforuser.component';
 import { MassageboxComponent } from 'src/app/utils/massagebox/massagebox.component';
-import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-exam-header',
@@ -216,8 +216,6 @@ export class ExamHeaderComponent implements OnInit, OnDestroy {
     )}:${this.padWithZero(remainingSeconds)}`;
   }
   updateSubjectStatus(status: any) {
-    console.log(status, 'status');
-
     this.sharedService.updateSubjectStatus(status);
   }
   checkSubjectsAvailability(): boolean {

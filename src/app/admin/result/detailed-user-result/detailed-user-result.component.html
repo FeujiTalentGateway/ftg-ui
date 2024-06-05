@@ -78,37 +78,100 @@
         else template
       "
     >
-      <div class="card result-card">
-        <div
-          class="card-body d-flex flex-column align-items-center justify-content-center"
-        >
-          <h5 class="card-title text-center">SCORE CARD</h5>
-          <div class="score-card">
-            <span
-              >Total Score: {{ detailedUserResult.marksObtain }} /
-              {{ detailedUserResult.totalMarks }}
-            </span>
+      <div class="card result-card shadow-lg">
+        <div class="card-body">
+          <h5 class="card-title text-center text-primary">SCORE CARD</h5>
+          <div class="score-summary">
+            <span class="total-score"
+              ><b>Total Score: </b>{{ detailedUserResult.marksObtain }} /
+              {{ detailedUserResult.totalMarks }}</span
+            >
+            <span class="total-percentage"
+              ><b>Total Percentage: </b>
+              {{
+                detailedUserResult.overallPercentage | number : "1.2-2"
+              }}
+              %</span
+            >
           </div>
+
           <div
-            *ngFor="let result of detailedUserResult.subjectWiseResult"
-            class="score-card"
+            class="table-responsive"
+            style="max-height: 300px; overflow-y: auto"
           >
-            <span
-              >{{ result.subjectName }}: {{ result.obtainedMarks }} /
-              {{ result.totalMarks }}
-            </span>
+            <table class="table table-bordered mb-0">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">Subject</th>
+                  <th scope="col">Obtained Marks</th>
+                  <th scope="col">Total Marks</th>
+                  <th scope="col">Percentage</th>
+                  <th scope="col">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let result of detailedUserResult.subjectWiseResult">
+                  <td>{{ result.subjectName }}</td>
+                  <td>{{ result.obtainedMarks }}</td>
+                  <td>{{ result.totalMarks }}</td>
+                  <td>{{ result.percentage | number : "1.2-2" }}%</td>
+                  <td>
+                    <span
+                      [ngClass]="{
+                        'text-success': result.passFailStatus === 'Pass',
+                        'text-danger': result.passFailStatus === 'Fail'
+                      }"
+                    >
+                      {{ result.passFailStatus }}
+                    </span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="col-md-6"
+        *ngIf="
+          detailedUserResultObject$ | async as detailedUserResult;
+          else template
+        "
+      >
+        <div
+          class="card result-card"
+          *ngIf="detailedUserResult.codingQuestionResults.length !== 0"
+        >
+          <div
+            class="card-body d-flex flex-column align-items-center justify-content-center"
+          >
+            <h5 class="card-title text-center">CODING QUESTIONS</h5>
+            <div class="score-card"></div>
+            <div
+              *ngFor="let result of detailedUserResult.codingQuestionResults"
+              class="score-card"
+            >
+              <span>
+                {{ result.content }}: {{ result.noOfTestCasesPassed }} /
+                {{ result.totalTestCases }}
+              </span>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <!-- <div class="user-name">
-    <div class="user-data">
-        Questions
-    </div>
+  <div class="user-name1">
+    <div class="user-data">Q/A</div>
     <div class="user-info">
-        <span>Coming Soon....</span>
+      <div class="row d-flex align-item-center justify-content-center">
+        <app-question-result
+          [listOfQuestion]="questionsList"
+          [examSubjects]="exam.examSubjects"
+        ></app-question-result>
+      </div>
     </div>
-</div> -->
+  </div>
 </section>
 <ng-template #template></ng-template>

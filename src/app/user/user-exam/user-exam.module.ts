@@ -16,6 +16,13 @@ import { ViewResultComponent } from './view-result/view-result.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatOptionModule } from '@angular/material/core';
 import { QuestionNavigationComponent } from './question-navigation/question-navigation.component';
+import { AdminModule } from 'src/app/admin/admin.module';
+import { MatSelectModule } from '@angular/material/select';
+import { CodingQuestionsComponent } from './coding-questions/coding-questions.component';
+import { CodeEditorComponent } from './code-editor/code-editor.component';
+import { TestCasesComponent } from './test-cases/test-cases.component';
+import { TestResultPopupComponent } from './test-result-popup/test-result-popup.component';
+import { MatIconModule } from '@angular/material/icon';
 
 
 @NgModule({
@@ -30,6 +37,10 @@ import { QuestionNavigationComponent } from './question-navigation/question-navi
     ResultChartComponent,
     RemoveInspectComponent,
     QuestionNavigationComponent,
+    CodingQuestionsComponent,
+    CodeEditorComponent,
+    TestCasesComponent,
+    TestResultPopupComponent,
   ],
   imports: [
     CommonModule,
@@ -38,6 +49,9 @@ import { QuestionNavigationComponent } from './question-navigation/question-navi
     UserExamRoutingModule,
     FormsModule,
     SharedModuleModule,
+    AdminModule,
+    MatSelectModule,
+    MatIconModule
   ],
 })
 export class UserExamModule {}

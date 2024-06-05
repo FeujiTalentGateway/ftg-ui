@@ -10,11 +10,12 @@ import { environment } from 'src/environments/environment';
 export class QuestionRepository {
   baseUrl: string = environment.adminUrl;
   pythonUrl: string = environment.pythonUrl;
+  authTokenKey: string = environment.authTokenKey;
 
   constructor(private http: HttpClient) {}
 
   getAllQuestions(): Observable<Question[]> {
-    let token = localStorage.getItem('token');
+    let token = localStorage.getItem(this.authTokenKey);
     let headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     let requestOptions = {
       headers: headers,
@@ -25,7 +26,7 @@ export class QuestionRepository {
     );
   }
   getQuestionsBySubject(subjectId: number): Observable<Question[]> {
-    let token = localStorage.getItem('token');
+    let token = localStorage.getItem(this.authTokenKey);
     let headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     let requestOptions = {
       headers: headers,
@@ -38,7 +39,7 @@ export class QuestionRepository {
   }
 
   getQuestionBYId(id: number): Observable<Question> {
-    let token = localStorage.getItem('token');
+    let token = localStorage.getItem(this.authTokenKey);
     let headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     let requestOptions = {
       headers: headers,
@@ -49,7 +50,7 @@ export class QuestionRepository {
     );
   }
   addQuestion(question: Question) {
-    let token = localStorage.getItem('token');
+    let token = localStorage.getItem(this.authTokenKey);
     let headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     let requestOptions = {
       headers: headers,
@@ -58,7 +59,7 @@ export class QuestionRepository {
     return this.http.post(this.baseUrl + 'question/', question, requestOptions);
   }
   editQuestion(question: Question) {
-    let token = localStorage.getItem('token');
+    let token = localStorage.getItem(this.authTokenKey);
     let headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     let requestOptions = {
       headers: headers,
@@ -66,7 +67,7 @@ export class QuestionRepository {
     return this.http.put(`${this.baseUrl}question/`, question, requestOptions);
   }
   deleteQuestion(id: number) {
-    let token = localStorage.getItem('token');
+    let token = localStorage.getItem(this.authTokenKey);
     let headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     let requestOptions = {
       headers: headers,
@@ -76,42 +77,69 @@ export class QuestionRepository {
       requestOptions
     );
   }
-  getAllQuestionsBySubjectId(subjectId:number,page: number, pageSize: number): Observable<any> {
-    const token = localStorage.getItem('token');
+  getAllQuestionsBySubjectId(
+    subjectId: number,
+    page: number,
+    pageSize: number
+  ): Observable<any> {
+    const token = localStorage.getItem(this.authTokenKey);
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     const params = new HttpParams()
       .set('page', page.toString())
       .set('pageSize', pageSize.toString());
     const requestOptions = {
       headers: headers,
-      params: params
+      params: params,
     };
-    return this.http.get<any>(`${this.pythonUrl}api/questions/${subjectId}/`, requestOptions);
+    return this.http.get<any>(
+      `${this.pythonUrl}api/questions/${subjectId}/`,
+      requestOptions
+    );
   }
-  filterQuestionsBasedOnDifficultyLevel(subjectId:number,difficultyLevel: number,page: number, pageSize: number): Observable<any> {
+  filterQuestionsBasedOnDifficultyLevel(
+    subjectId: number,
+    difficultyLevel: number,
+    page: number,
+    pageSize: number
+  ): Observable<any> {
     const params = new HttpParams()
       .set('difficultyLevel', difficultyLevel.toString())
       .set('page', page.toString())
       .set('pageSize', pageSize.toString());
 
-      return this.http.get<any>(`${this.pythonUrl}api/questions/${subjectId}/`, { params });
+    return this.http.get<any>(`${this.pythonUrl}api/questions/${subjectId}/`, {
+      params,
+    });
   }
-  filterQuestionsBasedOnSearchQuery(subjectId:number,page: number, pageSize: number,searchQuery : string): Observable<any> {
+  filterQuestionsBasedOnSearchQuery(
+    subjectId: number,
+    page: number,
+    pageSize: number,
+    searchQuery: string
+  ): Observable<any> {
     const params = new HttpParams()
       .set('content', searchQuery)
       .set('page', page.toString())
       .set('pageSize', pageSize.toString());
-      return this.http.get<any>(`${this.pythonUrl}api/questions/${subjectId}/`, { params });
+    return this.http.get<any>(`${this.pythonUrl}api/questions/${subjectId}/`, {
+      params,
+    });
   }
-  filterQuestionsBasedOnDifficultyLevelWithSearchQuery(subjectId:number,difficultyLevel: number,page: number, pageSize: number,searchQuery : string): Observable<any> {
+  filterQuestionsBasedOnDifficultyLevelWithSearchQuery(
+    subjectId: number,
+    difficultyLevel: number,
+    page: number,
+    pageSize: number,
+    searchQuery: string
+  ): Observable<any> {
     const params = new HttpParams()
       .set('content', searchQuery)
       .set('difficultyLevel', difficultyLevel.toString())
       .set('page', page.toString())
       .set('pageSize', pageSize.toString());
 
-      return this.http.get<any>(`${this.pythonUrl}api/questions/${subjectId}/`, { params });
+    return this.http.get<any>(`${this.pythonUrl}api/questions/${subjectId}/`, {
+      params,
+    });
   }
-  
-
 }

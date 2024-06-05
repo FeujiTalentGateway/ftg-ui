@@ -15,7 +15,7 @@
   border-radius: 5px;
   position: relative;
 }
-.form-select{
+.form-select {
   height: 20px;
 }
 .header-child {
@@ -259,7 +259,7 @@ input[type="text"]:focus {
     position: relative;
     width: 100%;
   }
-  .form-select{
+  .form-select {
     height: 20px;
   }
 
@@ -285,7 +285,7 @@ input[type="text"]:focus {
     font-family: "Medium";
   }
 }
-.oops{
+.oops {
   margin-top: 7% !important;
   margin-left: 25% !important;
 }
@@ -311,7 +311,7 @@ input[type="text"]:focus {
     position: relative;
     width: 100%;
   }
-  .form-select{
+  .form-select {
     height: 20px;
   }
 
@@ -359,7 +359,7 @@ input[type="text"]:focus {
     position: relative;
     width: 100%;
   }
-  .form-select{
+  .form-select {
     height: 20px;
   }
 
@@ -384,7 +384,6 @@ input[type="text"]:focus {
     font-weight: 100;
     font-family: "Medium";
   }
-
 }
 .text-success {
   color: #00c66a !important;

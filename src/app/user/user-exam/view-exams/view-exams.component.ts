@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { GlobalExceptionHandlerService } from 'src/app/Exception_handler_service/global-exception-handler.service';
 import { Exam } from 'src/app/models/exam.model';
@@ -30,6 +30,7 @@ export class ViewExamsComponent implements OnInit{
   getExams(){
     this.examService.getExams().subscribe(
       (response)=>{
+        // this.listOfExams = response.body
         this.listOfExams = this.listOfExams.concat(response.body)
       },
       (error)=>{

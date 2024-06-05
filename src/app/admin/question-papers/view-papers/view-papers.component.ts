@@ -11,6 +11,7 @@ import { Paper } from 'src/app/models/paper';
 import { Question } from 'src/app/models/question';
 import { Subject } from 'src/app/models/subject';
 import { PaperService } from 'src/app/services/paper.service';
+import { SnackBarService } from 'src/app/services/snack-bar.service';
 
 @Component({
   selector: 'app-view-papers',
@@ -42,7 +43,7 @@ export class ViewPapersComponent {
     private paperService: PaperService,
     private fb: FormBuilder,
     private route: Router,
-    private snackBar: MatSnackBar
+    private snackBar: SnackBarService
   ) {}
   ngOnInit(): void {
     this.getAllSubjects();
@@ -112,13 +113,16 @@ export class ViewPapersComponent {
 
       this.paperService.savePaper(paper).subscribe(
         (response: any) => {
-          this.openSnackBar('paper saved successfully', 'Close');
+          this.snackBar.openSnackBarSuccessMessage(
+            'paper saved successfully',
+            'Close'
+          );
           this.getAllPapers();
           this.selectedSubject = undefined;
           this.showpaper = !this.showpaper;
         },
         (error) => {
-          this.openSnackBar(error.error.message, 'Close');
+          this.snackBar.openSnackBarForError(error.error.message, 'Close');
         }
       );
     } else {
@@ -131,14 +135,17 @@ export class ViewPapersComponent {
 
       this.paperService.updatePaper(paper).subscribe(
         (response: any) => {
-          this.openSnackBar('paper updated successfully', 'Close');
+          this.snackBar.openSnackBarSuccessMessage(
+            'paper updated successfully',
+            'Close'
+          );
           this.selectedSubject = undefined;
           this.getAllPapers();
           this.registerForm.reset();
           this.showpaper = !this.showpaper;
         },
         (error) => {
-          this.openSnackBar(error.error.message, 'Close');
+          this.snackBar.openSnackBarForError(error.error.message, 'Close');
         }
       );
     }
@@ -275,14 +282,5 @@ export class ViewPapersComponent {
     });
     this.editPaperId = paper?.id;
     this.selectedQuestions = paper?.quesDto;
-  }
-
-  openSnackBar(message: string, action: string) {
-    this.snackBar.open(message, action, {
-      duration: 3000,
-      panelClass: 'centered-snackbar',
-      verticalPosition: 'top',
-      horizontalPosition: 'center',
-    });
   }
 }

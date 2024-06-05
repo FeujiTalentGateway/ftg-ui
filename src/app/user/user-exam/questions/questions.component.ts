@@ -9,6 +9,7 @@ import { Option } from 'src/app/models/option';
 import { Question } from 'src/app/models/question';
 import { ExamService } from 'src/app/repository/exam.service';
 import { SharedDataService } from 'src/app/services/shared-data.service';
+import { SnackBarService } from 'src/app/services/snack-bar.service';
 import { TestCaseResultService } from 'src/app/services/test-case-result.service';
 import { CodeEditorComponent } from '../code-editor/code-editor.component';
 import { QuestionNavigationComponent } from '../question-navigation/question-navigation.component';
@@ -149,7 +150,8 @@ export class QuestionsComponent implements OnInit, OnDestroy {
     private ExamRepo: ExamService,
     private sharedData: SharedDataService,
     private testResultService: TestCaseResultService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private snackBar: SnackBarService
   ) {}
 
   getIndexOfCodingQuestion() {

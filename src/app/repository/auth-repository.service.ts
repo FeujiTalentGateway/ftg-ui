@@ -5,11 +5,13 @@ import { environment } from 'src/environments/environment';
 import { UserLoginModel } from '../models/user-login.model';
 import { User } from '../models/user.model';
 import { GoogleUser } from '../models/google-user.model';
+import { Otp } from '../models/otpDto.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthRepositoryService {
+
   baseUrl: string = environment.apiUrl;
   authTokenKey: string = environment.authTokenKey;
   constructor(private http: HttpClient) {
@@ -52,5 +54,9 @@ export class AuthRepositoryService {
 
   loginWithGoogle(googleUser: GoogleUser): Observable<any> {
     return this.http.post(`${this.baseUrl}registration/googleregister`, googleUser);
+  }
+
+  verifyOtp(otp: Otp): Observable<any> {
+    return this.http.post(this.baseUrl + 'account/verify-account', otp);
   }
 }

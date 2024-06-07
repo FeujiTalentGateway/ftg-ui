@@ -28,6 +28,8 @@ export class ForgotPasswordService {
     this.ngxLoader.start();
     this.authRepo.sendOtpToEmail(email).subscribe({
       next: (response: HttpResponse<any>) => {
+        console.log(response);
+        
         this.ngxLoader.stopAll();
         const responseBody = response.body;
         const responseStatus = response.status;
@@ -77,6 +79,8 @@ export class ForgotPasswordService {
   verifyOtp(otp: Otp) {
     this.authRepo.verifyOtp(otp).subscribe({
       next: (response: any) => {
+        console.log(response.message);
+        
         if (
           response.message === 'Account verified successfully. Please login'
         ) {

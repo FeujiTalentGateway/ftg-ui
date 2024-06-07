@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { GoogleUser } from 'src/app/models/google-user.model';
 import { AuthService } from 'src/app/services/auth.service';
+import { GithubService } from 'src/app/services/github.service';
 
 declare var google: any;
 @Component({
@@ -12,11 +13,8 @@ declare var google: any;
   styleUrls: ['./user-login.component.css'],
 })
 export class UserLoginComponent implements OnInit {
-  constructor(
-    private router: Router,
-    private authService: AuthService,
-    private ngxLoader: NgxUiLoaderService
-  ) {}
+
+  constructor(private router: Router,private route: ActivatedRoute,private githubService:GithubService, private authService: AuthService, private ngxLoader: NgxUiLoaderService) {}
 
   // Properties to store user input and form state
   username: string = '';
@@ -64,6 +62,15 @@ export class UserLoginComponent implements OnInit {
       userName: new FormControl(null, Validators.required),
       password: new FormControl(null, Validators.required),
     });
+
+    this.route.queryParams.subscribe(params => {
+      const code = params['code'];
+      if (code) {
+          this.githubService.handleGitHubCallback(code);
+      } else {
+          this.router.navigate(['/login']);
+      }
+  });
   }
 
   // Function to toggle the visibility of the password

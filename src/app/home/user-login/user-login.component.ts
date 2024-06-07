@@ -1,8 +1,9 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { AuthService } from 'src/app/services/auth.service';
+import { GithubService } from 'src/app/services/github.service';
 import { GoogleLoginService } from 'src/app/services/google-login.service';
 
 @Component({
@@ -15,7 +16,8 @@ export class UserLoginComponent implements OnInit, AfterViewInit {
     private router: Router,
     private authService: AuthService,
     private ngxLoader: NgxUiLoaderService,
-    private googleAuthService: GoogleLoginService
+    private googleAuthService: GoogleLoginService,
+    private githubService : GithubService
   ) {}
 
   username: string = '';
@@ -34,6 +36,15 @@ export class UserLoginComponent implements OnInit, AfterViewInit {
       userName: new FormControl(null, Validators.required),
       password: new FormControl(null, Validators.required),
     });
+
+    this.route.queryParams.subscribe(params => {
+      const code = params['code'];
+      if (code) {
+          this.githubService.handleGitHubCallback(code);
+      } else {
+          this.router.navigate(['/login']);
+      }
+  });
   }
 
   ToggleEye() {

@@ -24,6 +24,7 @@ export class ForgotPasswordService {
     private ngxLoader: NgxUiLoaderService
   ) {}
   sendOtpToEmail(email: string) {
+    console.log(email);
     this.ngxLoader.start();
     this.authRepo.sendOtpToEmail(email).subscribe({
       next: (response: HttpResponse<any>) => {

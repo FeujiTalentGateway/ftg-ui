@@ -1,6 +1,6 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { AuthService } from 'src/app/services/auth.service';
 import { GithubService } from 'src/app/services/github.service';
@@ -17,7 +17,8 @@ export class UserLoginComponent implements OnInit, AfterViewInit {
     private authService: AuthService,
     private ngxLoader: NgxUiLoaderService,
     private googleAuthService: GoogleLoginService,
-    private githubService : GithubService
+    private githubService : GithubService,
+    private route : ActivatedRoute
   ) {}
 
   username: string = '';

@@ -9,9 +9,6 @@ declare var google: any;
 })
 export class GoogleLoginService {
 
-
-  private profilePictureUrl: string | null = null;
-
   constructor(private authService: AuthService) { }
 
   loadGoogleSignInScript(): Promise<void> {
@@ -51,7 +48,7 @@ export class GoogleLoginService {
 
   decodeToken(token: string): GoogleUser {
     const decodedToken = JSON.parse(atob(token.split('.')[1]));
-    this.profilePictureUrl = decodedToken.picture;
+    sessionStorage.setItem('profilePictureUrl',decodedToken.picture);
     
     return {
       name: decodedToken.name,
@@ -61,7 +58,4 @@ export class GoogleLoginService {
     };
   }
 
-  getProfilePictureUrl(): string | null {
-    return this.profilePictureUrl;
-  }
 }

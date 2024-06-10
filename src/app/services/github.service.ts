@@ -24,9 +24,7 @@ export class GithubService {
 
   signInWithGitHub() {
     window.location.href = `https://github.com/login/oauth/authorize?client_id=${this.githubClientId}&redirect_uri=${this.githubRedirectUri}&scope=${this.githubScope}`;
-    console.log(window.location.href);
   }
-  private userPayload: any;
   handleGitHubCallback(code: string) {
     const requestBody = {
       code: code,
@@ -34,25 +32,21 @@ export class GithubService {
     localStorage.removeItem('Email-Token');
     this.ngxLoader.start();
     this.http
-      .post<any>('http://localhost:8000/registration/github/', requestBody)
+      .post<any>('http://localhost:8000/registration/github', requestBody)
       .subscribe({
         next: (response: any) => {
           this.ngxLoader.stop();
           if (response.message == 'Successfully logged in') {
             this.snackBar.openSnackBarSuccessMessage('Login successfully', 'Close');
             this.authService.setJwtToken(response.token);
-            this.authService.decodedToken();
-            localStorage.setItem('userName', this.userPayload.sub);
-            this.userDetails.setUserNameFromToken(this.userPayload.sub);
-            this.userDetails.setRoleFromToken(this.userPayload.authorities);
-            let roles: string[] = this.userPayload.authorities.map(
-              (e: { authority: any }) => e.authority
-            );
+           const userPayload = this.authService.decodedToken();
+            localStorage.setItem('userName', userPayload.sub);
+            this.userDetails.setUserNameFromToken(userPayload.sub);
+            this.userDetails.setRoleFromToken(userPayload.authorities[0].authority);
+            let roles: string[] = userPayload.authorities[0].authority;
             sessionStorage.setItem(
               'roles',
-              this.userPayload.authorities.map(
-                (e: { authority: any }) => e.authority
-              )
+             userPayload.authorities[0].authority
             );
             if (roles.includes('USER')) {
               this.route.navigateByUrl('/user/exam/exam-code');
@@ -72,22 +66,4 @@ export class GithubService {
       }
       );
   }
-
-  getUserInfo(accessToken: string) {
-    this.http
-      .get<any>('https://api.github.com/user', {
-        headers: {
-          Authorization: `token ${accessToken}`,
-        },
-      })
-      .subscribe((user) => {
-        localStorage.setItem('github-user', JSON.stringify(user));
-        this.router.navigate(['/home']);
-      });
-  }
-
-  signOutGitHub() {
-    localStorage.removeItem('github-user');
-    this.router.navigate(['/login']);
-  }
-}
+ }

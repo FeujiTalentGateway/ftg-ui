@@ -27,7 +27,11 @@
                 ></label>
               </div>
               <div
-                *ngIf="getControl('firstName')?.errors && getControl('firstName')?.touched">
+                *ngIf="
+                  getControl('firstName')?.errors &&
+                  getControl('firstName')?.touched
+                "
+              >
                 <span
                   class="text-danger"
                   *ngIf="getControl('firstName')?.errors?.['required']"
@@ -264,6 +268,8 @@
                 ><span class="global-color"> Login</span></a
               >
             </div>
+            <div class="row middle-or">Continue With</div>
+            <div id="google-btn"></div>
           </form>
         </div>
       </div>

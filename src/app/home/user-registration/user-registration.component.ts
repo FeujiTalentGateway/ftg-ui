@@ -1,17 +1,18 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, AfterViewInit, ViewChild } from '@angular/core';
 import {
   AbstractControl,
   FormControl,
   FormGroup,
-  NgForm,
-  ValidationErrors,
-  ValidatorFn,
   Validators,
+  NgForm,
+  ValidatorFn,
+  ValidationErrors,
 } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth.service';
+import { GoogleLoginService } from 'src/app/services/google-login.service';
 
 // Custom validator function for username format
 function usernameFormatValidator(
@@ -31,12 +32,9 @@ export function passwordMatch(
   return (control: AbstractControl): ValidationErrors | null => {
     const password = control.get(passwordField)?.value;
     const confirmPassword = control.get(confirmPasswordField)?.value;
-
-    // Check if both password and confirmPassword fields have values
     if (password && confirmPassword && password !== confirmPassword) {
       return { passwordMismatch: true };
     }
-
     return null;
   };
 }
@@ -46,19 +44,29 @@ export function passwordMatch(
   templateUrl: './user-registration.component.html',
   styleUrls: ['./user-registration.component.css'],
 })
-export class UserRegistrationComponent {
+export class UserRegistrationComponent implements AfterViewInit {
   @ViewChild('form') form!: NgForm;
 
   constructor(
-    public dialog: MatDialog,
     private authService: AuthService,
-    private ngxLoader: NgxUiLoaderService
+    private ngxLoader: NgxUiLoaderService,
+    private router: Router,
+    private googleAuthService: GoogleLoginService
   ) {}
+
   name: string = '';
   confirmPassword: string = '';
   formSubmitted: boolean = false;
   newuser: User = new User();
-  dialogRef: any;
+
+  ngAfterViewInit() {
+    this.googleAuthService.loadGoogleSignInScript().then(() => {
+      this.googleAuthService.initializeGoogleSignInButton(
+        this.handleGoogleCredentialResponse.bind(this)
+      );
+    });
+  }
+
   createUser() {
     const userData: User = {
       firstName: this.registerForm.get('firstName')?.value,
@@ -67,22 +75,18 @@ export class UserRegistrationComponent {
       emailId: this.registerForm.get('email')?.value,
       password: btoa(this.registerForm.get('password')?.value as string),
     };
-    this.ngxLoader.start(); // Show the loader
+    this.ngxLoader.start();
     setTimeout(() => {
-      this.ngxLoader.stop(); // Hide the loader after some delay
+      this.ngxLoader.stop();
     }, 2000);
     this.authService.register(userData);
-    return userData;
   }
 
   registeredEmail!: string;
-  // Flags for password visibility
   passwordVisible: boolean = false;
   confirmPasswordVisible: boolean = false;
-
   emailRegex = '[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}';
 
-  //Email Verification Form
   emailForm = new FormGroup({
     email: new FormControl('', [
       Validators.required,
@@ -91,7 +95,6 @@ export class UserRegistrationComponent {
     ]),
   });
 
-  // Form group for registration
   registerForm = new FormGroup(
     {
       firstName: new FormControl('', [
@@ -127,26 +130,27 @@ export class UserRegistrationComponent {
     [passwordMatch('password', 'confirmPassword')]
   );
 
-  // Function to get a form control by its property name
   getControl(property: any): AbstractControl | null {
     return this.registerForm.get(property);
   }
+
   getEmailFormControl(property: any): AbstractControl | null {
     return this.emailForm.get(property);
   }
 
-  // Function to toggle password visibility
   passwordVisibility() {
     this.passwordVisible = !this.passwordVisible;
   }
 
-  // Function to toggle confirm password visibility
   confirmPasswordVisibility() {
     this.confirmPasswordVisible = !this.confirmPasswordVisible;
   }
 
-  // Function to handle user registration
   register(data: FormGroup) {
     this.createUser();
+  }
+
+  handleGoogleCredentialResponse(response: any) {
+    this.googleAuthService.handleGoogleCredentialResponse(response);
   }
 }

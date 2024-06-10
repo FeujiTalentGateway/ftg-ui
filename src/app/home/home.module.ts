@@ -15,6 +15,7 @@ import { ResetPassowrdComponent } from './reset-passowrd/reset-passowrd.componen
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { NgxUiLoaderModule } from 'ngx-ui-loader';
+import { GithubLoginComponent } from './github-login/github-login.component';
 @NgModule({
   declarations: [
     UserRegistrationComponent,
@@ -27,6 +28,7 @@ import { NgxUiLoaderModule } from 'ngx-ui-loader';
     ForgotPasswordComponent,
     OtpVerificationComponent,
     ResetPassowrdComponent,
+    GithubLoginComponent,
   ],
   imports: [NgxUiLoaderModule.forRoot({}), CommonModule, FormsModule, ReactiveFormsModule, HomeRoutingModule, MatIconModule, MatDialogModule],
 })

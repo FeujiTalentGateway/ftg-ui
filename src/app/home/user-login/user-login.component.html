@@ -75,14 +75,21 @@
             >
               Submit
             </button>
-            <div class="row middle-or">OR</div>
-            <button class="signup" [routerLink]="['/main/register']">
-              <a>Sign Up</a>
-            </button>
+            <div class="register">
+              <a
+                routerLink="/main/register"
+                class="forgot-password global-color"
+                >New to FTG ?</a
+              >
+            </div>
+            <div class="row middle-or">Continue With</div>
+            <div id="google-btn"></div>
+
+
+              <app-github-login></app-github-login>
           </form>
         </div>
       </div>
     </div>
   </div>
 </div>
-

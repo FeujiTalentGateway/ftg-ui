@@ -197,4 +197,44 @@ export class AuthService {
     localStorage.clear();
     sessionStorage.clear();
   }
+
+  loginWithGoogle(GoogleUser: any) {
+    localStorage.removeItem('Email-Token');
+    this.ngxLoader.start();
+    this.authRepo.loginWithGoogle(GoogleUser).subscribe({
+      next: (response: any) => {
+        this.ngxLoader.stop();
+        if (response.message == 'Successfully logged in') {
+          this.snackBar.openSnackBarSuccessMessage('Login successfully', 'Close');
+          this.setJwtToken(response.token);
+          this.decodedToken();
+          localStorage.setItem('userName', this.userPayload.sub);
+          this.userDetails.setUserNameFromToken(this.userPayload.sub);
+          this.userDetails.setRoleFromToken(this.userPayload.authorities);
+          let roles: string[] = this.userPayload.authorities.map(
+            (e: { authority: any }) => e.authority
+          );
+          sessionStorage.setItem(
+            'roles',
+            this.userPayload.authorities.map(
+              (e: { authority: any }) => e.authority
+            )
+          );
+          if (roles.includes('USER')) {
+            this.route.navigateByUrl('/user/exam/exam-code');
+          } else {
+            this.route.navigateByUrl('/admin/home');
+          }
+        }
+      },
+      error: (error: any) => {
+        this.ngxLoader.stop();
+        if (error.status === 400) {
+          this.snackBar.openSnackBarForError(error.error.message, 'Close');
+        } else {
+          this.snackBar.openSnackBarForError('Something went wrong', 'Close');
+        }
+      },
+    });
+  }
 }

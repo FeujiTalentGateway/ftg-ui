@@ -1,0 +1,28 @@
+.github-button {
+    background-color: #1b1f23;
+    color: #f8fdfd;
+    border: none;
+    border-radius: 23px;
+    padding: 6px 21px; 
+    font-size: 13.5px;
+    font-weight: 2px;
+    display: inline-flex; 
+    align-items: center;
+    cursor: pointer;
+    height: 39px; 
+    box-sizing: border-box;
+    font-family: revert-layer;
+    margin-top: 6px;
+  }
+
+  
+  .github-logo {
+    height: 130%;
+    margin-right: 13px;
+    margin-left: -7px;
+    box-sizing: border-box;
+   }
+  
+  .github-button:hover {
+    background-color: #1b1f23be;
+  }

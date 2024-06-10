@@ -6,6 +6,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { GithubService } from 'src/app/services/github.service';
 import { GoogleLoginService } from 'src/app/services/google-login.service';
 
+
 @Component({
   selector: 'app-user-login',
   templateUrl: './user-login.component.html',
@@ -21,10 +22,12 @@ export class UserLoginComponent implements OnInit, AfterViewInit {
     private route : ActivatedRoute
   ) {}
 
+
   username: string = '';
   password: string = '';
   isPasswordVisible: boolean = false;
   formSubmitted: boolean = false;
+
 
   ngAfterViewInit() {
     this.googleAuthService.loadGoogleSignInScript().then(() => {
@@ -32,11 +35,13 @@ export class UserLoginComponent implements OnInit, AfterViewInit {
     });
   }
 
+
   ngOnInit() {
     this.userForm = new FormGroup({
       userName: new FormControl(null, Validators.required),
       password: new FormControl(null, Validators.required),
     });
+
 
     this.route.queryParams.subscribe(params => {
       const code = params['code'];
@@ -48,11 +53,14 @@ export class UserLoginComponent implements OnInit, AfterViewInit {
   });
   }
 
+
   ToggleEye() {
     this.isPasswordVisible = !this.isPasswordVisible;
   }
 
+
   userForm?: FormGroup;
+
 
   onLogin() {
     this.formSubmitted = true;
@@ -64,6 +72,7 @@ export class UserLoginComponent implements OnInit, AfterViewInit {
       this.authService.login(this.userForm);
     }
   }
+
 
   handleGoogleCredentialResponse(response: any) {
     this.googleAuthService.handleGoogleCredentialResponse(response);

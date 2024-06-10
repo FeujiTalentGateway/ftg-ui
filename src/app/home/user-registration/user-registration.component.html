@@ -262,6 +262,7 @@
             >
               Register
             </button>
+            
             <div class="login-link globar-color text-center">
               Already have an account?
               <a [routerLink]="['/main/login']"
@@ -270,6 +271,9 @@
             </div>
             <div class="row middle-or">Continue With</div>
             <div id="google-btn"></div>
+              <div style="display: flex; justify-content: center; margin-right: 64px;">
+              <app-github-login></app-github-login>
+            </div> 
           </form>
         </div>
       </div>

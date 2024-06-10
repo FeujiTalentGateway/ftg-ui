@@ -63,6 +63,9 @@ export class AuthService {
               "' already exists.Email not verified.Please verify the email",
             'Close'
           );
+        } else if (responseMessage =='Email already verified. Please login' ){
+          this.snackBar.openSnackBarForError(responseMessage, 'Close');
+          this.route.navigateByUrl('main/login');
         }
         this.snackBar.openSnackBarForError(responseMessage, 'Close');
       },

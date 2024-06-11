@@ -66,6 +66,11 @@ export class UserRegistrationComponent implements AfterViewInit {
       );
     });
   }
+
+  handleGoogleCredentialResponse(response: any) {
+    this.googleAuthService.handleGoogleCredentialResponse(response);
+  }
+
  
   createUser() {
     const userData: User = {
@@ -149,8 +154,5 @@ export class UserRegistrationComponent implements AfterViewInit {
   register(data: FormGroup) {
     this.createUser();
   }
- 
-  handleGoogleCredentialResponse(response: any) {
-    this.googleAuthService.handleGoogleCredentialResponse(response);
-  }
+
 }

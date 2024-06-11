@@ -15,12 +15,12 @@ import {
 } from '../utils/CONSTANT/String_constant';
 import { environment } from 'src/environments/environment';
 
+
 @Injectable({
   providedIn: 'root',
 })
 export class GithubService {
   private githubScope = 'user';
-
   constructor(
     private http: HttpClient,
     private authService: AuthService,
@@ -32,6 +32,7 @@ export class GithubService {
 
   signInWithGitHub() {
     window.location.href = `https://github.com/login/oauth/authorize?client_id=${GITHUB_CLIENT_ID}&redirect_uri=http://localhost:4200/main/login&scope=${this.githubScope}`;
+
   }
   handleGitHubCallback(code: string) {
     const requestBody = {
@@ -72,5 +73,6 @@ export class GithubService {
         }
       },
     });
+
   }
-}
+ }

@@ -20,8 +20,6 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class GithubService {
-  private githubClientId = GITHUB_CLIENT_ID;
-  private githubRedirectUri = environment.apiUrl+LOGIN_URL;
   private githubScope = 'user';
 
   constructor(
@@ -34,7 +32,7 @@ export class GithubService {
   ) {}
 
   signInWithGitHub() {
-    window.location.href = `https://github.com/login/oauth/authorize?client_id=${this.githubClientId}&redirect_uri=${this.githubRedirectUri}&scope=${this.githubScope}`;
+    window.location.href = `https://github.com/login/oauth/authorize?client_id=${GITHUB_CLIENT_ID}&redirect_uri=${environment.apiUrl+LOGIN_URL}&scope=${this.githubScope}`;
   }
   handleGitHubCallback(code: string) {
     const requestBody = {

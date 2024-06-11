@@ -1,0 +1,22 @@
+export const GITHUB_CLIENT_ID = 'Ov23liZTS3icPuM58Luz';
+export const SUCCESSFULLY_LOGGED_IN = 'Successfully logged in';
+export const SUCCESSFULLY_LOGGED_OUT = 'Successfully logged out';
+export const SUCCESSFULLY_REGISTERED = 'Successfully registered';
+export const SUCCESSFULLY_UPDATED = 'Successfully updated';
+export const SUCCESSFULLY_DELETED = 'Successfully deleted';
+export const SUCCESSFULLY_CREATED = 'Successfully created';
+export const SUCCESSFULLY_FETCHED = 'Successfully fetched';
+export const LOGGING_IN_SUCCESSFULL = 'Login successfully';
+export const LOGGING_OUT_SUCCESSFULL = 'Logout successfully';
+export const REGISTRATION_SUCCESSFULL = 'Registration successfully';
+export const UPDATE_SUCCESSFULL = 'Update successfully';
+export const DELETE_SUCCESSFULL = 'Delete successfully';
+export const CREATE_SUCCESSFULL = 'Create successfully';
+
+export const FETCH_SUCCESSFULL = 'Fetch successfully';
+export const INVALID_CREDENTIALS = 'Invalid credentials';
+export const INVALID_TOKEN = 'Invalid token';
+export const INVALID_USER = 'Invalid user';
+export const INVALID_PASSWORD = 'XXXXXXX password';
+export const INVALID_EMAIL = 'Invalid email';
+export const SOMETHING_WENT_WRONG = 'Something went wrong';

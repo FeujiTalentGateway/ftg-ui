@@ -7,7 +7,6 @@ import { SnackBarService } from './snack-bar.service';
 import { AuthService } from './auth.service';
 import {
   GITHUB_REGISTRATION_URL,
-  LOGIN_URL,
 } from '../utils/CONSTANT/Api_constant';
 import {
   GITHUB_CLIENT_ID,

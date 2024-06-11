@@ -14,13 +14,14 @@ import {
   SOMETHING_WENT_WRONG,
   SUCCESSFULLY_LOGGED_IN,
 } from '../utils/CONSTANT/String_constant';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class GithubService {
   private githubClientId = GITHUB_CLIENT_ID;
-  private githubRedirectUri = LOGIN_URL;
+  private githubRedirectUri = environment.apiUrl+LOGIN_URL;
   private githubScope = 'user';
 
   constructor(
@@ -41,7 +42,7 @@ export class GithubService {
     };
     localStorage.removeItem('Email-Token');
     this.ngxLoader.start();
-    this.http.post<any>(GITHUB_REGISTRATION_URL, requestBody).subscribe({
+    this.http.post<any>(environment.pythonUrl+GITHUB_REGISTRATION_URL, requestBody).subscribe({
       next: (response: any) => {
         this.ngxLoader.stop();
         if (response.message == SUCCESSFULLY_LOGGED_IN) {

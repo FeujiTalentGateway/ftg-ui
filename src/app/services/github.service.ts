@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { UserdetailsService } from './userdetails.service';
 import { SnackBarService } from './snack-bar.service';
-import { AuthRepositoryService } from '../repository/auth-repository.service';
 import { AuthService } from './auth.service';
 
 @Injectable({
@@ -12,7 +11,6 @@ import { AuthService } from './auth.service';
 })
 export class GithubService {
   private githubClientId = 'Ov23liZTS3icPuM58Luz';
-  private githubClientSecret = 'b260e09f4ec58ef93eac3376cc77c34857818489';
   private githubRedirectUri = 'http://localhost:4200/main/login';
   private githubScope = 'user';
 

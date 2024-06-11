@@ -86,7 +86,7 @@ export class AuthService {
           let roles: string[] = this.userPayload.authorities.map(
             (e: { authority: any }) => e.authority
           );
-          sessionStorage.setItem(
+          localStorage.setItem(
             'roles',
             this.userPayload.authorities.map(
               (e: { authority: any }) => e.authority
@@ -204,7 +204,7 @@ export class AuthService {
           let roles: string[] = this.userPayload.authorities.map(
             (e: { authority: any }) => e.authority
           );
-          sessionStorage.setItem(
+          localStorage.setItem(
             'roles',
             this.userPayload.authorities.map(
               (e: { authority: any }) => e.authority
@@ -218,7 +218,7 @@ export class AuthService {
         }
         setTimeout(() => {
           window.location.reload();
-        }, 1000);
+        }, 500);
 
       },
       error: (error: any) => {

@@ -44,7 +44,7 @@ export class GithubService {
             this.userDetails.setUserNameFromToken(userPayload.sub);
             this.userDetails.setRoleFromToken(userPayload.authorities[0].authority);
             let roles: string[] = userPayload.authorities[0].authority;
-            sessionStorage.setItem(
+            localStorage.setItem(
               'roles',
              userPayload.authorities[0].authority
             );

@@ -24,7 +24,7 @@ export class SidebarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.roles = sessionStorage.getItem('roles')?.split(',') as string[];
+    this.roles = localStorage.getItem('roles')?.split(',') as string[];
 
     // this.roles = this.auth.roles;
     // this.roles = this.auth.printRoleFromToken();

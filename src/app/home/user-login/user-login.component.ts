@@ -39,7 +39,6 @@ export class UserLoginComponent implements OnInit, AfterViewInit {
     this.googleAuthService.handleGoogleCredentialResponse(response);
   }
 
-
   ngOnInit() {
     this.userForm = new FormGroup({
       userName: new FormControl(null, Validators.required),
@@ -76,7 +75,6 @@ export class UserLoginComponent implements OnInit, AfterViewInit {
       this.authService.login(this.userForm);
     }
   }
-
 
 
 }

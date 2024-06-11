@@ -12,7 +12,6 @@ export class GithubLoginComponent {
     
   }
   loginWithGitHub(){
-    console.log("Log");
     this.githubService.signInWithGitHub();
   }
 }

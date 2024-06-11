@@ -9,6 +9,7 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { OtpVerificationComponent } from './otp-verification/otp-verification.component';
 import { ResetPassowrdComponent } from './reset-passowrd/reset-passowrd.component';
 import { passwordChangeGuard } from '../guards/auth.guard';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 const routes: Routes = [
   { path: 'register', component: UserRegistrationComponent },
@@ -18,9 +19,8 @@ const routes: Routes = [
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'otp-verification', component: OtpVerificationComponent, canActivate: [passwordChangeGuard]},
   { path: 'reset-password', component: ResetPassowrdComponent},
-  { path: 'home', component: MainHomeComponent},
-  { path: '', redirectTo: 'home', pathMatch: 'full' }
-
+  { path: 'change-password', component: ChangePasswordComponent},
+  { path: 'home', component: MainHomeComponent },
 ];
 
 @NgModule({

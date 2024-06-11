@@ -8,12 +8,9 @@ import { AuthService } from './auth.service';
 import {
   GITHUB_REGISTRATION_URL,
 } from '../utils/CONSTANT/Api_constant';
-import {
-  GITHUB_CLIENT_ID,
-  SOMETHING_WENT_WRONG,
-  SUCCESSFULLY_LOGGED_IN,
-} from '../utils/CONSTANT/String_constant';
+
 import { environment } from 'src/environments/environment';
+import { GITHUB_CLIENT_ID, SOMETHING_WENT_WRONG, SUCCESSFULLY_LOGGED_IN } from '../utils/CONSTANT/String_constant';
 
 
 @Injectable({

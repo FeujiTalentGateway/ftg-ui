@@ -53,6 +53,11 @@ export class AuthRepositoryService {
     );
   }
 
+  changePassword(data: any): Observable<any> {
+    return this.http.put(this.baseUrl + 'user/changePassword', data);
+  }
+
+
   loginWithGoogle(googleUser: GoogleUser): Observable<any> {
     return this.http.post(`${this.baseUrl}registration/googleregister`, googleUser);
   }

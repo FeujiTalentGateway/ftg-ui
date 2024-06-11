@@ -56,6 +56,9 @@ export class AuthService {
             "Email '" + user.emailId + "' already exists",
             'Close'
           );
+        } else if (responseMessage =='Email already verified. Please login' ){
+          this.snackBar.openSnackBarForError(responseMessage, 'Close');
+          this.route.navigateByUrl('main/login');
         }
         this.snackBar.openSnackBarForError(responseMessage, 'Close');
       },
@@ -83,7 +86,7 @@ export class AuthService {
           let roles: string[] = this.userPayload.authorities.map(
             (e: { authority: any }) => e.authority
           );
-          sessionStorage.setItem(
+          localStorage.setItem(
             'roles',
             this.userPayload.authorities.map(
               (e: { authority: any }) => e.authority
@@ -201,7 +204,7 @@ export class AuthService {
           let roles: string[] = this.userPayload.authorities.map(
             (e: { authority: any }) => e.authority
           );
-          sessionStorage.setItem(
+          localStorage.setItem(
             'roles',
             this.userPayload.authorities.map(
               (e: { authority: any }) => e.authority
@@ -213,6 +216,10 @@ export class AuthService {
             this.route.navigateByUrl('/admin/home');
           }
         }
+        setTimeout(() => {
+          window.location.reload();
+        }, 500);
+
       },
       error: (error: any) => {
         this.ngxLoader.stop();

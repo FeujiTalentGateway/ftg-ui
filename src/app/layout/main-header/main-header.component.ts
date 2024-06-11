@@ -1,6 +1,8 @@
-import { Component, ElementRef, EventEmitter, HostListener, Input, Output ,OnInit } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, Input, Output, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { GoogleLoginService } from 'src/app/services/google-login.service';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-main-header',
@@ -8,16 +10,26 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./main-header.component.css'],
 })
 export class MainHeaderComponent implements OnInit {
-  userName :string | undefined;
+  userName: string | undefined;
+  profilePictureUrl: SafeUrl | null = null;
 
   constructor(
     private el: ElementRef,
     private auth: AuthService,
-    private route: Router
+    private route: Router,
+    private googleLoginService: GoogleLoginService,
+    private domSanitizer: DomSanitizer
   ) {}
+
   ngOnInit(): void {
-   this.userName = localStorage.getItem('userName') as string
+    this.userName = localStorage.getItem('userName') as string;
+    const profileUrl = sessionStorage.getItem('profilePictureUrl') as string
+    
+    if (profileUrl) {
+      this.profilePictureUrl = this.domSanitizer.bypassSecurityTrustUrl(profileUrl);
+    }
   }
+
   @Input() userData: any;
   @Output() toggleLayout = new EventEmitter<void>();
   showDropdown: boolean = false;
@@ -37,16 +49,16 @@ export class MainHeaderComponent implements OnInit {
       this.showDropdown = false;
     }
   }
+
   onToggleLayout() {
     this.toggleLayout.emit();
+  }
 
+  getProfile() {
+    if (this.auth.checkAdminRole()) {
+      this.route.navigateByUrl('admin/profile');
+    } else if (this.auth.checkUserRole()) {
+      this.route.navigateByUrl('user/profile');
     }
-  
-    getProfile(){
-      if(this.auth.checkAdminRole()){
-        this.route.navigateByUrl('admin/profile')
-      }else if(this.auth.checkUserRole()){
-        this.route.navigateByUrl('user/profile')
-      }
-    }
+  }
 }

@@ -15,12 +15,12 @@ import {
 } from '../utils/CONSTANT/String_constant';
 import { environment } from 'src/environments/environment';
 
+
 @Injectable({
   providedIn: 'root',
 })
 export class GithubService {
   private githubScope = 'user';
-
   constructor(
     private http: HttpClient,
     private authService: AuthService,
@@ -72,5 +72,6 @@ export class GithubService {
         }
       },
     });
+
   }
-}
+ }

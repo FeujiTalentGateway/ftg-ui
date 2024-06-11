@@ -32,7 +32,7 @@ export class GithubService {
   ) {}
 
   signInWithGitHub() {
-    window.location.href = `https://github.com/login/oauth/authorize?client_id=${GITHUB_CLIENT_ID}&redirect_uri=${environment.apiUrl+LOGIN_URL}&scope=${this.githubScope}`;
+    window.location.href = `https://github.com/login/oauth/authorize?client_id=${GITHUB_CLIENT_ID}&redirect_uri=http://localhost:4200/main/login&scope=${this.githubScope}`;
   }
   handleGitHubCallback(code: string) {
     const requestBody = {

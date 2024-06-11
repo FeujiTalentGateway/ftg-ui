@@ -216,6 +216,10 @@ export class AuthService {
             this.route.navigateByUrl('/admin/home');
           }
         }
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
+
       },
       error: (error: any) => {
         this.ngxLoader.stop();

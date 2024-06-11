@@ -53,6 +53,15 @@
   font-weight: 500;
   padding: 3px 10px;
 }
+.status-button-passed {
+  border: none;
+  background-color: #34c38f2e;
+  color: #34c38f;
+  border-radius: 5px;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 3px 10px;
+}
 
 .pass {
   background-color: #34c38f2e;

@@ -11,7 +11,6 @@ import {
 } from '../utils/CONSTANT/Api_constant';
 import {
   GITHUB_CLIENT_ID,
-  LOGGING_IN_SUCCESSFULL,
   SOMETHING_WENT_WRONG,
   SUCCESSFULLY_LOGGED_IN,
 } from '../utils/CONSTANT/String_constant';
@@ -47,7 +46,7 @@ export class GithubService {
         this.ngxLoader.stop();
         if (response.message == SUCCESSFULLY_LOGGED_IN) {
           this.snackBar.openSnackBarSuccessMessage(
-            LOGGING_IN_SUCCESSFULL,
+            SUCCESSFULLY_LOGGED_IN,
             'Close'
           );
           this.authService.setJwtToken(response.token);

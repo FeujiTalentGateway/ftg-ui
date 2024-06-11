@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { environment } from 'src/environments/environment';
 import { UserLoginModel } from '../models/user-login.model';
 import { User } from '../models/user.model';
 import { AuthRepositoryService } from '../repository/auth-repository.service';
-import { ForgotPasswordService } from './forgot-password.service';
-import { SnackBarService } from './snack-bar.service';
 import { UserdetailsService } from './userdetails.service';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { SnackBarService } from './snack-bar.service';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -17,7 +18,6 @@ export class AuthService {
   private userPayload: any;
   authTokenKey: string = environment.authTokenKey;
   dialogRef: any;
-  userDetail!: User;
   roles: any[] = [];
   constructor(
     private authRepo: AuthRepositoryService,
@@ -25,13 +25,11 @@ export class AuthService {
     private route: Router,
     private userDetails: UserdetailsService,
     private ngxLoader: NgxUiLoaderService,
-    private forgotPasswordService: ForgotPasswordService
-  ) {}
+  ) { }
 
   // Handle user registration based on form data
 
   register(user: User) {
-    this.userDetail = user;
     this.ngxLoader.start();
     // Send the registration data to the server and handle the response
     this.authRepo.register(user).subscribe({
@@ -39,7 +37,6 @@ export class AuthService {
         const responseMessage: string = response.message;
         this.ngxLoader.stop();
         this.snackBar.openSnackBar(response.message, 'Close');
-        this.forgotPasswordService.openOtpVerifyComponent(this.userDetail);
         if (responseMessage.includes('User successfully registered with')) {
           this.snackBar.openSnackBarSuccessMessage(responseMessage, 'Close');
           this.route.navigateByUrl('main/login');
@@ -54,15 +51,14 @@ export class AuthService {
             "Username '" + user.userName + "' already exists",
             'Close'
           );
-        } else if (
-          responseMessage == 'Email not verified. Please verify the email'
-        ) {
-          this.snackBar.openRedAlertSnackBar(
-            "Email '" +
-              user.emailId +
-              "' already exists.Email not verified.Please verify the email",
+        } else if (responseMessage == 'Email already exists') {
+          this.snackBar.openSnackBarForError(
+            "Email '" + user.emailId + "' already exists",
             'Close'
           );
+        } else if (responseMessage =='Email already verified. Please login' ){
+          this.snackBar.openSnackBarForError(responseMessage, 'Close');
+          this.route.navigateByUrl('main/login');
         }
         this.snackBar.openSnackBarForError(responseMessage, 'Close');
       },
@@ -81,10 +77,7 @@ export class AuthService {
       next: (response: any) => {
         this.ngxLoader.stop();
         if (response.message == 'Successfully logged in') {
-          this.snackBar.openSnackBarSuccessMessage(
-            'Login successfully',
-            'Close'
-          );
+          this.snackBar.openSnackBarSuccessMessage('Login successfully', 'Close');
           this.setJwtToken(response.token);
           this.decodedToken();
           localStorage.setItem('userName', this.userPayload.sub);
@@ -93,7 +86,7 @@ export class AuthService {
           let roles: string[] = this.userPayload.authorities.map(
             (e: { authority: any }) => e.authority
           );
-          sessionStorage.setItem(
+          localStorage.setItem(
             'roles',
             this.userPayload.authorities.map(
               (e: { authority: any }) => e.authority
@@ -168,10 +161,7 @@ export class AuthService {
   sessionExpired() {
     if (this.isTokenExpired()) {
       localStorage.removeItem(this.authTokenKey);
-      this.snackBar.openSnackBarSuccessMessage(
-        'Session expired. Please login again',
-        'close'
-      );
+      this.snackBar.openSnackBarSuccessMessage('Session expired. Please login again', 'close');
       // this.router.navigateByUrl('main/login');
     }
   }
@@ -214,7 +204,7 @@ export class AuthService {
           let roles: string[] = this.userPayload.authorities.map(
             (e: { authority: any }) => e.authority
           );
-          sessionStorage.setItem(
+          localStorage.setItem(
             'roles',
             this.userPayload.authorities.map(
               (e: { authority: any }) => e.authority
@@ -226,6 +216,10 @@ export class AuthService {
             this.route.navigateByUrl('/admin/home');
           }
         }
+        setTimeout(() => {
+          window.location.reload();
+        }, 500);
+
       },
       error: (error: any) => {
         this.ngxLoader.stop();
@@ -237,4 +231,5 @@ export class AuthService {
       },
     });
   }
+
 }

@@ -6,8 +6,8 @@
     <div class="image-placeholder">
       <img
         class="img-fluid"
-        src="../../../assets/images/profile.png"
-        alt="Feuji-logo"
+        [src]="profilePictureUrl ? profilePictureUrl : '../../../assets/images/profile.png'"
+        alt="pic"
       />
     </div>
     <div>{{ userName }}</div>

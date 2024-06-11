@@ -13,7 +13,6 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 
 const routes: Routes = [
   { path: 'register', component: UserRegistrationComponent },
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'login', component: UserLoginComponent },
   { path: 'about', component: AboutComponent },
   { path: 'contact', component: ContactComponent },
@@ -21,10 +20,7 @@ const routes: Routes = [
   { path: 'otp-verification', component: OtpVerificationComponent, canActivate: [passwordChangeGuard]},
   { path: 'reset-password', component: ResetPassowrdComponent},
   { path: 'change-password', component: ChangePasswordComponent},
-  {
-    path: 'home',
-    component: MainHomeComponent,
-  },
+  { path: 'home', component: MainHomeComponent },
 ];
 
 @NgModule({

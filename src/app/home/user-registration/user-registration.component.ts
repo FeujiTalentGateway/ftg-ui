@@ -13,7 +13,7 @@ import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { GoogleLoginService } from 'src/app/services/google-login.service';
-
+ 
 // Custom validator function for username format
 function usernameFormatValidator(
   control: AbstractControl
@@ -24,7 +24,7 @@ function usernameFormatValidator(
   }
   return null;
 }
-
+ 
 export function passwordMatch(
   passwordField: string,
   confirmPasswordField: string
@@ -38,7 +38,7 @@ export function passwordMatch(
     return null;
   };
 }
-
+ 
 @Component({
   selector: 'app-user-registration',
   templateUrl: './user-registration.component.html',
@@ -46,19 +46,19 @@ export function passwordMatch(
 })
 export class UserRegistrationComponent implements AfterViewInit {
   @ViewChild('form') form!: NgForm;
-
+ 
   constructor(
     private authService: AuthService,
     private ngxLoader: NgxUiLoaderService,
     private router: Router,
     private googleAuthService: GoogleLoginService
   ) {}
-
+ 
   name: string = '';
   confirmPassword: string = '';
   formSubmitted: boolean = false;
   newuser: User = new User();
-
+ 
   ngAfterViewInit() {
     this.googleAuthService.loadGoogleSignInScript().then(() => {
       this.googleAuthService.initializeGoogleSignInButton(
@@ -67,6 +67,10 @@ export class UserRegistrationComponent implements AfterViewInit {
     });
   }
 
+  handleGoogleCredentialResponse(response: any) {
+    this.googleAuthService.handleGoogleCredentialResponse(response);
+  }
+ 
   createUser() {
     const userData: User = {
       firstName: this.registerForm.get('firstName')?.value,
@@ -81,12 +85,12 @@ export class UserRegistrationComponent implements AfterViewInit {
     }, 2000);
     this.authService.register(userData);
   }
-
+ 
   registeredEmail!: string;
   passwordVisible: boolean = false;
   confirmPasswordVisible: boolean = false;
   emailRegex = '[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}';
-
+ 
   emailForm = new FormGroup({
     email: new FormControl('', [
       Validators.required,
@@ -94,7 +98,7 @@ export class UserRegistrationComponent implements AfterViewInit {
       Validators.pattern(this.emailRegex),
     ]),
   });
-
+ 
   registerForm = new FormGroup(
     {
       firstName: new FormControl('', [
@@ -129,28 +133,26 @@ export class UserRegistrationComponent implements AfterViewInit {
     },
     [passwordMatch('password', 'confirmPassword')]
   );
-
+ 
   getControl(property: any): AbstractControl | null {
     return this.registerForm.get(property);
   }
-
+ 
   getEmailFormControl(property: any): AbstractControl | null {
     return this.emailForm.get(property);
   }
-
+ 
   passwordVisibility() {
     this.passwordVisible = !this.passwordVisible;
   }
-
+ 
   confirmPasswordVisibility() {
     this.confirmPasswordVisible = !this.confirmPasswordVisible;
   }
-
+ 
   register(data: FormGroup) {
     this.createUser();
   }
+ 
 
-  handleGoogleCredentialResponse(response: any) {
-    this.googleAuthService.handleGoogleCredentialResponse(response);
-  }
 }

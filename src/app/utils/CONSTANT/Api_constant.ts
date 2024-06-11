@@ -1,2 +1,2 @@
 
-export const GITHUB_REGISTRATION_URL = "/registration/github";
+export const GITHUB_REGISTRATION_URL = "registration/github";

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { GoogleUser } from '../models/google-user.model';
 import { AuthService } from './auth.service';
+import { SnackBarService } from './snack-bar.service';
 
 declare var google: any;
 
@@ -9,7 +10,7 @@ declare var google: any;
 })
 export class GoogleLoginService {
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService,private snackbar:SnackBarService) { }
 
   loadGoogleSignInScript(): Promise<void> {
     return new Promise((resolve, reject) => {
@@ -43,6 +44,8 @@ export class GoogleLoginService {
     if (response) {
       const googleUser: GoogleUser = this.decodeToken(response.credential);
       this.authService.loginWithGoogle(googleUser);
+    }else{
+      this.snackbar.openSnackBarForError("something went wrong, please try again");
     }
   }
 

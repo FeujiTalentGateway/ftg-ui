@@ -12,17 +12,15 @@ import { passwordChangeGuard } from '../guards/auth.guard';
 
 const routes: Routes = [
   { path: 'register', component: UserRegistrationComponent },
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'login', component: UserLoginComponent },
   { path: 'about', component: AboutComponent },
   { path: 'contact', component: ContactComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'otp-verification', component: OtpVerificationComponent, canActivate: [passwordChangeGuard]},
   { path: 'reset-password', component: ResetPassowrdComponent},
-  {
-    path: 'home',
-    component: MainHomeComponent,
-  },
+  { path: 'home', component: MainHomeComponent},
+  { path: '', redirectTo: 'home', pathMatch: 'full' }
+
 ];
 
 @NgModule({

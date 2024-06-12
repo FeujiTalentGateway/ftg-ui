@@ -10,6 +10,7 @@ import { AuthRepositoryService } from '../repository/auth-repository.service';
 import { UserdetailsService } from './userdetails.service';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { SnackBarService } from './snack-bar.service';
+import { ForgotPasswordService } from './forgot-password.service';
 
 @Injectable({
   providedIn: 'root',
@@ -19,17 +20,19 @@ export class AuthService {
   authTokenKey: string = environment.authTokenKey;
   dialogRef: any;
   roles: any[] = [];
+  userDetail!: User;
   constructor(
     private authRepo: AuthRepositoryService,
     private snackBar: SnackBarService,
     private route: Router,
     private userDetails: UserdetailsService,
     private ngxLoader: NgxUiLoaderService,
+    private forgotPasswordService:ForgotPasswordService
   ) { }
 
   // Handle user registration based on form data
-
   register(user: User) {
+    this.userDetail = user;
     this.ngxLoader.start();
     // Send the registration data to the server and handle the response
     this.authRepo.register(user).subscribe({
@@ -37,6 +40,7 @@ export class AuthService {
         const responseMessage: string = response.message;
         this.ngxLoader.stop();
         this.snackBar.openSnackBar(response.message, 'Close');
+        this.forgotPasswordService.openOtpVerifyComponent(this.userDetail);
         if (responseMessage.includes('User successfully registered with')) {
           this.snackBar.openSnackBarSuccessMessage(responseMessage, 'Close');
           this.route.navigateByUrl('main/login');
@@ -51,14 +55,15 @@ export class AuthService {
             "Username '" + user.userName + "' already exists",
             'Close'
           );
-        } else if (responseMessage == 'Email already exists') {
-          this.snackBar.openSnackBarForError(
-            "Email '" + user.emailId + "' already exists",
+        } else if (
+          responseMessage == 'Email not verified. Please verify the email'
+        ) {
+          this.snackBar.openRedAlertSnackBar(
+            "Email '" +
+              user.emailId +
+              "' already exists.Email not verified.Please verify the email",
             'Close'
           );
-        } else if (responseMessage =='Email already verified. Please login' ){
-          this.snackBar.openSnackBarForError(responseMessage, 'Close');
-          this.route.navigateByUrl('main/login');
         }
         this.snackBar.openSnackBarForError(responseMessage, 'Close');
       },
@@ -218,7 +223,7 @@ export class AuthService {
         }
         setTimeout(() => {
           window.location.reload();
-        }, 500);
+        }, 1000);
 
       },
       error: (error: any) => {

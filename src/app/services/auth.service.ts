@@ -64,6 +64,9 @@ export class AuthService {
               "' already exists.Email not verified.Please verify the email",
             'Close'
           );
+          this.forgotPasswordService.openOtpVerifyComponent(this.userDetail);
+        }else if (responseMessage == 'Email already verified. Please login'){
+          this.route.navigateByUrl('main/login');
         }
         this.snackBar.openSnackBarForError(responseMessage, 'Close');
       },
@@ -108,6 +111,9 @@ export class AuthService {
         this.ngxLoader.stop();
         if (error.status === 400) {
           this.snackBar.openSnackBarForError(error.error.message, 'Close');
+          if(error.error.message == 'user status is inActive.'){
+            this.forgotPasswordService.openOtpVerifyComponent(user);
+          }
         } else {
           this.snackBar.openSnackBarForError('Something went wrong', 'Close');
         }

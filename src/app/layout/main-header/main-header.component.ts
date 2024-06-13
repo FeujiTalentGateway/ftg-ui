@@ -23,7 +23,7 @@ export class MainHeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.userName = localStorage.getItem('userName') as string;
-    const profileUrl = sessionStorage.getItem('profilePictureUrl') as string
+    const profileUrl = localStorage.getItem('profilePictureUrl') as string
     
     if (profileUrl) {
       this.profilePictureUrl = this.domSanitizer.bypassSecurityTrustUrl(profileUrl);

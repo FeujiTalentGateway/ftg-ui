@@ -11,12 +11,19 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { MatDialogModule } from '@angular/material/dialog';
 import { HeaderComponent } from '../header/header.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { NgxUiLoaderComponent, NgxUiLoaderModule } from 'ngx-ui-loader';
+import { NgxUiLoaderComponent, NgxUiLoaderModule, NgxUiLoaderService } from 'ngx-ui-loader';
 import { GithubLoginComponent } from '../github-login/github-login.component';
+import { AuthService } from 'src/app/services/auth.service';
+import { GoogleLoginService } from 'src/app/services/google-login.service';
 
 describe('UserLoginComponent', () => {
   let component: UserLoginComponent;
   let fixture: ComponentFixture<UserLoginComponent>;
+  let authService: AuthService;
+  let ngxLoader: NgxUiLoaderService;
+  let googleAuthService: GoogleLoginService;
+  
+
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -35,8 +42,15 @@ describe('UserLoginComponent', () => {
         NoopAnimationsModule,
         NgxUiLoaderModule
       ],
+      providers: [
+        NgxUiLoaderService,
+        { provide: AuthService, useValue: jasmine.createSpyObj('AuthService', ['login']) }
+      ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
+
+    authService = TestBed.inject(AuthService);
+    ngxLoader = TestBed.inject(NgxUiLoaderService);
   }));
 
   beforeEach(() => {
@@ -114,4 +128,22 @@ describe('UserLoginComponent', () => {
     
     expect(component.isPasswordVisible).toBeFalsy();
   });
+
+  it('should toggle password visibility', () => {
+    const initialVisibility = component.isPasswordVisible;
+    component.ToggleEye();
+    expect(component.isPasswordVisible).toBe(!initialVisibility);
+  });
+
+  it('should start loader and call authService login on form submission if valid', fakeAsync(() => {
+    spyOn(ngxLoader, 'start');
+    spyOn(ngxLoader, 'stop');
+    component.userForm?.controls['userName'].setValue('testuser');
+    component.userForm?.controls['password'].setValue('password123');
+    component.onLogin();
+    expect(ngxLoader.start).toHaveBeenCalled();
+    tick(2000); // Simulate the 2000ms timeout
+    expect(ngxLoader.stop).toHaveBeenCalled();
+  }));
+  
 });

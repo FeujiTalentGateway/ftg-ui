@@ -193,12 +193,29 @@ export class ExamService {
   }
   
 
-  submitCode(requestPayload: any): Observable<any> {
+  submitCode(requestPayload: any, language: string): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+  
+    let apiUrl: string;
+  
+    // Determine the API URL based on the language
+    switch (language.toLowerCase()) {
+      case 'python':
+        apiUrl = `${this.pythonExamUrl}/coding-question/submit`;
+        break;
+      case 'java':
+        apiUrl = `${this.javaExamUrl}/coding-question/submit`;
+        break;
+      default:
+        throw new Error(`Unsupported language: ${language}`);
+    }
+  
+    // Call the appropriate API
     return this.http.post<any>(
-      `${this.javaExamUrl}/coding-question/submit`,
+      apiUrl,
       requestPayload,
       { headers: headers }
     );
   }
+  
 }

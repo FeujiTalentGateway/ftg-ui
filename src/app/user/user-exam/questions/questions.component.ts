@@ -714,6 +714,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
 
   submitCode() {
     const codeValue = this.codeEditorComponent.code;
+    const language = this.codeEditorComponent.selectedLanguage;
     const formattedData = JSON.stringify(
       {
         codingQuestionId:
@@ -726,7 +727,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
     );
 
     // Call the service to submit the code and handle the response
-    this.testResultService.submitCode(formattedData).subscribe(
+    this.testResultService.submitCode(formattedData,language).subscribe(
       (response) => {
 
         // Open the popup with the response data

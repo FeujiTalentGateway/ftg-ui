@@ -40,7 +40,7 @@ export class TestCaseResultService {
   }
   
   submitResult: any;
-  submitCode(requestPayload: any): Observable<any> {
-    return this.examservice.submitCode(requestPayload);
+  submitCode(requestPayload: any,language:string): Observable<any> {
+    return this.examservice.submitCode(requestPayload,language);
   }
 }

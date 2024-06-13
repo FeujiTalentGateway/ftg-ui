@@ -54,7 +54,6 @@ describe('TokenInterceptor', () => {
   });
 
   it('should not add Authorization header when jwtToken is absent', () => {
-    // authService.getJwtToken.and.returnValue('null');
 
     const testUrl = 'https://example.com/api/data';
 

@@ -6,7 +6,6 @@ import { AuthService } from 'src/app/services/auth.service';
 import { GithubService } from 'src/app/services/github.service';
 import { GoogleLoginService } from 'src/app/services/google-login.service';
 
-
 @Component({
   selector: 'app-user-login',
   templateUrl: './user-login.component.html',
@@ -18,20 +17,20 @@ export class UserLoginComponent implements OnInit, AfterViewInit {
     private authService: AuthService,
     private ngxLoader: NgxUiLoaderService,
     private googleAuthService: GoogleLoginService,
-    private githubService : GithubService,
-    private route : ActivatedRoute
+    private githubService: GithubService,
+    private route: ActivatedRoute
   ) {}
-
 
   username: string = '';
   password: string = '';
   isPasswordVisible: boolean = false;
   formSubmitted: boolean = false;
 
-
   ngAfterViewInit() {
     this.googleAuthService.loadGoogleSignInScript().then(() => {
-      this.googleAuthService.initializeGoogleSignInButton(this.handleGoogleCredentialResponse.bind(this));
+      this.googleAuthService.initializeGoogleSignInButton(
+        this.handleGoogleCredentialResponse.bind(this)
+      );
     });
   }
 
@@ -45,25 +44,21 @@ export class UserLoginComponent implements OnInit, AfterViewInit {
       password: new FormControl(null, Validators.required),
     });
 
-
-    this.route.queryParams.subscribe(params => {
+    this.route.queryParams.subscribe((params) => {
       const code = params['code'];
       if (code) {
-          this.githubService.handleGitHubCallback(code);
+        this.githubService.handleGitHubCallback(code);
       } else {
-          this.router.navigate(['/login']);
+        this.router.navigate(['/login']);
       }
-  });
+    });
   }
-
 
   ToggleEye() {
     this.isPasswordVisible = !this.isPasswordVisible;
   }
 
-
   userForm?: FormGroup;
-
 
   onLogin() {
     this.formSubmitted = true;
@@ -75,6 +70,4 @@ export class UserLoginComponent implements OnInit, AfterViewInit {
       this.authService.login(this.userForm);
     }
   }
-
-
 }

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeRoutingModule } from './home-routing.module';
@@ -33,5 +33,6 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
     ChangePasswordComponent,
   ],
   imports: [NgxUiLoaderModule.forRoot({}), CommonModule, FormsModule, ReactiveFormsModule, HomeRoutingModule, MatIconModule, MatDialogModule],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA] 
 })
 export class  HomeModule {}

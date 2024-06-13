@@ -29,7 +29,6 @@
     "chart.js": "^4.4.1",
     "highcharts": "^11.0.0",
     "highcharts-angular": "4.0.0",
-    "highcharts-angular": "4.0.0",
     "jasmine": "^5.1.0",
     "karma-coverage-istanbul-reporter": "^3.0.3",
     "karma-spec-reporter": "^0.0.36",

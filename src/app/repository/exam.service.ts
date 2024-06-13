@@ -18,6 +18,7 @@ import { ViewResult } from '../models/view-result';
 export class ExamService {
   examUrl: string = ' http://127.0.0.1:8000/';
   javaExamUrl: string = environment.adminUrl + 'exam';
+  pythonExamUrl:string = environment.pythonUrl + 'exam';
   resultUrl: string = environment.adminUrl;
   examsubmitted: boolean = false;
   constructor(private http: HttpClient) {}
@@ -157,7 +158,8 @@ export class ExamService {
     return this.http.get<any>(`${this.resultUrl}codingquestion?fullData=false`);
   }
 
-  executeCode(codeValue: string): Observable<any> {
+  executeCode(codeValue: string,language: string): Observable<any> {
+    
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post<any>(
       `${this.javaExamUrl}/coding-question/run`,
@@ -165,6 +167,31 @@ export class ExamService {
       { headers: headers }
     );
   }
+  executeCodeForLanguage(codeValue: string, language: string): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+  
+    let apiUrl: string;
+  
+    // Determine the API URL based on the language
+    switch (language.toLowerCase()) {
+      case 'python':
+        apiUrl = `${this.pythonExamUrl}/coding-question/run`;
+        break;
+      case 'java':
+        apiUrl = `${this.javaExamUrl}/coding-question/run`;
+        break;
+      default:
+        throw new Error(`Unsupported language: ${language}`);
+    }
+  
+    // Call the appropriate API
+    return this.http.post<any>(
+      apiUrl,
+      codeValue,
+      { headers: headers }
+    );
+  }
+  
 
   submitCode(requestPayload: any): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });

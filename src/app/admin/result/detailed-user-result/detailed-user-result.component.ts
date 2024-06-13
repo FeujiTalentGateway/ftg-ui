@@ -37,9 +37,6 @@ export class DetailedUserResultComponent implements OnInit {
     this.userId =  this.activatedRoute.snapshot.paramMap.get('userId') as number | null | undefined; 
     this.examObject$ = this.examService.getExamByCode(this.examCode);
     this.detailedUserResultObject$ = this.examService.getDetailedUserResult(this.examCode,this.userId as number);
-    console.log(this.detailedUserResultObject$.subscribe(res=>{
-      console.log(res)
-    }))
     this.calculateProgress();
     this.examService.getUserExamResults(this.examCode, this.userId as number)
       .subscribe((questions: Question[]) => {

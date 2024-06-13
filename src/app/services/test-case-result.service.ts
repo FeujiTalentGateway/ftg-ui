@@ -18,11 +18,10 @@ export class TestCaseResultService {
   errorMessage: any;
   testResult: any;
 
-  executeCode(codeValue: any) {
-    this.examservice.executeCode(codeValue).subscribe((res) => {
+  executeCode(codeValue: any,language: string) {
+    this.examservice.executeCodeForLanguage(codeValue,language).subscribe((res) => {
 
       this.testResult = res
-      console.log(this.testResult);
 
       this.errorMessage = null;
       this.testCasesChanged.next(this.testResult)
@@ -30,7 +29,6 @@ export class TestCaseResultService {
     },
       (error) => {
         console.error('Error fetching test result data:', error);
-        console.log(error.error.message);
         this.errorMessage = error.error;
         this.testResult = null;
         this.testCasesChanged.next(this.errorMessage)

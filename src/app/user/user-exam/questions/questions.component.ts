@@ -84,13 +84,10 @@ export class QuestionsComponent implements OnInit, OnDestroy {
         this.currentQuestion = response.question;
         this.codingQuestions = response.examCodingQuestionDTO;
 
-        console.log(this.codingQuestions);
 
         // this.ExamRepo.getExamCodingQuestions().subscribe((questions=>{
         //   this.codingQuestions=questions.examCodingQuestionDTO
         // }))
-        console.log(response.examCodingQuestionDTO);
-        console.log(this.currentQuestion, 'this.currentQuestion');
 
         this.examAttemptID = response.attemptId;
         this.sharedData.updateExamAttempt(this.examAttemptID as number);
@@ -108,7 +105,6 @@ export class QuestionsComponent implements OnInit, OnDestroy {
         });
       },
       (error) => {
-        console.log(error.error.message);
         this.snackBar.openRedAlertSnackBar(error.error.message);
       }
     );
@@ -276,7 +272,6 @@ export class QuestionsComponent implements OnInit, OnDestroy {
    * @method updateOption() this method is for updating the option
    */
   updateOption(currentQuestionData: any) {
-    console.log(currentQuestionData, 'currentQuestionData');
 
     this.question$ = this.ExamRepo.submitQuestion(currentQuestionData);
     this.question$.subscribe((response) => {
@@ -436,7 +431,6 @@ export class QuestionsComponent implements OnInit, OnDestroy {
           this.examAttemptID as number,
           subject.subject.id
         ).subscribe((response: any) => {
-          console.log(response, 'response');
           this.listOfQuestion = response;
           this.childComponent.previousQuestion(this.currentQuestionIndex);
         });
@@ -660,7 +654,6 @@ export class QuestionsComponent implements OnInit, OnDestroy {
    */
   changeSubjectAndGetFirstQuestion() {
     this.nextSubjectLoading = false;
-    console.log('i am in changeSubjectAndGetFirstQuestion');
 
     let checkAlreadyVisited = this.listOfQuestionEachSubject.some(
       (item) => item.subjectId == this.currentSubject?.subject.id
@@ -707,6 +700,8 @@ export class QuestionsComponent implements OnInit, OnDestroy {
 
   runCode() {
     const codeValue = this.codeEditorComponent.code;
+    const language = this.codeEditorComponent.selectedLanguage;
+    
     const requestPayload = {
       // codingQuestionId: this.currentCodingQuestionIndex+1,
       codingQuestionId:
@@ -714,7 +709,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
       responseCodeSnippet: codeValue,
     };
 
-    this.testResultService.executeCode(requestPayload);
+    this.testResultService.executeCode(requestPayload,language);
   }
 
   submitCode() {
@@ -729,12 +724,10 @@ export class QuestionsComponent implements OnInit, OnDestroy {
       null,
       this.codingQuestions[this.currentCodingQuestionIndex].id
     );
-    console.log(formattedData);
 
     // Call the service to submit the code and handle the response
     this.testResultService.submitCode(formattedData).subscribe(
       (response) => {
-        console.log(response);
 
         // Open the popup with the response data
         this.openTestResultPopup(response);
@@ -747,9 +740,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
   }
 
   openTestResultPopup(responseData: any) {
-    console.log();
 
-    console.log(responseData);
 
     const dialogRef = this.dialog.open(TestResultPopupComponent, {
       width: '250px',
@@ -757,7 +748,6 @@ export class QuestionsComponent implements OnInit, OnDestroy {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log('The dialog was closed');
     });
   }
 
@@ -778,7 +768,6 @@ export class QuestionsComponent implements OnInit, OnDestroy {
   }
 
   nextCodingQuestion() {
-    console.log(this.codeEditorComponent.code);
     this.saveQuestion(
       this.codeEditorComponent.code,
       this.currentCodingQuestionIndex
@@ -810,7 +799,6 @@ export class QuestionsComponent implements OnInit, OnDestroy {
   }
 
   setUsedWrittenCodetoEditor(index: number) {
-    console.log(this.userCodingLogic);
     this.codeEditorComponent.aceEditor!.session.setValue(
       this.userCodingLogic[index]
     );

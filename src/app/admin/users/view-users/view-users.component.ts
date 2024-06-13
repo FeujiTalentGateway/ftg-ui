@@ -57,11 +57,8 @@ export class ViewUsersComponent {
       // this.ngAfterViewInit();
       this.service.getUserByRoleName('USER').subscribe(
         (user) => {
-          console.log(user);
-          
           const reversedData = user.slice().reverse(); // Create a copy of the array before reversing
           this.dataSource = new MatTableDataSource(reversedData);
-  
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
         },

@@ -69,7 +69,6 @@ export class ScheduleExamComponent implements OnInit {
       this.examRepo.getExamById(this.editableExamId).subscribe({
         next: (exam) => {
           this.exam = exam;
-          console.log(this.exam.examSubjects);
           this.editExam();
         },
       });
@@ -216,7 +215,6 @@ export class ScheduleExamComponent implements OnInit {
       }
     });
 
-    console.log(this.examForm.value);
     if (this.exam!.examSubjects) {
       this.exam!.examSubjects.forEach((examSubject: ExamSubject) => {
         this.examSubjectsArray.push(
@@ -263,7 +261,6 @@ export class ScheduleExamComponent implements OnInit {
     event.preventDefault();
   }
   onSubmit(): void {
-    console.log(this.examForm.value);
     if (this.selectedExamId) {
       this.service.updateExam(this.examForm.value);
       // this.goBack();
@@ -371,7 +368,6 @@ export class ScheduleExamComponent implements OnInit {
   }
 
   openCodingQuestionsModel(questions: number) {
-    console.log(this.examForm.value);
     let dialogConfig: MatDialogConfig = {
       width: '100%',
       height: '100%',

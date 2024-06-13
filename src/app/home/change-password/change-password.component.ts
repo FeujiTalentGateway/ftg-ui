@@ -70,10 +70,8 @@ export class ChangePasswordComponent {
       };
       this.changePasswordService.changePassword(pass).subscribe(
         (response) => {
-          console.log('Password changed successfully', response);
         },
         (error) => {
-          console.error('Error changing password', error);
         }
       );
     }

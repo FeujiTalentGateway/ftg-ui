@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AbstractControl, FormControl } from '@angular/forms';
 import { CodingQuestion } from 'src/app/models/coding.question.model';
 import { CodingQuestionRepositoryService } from 'src/app/repository/coding-question-repository.service';
 import { DataType } from 'src/app/models/coding.datatype.model';
 import { TestCases } from 'src/app/models/coding.testcases.model';
+import { SnackBarService } from 'src/app/services/snack-bar.service';
 @Component({
   selector: 'app-coding-question',
   templateUrl: './coding-question.component.html',
@@ -35,7 +36,9 @@ export class CodingQuestionComponent implements OnInit {
   constructor(
     private activatedParam: ActivatedRoute,
     private _formBuilder: FormBuilder,
-    private codeRepo: CodingQuestionRepositoryService
+    private codeRepo: CodingQuestionRepositoryService,
+    private snackbar: SnackBarService,
+    private router : Router
   ) {
     this.codeRepo.getDataTypes().subscribe({
       next: (data: any) => {
@@ -449,9 +452,14 @@ export class CodingQuestionComponent implements OnInit {
     this.codeRepo.saveCodingQuestion(formData).subscribe({
       next: (data: any) => {
         console.log(data);
+        this.snackbar.openSnackBarSuccessMessage('Coding question saved successfully', 'close')
+        this.router.navigate(['/admin/questionPapers/codingQuestion'])
+
       },
       error: (error: any) => {
         console.log(error);
+        this.snackbar.openSnackBarForError('Error while saving coding question', 'close')
+
       },
     });
   }

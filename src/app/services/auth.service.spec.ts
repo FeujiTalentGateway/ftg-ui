@@ -11,13 +11,15 @@ import { UserdetailsService } from './userdetails.service';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { AuthRepositoryService } from '../repository/auth-repository.service';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { User } from '../models/user.model';
 
 describe('AuthService', () => {
   let service: AuthService;
   let jwtHelperService: JwtHelperService;
   let httpMock: HttpTestingController;
-   let snackBarService: SnackBarService;
+  let snackBarService: SnackBarService;
   let ngxUiLoaderService: NgxUiLoaderService;
+  let authRepo: AuthRepositoryService;
 
   const mockToken =
     'eyJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6W3siYXV0aG9yaXR5IjoiQURNSU4ifV0sInN1YiI6ImRlZmF1bHR1c2VyIiwiaWF0IjoxNzE4NjA0NzEyLCJleHAiOjE3MTg2MTkxMTJ9.1IQ-SCS2GEcaRpgsv1JYHQsKWd5CqUfgi705clKjwIQ';
@@ -44,6 +46,7 @@ describe('AuthService', () => {
     snackBarService = TestBed.inject(SnackBarService);
     httpMock = TestBed.inject(HttpTestingController);
     ngxUiLoaderService = TestBed.inject(NgxUiLoaderService);
+    authRepo = TestBed.inject(AuthRepositoryService);
   });
 
   afterEach(() => {
@@ -51,6 +54,12 @@ describe('AuthService', () => {
     httpMock.verify();
     sessionStorage.clear();
   });
+
+  const mockGoogleUser = {
+    id: 'google-id',
+    name: 'John Doe',
+    email: 'john.doe@example.com',
+  };
 
   it('should be created', () => {
     expect(service).toBeTruthy();
@@ -139,15 +148,6 @@ describe('AuthService', () => {
     expect(sessionStorage.getItem('test-key')).toBeNull();
   });
 
-  const mockGoogleUser = {
-    id: 'google-id',
-    name: 'John Doe',
-    email: 'john.doe@example.com',
-  };
-  it('should be created', () => {
-    expect(service).toBeTruthy();
-  });
-
   it('should handle error during Google login', fakeAsync(() => {
     const mockSnackBarErrorSpy = spyOn(snackBarService, 'openSnackBarForError');
     const mockNgxLoaderStopSpy = spyOn(ngxUiLoaderService, 'stop');
@@ -177,16 +177,79 @@ describe('AuthService', () => {
 
     const req = httpMock.expectOne(
       'http://localhost:8092/registration/googleregister'
-    ); 
+    );
     expect(req.request.method).toBe('POST');
     req.error(new ErrorEvent('400 error'), {
       status: 400,
       statusText: 'Bad Request',
     });
 
-    tick(); 
+    tick();
 
     expect(mockNgxLoaderStopSpy).toHaveBeenCalled();
     expect(mockSnackBarErrorSpy).toHaveBeenCalledWith('', 'Close');
+  }));
+  it('should call authRepo.register(user) when registering a user', () => {
+    const mockUser: User = {
+      firstName: 'Test',
+      lastName: 'User',
+      userName: 'testuser',
+      emailId: 'testuser@example.com',
+      password: 'password123',
+    };
+
+    spyOn(authRepo, 'register').and.callThrough();
+    spyOn(ngxUiLoaderService, 'start');
+    spyOn(ngxUiLoaderService, 'stop');
+    spyOn(snackBarService, 'openSnackBar');
+    spyOn(snackBarService, 'openSnackBarSuccessMessage');
+    spyOn(snackBarService, 'openSnackBarForError');
+
+    service.register(mockUser);
+
+    expect(ngxUiLoaderService.start).toHaveBeenCalled();
+
+    const req = httpMock.expectOne(
+      'http://localhost:8092/registration/register'
+    );
+    expect(req.request.method).toBe('POST');
+    req.flush({ message: 'User successfully registered' });
+
+    expect(authRepo.register).toHaveBeenCalledWith(mockUser);
+    expect(ngxUiLoaderService.stop).toHaveBeenCalledTimes(2);
+  });
+
+  it('should handle error responses correctly when registering a user', fakeAsync(() => {
+    const mockUser: User = {
+      firstName: 'Test',
+      lastName: 'User',
+      userName: 'testuser',
+      emailId: 'testuser@example.com',
+      password: 'password123',
+    };
+    const errorResponse = { error: { message: 'Username already exists' } };
+
+    spyOn(authRepo, 'register').and.callThrough();
+    spyOn(ngxUiLoaderService, 'start');
+    spyOn(ngxUiLoaderService, 'stop');
+    spyOn(snackBarService, 'openSnackBar');
+    spyOn(snackBarService, 'openSnackBarSuccessMessage');
+    spyOn(snackBarService, 'openSnackBarForError');
+
+    service.register(mockUser);
+
+    expect(ngxUiLoaderService.start).toHaveBeenCalled();
+
+    const req = httpMock.expectOne(
+      'http://localhost:8092/registration/register'
+    );
+    expect(req.request.method).toBe('POST');
+    req.flush(errorResponse, { status: 400, statusText: 'Bad Request' });
+
+    tick();
+
+    expect(authRepo.register).toHaveBeenCalledWith(mockUser);
+
+    expect(ngxUiLoaderService.stop).toHaveBeenCalledTimes(1); // Once after error response and once after message check
   }));
 });

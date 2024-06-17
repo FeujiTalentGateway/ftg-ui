@@ -89,8 +89,6 @@ describe('UserRegistrationComponent', () => {
     expect(component.confirmPasswordVisible).toBe(!initialVisibility);
   });
 
- 
-
   it('should not show error message if passwords match', () => {
     component.registerForm.controls['password'].setValue('password123');
     component.registerForm.controls['confirmPassword'].setValue('password123');

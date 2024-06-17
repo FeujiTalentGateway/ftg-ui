@@ -7,7 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MatDialogModule } from '@angular/material/dialog';
 import { HeaderComponent } from '../header/header.component';
-
+import { NgxUiLoaderModule } from 'ngx-ui-loader'; // Use NgxUiLoaderModule instead of NgxUiLoaderHttpModule
 
 describe('ResetPassowrdComponent', () => {
   let component: ResetPassowrdComponent;
@@ -15,9 +15,16 @@ describe('ResetPassowrdComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ResetPassowrdComponent,HeaderComponent],
-      imports:[HttpClientTestingModule,MatSnackBarModule,FormsModule,ReactiveFormsModule,RouterTestingModule,MatDialogModule]
-
+      declarations: [ResetPassowrdComponent, HeaderComponent],
+      imports: [
+        HttpClientTestingModule,
+        MatSnackBarModule,
+        FormsModule,
+        ReactiveFormsModule,
+        RouterTestingModule,
+        MatDialogModule,
+        NgxUiLoaderModule // Import NgxUiLoaderModule
+      ]
     });
     fixture = TestBed.createComponent(ResetPassowrdComponent);
     component = fixture.componentInstance;

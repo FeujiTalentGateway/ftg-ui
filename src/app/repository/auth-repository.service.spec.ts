@@ -67,7 +67,6 @@ describe('AuthRepositoryService', () => {
     req.flush(mockResponse, { status: 200, statusText: 'OK' });
   });
 
-
   it('should get user by role name', () => {
     const roleName = 'admin';
     const mockUsers: User[] = [{ userName: 'adminuser', emailId: 'admin@example.com' }];
@@ -95,9 +94,7 @@ describe('AuthRepositoryService', () => {
     expect(req.request.method).toBe('PUT');
     req.flush(mockResponse);
   });
-
-  const mockGoogleUser =
-
+  
   it('should login with Google', () => {
     const mockGoogleUser: GoogleUser =  {
       name: 'John Doe',

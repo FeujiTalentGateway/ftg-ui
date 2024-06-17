@@ -1,6 +1,9 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { AuthService } from './auth.service';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import {
+  HttpClientTestingModule,
+  HttpTestingController,
+} from '@angular/common/http/testing';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { JWT_OPTIONS, JwtHelperService } from '@auth0/angular-jwt';
 import { Router } from '@angular/router';
@@ -14,15 +17,21 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 describe('AuthService', () => {
   let service: AuthService;
   let jwtHelperService: JwtHelperService;
+  let httpMock: HttpTestingController;
   let routerSpy = { navigateByUrl: jasmine.createSpy('navigateByUrl') };
   let snackBarService: SnackBarService;
+  let ngxUiLoaderService: NgxUiLoaderService;
 
-  const mockToken = 'eyJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6W3siYXV0aG9yaXR5IjoiQURNSU4ifV0sInN1YiI6ImRlZmF1bHR1c2VyIiwiaWF0IjoxNzE4NjA0NzEyLCJleHAiOjE3MTg2MTkxMTJ9.1IQ-SCS2GEcaRpgsv1JYHQsKWd5CqUfgi705clKjwIQ';
-
+  const mockToken =
+    'eyJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6W3siYXV0aG9yaXR5IjoiQURNSU4ifV0sInN1YiI6ImRlZmF1bHR1c2VyIiwiaWF0IjoxNzE4NjA0NzEyLCJleHAiOjE3MTg2MTkxMTJ9.1IQ-SCS2GEcaRpgsv1JYHQsKWd5CqUfgi705clKjwIQ';
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, MatSnackBarModule,NoopAnimationsModule],
+      imports: [
+        HttpClientTestingModule,
+        MatSnackBarModule,
+        NoopAnimationsModule,
+      ],
       providers: [
         AuthService,
         SnackBarService,
@@ -32,15 +41,18 @@ describe('AuthService', () => {
         JwtHelperService,
         { provide: Router, useValue: routerSpy },
         { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
-      ]
+      ],
     });
     service = TestBed.inject(AuthService);
     jwtHelperService = TestBed.inject(JwtHelperService);
     snackBarService = TestBed.inject(SnackBarService);
+    httpMock = TestBed.inject(HttpTestingController);
+    ngxUiLoaderService = TestBed.inject(NgxUiLoaderService);
   });
 
   afterEach(() => {
     localStorage.clear();
+    httpMock.verify();
     sessionStorage.clear();
   });
 
@@ -67,14 +79,13 @@ describe('AuthService', () => {
       authorities: [{ authority: 'ADMIN' }],
       sub: 'defaultuser',
       iat: 1718604712,
-      exp: 1718619112
+      exp: 1718619112,
     };
     spyOn(jwtHelperService, 'decodeToken').and.returnValue(decodedMockToken);
     localStorage.setItem(service.authTokenKey, mockToken);
     const decodedToken = service.decodedToken();
     expect(decodedToken).toEqual(decodedMockToken);
   });
-
 
   it('should handle error while decoding JWT token', () => {
     const token = 'invalid-token';
@@ -83,8 +94,6 @@ describe('AuthService', () => {
     const decodedToken = service.decodedToken();
     expect(decodedToken).toBeUndefined();
   });
-
-
 
   it('should get JWT token from local storage', () => {
     const token = 'test-token';
@@ -107,9 +116,10 @@ describe('AuthService', () => {
     localStorage.setItem(service.authTokenKey, 'test-token');
     service.sessionExpired();
     expect(localStorage.getItem(service.authTokenKey)).toBeNull();
-    expect(snackBarService.openSnackBarSuccessMessage).toHaveBeenCalledWith('Session expired. Please login again', 'close');
-    // Uncomment the following line if you want to test navigation as well
-    // expect(routerSpy.navigateByUrl).toHaveBeenCalledWith('main/login');
+    expect(snackBarService.openSnackBarSuccessMessage).toHaveBeenCalledWith(
+      'Session expired. Please login again',
+      'close'
+    );
   });
 
   it('should check for admin role', () => {
@@ -119,7 +129,6 @@ describe('AuthService', () => {
     tokenPayload.authorities = [{ authority: 'USER' }];
     expect(service.checkAdminRole()).toBeFalse();
   });
-
   it('should check for user role', () => {
     const tokenPayload = { authorities: [{ authority: 'USER' }] };
     spyOn(service, 'decodedToken').and.returnValue(tokenPayload);
@@ -127,7 +136,6 @@ describe('AuthService', () => {
     tokenPayload.authorities = [{ authority: 'ADMIN' }];
     expect(service.checkUserRole()).toBeFalse();
   });
-
   it('should logout and clear storage', () => {
     localStorage.setItem(service.authTokenKey, 'test-token');
     sessionStorage.setItem('test-key', 'test-value');
@@ -135,4 +143,55 @@ describe('AuthService', () => {
     expect(localStorage.getItem(service.authTokenKey)).toBeNull();
     expect(sessionStorage.getItem('test-key')).toBeNull();
   });
+
+  const mockGoogleUser = {
+    id: 'google-id',
+    name: 'John Doe',
+    email: 'john.doe@example.com',
+  };
+  it('should be created', () => {
+    expect(service).toBeTruthy();
+  });
+
+  it('should handle error during Google login', fakeAsync(() => {
+    const mockSnackBarErrorSpy = spyOn(snackBarService, 'openSnackBarForError');
+    const mockNgxLoaderStopSpy = spyOn(ngxUiLoaderService, 'stop');
+
+    service.loginWithGoogle(mockGoogleUser);
+
+    const req = httpMock.expectOne(
+      'http://localhost:8092/registration/googleregister'
+    ); // Adjust URL as per your actual API endpoint
+    expect(req.request.method).toBe('POST');
+    req.error(new ErrorEvent('Network error'));
+
+    tick(); // Simulate passage of time until all pending asynchronous activities complete
+
+    expect(mockNgxLoaderStopSpy).toHaveBeenCalled();
+    expect(mockSnackBarErrorSpy).toHaveBeenCalledWith(
+      'Something went wrong',
+      'Close'
+    );
+  }));
+
+  it('should handle 400 error during Google login', fakeAsync(() => {
+    const mockSnackBarErrorSpy = spyOn(snackBarService, 'openSnackBarForError');
+    const mockNgxLoaderStopSpy = spyOn(ngxUiLoaderService, 'stop');
+
+    service.loginWithGoogle(mockGoogleUser);
+
+    const req = httpMock.expectOne(
+      'http://localhost:8092/registration/googleregister'
+    ); // Adjust URL as per your actual API endpoint
+    expect(req.request.method).toBe('POST');
+    req.error(new ErrorEvent('400 error'), {
+      status: 400,
+      statusText: 'Bad Request',
+    });
+
+    tick(); // Simulate passage of time until all pending asynchronous activities complete
+
+    expect(mockNgxLoaderStopSpy).toHaveBeenCalled();
+    expect(mockSnackBarErrorSpy).toHaveBeenCalledWith('', 'Close');
+  }));
 });

@@ -60,6 +60,7 @@ export class AuthRepositoryService {
 
   loginWithGoogle(googleUser: GoogleUser): Observable<any> {
     return this.http.post(`${this.baseUrl}registration/googleregister`, googleUser);
+    
   }
 
   verifyOtp(otp: Otp): Observable<any> {

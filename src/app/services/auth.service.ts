@@ -23,7 +23,7 @@ export class AuthService {
     private authRepo: AuthRepositoryService,
     private snackBar: SnackBarService,
     private route: Router,
-    private userDetails: UserdetailsService,
+    public userDetails: UserdetailsService,
     private ngxLoader: NgxUiLoaderService,
   ) { }
 
@@ -110,12 +110,13 @@ export class AuthService {
     });
   }
 
-
   loginWithGoogle(GoogleUser: any) {
     localStorage.removeItem('Email-Token');
     this.ngxLoader.start();
     this.authRepo.loginWithGoogle(GoogleUser).subscribe({
       next: (response: any) => {
+        console.log(response);
+        
         this.ngxLoader.stop();
         if (response.message == 'Successfully logged in') {
           this.snackBar.openSnackBarSuccessMessage('Login successfully', 'Close');

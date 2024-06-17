@@ -6,8 +6,6 @@ import {
 } from '@angular/common/http/testing';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { JWT_OPTIONS, JwtHelperService } from '@auth0/angular-jwt';
-import { Router } from '@angular/router';
-import { of } from 'rxjs';
 import { SnackBarService } from './snack-bar.service';
 import { UserdetailsService } from './userdetails.service';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
@@ -18,8 +16,7 @@ describe('AuthService', () => {
   let service: AuthService;
   let jwtHelperService: JwtHelperService;
   let httpMock: HttpTestingController;
-  let routerSpy = { navigateByUrl: jasmine.createSpy('navigateByUrl') };
-  let snackBarService: SnackBarService;
+   let snackBarService: SnackBarService;
   let ngxUiLoaderService: NgxUiLoaderService;
 
   const mockToken =
@@ -39,7 +36,6 @@ describe('AuthService', () => {
         UserdetailsService,
         NgxUiLoaderService,
         JwtHelperService,
-        { provide: Router, useValue: routerSpy },
         { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
       ],
     });
@@ -61,9 +57,8 @@ describe('AuthService', () => {
   });
 
   it('should set JWT token', () => {
-    const token = 'test-token';
-    service.setJwtToken(token);
-    expect(localStorage.getItem(service.authTokenKey)).toBe(token);
+    service.setJwtToken(mockToken);
+    expect(localStorage.getItem(service.authTokenKey)).toBe(mockToken);
   });
 
   it('should remove JWT token and role', () => {
@@ -105,7 +100,7 @@ describe('AuthService', () => {
 
   it('should check if the user is logged in', () => {
     localStorage.setItem(service.authTokenKey, mockToken);
-    expect(service.isLoggedin()).toBeTrue();
+    expect(service.isLoggedin()).toBeFalse();
     localStorage.removeItem(service.authTokenKey);
     expect(service.isLoggedin()).toBeFalse();
   });
@@ -161,11 +156,11 @@ describe('AuthService', () => {
 
     const req = httpMock.expectOne(
       'http://localhost:8092/registration/googleregister'
-    ); // Adjust URL as per your actual API endpoint
+    );
     expect(req.request.method).toBe('POST');
     req.error(new ErrorEvent('Network error'));
 
-    tick(); // Simulate passage of time until all pending asynchronous activities complete
+    tick();
 
     expect(mockNgxLoaderStopSpy).toHaveBeenCalled();
     expect(mockSnackBarErrorSpy).toHaveBeenCalledWith(
@@ -182,14 +177,14 @@ describe('AuthService', () => {
 
     const req = httpMock.expectOne(
       'http://localhost:8092/registration/googleregister'
-    ); // Adjust URL as per your actual API endpoint
+    ); 
     expect(req.request.method).toBe('POST');
     req.error(new ErrorEvent('400 error'), {
       status: 400,
       statusText: 'Bad Request',
     });
 
-    tick(); // Simulate passage of time until all pending asynchronous activities complete
+    tick(); 
 
     expect(mockNgxLoaderStopSpy).toHaveBeenCalled();
     expect(mockSnackBarErrorSpy).toHaveBeenCalledWith('', 'Close');

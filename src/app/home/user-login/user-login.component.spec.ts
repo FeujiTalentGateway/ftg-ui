@@ -11,19 +11,15 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { MatDialogModule } from '@angular/material/dialog';
 import { HeaderComponent } from '../header/header.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { NgxUiLoaderComponent, NgxUiLoaderModule, NgxUiLoaderService } from 'ngx-ui-loader';
+import { NgxUiLoaderModule, NgxUiLoaderService } from 'ngx-ui-loader';
 import { GithubLoginComponent } from '../github-login/github-login.component';
 import { AuthService } from 'src/app/services/auth.service';
-import { GoogleLoginService } from 'src/app/services/google-login.service';
 
 describe('UserLoginComponent', () => {
   let component: UserLoginComponent;
   let fixture: ComponentFixture<UserLoginComponent>;
   let authService: AuthService;
   let ngxLoader: NgxUiLoaderService;
-  let googleAuthService: GoogleLoginService;
-  
-
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -35,7 +31,6 @@ describe('UserLoginComponent', () => {
         ReactiveFormsModule,
         RouterTestingModule.withRoutes([ // Configure routes here
           { path: 'login', component: UserLoginComponent },
-          // Add other necessary routes if needed
         ]),
         RouterTestingModule,
         MatDialogModule,

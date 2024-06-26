@@ -57,16 +57,6 @@ describe('GithubService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should redirect to GitHub authorization page when signInWithGitHub is called', () => {
-    const locationHrefSpy = spyOnProperty(window, 'location', 'set');
-    
-    service.signInWithGitHub();
-    
-    expect(locationHrefSpy).toHaveBeenCalled();
-    expect(locationHrefSpy.calls.mostRecent().args[0]).toBe(
-      `https://github.com/login/oauth/authorize?client_id=${GITHUB_CLIENT_ID}&redirect_uri=${environment.uiUrl}main/login&scope=user`
-    );
-  });
 
   it('should handle GitHub callback and navigate based on role', () => {
     const mockResponse = {

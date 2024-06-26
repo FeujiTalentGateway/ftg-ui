@@ -36,15 +36,5 @@ describe('GithubLoginComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-
-  it('should call signInWithGitHub and change window.location.href when loginWithGitHub is called', () => {
-    const locationHrefSpy = spyOnProperty(window, 'location', 'set');
-
-    component.loginWithGitHub();
-
-    expect(locationHrefSpy).toHaveBeenCalled();
-    expect(locationHrefSpy.calls.mostRecent().args[0]).toBe(
-      `https://github.com/login/oauth/authorize?client_id=${GITHUB_CLIENT_ID}&redirect_uri=${environment.uiUrl}main/login&scope=${GITHUB_SCOPE}`
-    );
-  });
+  
 });

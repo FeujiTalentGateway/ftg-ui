@@ -51,7 +51,7 @@ export class GoogleLoginService {
 
   decodeToken(token: string): GoogleUser {
     const decodedToken = JSON.parse(atob(token.split('.')[1]));
-    sessionStorage.setItem('profilePictureUrl',decodedToken.picture);
+    localStorage.setItem('profilePictureUrl',decodedToken.picture);
     
     return {
       name: decodedToken.name,

@@ -42,8 +42,6 @@ export class ForgotPasswordService {
             //userName: responseBody.userName,
             emailId: email,
           };
-          console.log(responseBody.registeredEmail)
-          console.log(user)
            this.openOtpVerifyComponent(user);
         }
         if(response.message==='email not found'){
@@ -94,7 +92,6 @@ export class ForgotPasswordService {
         }
       },
       error: (error: any) => {
-        console.log(error)
         if(error.error.message==='Invalid OTP'){
           this.openSnackBar("Incorrect otp", 'Close')
         }
@@ -145,4 +142,4 @@ export class ForgotPasswordService {
       });
   }
 
-}
+} 

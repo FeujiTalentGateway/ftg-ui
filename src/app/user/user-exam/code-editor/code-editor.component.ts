@@ -35,12 +35,9 @@ export class CodeEditorComponent {
       this.code = this.aceEditor!.getValue();
     });
 
-    console.log(this.code);
   }
 
   setLanguage(language: string) {
-    console.log(JSON.stringify(this.currentCodingQuestion));
-
     switch (language) {
       case 'java':
         this.aceEditor!.session.setMode('ace/mode/java');

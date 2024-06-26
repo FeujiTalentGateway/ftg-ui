@@ -35,10 +35,7 @@ export class QuestionResultComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     this.isExpanded = new Array(this.listOfQuestion.length).fill(false);
     this.filteredListOfQuestion = this.listOfQuestion;
-    console.log(this.isExpanded);
-    console.log(this.examSubjects);
     this.subjectList = this.examSubjects.map((es) => es.subject);
-    console.log(this.subjectList);
   }
 
   ngOnInit(): void {}
@@ -129,12 +126,10 @@ export class QuestionResultComponent implements OnInit, OnChanges {
     }
   }
   expandAll() {
-    console.log(this.isExpanded);
     this.isExpandedCount = !this.isExpandedCount;
 
     this.isExpanded = this.isExpanded.fill(this.isExpandedCount);
 
-    console.log(this.isExpanded);
   }
   getSelectedOption(question: any, option: any) {
     const isSelected = question.optionSelected?.some(
@@ -144,7 +139,7 @@ export class QuestionResultComponent implements OnInit, OnChanges {
   }
 
   getAllQuestionsBasedOnSubject(event: any) {
-    console.log(event.target.value);
+    (event.target.value);
 
     if (event.target.value == 'all') {
       this.filteredListOfQuestion = this.listOfQuestion;

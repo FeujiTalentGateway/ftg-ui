@@ -25,7 +25,7 @@ export class AuthService {
     private authRepo: AuthRepositoryService,
     private snackBar: SnackBarService,
     private route: Router,
-    private userDetails: UserdetailsService,
+    public userDetails: UserdetailsService,
     private ngxLoader: NgxUiLoaderService,
     private forgotPasswordService:ForgotPasswordService
   ) { }
@@ -120,6 +120,53 @@ export class AuthService {
       },
     });
   }
+
+  loginWithGoogle(GoogleUser: any) {
+    localStorage.removeItem('Email-Token');
+    this.ngxLoader.start();
+    this.authRepo.loginWithGoogle(GoogleUser).subscribe({
+      next: (response: any) => {
+        console.log(response);
+        
+        this.ngxLoader.stop();
+        if (response.message == 'Successfully logged in') {
+          this.snackBar.openSnackBarSuccessMessage('Login successfully', 'Close');
+          this.setJwtToken(response.token);
+          this.decodedToken();
+          localStorage.setItem('userName', this.userPayload.sub);
+          this.userDetails.setUserNameFromToken(this.userPayload.sub);
+          this.userDetails.setRoleFromToken(this.userPayload.authorities);
+          let roles: string[] = this.userPayload.authorities.map(
+            (e: { authority: any }) => e.authority
+          );
+          localStorage.setItem(
+            'roles',
+            this.userPayload.authorities.map(
+              (e: { authority: any }) => e.authority
+            )
+          );
+          if (roles.includes('USER')) {
+            this.route.navigateByUrl('/user/exam/exam-code');
+          } else {
+            this.route.navigateByUrl('/admin/home');
+          }
+        }
+        setTimeout(() => {
+          window.location.reload();
+        }, 500);
+
+      },
+      error: (error: any) => {
+        this.ngxLoader.stop();
+        if (error.status === 400) {
+          this.snackBar.openSnackBarForError(error.error.message, 'Close');
+        } else {
+          this.snackBar.openSnackBarForError('Something went wrong', 'Close');
+        }
+      },
+    });
+  }
+
   setJwtToken(token: any) {
     localStorage.setItem(this.authTokenKey, token);
   }
@@ -143,13 +190,6 @@ export class AuthService {
     const jwtHelper = new JwtHelperService();
     const jwtToken = localStorage.getItem(this.authTokenKey)!;
     return jwtHelper.isTokenExpired(jwtToken);
-  }
-
-  templogin(loginData: FormGroup) {
-    if (loginData) {
-      localStorage.setItem('role', loginData.value.userName);
-      this.route.navigateByUrl('/user/home');
-    }
   }
 
   // Get the JWT token from local storage if it exists.
@@ -242,5 +282,4 @@ export class AuthService {
       },
     });
   }
-
 }

@@ -89,46 +89,15 @@ export class ExamComponent implements OnInit {
   }
 
   onFullscreenChange(event: Event) {
-    console.log('onFullscreenChange excecut');
     if (document.fullscreenElement === null && !(this.examService.examsubmitted)) {
           this.openSweetAlert()
     }
     
   }
 
-  // lockKeys() {
-  //   try {
-  //     if (navigator && (navigator as any).keyboard && !this.toogleLock) {
-  //       (navigator as any).keyboard.lock(this.LOCKED_KEYS);
-  //       this.toogleLock = true;
-  //       console.log('locked');
-  //       return;
-  //     }
-  //     console.log('navigator.keyboard is not available');
-  //   } catch (err: any) {
-  //     this.toogleLock = false;
-  //     console.error(`${err.name}: ${err.message}`);
-  //   }
-  // }
-
-  // @HostListener('document:keydown', ['$event'])
-  // handleKeyPress(event: KeyboardEvent) {
-  //   if (this.toogleLock && this.LOCKED_KEYS.includes(event.code)) {
-  //     event.preventDefault();
-  //     if (this.warningCount >= 1) {
-  //       this.onSubmit();
-  //     } else {
-  //       this.openSweetAlert();
-  //     }
-  //     this.warningCount++;
-  //     console.log()
-  //   }
-  // }
-
   @HostListener('document:keydown', ['$event'])
   handleKeyPress(event: KeyboardEvent) {
       if(event.code=="ControlLeft"|| event.code=="ControlRight"  || event.code=="AltLeft" || event.code=="AltRight" || event.code=="Escape" ){
-        console.log("esc")
         this.openFullScreen()
           if(!this.isFirstAttempt){
             this.onSubmit()

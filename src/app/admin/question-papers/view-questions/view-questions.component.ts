@@ -76,7 +76,6 @@ export class ViewQuestionsComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe(params => {
       const subjectId = params['subject'];
       if (subjectId) {
-        console.log('Subject ID:', subjectId);
         this.selectedSubject = parseInt(subjectId); // Convert to number if needed
       }
     });

@@ -43,11 +43,9 @@ export class CodingQuestionComponent implements OnInit {
     this.codeRepo.getDataTypes().subscribe({
       next: (data: any) => {
         this.dataTypesFromJava = data;
-        console.log(this.dataTypesFromJava);
         
       },
       error: (error: any) => {
-        console.log(error);
       },
     });
   }
@@ -58,7 +56,6 @@ export class CodingQuestionComponent implements OnInit {
       this.questionId = this.activatedParam.snapshot.paramMap.get(
         'id'
       ) as unknown as number;
-      console.log(this.questionId);
     }
 
     this.codingQuestionConstraintsDetailsForm = this._formBuilder.group({
@@ -423,7 +420,6 @@ export class CodingQuestionComponent implements OnInit {
    * @returns void
    */
   printDetails() {
-    console.log(this.codingQuestionDetailsForm);
   }
   /**
    * Handles the event when the step is changed in the coding question component.
@@ -445,10 +441,9 @@ export class CodingQuestionComponent implements OnInit {
     return testCase.value.isSample;
   }
   saveCodingQuestion() {
-    // console.log(this.codingQuestionDetailsForm.value);
 
     const formData = this.codingQuestionDetailsForm.value as CodingQuestion;
-    console.log(formData);
+    (formData);
     this.codeRepo.saveCodingQuestion(formData).subscribe({
       next: (data: any) => {
         console.log(data);
@@ -459,7 +454,6 @@ export class CodingQuestionComponent implements OnInit {
       error: (error: any) => {
         console.log(error);
         this.snackbar.openSnackBarForError('Error while saving coding question', 'close')
-
       },
     });
   }

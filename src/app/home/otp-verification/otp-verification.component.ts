@@ -102,8 +102,7 @@ export class OtpVerificationComponent {
   resendOTP() {
     if (!this.isResendDisabled) {
       this.ngxLoaderService.start();
-      console.log(this.userData);
-      console.log(this.userData.user.emailId);
+     
       this.forgotPassword.sendOtpToEmail(this.userData.user.emailId);
       this.closeDialog();
     }

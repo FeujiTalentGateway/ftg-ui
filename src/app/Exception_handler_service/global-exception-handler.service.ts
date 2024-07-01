@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 })
 export class GlobalExceptionHandlerService {
   constructor(private router: Router) {}
+  
 
   httpErrorHandler(error: HttpErrorResponse) {
     if (error.status == 404) {

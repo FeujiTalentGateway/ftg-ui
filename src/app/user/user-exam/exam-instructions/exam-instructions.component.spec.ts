@@ -4,6 +4,7 @@ import { ExamInstructionsComponent } from './exam-instructions.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDialogModule } from '@angular/material/dialog';
 
 describe('ExamInstructionsComponent', () => {
   let component: ExamInstructionsComponent;
@@ -11,7 +12,7 @@ describe('ExamInstructionsComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports:[HttpClientTestingModule,RouterTestingModule,MatSnackBarModule],
+      imports:[HttpClientTestingModule,RouterTestingModule,MatSnackBarModule,MatDialogModule],
       declarations: [ExamInstructionsComponent],
     });
     fixture = TestBed.createComponent(ExamInstructionsComponent);

@@ -12,6 +12,7 @@ import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { AuthRepositoryService } from '../repository/auth-repository.service';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { User } from '../models/user.model';
+import { MatDialogModule } from '@angular/material/dialog';
 
 describe('AuthService', () => {
   let service: AuthService;
@@ -30,6 +31,7 @@ describe('AuthService', () => {
         HttpClientTestingModule,
         MatSnackBarModule,
         NoopAnimationsModule,
+        MatDialogModule
       ],
       providers: [
         AuthService,

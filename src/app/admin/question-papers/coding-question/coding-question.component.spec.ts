@@ -5,6 +5,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { MatStepperModule } from '@angular/material/stepper';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 describe('CodingQuestionComponent', () => {
   let component: CodingQuestionComponent;
@@ -18,7 +19,8 @@ describe('CodingQuestionComponent', () => {
         MatStepperModule,
         HttpClientTestingModule,
         ReactiveFormsModule, 
-        BrowserAnimationsModule 
+        BrowserAnimationsModule,
+        MatSnackBarModule 
       ]
     }).compileComponents();
   });

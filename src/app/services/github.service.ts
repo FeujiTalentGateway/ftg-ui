@@ -52,7 +52,7 @@ export class GithubService {
             userPayload.authorities[0].authority
           );
           let roles: string[] = userPayload.authorities[0].authority;
-          sessionStorage.setItem('roles', userPayload.authorities[0].authority);
+          localStorage.setItem('roles', userPayload.authorities[0].authority);
           if (roles.includes('USER')) {
             this.route.navigateByUrl('/user/exam/exam-code');
           } else {

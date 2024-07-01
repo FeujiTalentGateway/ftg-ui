@@ -10,6 +10,7 @@ import { AuthRepositoryService } from '../repository/auth-repository.service';
 import { UserdetailsService } from './userdetails.service';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { SnackBarService } from './snack-bar.service';
+import { ForgotPasswordService } from './forgot-password.service';
 
 @Injectable({
   providedIn: 'root',
@@ -19,17 +20,19 @@ export class AuthService {
   authTokenKey: string = environment.authTokenKey;
   dialogRef: any;
   roles: any[] = [];
+  userDetail!: User;
   constructor(
     private authRepo: AuthRepositoryService,
     private snackBar: SnackBarService,
     private route: Router,
     public userDetails: UserdetailsService,
     private ngxLoader: NgxUiLoaderService,
+    private forgotPasswordService:ForgotPasswordService
   ) { }
 
   // Handle user registration based on form data
-
   register(user: User) {
+    this.userDetail = user;
     this.ngxLoader.start();
     // Send the registration data to the server and handle the response
     this.authRepo.register(user).subscribe({
@@ -37,6 +40,7 @@ export class AuthService {
         const responseMessage: string = response.message;
         this.ngxLoader.stop();
         this.snackBar.openSnackBar(response.message, 'Close');
+        this.forgotPasswordService.openOtpVerifyComponent(this.userDetail);
         if (responseMessage.includes('User successfully registered with')) {
           this.snackBar.openSnackBarSuccessMessage(responseMessage, 'Close');
           this.route.navigateByUrl('main/login');
@@ -51,13 +55,17 @@ export class AuthService {
             "Username '" + user.userName + "' already exists",
             'Close'
           );
-        } else if (responseMessage == 'Email already exists') {
-          this.snackBar.openSnackBarForError(
-            "Email '" + user.emailId + "' already exists",
+        } else if (
+          responseMessage == 'Email not verified. Please verify the email'
+        ) {
+          this.snackBar.openRedAlertSnackBar(
+            "Email '" +
+              user.emailId +
+              "' already exists.Email not verified.Please verify the email",
             'Close'
           );
-        } else if (responseMessage =='Email already verified. Please login' ){
-          this.snackBar.openSnackBarForError(responseMessage, 'Close');
+          this.forgotPasswordService.openOtpVerifyComponent(this.userDetail);
+        }else if (responseMessage == 'Email already verified. Please login'){
           this.route.navigateByUrl('main/login');
         }
         this.snackBar.openSnackBarForError(responseMessage, 'Close');
@@ -103,6 +111,9 @@ export class AuthService {
         this.ngxLoader.stop();
         if (error.status === 400) {
           this.snackBar.openSnackBarForError(error.error.message, 'Close');
+          if(error.error.message == 'user status is inActive.'){
+            this.forgotPasswordService.openOtpVerifyComponent(user);
+          }
         } else {
           this.snackBar.openSnackBarForError('Something went wrong', 'Close');
         }
@@ -226,5 +237,49 @@ export class AuthService {
   logout() {
     localStorage.clear();
     sessionStorage.clear();
+  }
+
+  loginWithGoogle(GoogleUser: any) {
+    localStorage.removeItem('Email-Token');
+    this.ngxLoader.start();
+    this.authRepo.loginWithGoogle(GoogleUser).subscribe({
+      next: (response: any) => {
+        this.ngxLoader.stop();
+        if (response.message == 'Successfully logged in') {
+          this.snackBar.openSnackBarSuccessMessage('Login successfully', 'Close');
+          this.setJwtToken(response.token);
+          this.decodedToken();
+          localStorage.setItem('userName', this.userPayload.sub);
+          this.userDetails.setUserNameFromToken(this.userPayload.sub);
+          this.userDetails.setRoleFromToken(this.userPayload.authorities);
+          let roles: string[] = this.userPayload.authorities.map(
+            (e: { authority: any }) => e.authority
+          );
+          localStorage.setItem(
+            'roles',
+            this.userPayload.authorities.map(
+              (e: { authority: any }) => e.authority
+            )
+          );
+          if (roles.includes('USER')) {
+            this.route.navigateByUrl('/user/exam/exam-code');
+          } else {
+            this.route.navigateByUrl('/admin/home');
+          }
+        }
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
+
+      },
+      error: (error: any) => {
+        this.ngxLoader.stop();
+        if (error.status === 400) {
+          this.snackBar.openSnackBarForError(error.error.message, 'Close');
+        } else {
+          this.snackBar.openSnackBarForError('Something went wrong', 'Close');
+        }
+      },
+    });
   }
 }

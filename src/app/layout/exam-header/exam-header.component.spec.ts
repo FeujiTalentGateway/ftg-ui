@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { ExamHeaderComponent } from './exam-header.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -11,8 +10,8 @@ describe('ExamHeaderComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports:[HttpClientTestingModule,MatSnackBarModule,MatDialogModule],
-      declarations: [ExamHeaderComponent]
+      imports: [HttpClientTestingModule, MatSnackBarModule, MatDialogModule],
+      declarations: [ExamHeaderComponent],
     });
     fixture = TestBed.createComponent(ExamHeaderComponent);
     component = fixture.componentInstance;

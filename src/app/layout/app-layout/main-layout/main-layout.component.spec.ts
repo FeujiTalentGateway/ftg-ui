@@ -2,7 +2,6 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDrawer, MatSidenavModule } from '@angular/material/sidenav';
 import { MatDialog } from '@angular/material/dialog';
 import { of } from 'rxjs';
-import { User } from 'src/app/models/user.model';
 import { UserdetailsService } from 'src/app/services/userdetails.service';
 import { MainLayoutComponent } from './main-layout.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';

@@ -59,7 +59,7 @@ describe('TestCaseResultService', () => {
     });
 
     service.codeExecutionCompleted.subscribe(() => {
-      expect().nothing(); // No action needed after code execution
+      expect().nothing(); 
     });
   });
 });

@@ -3,8 +3,8 @@ import { GithubLoginComponent } from './github-login.component';
 import { GithubService } from 'src/app/services/github.service';
 import { environment } from 'src/environments/environment';
 
-const GITHUB_CLIENT_ID = 'Ov23liZTS3icPuM58Luz';  
-const GITHUB_SCOPE = 'user';  
+const GITHUB_CLIENT_ID = 'Ov23liZTS3icPuM58Luz';
+const GITHUB_SCOPE = 'user';
 
 class MockGithubService {
   signInWithGitHub() {
@@ -36,5 +36,17 @@ describe('GithubLoginComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-  
+
+  it('should call loginWithGitHub method on button click', () => {
+    spyOn(component, 'loginWithGitHub');
+    const button = fixture.nativeElement.querySelector('.github-button');
+    button.click();
+    expect(component.loginWithGitHub).toHaveBeenCalled();
+  });
+
+  it('should call signInWithGitHub method from GithubService', () => {
+    spyOn(githubService, 'signInWithGitHub');
+    component.loginWithGitHub();
+    expect(githubService.signInWithGitHub).toHaveBeenCalled();
+  });
 });

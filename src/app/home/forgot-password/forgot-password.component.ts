@@ -34,8 +34,6 @@ export class ForgotPasswordComponent {
     return this.emailForm.get(email);
   }
 
-  // Function to toggle password visibility
-
   // Function to handle login submission
   sendOtpToEmail(loginData: FormGroup) {
     this.isOtpSentDisabled = true;

@@ -29,9 +29,4 @@ export class PaperService {
   updatePaper(paper:Paper):Observable<Paper>{
     return this.paperrepo.updatePaper(paper);
   }
-
-
-
-
-
 }

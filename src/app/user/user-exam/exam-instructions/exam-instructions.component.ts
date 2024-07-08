@@ -3,10 +3,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Exam } from 'src/app/models/exam.model';
 import { ExamService } from 'src/app/repository/exam.service';
-import { ExamServiceForLogic } from 'src/app/services/ExamServiceForLogic';
 import { SharedDataService } from 'src/app/services/shared-data.service';
 import { SnackBarService } from 'src/app/services/snack-bar.service';
 import { MatDialog } from '@angular/material/dialog';
+import { ExamServiceForLogic } from 'src/app/services/exam-service-for-logic.service';
 
 @Component({
   selector: 'app-exam-instructions',

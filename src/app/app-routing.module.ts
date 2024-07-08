@@ -35,14 +35,6 @@ const routes: Routes = [
     loadChildren: () => import('./user/user.module').then((m) => m.UserModule),
   },
   {
-    path: 'error',
-    component: AuthLayoutComponent,
-    loadChildren: () =>
-      import('./error-pages/error-pages.module').then(
-        (m) => m.ErrorPagesModule
-      ),
-  },
-  {
     path: 'exams',
     loadChildren: () =>
       import('./admin/exams/exams.module').then((m) => m.ExamsModule),

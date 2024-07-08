@@ -16,10 +16,10 @@ export class ForgotPasswordService {
   roles :any []=[];
   otpStatus:boolean=false
   constructor(
-    private authRepo: AuthRepositoryService,
-    private snackBar: MatSnackBar,
-    private route: Router,
-    private matDialog: MatDialog,
+    public authRepo: AuthRepositoryService,
+    public snackBar: MatSnackBar,
+    public route: Router,
+    public matDialog: MatDialog,
   ) {}
   openSnackBar(message: string, action: string) {
     this.snackBar.open(message, action, {

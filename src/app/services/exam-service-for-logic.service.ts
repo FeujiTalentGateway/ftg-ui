@@ -18,11 +18,13 @@ export class ExamServiceForLogic {
   checkExamAvailableForUserOrNot(examCode: string) {
     this.examRepo.checkExamAvailableForUserOrNot(examCode).subscribe(
       (response) => {
-        return response;
+        console.log('Exam availability response:', response);
       },
       (error) => {
-        this.snackBar.openSnackBarForError('Re enter your Exam Code', 'close');
-        if (error.status == 400) {
+        // Handle errors
+        console.error('Error checking exam availability:', error);
+        this.snackBar.openSnackBarForError('Re-enter your Exam Code', 'Close');
+        if (error.status === 400) {
           this.route.navigateByUrl('/user/exam/exam-code');
         }
       }

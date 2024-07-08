@@ -33,7 +33,7 @@ describe('Auth Guards', () => {
     spyOn(router, 'navigateByUrl');
   });
 
-  describe('loginGuard', () => {
+  describe('Auth Guards', () => {
     it('should allow the authenticated user', () => {
       authService.isLoggedin.and.returnValue(true);
       const result = executeGuard(loginGuard, {} as ActivatedRouteSnapshot, {} as RouterStateSnapshot);
@@ -46,9 +46,7 @@ describe('Auth Guards', () => {
       expect(result).toBeFalse();
       expect(router.navigateByUrl).toHaveBeenCalledWith('main/login');
     });
-  });
 
-  describe('passwordChangeGuard', () => {
     it('should allow if password-token is present', () => {
       spyOn(localStorage, 'getItem').and.returnValue('some-token');
       const result = executeGuard(passwordChangeGuard, {} as ActivatedRouteSnapshot, {} as RouterStateSnapshot);
@@ -61,9 +59,7 @@ describe('Auth Guards', () => {
       expect(result).toBeFalse();
       expect(router.navigateByUrl).toHaveBeenCalledWith('main/forgot-password');
     });
-  });
 
-  describe('adminGuard', () => {
     it('should allow if user has admin role', () => {
       authService.checkAdminRole.and.returnValue(true);
       const result = executeGuard(adminGuard, {} as ActivatedRouteSnapshot, {} as RouterStateSnapshot);
@@ -77,9 +73,7 @@ describe('Auth Guards', () => {
       expect(result).toBeFalse();
       expect(router.navigateByUrl).toHaveBeenCalledWith('main/home');
     });
-  });
 
-  describe('userGuard', () => {
     it('should allow if user has user role', () => {
       authService.checkUserRole.and.returnValue(true);
       const result = executeGuard(userGuard, {} as ActivatedRouteSnapshot, {} as RouterStateSnapshot);

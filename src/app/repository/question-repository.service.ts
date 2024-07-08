@@ -8,6 +8,9 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class QuestionRepository {
+  // getQuestionById(questionId: number) {
+  //   throw new Error('Method not implemented.');
+  // }
   baseUrl: string = environment.adminUrl;
   pythonUrl: string = environment.pythonUrl;
   authTokenKey: string = environment.authTokenKey;

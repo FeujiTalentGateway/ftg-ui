@@ -252,6 +252,6 @@ describe('AuthService', () => {
 
     expect(authRepo.register).toHaveBeenCalledWith(mockUser);
 
-    expect(ngxUiLoaderService.stop).toHaveBeenCalledTimes(1); // Once after error response and once after message check
+    expect(ngxUiLoaderService.stop).toHaveBeenCalledTimes(1);
   }));
 });

@@ -35,6 +35,14 @@ const routes: Routes = [
     canActivate: [adminGuard, loginGuard],
   },
   {
+    path: 'coading',
+    loadChildren: () =>
+      import('./coding-questions/coding-question.module').then(
+        (m) => m.CodingQuestionModule
+      ),
+    // canActivate: [adminGuard, loginGuard],
+  },
+  {
     path: 'result',
     loadChildren: () =>
       import('./result/result.module').then((m) => m.ResultModule),

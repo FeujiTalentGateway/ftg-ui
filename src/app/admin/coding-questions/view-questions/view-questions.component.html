@@ -46,14 +46,8 @@
             <div class="method-definition">
               <p><strong>Method Definition:</strong></p>
               <p><strong>Method Name:</strong> {{ question.methodDefinition.methodName }}</p>
-              <p><strong>Return Type:</strong> {{ question.methodDefinition.primitiveReturnType.commonDataType }}</p>
               <div class="method-arguments">
                 <p><strong>Arguments:</strong></p>
-                <ul>
-                  <li *ngFor="let arg of question.methodDefinition.methodArguments">
-                    {{ arg.argumentName }} ({{ arg.primitiveDataType.commonDataType }} {{ arg.collectionDataType.commonDataType }})
-                  </li>
-                </ul>
               </div>
             </div>
           </div>

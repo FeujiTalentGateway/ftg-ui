@@ -18,7 +18,7 @@ export class CodingQuestionService {
   constructor(private http: HttpClient) { }
 
   getAllQuestions(): Observable<CodingQuestion[]> {
-    return this.http.get<CodingQuestion[]>(this.dataUrl).pipe(
+    return this.http.get<CodingQuestion[]>(`${this.baseUrl}codingquestion?fullData=true`).pipe(
       catchError(this.handleError)
     );
   }

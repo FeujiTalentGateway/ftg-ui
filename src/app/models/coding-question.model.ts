@@ -2,7 +2,7 @@
 
 export interface PrimitiveDataType {
     id: number;
-    commonDataType: string;
+    commonDataType?: string;
     pythonDataType: string;
     javaDataType: string;
     isCollection: boolean;
@@ -10,7 +10,7 @@ export interface PrimitiveDataType {
   
   export interface CollectionDataType {
     id: number;
-    commonDataType: string;
+    commonDataType?: string;
     pythonDataType: string;
     javaDataType: string;
     isCollection: boolean;

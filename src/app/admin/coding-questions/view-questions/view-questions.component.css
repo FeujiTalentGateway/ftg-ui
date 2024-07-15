@@ -107,14 +107,15 @@
 
 /* Toggle Icon Styling */
 span.collapsed::before {
-  content: "▶";
+
+  content: "▼";
   display: inline-block;
   margin-right: 5px;
   transition: transform 0.3s;
 }
 
 span.expanded::before {
-  content: "▼";
+  content: "▶";
   display: inline-block;
   margin-right: 5px;
   transition: transform 0.3s;

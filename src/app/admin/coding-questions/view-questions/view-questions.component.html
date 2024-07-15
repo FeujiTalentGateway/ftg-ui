@@ -1,9 +1,9 @@
 <h3>Coding Questions</h3>
-<div class="user-name1" *ngIf="codingQuestionData.length > 0; else noQuestionsMessage">
-  <div class="user-info">
-    <div class="row d-flex align-item-center justify-content-center" *ngFor="let question of codingQuestionData; let i = index">
+<div class="coding-questions" *ngIf="codingQuestionData.length > 0; else noQuestionsMessage">
+  <div class="question-list">
+    <div class="row d-flex align-items-center justify-content-center" *ngFor="let question of codingQuestionData; let i = index">
       <div class="card shadow rounded p-3">
-        <details class="question-header" [open]="isExpanded[i]">
+        <details class="question-details" [open]="isExpanded[i]">
           <summary>
             <div class="card-body">
               <div class="content">
@@ -17,7 +17,6 @@
                   Q. {{ i + 1 }} &nbsp;&nbsp;{{ question.content }} &nbsp;
                 </span>
               </div>
-             
             </div>
           </summary>
           <div class="details-body">
@@ -57,7 +56,7 @@
   </div>
 </div>
 <ng-template #noQuestionsMessage>
-  <div class="d-flex align-item-center justify-content-ceter oops">
-    <img src="../../../../assets/images/oops.svg" alt="" />
+  <div class="d-flex align-items-center justify-content-center oops">
+    <img src="../../../../assets/images/oops.svg" alt="No Questions" />
   </div>
 </ng-template>

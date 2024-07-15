@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CodingQuestionRoutingModule } from './coding-question.routing.module';
-import { CodingQuestionActionsComponent } from './coding-question-actions/coding-question-actions.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -12,12 +11,15 @@ import { AdminModule } from '../admin.module';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { CodingQuestionComponent } from './coding-question/coding-question.component';
+import { ViewQuestionsComponent } from './view-questions/view-questions.component';
 
 
 
 @NgModule({
   declarations: [
-    CodingQuestionActionsComponent
+    CodingQuestionComponent,
+    ViewQuestionsComponent
   ],
   imports: [
     CommonModule,

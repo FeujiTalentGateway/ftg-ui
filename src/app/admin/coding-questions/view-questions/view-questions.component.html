@@ -1,0 +1,69 @@
+<h3>Coding Questions</h3>
+<div class="user-name1" *ngIf="codingQuestionData.length > 0; else noQuestionsMessage">
+  <div class="user-info">
+    <div class="row d-flex align-item-center justify-content-center" *ngFor="let question of codingQuestionData; let i = index">
+      <div class="card shadow rounded p-3">
+        <details class="question-header" [open]="isExpanded[i]">
+          <summary>
+            <div class="card-body">
+              <div class="content">
+                <span
+                  [ngClass]="{
+                    collapsed: !isExpanded[i],
+                    expanded: isExpanded[i]
+                  }"
+                  (click)="toggle(i)"
+                >
+                  Q. {{ i + 1 }} &nbsp;&nbsp;{{ question.content }} &nbsp;
+                </span>
+              </div>
+             
+            </div>
+          </summary>
+          <div class="details-body">
+            <div class="dropdown">
+              Level: {{ question.difficultLevel }}
+            </div>
+            <p><strong>Description:</strong> {{ question.description }}</p>
+            <div class="constraints">
+              <p><strong>Constraints:</strong></p>
+              <ul>
+                <li *ngFor="let constraint of question.constraints">
+                  {{ constraint.constraint }}
+                </li>
+              </ul>
+            </div>
+            <div class="test-cases">
+              <p><strong>Test Cases:</strong></p>
+              <div *ngFor="let testCase of question.testCases" class="test-case">
+                <p><strong>Expected Result:</strong> {{ testCase.expectedResult }}</p>
+                <p><strong>Explanation:</strong> {{ testCase.explanationExample }}</p>
+                <div *ngFor="let input of testCase.inputArguments" class="input-argument">
+                  <p><strong>Input Value:</strong> {{ input.inputValue }}</p>
+                </div>
+              </div>
+            </div>
+            <div class="method-definition">
+              <p><strong>Method Definition:</strong></p>
+              <p><strong>Method Name:</strong> {{ question.methodDefinition.methodName }}</p>
+              <p><strong>Return Type:</strong> {{ question.methodDefinition.primitiveReturnType.commonDataType }}</p>
+              <div class="method-arguments">
+                <p><strong>Arguments:</strong></p>
+                <ul>
+                  <li *ngFor="let arg of question.methodDefinition.methodArguments">
+                    {{ arg.argumentName }} ({{ arg.primitiveDataType.commonDataType }} {{ arg.collectionDataType.commonDataType }})
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </details>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #noQuestionsMessage>
+  <div class="d-flex align-item-center justify-content-ceter oops">
+    <img src="../../../../assets/images/oops.svg" alt="" />
+  </div>
+</ng-template>

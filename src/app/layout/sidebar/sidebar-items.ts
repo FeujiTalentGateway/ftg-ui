@@ -82,7 +82,7 @@ export const ROUTES: RouteInfo[] = [
     role: ['Admin'],
     submenu: [
       {
-        path: '/admin/coading/view',
+        path: '/admin/coadingquestion/viewQuestions',
         title: 'View Coding',
         modulename: 'codingQuestions',
         iconType: '',
@@ -92,7 +92,7 @@ export const ROUTES: RouteInfo[] = [
         submenu: [],
       },
       {
-        path: '/admin/coading/action',
+        path: '/admin/coadingquestion/action',
         title: 'Schedule Questions',
         modulename: 'exams',
         iconType: '',
@@ -125,16 +125,6 @@ export const ROUTES: RouteInfo[] = [
       {
         path: '/admin/questionPapers/addEditQuestion',
         title: 'Add Questions',
-        modulename: 'questionPapers',
-        iconType: '',
-        icon: '',
-        class: 'ml-menu',
-        role: [''],
-        submenu: [],
-      },
-      {
-        path: '/admin/questionPapers/codingQuestion',
-        title: 'Coding Questions',
         modulename: 'questionPapers',
         iconType: '',
         icon: '',

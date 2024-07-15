@@ -13,7 +13,6 @@ import { CreatePaperComponent } from './create-paper/create-paper.component';
 import { QuestionPapersRoutingModule } from './question-papers-routing.module';
 import { ViewPapersComponent } from './view-papers/view-papers.component';
 import { ViewQuestionsComponent } from './view-questions/view-questions.component';
-import { CodingQuestionComponent } from './coding-question/coding-question.component';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -33,7 +32,6 @@ export class AppModule {}
     CreatePaperComponent,
     ViewQuestionsComponent,
     AddEditQuestionComponent,
-    CodingQuestionComponent,
   ],
   imports: [
     CommonModule,

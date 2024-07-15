@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CodingQuestionActionsComponent } from './coding-question-actions/coding-question-actions.component';
+import { CodingQuestionComponent } from './coding-question/coding-question.component';
+import { ViewQuestionsComponent } from './view-questions/view-questions.component';
 
 const routes: Routes = [
-//   { path: 'viewQuestions', component: CodingQuestionListComponent },
+  { path: 'viewQuestions', component: ViewQuestionsComponent },
 //   { path: 'scheduleExam', component: CodingQuestionListComponent },
-{ path: 'action', component: CodingQuestionActionsComponent },
+{ path: 'action', component: CodingQuestionComponent },
 ];
 
 @NgModule({

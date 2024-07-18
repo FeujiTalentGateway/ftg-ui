@@ -35,7 +35,7 @@ const routes: Routes = [
     canActivate: [adminGuard, loginGuard],
   },
   {
-    path: 'coadingquestion',
+    path: 'codingquestion',
     loadChildren: () =>
       import('./coding-questions/coding-question.module').then(
         (m) => m.CodingQuestionModule

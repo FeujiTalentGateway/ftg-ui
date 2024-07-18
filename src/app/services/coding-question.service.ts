@@ -12,7 +12,6 @@ import { environment } from 'src/environments/environment';
 })
 export class CodingQuestionService {
 
-  private dataUrl = 'assets/static_data/AllCodingQuestion.json';
   private baseUrl: string = environment.adminUrl;
 
   constructor(private http: HttpClient) { }

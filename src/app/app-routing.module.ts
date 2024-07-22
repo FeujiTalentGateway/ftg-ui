@@ -51,6 +51,13 @@ const routes: Routes = [
         (m) => m.QuestionPapersModule
       ),
   },
+  {
+    path: 'coding',
+    loadChildren: () =>
+      import('./admin/coding-questions/coding-question.module').then(
+        (m) => m.CodingQuestionModule
+      ),
+  },
 ];
 
 @NgModule({

@@ -4,7 +4,7 @@ import { ViewQuestionsComponent } from './view-questions/view-questions.componen
 import { CreatePaperComponent } from './create-paper/create-paper.component';
 import { AddEditQuestionComponent } from './add-edit-question/add-edit-question.component';
 import { ViewPapersComponent } from './view-papers/view-papers.component';
-import { CodingQuestionComponent } from './coding-question/coding-question.component';
+import { CodingQuestionComponent } from '../coding-questions/coding-question/coding-question.component';
 
 const routes: Routes = [
   { path: 'viewQuestions', component: ViewQuestionsComponent },
@@ -14,12 +14,6 @@ const routes: Routes = [
   {
     path: 'addEditQuestion/:id',
     component: AddEditQuestionComponent,
-  },
-  { path: 'codingQuestion', component: CodingQuestionComponent },
-
-  {
-    path: 'codingQuestion/:id',
-    component: CodingQuestionComponent,
   },
 ];
 

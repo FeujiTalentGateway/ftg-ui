@@ -170,6 +170,10 @@ export class ViewQuestionsComponent implements OnInit {
     this.isLoading = true;
     this.page = 1;
     this.pageSize = 5;
+    if (this.paginator) {
+      this.paginator.pageSize = this.pageSize;
+      this.paginator.pageIndex = 0;
+    }
     if (this.selectedLevel == 0) {
       this.quesitonSubscirption = this.questionRepository
         .getAllQuestionsBySubjectId(
@@ -301,7 +305,7 @@ export class ViewQuestionsComponent implements OnInit {
       this.getAllQuestionsBasedOnSubjectId();
     }
   }
-
+  
   /**
    * Handles the page change event.
    * @param event - The page change event object.

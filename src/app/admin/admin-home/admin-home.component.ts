@@ -1,15 +1,48 @@
-import { Component } from '@angular/core';
+import { Component, AfterViewInit } from '@angular/core';
 import * as Highcharts from 'highcharts';
+import { SubjectQuestionCount } from 'src/app/models/subject-question-count.model';
+import { ChartDataRepositoryService } from 'src/app/repository/chart-data-repository.service';
 
 @Component({
   selector: 'app-admin-home',
   templateUrl: './admin-home.component.html',
   styleUrls: ['./admin-home.component.css'],
 })
-
-// https://www.npmjs.com/package/highcharts-angular Please refer this to customize the charts
-export class AdminHomeComponent {
+export class AdminHomeComponent implements AfterViewInit {
   Highcharts: typeof Highcharts = Highcharts;
+  private subjectQuestionCount: SubjectQuestionCount[] | undefined;
+
+  constructor(private chartDataRepo: ChartDataRepositoryService) {}
+
+  ngAfterViewInit(): void {
+    this.chartDataRepo.questionCountBySubject().subscribe(
+      (data: SubjectQuestionCount[]) => {
+        console.log(data);
+        this.subjectQuestionCount = data;
+        this.updatePieChart(data);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+  updatePieChart(data: SubjectQuestionCount[]): void {
+    const pieData = data.map(item => ({
+      name: item.subject,
+      y: item.questionCount
+    }));
+
+    this.pieChartOptions.series = [
+      {
+        name: 'Subjects',
+        data: pieData,
+        type: 'pie',
+      },
+    ];
+
+    Highcharts.chart('pieChartContainer', this.pieChartOptions);
+  }
 
   chartOptions: Highcharts.Options = {
     title: {
@@ -42,12 +75,13 @@ export class AdminHomeComponent {
       },
     ],
   };
+
   pieChartOptions: Highcharts.Options = {
     chart: {
       type: 'pie',
     },
     title: {
-      text: 'Subjects',
+      text: 'QUESTION BANK',
     },
     plotOptions: {
       pie: {
@@ -55,19 +89,14 @@ export class AdminHomeComponent {
         cursor: 'pointer',
         dataLabels: {
           enabled: true,
-          format: '<b>{point.name}</b>: {point.y}', // Display name and value for each part
+          format: '<b>{point.name}</b>: {point.y}',
         },
       },
     },
     series: [
       {
-        data: [
-          { name: 'Angular', y: 3 },
-          { name: 'Java', y: 7 },
-          { name: 'OOPS', y: 10 },
-          { name: 'Python', y: 2 },
-          { name: 'Coding', y: 5 },
-        ],
+        name: 'Subjects',
+        data: [],
         type: 'pie',
       },
     ],

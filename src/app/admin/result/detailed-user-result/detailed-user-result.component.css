@@ -21,19 +21,18 @@
 
 .card.result-card{
     margin-top: 2% !important;
-    height: 270px;
-   
+    height: 270px; 
 }
 
 .respondent{
     margin-left: 2%;
     margin-right: 0.5%;
 }
+
 .user-icon{
-
     font-size: 25px;
-
 }
+
 .user-info{
     margin-left: 2%;
     margin-right: 0.5%;
@@ -92,10 +91,7 @@
     font-family: 'Bold';
     font-size: 25px;
     margin-right: 5%; 
-    margin-left: 5%;
-    
-
-    
+    margin-left: 5%;   
   }
   .col{
     margin-bottom: 9%;
@@ -131,8 +127,6 @@
 }
 .score-card{
     margin-top: 2%;
-    margin-left: -5%;
-    /* margin-right: 2%; */
     margin-bottom: 2%;
 }
 

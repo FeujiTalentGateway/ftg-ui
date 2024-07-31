@@ -52,8 +52,8 @@ export class UsersResultComponent implements OnInit {
         
         // Update displayedColumns based on the presence of coding questions
         if (this.hasCodingQuestions(response)) {
-          this.displayedColumns.splice(5, 0, 'noOfCodingQuestions');
-          this.displayedColumns.splice(6, 0, 'codingQuestion');
+          this.displayedColumns.splice(2, 0, 'noOfCodingQuestions');
+          this.displayedColumns.splice(3, 0, 'codingQuestion');
         }
       },
       (error) => {

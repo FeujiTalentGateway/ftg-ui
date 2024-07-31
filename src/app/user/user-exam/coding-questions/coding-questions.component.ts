@@ -17,4 +17,11 @@ export class CodingQuestionsComponent {
 
   }
 
+    // Method to get the filtered list of visible test cases
+    getVisibleTestCases(): any[] {
+      return this.currentCodingQuestion?.testCases
+        ? this.currentCodingQuestion.testCases.filter(testCase => testCase.isSample)
+        : [];
+    }
+
 }

@@ -73,7 +73,7 @@ h5 {
 
 .grid-container {
   display: grid;
-  grid-template-columns: 1fr 1fr; /* Two columns, each occupying 50% of the container width */
+  grid-template-columns: 1.2fr 2fr; /* Two columns, each occupying 50% of the container width */
   grid-template-rows: 40vh; /* One row, occupying 100% of the viewport height */
   grid-template-areas:
     "coding-question code-editor"

@@ -1,17 +1,14 @@
-<!-- src/app/admin-home/admin-home.component.html -->
 <div class="container">
   <div class="dashboard">
-    Dashboard
+    Admin Dashboard
   </div>
   <div class="row card">
-    <div id="pieChartContainer" style="width: 100%; height: 400px;"></div>
+    <div class="chart-title">Exam User Statistics</div>
+    <div id="barChartContainer"></div>
   </div>
   <div class="row card">
-    <highcharts-chart 
-      [Highcharts]="Highcharts"
-      [options]="chartOptions"
-      style="width: 100%; height: 400px; display: block;"
-    ></highcharts-chart>
+    <div class="chart-title">Subject-wise Question Bank</div>
+    <div id="pieChartContainer"></div>
   </div>
 </div>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">

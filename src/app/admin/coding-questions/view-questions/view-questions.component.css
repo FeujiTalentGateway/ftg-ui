@@ -47,6 +47,23 @@
   transform: translateY(-5px);
   box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
 }
+.arguments-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.arguments-table th,
+.arguments-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.arguments-table th {
+  background-color: #f2f2f2;
+}
 
 .card-body {
   padding: 0px;

@@ -42,13 +42,39 @@
                 </div>
               </div>
             </div>
+
             <div class="method-definition">
               <p><strong>Method Definition:</strong></p>
+              <div >
               <p><strong>Method Name:</strong> {{ question.methodDefinition.methodName }}</p>
               <div class="method-arguments">
-                <p><strong>Arguments:</strong></p>
+                <table class="arguments-table">
+                  <thead>
+                    <tr>
+                      <th>Argument Name</th>
+                      <th>Primitive Data Type</th>
+                      <th>Collection Data Type</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let arg of question.methodDefinition.methodArguments" class="test-case">
+                      <td>{{ arg.argumentName }}</td>
+                      <td>{{ arg.primitiveDataType.commonDataType }}</td>
+                      <td *ngIf="arg.isCollection">{{ arg.collectionDataType?.commonDataType }}</td>
+                      <td *ngIf="!arg.isCollection">-</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
+              <ng-container *ngIf="question.methodDefinition.isCollectionType">
+                <p><strong>Return Type:</strong> Collection of {{ question.methodDefinition.collectionReturnType?.commonDataType }}</p>
+              </ng-container>
+              <ng-container *ngIf="!question.methodDefinition.isCollectionType">
+                <p><strong>Return Type:</strong> {{ question.methodDefinition.primitiveReturnType?.commonDataType }}</p>
+              </ng-container>
             </div>
+          </div>
+
           </div>
         </details>
       </div>

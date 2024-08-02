@@ -21,6 +21,6 @@ export class ChartDataRepositoryService {
   }
 
   getExamUserStats():Observable<ExamUserStats[]> {
-   return this.http.get<ExamUserStats[]>(this.baseurl+'/exams-user-stats');
+   return this.http.get<ExamUserStats[]>(this.baseurl+'/exams-user-stats?limit=10');
   }
 }

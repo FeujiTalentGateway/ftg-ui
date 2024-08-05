@@ -56,7 +56,7 @@ describe('ChartDataRepositoryService', () => {
       expect(data).toEqual(mockExamUserStats);
     });
 
-    const req = httpMock.expectOne(`${service.baseurl}/exams-user-stats`);
+    const req = httpMock.expectOne(`${service.baseurl}/exams-user-stats?limit=10`);
     expect(req.request.method).toBe('GET');
     req.flush(mockExamUserStats);
   });

@@ -40,7 +40,7 @@
       </div>
     </div>
     <div class="col-md-6" *ngIf="detailedUserResultObject$ | async as detailedUserResult; else template">
-      <div class="card result-card shadow-lg">
+      <div class="card result-card">
         <div class="card-body">
           <h5 class="card-title text-center text-primary">SCORE CARD</h5>
           <div class="score-summary">
@@ -73,7 +73,7 @@
               </tbody>
             </table>
           </div>
-          <div class="card result-card" *ngIf="detailedUserResult?.codingQuestionResults && detailedUserResult.codingQuestionResults.length !== 0">
+          <div class="coding-questions-container" *ngIf="detailedUserResult?.codingQuestionResults && detailedUserResult.codingQuestionResults.length !== 0">
             <div>
               <h5 class="card-title text-center coding-questions-title">CODING QUESTIONS RESULT</h5>
               <div class="table-responsive">
@@ -97,8 +97,7 @@
                 </table>
               </div>
             </div>
-          </div>
-          
+          </div>          
         </div>
       </div>
     </div>

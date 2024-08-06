@@ -35,6 +35,5 @@ export class MainLayoutComponent implements OnInit {
   };
   toggleLayout() {
     this.drawer.toggle();
-    this.drawer.toggle();
   }
 }

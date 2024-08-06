@@ -91,21 +91,25 @@ export class ViewQuestionsComponent implements OnInit {
     });
   
     this.subjectsSubscription = this.subjectRepository
-      .getAllSubjectsByActiveStatus(true)
-      .subscribe(
-        (subjects: Subject[]) => {
-          this.subjects = subjects;
-          if (subjects.length > 0) {
-            if(!this.selectedSubject){
-            this.selectedSubject = subjects[0].id; 
-            }
-            this.handleFiltering();
+    .getAllSubjectsByActiveStatus(true)
+    .subscribe(
+      (subjects: Subject[]) => {
+        // Filter out the "Coding Questions" subject
+        this.subjects = subjects.filter(subject => subject.name !== "Coding questions");
+        
+        // Check if there are any subjects left after filtering
+        if (this.subjects.length > 0) {
+          if (!this.selectedSubject) {
+            this.selectedSubject = this.subjects[0].id; 
           }
-        },
-        (error) => {
-          console.error('Error fetching subjects:', error);
+          this.handleFiltering();
         }
-      );
+      },
+      (error) => {
+        console.error('Error fetching subjects:', error);
+      }
+    );
+  
   }
   
   /**

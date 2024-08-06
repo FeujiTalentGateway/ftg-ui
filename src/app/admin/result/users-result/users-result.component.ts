@@ -25,7 +25,7 @@ export class UsersResultComponent implements OnInit {
   examObject: Exam | undefined;
   usersResult$: Observable<UsersResult[]> | undefined;
   dataSource!: MatTableDataSource<UsersResult>;
-  displayedColumns: string[] = ['fullName', 'examStatus', 'totalScore', 'outCome','noOfCodingQuestions','codingQuestion','examStartDate', 'examCompletedAt', 'detailView'];
+  displayedColumns: string[] = ['fullName', 'totalScore', 'outCome','examStartDate', 'examCompletedAt', 'examStatus', 'detailView'];  
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -49,8 +49,15 @@ export class UsersResultComponent implements OnInit {
         this.dataSource = new MatTableDataSource<UsersResult>(response);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+        
+        // Update displayedColumns based on the presence of coding questions
+        if (this.hasCodingQuestions(response)) {
+          this.displayedColumns.splice(2, 0, 'noOfCodingQuestions');
+          this.displayedColumns.splice(3, 0, 'codingQuestion');
+        }
       },
       (error) => {
+        console.error('Error fetching user results:', error);
       },
     );
     this.examObject$.subscribe(
@@ -58,6 +65,7 @@ export class UsersResultComponent implements OnInit {
         this.examObject = response;
       },
       (error) => {
+        console.error('Error fetching exam details:', error);
       }
     );
   }
@@ -76,10 +84,11 @@ export class UsersResultComponent implements OnInit {
   }
 
   /**
-   * Placeholder function for the usersResults functionality.
+   * Determines if there are any coding questions present in the user results.
+   * @returns True if any user result has coding questions, false otherwise.
    */
-  usersResults() {
-    // TODO: Implement usersResults functionality
+  hasCodingQuestions(results: UsersResult[]): boolean {
+    return results.some(userResult => userResult.noOfCodingQuestions > 0);
   }
 
   /**

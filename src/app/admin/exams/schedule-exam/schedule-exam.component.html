@@ -1,10 +1,10 @@
 
 
 <div>
-  <div class="header">
-    <h1>{{ isEditing ? "Update Exam" : "Schedule Exam" }}</h1>
-  </div>
   <div class="schedule-exam-form mat-elevation-z8">
+    <div class="header">
+      <h1>{{ isEditing ? "Update Exam" : "Schedule Exam" }}</h1>
+    </div>
     <form [formGroup]="examForm" class="exam-form">
       <div class="main-fields form-row">
         <div>
@@ -158,7 +158,7 @@
 
         <div>
           <label for="duration"
-            >Duration<span class="required-field">*</span></label
+            >Duration(HH:MM:SS)<span class="required-field">*</span></label
           >
           <div class="sub-duration">
             <div>
@@ -168,6 +168,7 @@
                 class=""
                 (change)="mapSubDurationToDuration()"
               >
+              <option value="" disabled selected>Select hours</option>
                 <option *ngFor="let hour of hoursArray" [value]="hour">
                   {{ hour }}
                 </option>
@@ -181,6 +182,7 @@
                 class=""
                 (change)="mapSubDurationToDuration()"
               >
+              <option value="" disabled selected>Select minutes</option>
                 <option *ngFor="let minute of minutesArray" [value]="minute">
                   {{ minute }}
                 </option>
@@ -194,6 +196,7 @@
                 class=""
                 (change)="mapSubDurationToDuration()"
               >
+              <option value="" disabled selected>Select seconds</option>
                 <option *ngFor="let second of secondsArray" [value]="second">
                   {{ second }}
                 </option>
@@ -245,6 +248,7 @@
             [(ngModel)]="selectedSubjectIds"
             (selectionChange)="onSubjectSelected()"
             #subjectControl="ngModel"
+            placeholder="Select the subject"
           >
             <mat-option *ngFor="let subject of subjects" [value]="subject.id">
               {{ subject.name }}

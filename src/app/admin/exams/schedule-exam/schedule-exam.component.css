@@ -9,6 +9,7 @@
   font-weight: 600;
   font-size: x-large;
   padding: 0.5rem 1rem;
+  text-align:center;
 }
 .schedule-exam-form {
   background-color: rgb(241, 243, 245);
@@ -18,7 +19,7 @@
 }
 
 .schedule-exam-form form {
-  margin: -1px 20px 2px 25px;
+  margin: 10px 20px 2px 25px;
 }
 
 .exam-form {

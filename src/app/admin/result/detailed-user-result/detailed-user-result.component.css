@@ -1,209 +1,146 @@
-.exam-name{
+.exam-name {
     background-color: white;
     color: var(--primary-color);
     font-family: 'SemiBold';
     margin-top: 1%;
     padding: 10px;
-    /* position: sticky; */
-    /* top: 12%; */
 }
-.exam-name>h2{
+
+.exam-name > h2 {
     text-align: center;
 }
-.user-name1{
+
+.user-name1 {
     min-height: 100vh;
     background-color: #FFFFFF;
-    top: 212px;
-    left: 273px;
     border-radius: 6px;
     margin-top: 1%;
 }
 
-.card.result-card{
+.card.result-card {
     margin-top: 2% !important;
     height: 270px;
-   
 }
 
-.respondent{
-    margin-left: 2%;
-    margin-right: 0.5%;
-}
-.user-icon{
-
+.user-icon {
     font-size: 25px;
-
 }
-.user-info{
+
+.user-info {
     margin-left: 2%;
     margin-right: 0.5%;
     margin-top: 0.2%;
     font-family: 'SemiBold';
     font-size: medium;
-    overflow: visible;
 }
-.user-data{
+
+.user-data {
     padding: 15px;
     font-family: 'Regular';
     font-size: medium;
 }
-.card-title{
+
+.card-title {
     font-family: 'Medium' !important;
     font-size: 20px;
     color: #f3752e !important;
 }
-.progress{
-    height: 8px !important;
 
+.progress {
+    height: 8px !important;
 }
-.progress1{
-    margin-top: 1%;
-}
-.progress-bar{
+
+.progress-bar {
     background-color: #f3752e;
 }
-.start-end-date{
+
+.start-end-date {
     margin-bottom: 2%;
     margin-top: 2%;
 }
 
-.start-end-date>.time-heading{
+.start-end-date > .time-heading {
     font-family: 'Regular';
     font-size: medium;
     margin-right: 1%;
     margin: 1%;
 }
-.start-end-date>.time{
+
+.start-end-date > .time {
     margin: 0.5%;
     font-family: 'SemiBold';
     font-size: 13px;
 }
-  
-  .subject-name {
-    margin-right: 40px; 
-  }
-  
-  .total-time {
-    margin-left: 50px;
-  }
-  .test{
-    margin-right: 25%;
-    margin-top: 10%;
-    font-family: 'Bold';
-    font-size: 25px;
-    margin-right: 5%; 
-    margin-left: 5%;
-    
 
-    
-  }
-  .col{
-    margin-bottom: 9%;
-    margin-top: -4%;
-    margin-left: 10%;
-
-
-  }
-  .test-ended{
-    display: flex;
-    justify-content: space-between;
-  }
-  .timer-content {
-    overflow: hidden; 
-}
-
-.subject1 {
-    display: flex;
-    flex-wrap: wrap; 
-    align-items: center;
-    margin-top: 10px;
-    margin-bottom: 10px; 
-}
-.col-md-6{
-    overflow: hidden;
-}
-.time-in-min{
-    margin-left: 1%;
-}
-.subject-name{
-    margin: auto;
-    margin-left: 2%;
-}
-.score-card{
+.score-card {
     margin-top: 2%;
-    margin-left: -5%;
-    /* margin-right: 2%; */
     margin-bottom: 2%;
 }
 
-.card-title{
+.card-title {
     color: black !important;
     font-weight: 100;
     font-size: 18px;
 }
 
-  @media (max-width: 900px) {
+@media (max-width: 900px) {
     .col-md-6 {
         width: 100%;
     }
 }
 
-.text-incorrect{
+.text-incorrect {
     color: red;
     font-family: 'SemiBold';
-
-    
 }
-.text-correct{
+
+.text-correct {
     color: green;
     font-family: 'SemiBold';
 }
-small{
-    margin-left: 30px;
-}
+
 .result-card {
     max-width: 100%;
-  }
-  
-  .card-body {
+}
+
+.card-body {
     max-height: 400px; /* Adjust this value based on your needs */
     overflow-y: auto;
-  }
-  
-  .table-responsive {
-    
-    max-height: 300px; /* Fixed height for scrollable area */
+}
+
+.table-responsive {
+    max-height: 270px; /* Set this to match the height of the timer card */
     overflow-y: auto;
-  }
-  
-  .table {
+}
+
+.table {
     margin-bottom: 0; /* Ensure no extra margin at the bottom */
-  }
-  
-  .thead-dark th {
+}
+
+.thead-dark th {
     background-color: #f3752e;
     color: #fff;
-  }
-  
-  .card-title {
+}
+
+.card-title {
     font-weight: bold;
-  }
-  
-  .text-success {
+}
+
+.text-success {
     color: #28a745 !important;
     font-weight: bold;
-  }
-  
-  .text-danger {
+}
+
+.text-danger {
     color: #dc3545 !important;
     font-weight: bold;
-  }
-  
-  td {
+}
+
+td {
     text-align: center;
-  }
- /*  */
- .score-summary {
+}
+
+.score-summary {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -244,4 +181,12 @@ small{
         background-color: #e9f7fd;
         box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     }
+}
+
+.coding-questions-container {
+    margin-top: 2%;
+}
+
+.coding-questions-title {
+    margin-bottom: 15px;
 }

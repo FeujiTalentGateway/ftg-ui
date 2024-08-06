@@ -1,10 +1,38 @@
-.card{
-    margin-top:1%;
+.container {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
 }
-.dashboard{
+
+.card {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    padding: 20px;
+}
+
+.dashboard {
     font-family: 'Roboto', sans-serif;
-    font-weight: 1000;
-    font-size:30px;
-    margin-top:1%;
-    color: rgb(75, 74, 74);
+    font-weight: 700;
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #4b4a4a;
 }
+
+.chart-title {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: #333333;
+    text-align: center;
+}
+
+#pieChartContainer, #barChartContainer {
+    width: 100%;
+    height: 400px;
+}
+

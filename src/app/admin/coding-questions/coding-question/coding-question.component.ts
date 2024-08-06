@@ -309,7 +309,7 @@ export class CodingQuestionComponent implements OnInit {
           'Coding question saved successfully',
           'close'
         );
-        this.router.navigate(['/admin/questionPapers/codingQuestion']);
+        this.router.navigate(['/admin/codingquestion/action']);
       },
       error: (error: any) => {
         console.log(error);

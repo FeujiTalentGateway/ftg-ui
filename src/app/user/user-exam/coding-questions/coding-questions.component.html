@@ -11,7 +11,7 @@
       <p>{{ currentCodingQuestion.description }}</p>
       <!-- Test Cases -->
       <div *ngIf="currentCodingQuestion.testCases && currentCodingQuestion.testCases.length > 0">
-        <div *ngFor="let testCase of currentCodingQuestion.testCases; let j = index">
+        <div *ngFor="let testCase of getVisibleTestCases(); let j = index">
           <h3 class="custom-heading">Example {{ j + 1 }}</h3>
           <div class="test-case">
             <div class="test-case-input">

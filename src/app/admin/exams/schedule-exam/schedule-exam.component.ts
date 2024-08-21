@@ -76,6 +76,9 @@ export class ScheduleExamComponent implements OnInit {
     this.subjectRepo.getAllSubjects().subscribe((response) => {
       this.subjects = response;
     });
+    this.examForm
+      .get('examSubjects')
+      ?.valueChanges.subscribe((value) => console.log(value));
   }
 
   // Constructor to inject services and dependencies
@@ -262,8 +265,37 @@ export class ScheduleExamComponent implements OnInit {
   }
   onSubmit(): void {
     if (this.selectedExamId) {
-      this.service.updateExam(this.examForm.value);
-      // this.goBack();
+      const examSubjects = this.examForm.get('examSubjects')?.value;
+      // Iterate over the array and find the subject with name "Coding questions"
+      const codingQuestionsSubject = examSubjects.find(
+        (subject: any) =>
+          subject.subjectName.toLowerCase() === 'coding questions'.toLowerCase()
+      );
+      if (codingQuestionsSubject) {
+        if (!codingQuestionsSubject.codingQuestions) {
+          codingQuestionsSubject.codingQuestions =
+            this.codingQuestionObject?.codingQuestions;
+        } else {
+          this.service.updateExam(this.examForm.value);
+        }
+        let codingQuestions = codingQuestionsSubject.codingQuestions;
+        console.log(codingQuestions);
+        if (codingQuestionsSubject.maxQuestions != codingQuestions?.length) {
+          var message = `Max Coding Questions are ${
+            codingQuestionsSubject.maxQuestions
+          } and Selected Coding Questions are ${
+            codingQuestions?.length ? codingQuestions?.length : 0
+          }`;
+          this.openErrorToaster(message);
+        } else {
+          this.service.updateExam(this.examForm.value);
+        }
+        // Subject with name "Coding questions" found
+      } else {
+        // Subject with name "Coding questions" not found
+        console.log('Subject "Coding questions" not found.');
+        this.service.updateExam(this.examForm.value);
+      }
     } else {
       this.codingQuestionObject = this.examSubjectsArray.value.find(
         (subject: any) =>
@@ -381,15 +413,12 @@ export class ScheduleExamComponent implements OnInit {
       CodingQuestionsComponent,
       dialogConfig
     );
-    this.dialogRef.afterClosed().subscribe((result: any) => {
-      this.updatedQuestions = result.examDataWithQuestions.codingQuestions;
-    });
   }
 
   checkCodingQuestions() {
     var maxCodingQuestions = this.getMaxCodingQuestions();
     var selectedCodingQuestions =
-      this.codingQuestionObject?.codingQuestions.length;
+      this.codingQuestionObject?.codingQuestions?.length;
     var message = `Max Coding Questions are ${maxCodingQuestions} and Selected Coding Questions are ${selectedCodingQuestions}`;
     return {
       boolValue: maxCodingQuestions == selectedCodingQuestions,
@@ -404,6 +433,7 @@ export class ScheduleExamComponent implements OnInit {
         this.CodingSubjectName.toLowerCase()
       ) {
         subject.codingQuestions = codingquestions;
+        this.codingQuestionObject = subject;
       }
     });
   }

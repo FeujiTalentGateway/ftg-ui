@@ -12,9 +12,9 @@
   class="main-div"
   (selectionChange)="stepChanged($event)"
 >
-  <mat-step [stepControl]="codingQuestionDetailsForm">
+  <mat-step [stepControl]="codingQuestionBasicDetailsForm">
     <ng-template matStepLabel>Coding Question</ng-template>
-    <form [formGroup]="codingQuestionDetailsForm">
+    <form [formGroup]="codingQuestionBasicDetailsForm">
       <div class="form-row">
         <label for="content">Question<sup class="required-field">*</sup></label>
         <div>
@@ -25,6 +25,15 @@
             formControlName="content"
           />
         </div>
+      </div>
+      <div
+        class="error-div"
+        *ngIf="
+          codingQuestionBasicDetailsForm?.get('content')?.touched &&
+          codingQuestionBasicDetailsForm?.get('content')?.hasError('required')
+        "
+      >
+        <span class="text-danger">Question is required</span>
       </div>
       <div class="form-row">
         <label for="description"
@@ -38,6 +47,17 @@
             formControlName="description"
           />
         </div>
+      </div>
+      <div
+        class="error-div"
+        *ngIf="
+          codingQuestionBasicDetailsForm?.get('description')?.touched &&
+          codingQuestionBasicDetailsForm
+            ?.get('description')
+            ?.hasError('required')
+        "
+      >
+        <span class="text-danger">Description is required</span>
       </div>
       <div class="form-row">
         <label for="difficultyLevel"
@@ -55,6 +75,17 @@
             </option>
           </select>
         </div>
+      </div>
+      <div
+        class="error-div"
+        *ngIf="
+          codingQuestionBasicDetailsForm?.get('difficultyLevel')?.touched &&
+          codingQuestionBasicDetailsForm
+            ?.get('difficultyLevel')
+            ?.hasError('required')
+        "
+      >
+        <span class="text-danger">Difficulty is required</span>
       </div>
       <form [formGroup]="codingQuestionConstraintsDetailsForm">
         <div class="form-row mt-2">
@@ -83,10 +114,20 @@
                     formControlName="constraint"
                   />
                   <i
+                    *ngIf="i > 0"
                     class="fa-solid fa-circle-minus fa-lg text-danger"
                     (click)="removeConstraint(i)"
                   ></i>
                 </div>
+              </div>
+              <div
+                *ngIf="
+                  constraintGroup.get('constraint')?.invalid &&
+                  constraintGroup.get('constraint')?.touched
+                "
+                class="text-danger"
+              >
+                Constraint is required.
               </div>
             </div>
           </div>
@@ -98,6 +139,7 @@
           mat-button
           matStepperNext
           class="btn btn-outline-success"
+          [disabled]="!codingQuestionBasicDetailsForm.valid"
         >
           Add Method
         </button>
@@ -119,7 +161,30 @@
             formControlName="methodName"
           />
         </div>
+        <div
+          *ngIf="
+            !codingQuestionMethodDetailsForm
+              .get('methodName')
+              ?.hasError('invalidIdentifier') &&
+            codingQuestionMethodDetailsForm.get('methodName')?.invalid &&
+            codingQuestionMethodDetailsForm.get('methodName')?.touched
+          "
+          class="text-danger"
+        >
+          Method Name is required.
+        </div>
+        <div
+          *ngIf="
+            codingQuestionMethodDetailsForm
+              .get('methodName')
+              ?.hasError('invalidIdentifier')
+          "
+          class="text-danger"
+        >
+          Method Name is not a valid identifier
+        </div>
       </div>
+
       <div class="form-row mt-3">
         <button
           type="button"
@@ -144,6 +209,26 @@
 
                 <label class="mt-2">Argument Name:</label>
                 <input formControlName="argumentName" class="form-control" />
+                <div
+                  *ngIf="
+                    !argument
+                      .get('argumentName')
+                      ?.hasError('invalidIdentifier') &&
+                    argument.get('argumentName')?.invalid &&
+                    argument.get('argumentName')?.touched
+                  "
+                  class="text-danger"
+                >
+                  Argument Name is required.
+                </div>
+                <div
+                  *ngIf="
+                    argument.get('argumentName')?.hasError('invalidIdentifier')
+                  "
+                  class="text-danger"
+                >
+                  Argument Name is not a valid identifier
+                </div>
                 <label class="mt-2">Argument Data Type:</label>
                 <div class="data-type-container">
                   <div *ngFor="let dataTypeName of dataTypes" class="data-type">
@@ -167,11 +252,24 @@
                       <div formGroupName="primitiveDataType">
                         <select class="form-select" formControlName="id">
                           <ng-container *ngFor="let type of dataTypesFromJava">
-                            <option *ngIf="!type.isCollection" [value]="type.id">
+                            <option
+                              *ngIf="!type.isCollection"
+                              [value]="type.id"
+                            >
                               {{ type.commonDataType }}
                             </option>
                           </ng-container>
                         </select>
+                      </div>
+                      <div
+                        *ngIf="
+                          argument.get('primitiveDataType')?.get('id')
+                            ?.invalid &&
+                          argument.get('primitiveDataType')?.get('id')?.touched
+                        "
+                        class="text-danger"
+                      >
+                        Primitve Data Type is required.
                       </div>
                     </div>
                     <div
@@ -187,12 +285,26 @@
                             <ng-container
                               *ngFor="let type of dataTypesFromJava"
                             >
-                            {{type}}
-                              <option *ngIf="type.isCollection" [value]="type.id">
+                              {{ type }}
+                              <option
+                                *ngIf="type.isCollection"
+                                [value]="type.id"
+                              >
                                 {{ type.commonDataType }}
                               </option>
                             </ng-container>
                           </select>
+                          <div
+                            *ngIf="
+                              argument.get('collectionDataType')?.get('id')
+                                ?.invalid &&
+                              argument.get('collectionDataType')?.get('id')
+                                ?.touched
+                            "
+                            class="text-danger"
+                          >
+                            Collection Data Type is required.
+                          </div>
                         </div>
                       </div>
                       <div class="form-group mt-2 col-md-6">
@@ -209,6 +321,17 @@
                               </option>
                             </ng-container>
                           </select>
+                          <div
+                            *ngIf="
+                              argument.get('primitiveDataType')?.get('id')
+                                ?.invalid &&
+                              argument.get('primitiveDataType')?.get('id')
+                                ?.touched
+                            "
+                            class="text-danger"
+                          >
+                            Primitve Data Type is required.
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -267,6 +390,19 @@
                     </option>
                   </ng-container>
                 </select>
+                <div
+                  *ngIf="
+                    codingQuestionMethodDetailsForm
+                      .get('primitiveReturnType')
+                      ?.get('id')?.invalid &&
+                    codingQuestionMethodDetailsForm
+                      .get('primitiveReturnType')
+                      ?.get('id')?.touched
+                  "
+                  class="text-danger"
+                >
+                  Primitvie Return Type is required.
+                </div>
               </div>
             </div>
             <div
@@ -286,6 +422,19 @@
                       </option>
                     </ng-container>
                   </select>
+                  <div
+                    *ngIf="
+                      codingQuestionMethodDetailsForm
+                        .get('collectionReturnType')
+                        ?.get('id')?.invalid &&
+                      codingQuestionMethodDetailsForm
+                        .get('collectionReturnType')
+                        ?.get('id')?.touched
+                    "
+                    class="text-danger"
+                  >
+                    Collection Return Type is required.
+                  </div>
                 </div>
               </div>
               <div class="form-group mt-2 col-md-6">
@@ -297,6 +446,19 @@
                       </option>
                     </ng-container>
                   </select>
+                  <div
+                    *ngIf="
+                      codingQuestionMethodDetailsForm
+                        .get('primitiveReturnType')
+                        ?.get('id')?.invalid &&
+                      codingQuestionMethodDetailsForm
+                        .get('primitiveReturnType')
+                        ?.get('id')?.touched
+                    "
+                    class="text-danger"
+                  >
+                    Primitvie Return Type is required.
+                  </div>
                 </div>
               </div>
             </div>
@@ -315,13 +477,14 @@
           mat-button
           matStepperNext
           class="btn btn-outline-success button mt-3"
+          [disabled]="!codingQuestionMethodDetailsForm.valid"
         >
           Add Test Cases
         </button>
       </div>
     </form>
   </mat-step>
-  <mat-step [stepControl]="codingQuestionTestCasesDetailsForm">
+  <mat-step [stepControl]="testCases">
     <ng-template matStepLabel>Add Test Cases</ng-template>
     <ng-container *ngIf="selectedStepIndex == 2">
       <button class="btn btn-sm btn-success" (click)="addTestCases()">
@@ -348,12 +511,14 @@
                   />
                   true
                 </label>
+
                 <label>
                   <input
                     type="radio"
                     name="dataType+{{ i }}"
                     value="false"
                     [checked]="!checkIstrue(testCase, i)"
+                    test
                     (click)="updateIsSample(false, i)"
                   />
                   false
@@ -369,6 +534,15 @@
                 class="form-control"
                 formControlName="expectedResult"
               />
+              <div
+                *ngIf="
+                  testCase.get('expectedResult')?.invalid &&
+                  testCase.get('expectedResult')?.touched
+                "
+                class="text-danger"
+              >
+                Expected Result is required.
+              </div>
             </div>
             <div class="row">
               <label for="explanationExample"
@@ -379,6 +553,15 @@
                 class="form-control"
                 formControlName="explanationExample"
               />
+              <div
+                *ngIf="
+                  testCase.get('explanationExample')?.invalid &&
+                  testCase.get('explanationExample')?.touched
+                "
+                class="text-danger"
+              >
+                Expected Result is required.
+              </div>
             </div>
             <div formArrayName="inputArguments">
               <div
@@ -410,6 +593,15 @@
                         class="form-control"
                         formControlName="inputValue"
                       />
+                      <div
+                        *ngIf="
+                          inputArg.get('inputValue')?.invalid &&
+                          inputArg.get('inputValue')?.touched
+                        "
+                        class="text-danger"
+                      >
+                        Input Value is required.
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -437,6 +629,7 @@
             mat-button
             matStepperNext
             class="btn btn-outline-success button mt-3"
+            [disabled]="!testCases.valid"
             (click)="printDetails()"
           >
             Preview & Save
@@ -448,31 +641,64 @@
 
   <mat-step>
     <ng-template matStepLabel>Preview & Save</ng-template>
-    <div class="border border-0">
+    <div class="border border-0" *ngIf="codingQuestionRawFormValues">
       <div>
         <h5>Coding Question details</h5>
-        <p>Content: {{ codingQuestionDetailsForm.value.content }}</p>
-        <p>Description: {{ codingQuestionDetailsForm.value.description }}</p>
-        <p>Difficulty Level: {{ codingQuestionDetailsForm.value.difficultyLevel }}</p>
+        <p>Content: {{ codingQuestionRawFormValues.content }}</p>
+        <p>Description: {{ codingQuestionRawFormValues.description }}</p>
+        <p>
+          Difficulty Level:
+          {{ codingQuestionRawFormValues.difficultyLevel }}
+        </p>
       </div>
-      <div *ngFor="let constraint of codingQuestionDetailsForm.value.constraints">
+      <div *ngFor="let constraint of codingQuestionRawFormValues.constraints">
         <p>Constraint: {{ constraint.constraint }}</p>
       </div>
       <hr />
       <div>
         <h5>Method Details</h5>
-        <p>Method Name: {{ codingQuestionDetailsForm.value.methodDefinition.methodName }}</p>
-        <p>Primitive Return Type: {{ codingQuestionDetailsForm.value.methodDefinition.primitiveReturnType.id }}</p>
-        <p>Collection Return Type: {{ codingQuestionDetailsForm.value.methodDefinition.collectionReturnType.id }}</p>
-        <div *ngFor="let argument of codingQuestionDetailsForm.value.methodDefinition.methodArguments">
+        <p>
+          Method Name:
+          {{ codingQuestionRawFormValues.methodDefinition.methodName }}
+        </p>
+        <p>
+          Primitive Return Type:
+          {{
+            getCommonDataTypeById(
+              codingQuestionRawFormValues.methodDefinition.primitiveReturnType
+                .id
+            )
+          }}
+        </p>
+        <p>
+          Collection Return Type:
+          {{
+            getCommonDataTypeById(
+              codingQuestionRawFormValues.methodDefinition.collectionReturnType
+                .id
+            )
+          }}
+        </p>
+        <div
+          *ngFor="
+            let argument of codingQuestionRawFormValues.methodDefinition
+              .methodArguments
+          "
+        >
           <p>Argument Name: {{ argument.argumentName }}</p>
-          <p>Primitive Data Type : {{ argument.primitiveDataType.id }}</p>
-          <p>Collection Data Type : {{ argument.collectionDataType.id }}</p>
+          <p>
+            Primitive Data Type :
+            {{ getCommonDataTypeById(argument.primitiveDataType.id) }}
+          </p>
+          <p>
+            Collection Data Type :
+            {{ getCommonDataTypeById(argument.collectionDataType.id) }}
+          </p>
         </div>
       </div>
       <hr />
       <h5>Test Case Details</h5>
-      <div *ngFor="let testCase of codingQuestionDetailsForm.value.testCases">
+      <div *ngFor="let testCase of codingQuestionRawFormValues.testCases">
         <h6>Test Case:</h6>
         <p>Expected Result: {{ testCase.expectedResult }}</p>
         <p>Explanation Example: {{ testCase.explanationExample }}</p>
@@ -482,9 +708,20 @@
           <p>Input Value: {{ inputArg.inputValue }}</p>
         </div>
       </div>
-      <button mat-button matStepperPrevious class="btn btn-outline-secondary button">Back</button>
-      <button mat-button (click)="saveCodingQuestion()" class="btn btn-outline-success button">Save</button>
+      <button
+        mat-button
+        matStepperPrevious
+        class="btn btn-outline-secondary button"
+      >
+        Back
+      </button>
+      <button
+        mat-button
+        (click)="saveCodingQuestion()"
+        class="btn btn-outline-success button"
+      >
+        Save
+      </button>
     </div>
   </mat-step>
-  
 </mat-horizontal-stepper>

@@ -6,14 +6,14 @@ import { DataType } from '../models/coding.datatype.model';
 import { CodingQuestion } from '../models/coding.question.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CodingQuestionRepositoryService {
   javaUrl: string = environment.adminUrl;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-  getDataTypes():Observable<DataType[]>{
+  getDataTypes(): Observable<DataType[]> {
     let token = localStorage.getItem('token');
     let headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     let requestOptions = {
@@ -25,8 +25,7 @@ export class CodingQuestionRepositoryService {
     );
   }
 
-  saveCodingQuestion(codingquestion:CodingQuestion):Observable<any>{
+  saveCodingQuestion(codingquestion: CodingQuestion): Observable<any> {
     return this.http.post(`${this.javaUrl}codingquestion/`, codingquestion);
-
   }
 }

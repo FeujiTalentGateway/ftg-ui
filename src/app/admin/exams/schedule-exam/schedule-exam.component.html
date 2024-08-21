@@ -1,5 +1,3 @@
-
-
 <div>
   <div class="schedule-exam-form mat-elevation-z8">
     <div class="header">
@@ -168,7 +166,7 @@
                 class=""
                 (change)="mapSubDurationToDuration()"
               >
-              <option value="" disabled selected>Select hours</option>
+                <option value="" disabled selected>Select hours</option>
                 <option *ngFor="let hour of hoursArray" [value]="hour">
                   {{ hour }}
                 </option>
@@ -182,7 +180,7 @@
                 class=""
                 (change)="mapSubDurationToDuration()"
               >
-              <option value="" disabled selected>Select minutes</option>
+                <option value="" disabled selected>Select minutes</option>
                 <option *ngFor="let minute of minutesArray" [value]="minute">
                   {{ minute }}
                 </option>
@@ -196,7 +194,7 @@
                 class=""
                 (change)="mapSubDurationToDuration()"
               >
-              <option value="" disabled selected>Select seconds</option>
+                <option value="" disabled selected>Select seconds</option>
                 <option *ngFor="let second of secondsArray" [value]="second">
                   {{ second }}
                 </option>
@@ -264,7 +262,6 @@
         formArrayName="examSubjects"
         *ngFor="let subjectGroup of getExamSubjectsControls(); let i = index"
       >
-      
         <div [formGroupName]="i" class="exam-subject-item form-row">
           <div>
             <label for="subjectName{{ i }}"
@@ -278,8 +275,6 @@
             />
           </div>
 
-
-           
           <div>
             <label for="maxQuestions{{ i }}"
               >Max Questions<span class="required-field">*</span></label
@@ -326,14 +321,13 @@
                 subjectGroup
                   .get('startingDifficultyLevel')
                   ?.hasError('required') &&
-                subjectGroup.get('startingDifficultyLevel')?.touched 
+                subjectGroup.get('startingDifficultyLevel')?.touched
               "
               class="error-msg"
             >
               Starting Difficulty Level is required.
             </div>
           </div>
-
 
           <button
             class="btn btn-outline-secondary remove-subject"
@@ -353,23 +347,27 @@
       </ng-container>
 
       <div>
-      <p
-        mat-raised-button
-        #tooltip="matTooltip"
-        matTooltip="Add Users"
-        [matTooltipPosition]="'right'"
-        matTooltipHideDelay="100"
-        aria-label="Button that displays a tooltip that hides when scrolled out of the container"
-        class="example-button btn btn-outline-secondary add-user"
-        (click)="addUsers($event)"
-      >
-        <mat-icon aria-hidden="false" aria-label="Example plus icon"
-          >person_add</mat-icon
+        <p
+          mat-raised-button
+          #tooltip="matTooltip"
+          matTooltip="Add Users"
+          [matTooltipPosition]="'right'"
+          matTooltipHideDelay="100"
+          aria-label="Button that displays a tooltip that hides when scrolled out of the container"
+          class="example-button btn btn-outline-secondary add-user"
+          (click)="addUsers($event)"
         >
-      </p>
-        <button class="btn btn-outline-secondary" (click)="AddCodingQuestions($event)">Coding Questions</button>
+          <mat-icon aria-hidden="false" aria-label="Example plus icon"
+            >person_add</mat-icon
+          >
+        </p>
+        <button
+          class="btn btn-outline-secondary"
+          (click)="AddCodingQuestions($event)"
+        >
+          Coding Questions
+        </button>
       </div>
-
     </form>
     <div class="d-flex justify-content-end btn-div">
       <button

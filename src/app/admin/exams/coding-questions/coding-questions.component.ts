@@ -11,7 +11,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Subject, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { CodingQuestions } from 'src/app/models/codingquestions.model';
 import { Exam } from 'src/app/models/exam.model';
 import { ExamSubject } from 'src/app/models/examSubject';
@@ -22,22 +22,16 @@ import { ScheduleExamService } from 'src/app/services/schedule-exam.service';
 @Component({
   selector: 'app-select-coding-questions',
   templateUrl: './coding-questions.component.html',
-  styleUrls: ['./coding-questions.component.css']
+  styleUrls: ['./coding-questions.component.css'],
 })
-
 export class CodingQuestionsComponent implements OnInit, AfterViewInit {
   questions: CodingQuestions[] = [];
   dataSource = new MatTableDataSource(this.questions);
   examFormDetails!: Exam;
   dataSourceWithSerial: any[] = [];
-  subjectName="Coding Questions";
-  codingQuestionObject!:ExamSubject | undefined;
-  displayedColumns: string[] = [
-    'select',
-    'questionId',
-    'name',
-    'description'
-  ];
+  subjectName = 'Coding Questions';
+  codingQuestionObject!: ExamSubject | undefined;
+  displayedColumns: string[] = ['select', 'questionId', 'name', 'description'];
   userSubscription: Subscription = new Subscription();
   selection = new SelectionModel<CodingQuestions>(true, []);
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -45,13 +39,14 @@ export class CodingQuestionsComponent implements OnInit, AfterViewInit {
   constructor(
     private authRepo: AuthRepositoryService,
     private scheduleExamService: ScheduleExamService,
-    private examService:ExamService,
+    private examService: ExamService,
     public dialogRef: MatDialogRef<CodingQuestionsComponent>,
     private snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public dialogData: any
   ) {}
 
   ngOnInit(): void {
+    console.log('CodingQuestionsComponent:ngOnInit()');
     this.getCodingQuestions();
     this.examFormDetails = this.dialogData.examData;
   }
@@ -72,7 +67,7 @@ export class CodingQuestionsComponent implements OnInit, AfterViewInit {
     this.examService.getCodingQuestions().subscribe({
       next: (questions: CodingQuestions[]) => {
         // Handle the array of users
-        this.questions = questions
+        this.questions = questions;
         // Initialize MatTableDataSource with the data
         this.dataSource = new MatTableDataSource(this.questions);
         this.dataSource.paginator = this.paginator;
@@ -86,19 +81,20 @@ export class CodingQuestionsComponent implements OnInit, AfterViewInit {
     });
   }
   openErrorToaster(message: string) {
-  const config = new MatSnackBarConfig();
-  config.verticalPosition = 'top';
-  config.horizontalPosition = 'center';
-  config.duration = 3000; // Duration in milliseconds
-  this.snackBar.open(message, 'Close', config);
+    const config = new MatSnackBarConfig();
+    config.verticalPosition = 'top';
+    config.horizontalPosition = 'center';
+    config.duration = 3000; // Duration in milliseconds
+    this.snackBar.open(message, 'Close', config);
   }
 
   ScheduleExamWithCoding() {
-    if(this.dialogData.maxQuestions!=this.selection.selected.length){
-        this.openErrorToaster(`Max Questions are ${this.dialogData.maxQuestions} and Selected Questions are ${this.selection.selected.length} Both Does not match`)
-    }
-    else{
-      this.setCodingquestionsToExamForm()
+    if (this.dialogData.maxQuestions != this.selection.selected.length) {
+      this.openErrorToaster(
+        `Max Questions are ${this.dialogData.maxQuestions} and Selected Questions are ${this.selection.selected.length} Both Does not match`
+      );
+    } else {
+      this.setCodingquestionsToExamForm();
       this.dialogRef.close({ examDataWithQuestions: this.examFormDetails });
     }
   }
@@ -110,17 +106,21 @@ export class CodingQuestionsComponent implements OnInit, AfterViewInit {
   }
 
   updateSelectionList() {
-    this.codingQuestionObject =this.examFormDetails.examSubjects.find((subject:any)=>subject.subjectName.toLowerCase()===this.subjectName.toLowerCase());
+    this.codingQuestionObject = this.examFormDetails.examSubjects.find(
+      (subject: any) =>
+        subject.subjectName.toLowerCase() === this.subjectName.toLowerCase()
+    );
     this.questions.forEach((question) => {
       if (
-        this.codingQuestionObject?.codingQuestions.find(codingquestion=>codingquestion.id==question.id)
+        this.codingQuestionObject?.codingQuestions.find(
+          (codingquestion) => codingquestion.id == question.id
+        )
       ) {
         this.selection.select(question);
       }
     });
   }
 
- 
   masterToggle() {
     this.isAllSelected()
       ? this.selection.clear()
@@ -130,18 +130,22 @@ export class CodingQuestionsComponent implements OnInit, AfterViewInit {
   ngOnDestroy(): void {
     this.userSubscription.unsubscribe();
   }
-  CloseModel(){
-    this.dialogRef.close()
+  CloseModel() {
+    this.dialogRef.close();
   }
 
-  setCodingquestionsToExamForm(){
-    this.codingQuestionObject =this.examFormDetails.examSubjects.find((subject:any)=>subject.subjectName.toLowerCase()===this.subjectName.toLowerCase());
-      if(this.codingQuestionObject){
-        this.codingQuestionObject.codingQuestions=this.selection.selected.map((question:CodingQuestions)=>{
-          const {content ,description, ...id}=question;
-          return id
-        });
-      }
+  setCodingquestionsToExamForm() {
+    this.codingQuestionObject = this.examFormDetails.examSubjects.find(
+      (subject: any) =>
+        subject.subjectName.toLowerCase() === this.subjectName.toLowerCase()
+    );
+    if (this.codingQuestionObject) {
+      this.codingQuestionObject.codingQuestions = this.selection.selected.map(
+        (question: CodingQuestions) => {
+          const { content, description, ...id } = question;
+          return id;
+        }
+      );
+    }
   }
 }
-

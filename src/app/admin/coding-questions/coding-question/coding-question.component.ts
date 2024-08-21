@@ -1,12 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AbstractControl, FormControl } from '@angular/forms';
+import { DataType } from 'src/app/models/coding.datatype.model';
 import { CodingQuestion } from 'src/app/models/coding.question.model';
 import { CodingQuestionRepositoryService } from 'src/app/repository/coding-question-repository.service';
-import { DataType } from 'src/app/models/coding.datatype.model';
-import { TestCases } from 'src/app/models/coding.testcases.model';
 import { SnackBarService } from 'src/app/services/snack-bar.service';
+import { validIdentifierValidator } from 'src/app/validators/validIdentifierValidator';
 @Component({
   selector: 'app-coding-question',
   templateUrl: './coding-question.component.html',
@@ -14,11 +20,13 @@ import { SnackBarService } from 'src/app/services/snack-bar.service';
 })
 export class CodingQuestionComponent implements OnInit {
   codingQuestionDetailsForm!: FormGroup;
+  codingQuestionBasicDetailsForm!: FormGroup;
   codingQuestionMethodDetailsForm!: FormGroup;
   codingQuestionArgumentDetailsForm!: FormGroup;
   codingQuestionConstraintsDetailsForm!: FormGroup;
   codingQuestionTestCasesDetailsForm!: FormGroup;
   codingQuestionListOfInputArgumentsDetailsForm?: FormGroup;
+  codingQuestionRawFormValues!: any;
 
   selectedStepIndex: number = 0;
   selectedReturnType: string = 'primitive';
@@ -64,20 +72,13 @@ export class CodingQuestionComponent implements OnInit {
       testCases: this._formBuilder.array([]),
     });
 
-    this.codingQuestionListOfInputArgumentsDetailsForm =
-      this._formBuilder.group({
-        inputArguments: this._formBuilder.array([
-          this.createInputArgumentFormGroup(),
-        ]),
-      });
-
     this.codingQuestionArgumentDetailsForm = this.createArgumentFormGroup();
 
     this.codingQuestionMethodDetailsForm = this._formBuilder.group({
-      methodName: [''],
+      methodName: ['', [Validators.required, validIdentifierValidator()]],
       isCollectionType: [false],
       primitiveReturnType: this._formBuilder.group({
-        id: [''],
+        id: ['', Validators.required],
       }),
       collectionReturnType: this._formBuilder.group({
         id: [''],
@@ -86,9 +87,9 @@ export class CodingQuestionComponent implements OnInit {
     });
 
     this.codingQuestionDetailsForm = this._formBuilder.group({
-      content: [''],
-      description: [''],
-      difficultyLevel: [0],
+      content: ['', Validators.required],
+      description: ['', Validators.required],
+      difficultyLevel: ['', Validators.required],
       constraints: this.codingQuestionConstraintsDetailsForm.get(
         'constraints'
       ) as FormArray,
@@ -98,11 +99,20 @@ export class CodingQuestionComponent implements OnInit {
       ) as FormArray,
     });
 
+    this.codingQuestionBasicDetailsForm = this._formBuilder.group({
+      content: ['', Validators.required],
+      description: ['', Validators.required],
+      difficultyLevel: ['', Validators.required],
+      constraints: this.codingQuestionConstraintsDetailsForm.get(
+        'constraints'
+      ) as FormArray,
+    });
+
     this.stepControl = new FormControl();
   }
 
   get constraints(): FormArray {
-    return this.codingQuestionDetailsForm.get('constraints') as FormArray;
+    return this.codingQuestionBasicDetailsForm.get('constraints') as FormArray;
   }
 
   get testCases(): FormArray {
@@ -117,10 +127,13 @@ export class CodingQuestionComponent implements OnInit {
     ) as FormArray;
   }
 
-  createInputArgumentFormGroup() {
+  createInputArgumentFormGroup(methodArgumentName: string) {
     return this._formBuilder.group({
-      methodArgumentName: [''],
-      inputValue: [''],
+      methodArgumentName: [
+        { value: methodArgumentName, disabled: true },
+        Validators.required,
+      ], // Set methodArgumentName dynamically
+      inputValue: ['', Validators.required],
     });
   }
   printDetails() {
@@ -151,29 +164,25 @@ export class CodingQuestionComponent implements OnInit {
         let inputArgumentsFormArray = testCaseFormGroup.get(
           'inputArguments'
         ) as FormArray;
-        inputArgumentsFormArray.push(this.createInputArgumentFormGroup());
       }
     });
-  }
-
-  getFormControl(controlName: string): FormControl {
-    return this.codingQuestionDetailsForm.get(controlName) as FormControl;
+    this.updateArgumentPositions();
   }
 
   createConstraintFormGroup(): FormGroup {
     return this._formBuilder.group({
-      constraint: [''],
+      constraint: ['', Validators.required],
     });
   }
 
   createArgumentFormGroup(): FormGroup {
     return this._formBuilder.group({
-      argumentName: [''],
-      argumentDataType: ['primitive'],
-      argumentPosition: [''],
+      argumentName: ['', [Validators.required, validIdentifierValidator()]],
+      argumentDataType: [''],
+      argumentPosition: [{ value: '', disabled: true }],
       isCollection: [false],
       primitiveDataType: this._formBuilder.group({
-        id: [''],
+        id: ['', Validators.required],
       }),
       collectionDataType: this._formBuilder.group({
         id: [''],
@@ -184,11 +193,9 @@ export class CodingQuestionComponent implements OnInit {
   createTestCaseFormGroup(): FormGroup {
     return this._formBuilder.group({
       isSample: [false],
-      expectedResult: [''],
-      explanationExample: [''],
-      inputArguments: this._formBuilder.array([
-        this.createInputArgumentFormGroup(),
-      ]),
+      expectedResult: ['', Validators.required],
+      explanationExample: ['', Validators.required],
+      inputArguments: this._formBuilder.array([]),
     });
   }
 
@@ -215,6 +222,7 @@ export class CodingQuestionComponent implements OnInit {
       }
     });
     this.methodArguments.removeAt(index);
+    this.updateArgumentPositions();
   }
 
   get inputArguments(): FormArray {
@@ -235,8 +243,11 @@ export class CodingQuestionComponent implements OnInit {
     while (inputArgumentsArray.length !== 0) {
       inputArgumentsArray.removeAt(0);
     }
-    methodArgumentsArray.controls.forEach(() => {
-      inputArgumentsArray.push(this.createInputArgumentFormGroup());
+    methodArgumentsArray.controls.forEach((control) => {
+      const methodArgumentName = control.get('argumentName')?.value; // Get methodArgumentName from methodArgumentsArray
+      inputArgumentsArray.push(
+        this.createInputArgumentFormGroup(methodArgumentName)
+      );
     });
     this.testCases.push(testCaseDetailsForm);
   }
@@ -257,6 +268,10 @@ export class CodingQuestionComponent implements OnInit {
 
   setReturnType(dataType: string) {
     const control = this.codingQuestionMethodDetailsForm;
+    this.codingQuestionMethodDetailsForm
+      .get('collectionReturnType')
+      ?.get('id')
+      ?.clearValidators();
     if (dataType !== 'primitive') {
       control.get('primitiveReturnType')?.reset();
     } else {
@@ -266,12 +281,20 @@ export class CodingQuestionComponent implements OnInit {
       this.codingQuestionMethodDetailsForm.patchValue({
         isCollectionType: true,
       });
+      this.codingQuestionMethodDetailsForm
+        .get('collectionReturnType')
+        ?.get('id')
+        ?.setValidators(Validators.required);
     }
     this.selectedReturnType = dataType;
   }
 
   setDataType(dataType: string, i: number) {
     this.methodArguments.controls[i].patchValue({ argumentDataType: dataType });
+    this.methodArguments.controls[i]
+      ?.get('collectionDataType')
+      ?.get('id')
+      ?.clearValidators();
     const control = this.methodArguments.controls[i] as FormGroup;
     if (dataType !== 'primitive') {
       control.get('primitiveType')?.reset();
@@ -280,6 +303,10 @@ export class CodingQuestionComponent implements OnInit {
     }
     if (dataType === 'collection') {
       this.methodArguments.controls[i].patchValue({ isCollection: true });
+      this.methodArguments.controls[i]
+        ?.get('collectionDataType')
+        ?.get('id')
+        ?.setValidators(Validators.required);
     }
   }
 
@@ -294,14 +321,31 @@ export class CodingQuestionComponent implements OnInit {
   }
   stepChanged(event: any) {
     this.selectedStepIndex = event.selectedIndex;
+    console.log(this.selectedStepIndex);
+    let previousIndex = event.previouslySelectedIndex;
+    if (previousIndex == 0 && this.selectedStepIndex == 1) {
+      this.setCodingQuestionBasicDetailsToMainForm();
+    }
+    if (previousIndex == 1 && this.selectedStepIndex == 0) {
+      this.setCodingQuestionBasicDetailsFromMainForm();
+    }
+    if (this.selectedStepIndex == 2) {
+      this.onTestCasesStepEnter();
+    }
+    if (this.selectedStepIndex === 3) {
+      console.log(this.selectedStepIndex);
+      this.codingQuestionRawFormValues =
+        this.codingQuestionDetailsForm.getRawValue();
+      console.log(this.codingQuestionRawFormValues);
+    }
   }
 
   checkIstrue(testCase: any, index: number): boolean {
     return testCase.value.isSample;
   }
   saveCodingQuestion() {
-    const formData = this.codingQuestionDetailsForm.value as CodingQuestion;
-    formData;
+    const formData =
+      this.codingQuestionDetailsForm.getRawValue() as CodingQuestion;
     this.codeRepo.saveCodingQuestion(formData).subscribe({
       next: (data: any) => {
         console.log(data);
@@ -319,5 +363,67 @@ export class CodingQuestionComponent implements OnInit {
         );
       },
     });
+  }
+
+  setCodingQuestionBasicDetailsFromMainForm() {
+    const detailsFormValues = this.codingQuestionDetailsForm.value;
+
+    // Update codingQuestionBasicDetailsForm with these values
+    this.codingQuestionBasicDetailsForm.patchValue({
+      content: detailsFormValues.content,
+      description: detailsFormValues.description,
+      difficultyLevel: detailsFormValues.difficultyLevel,
+      constraints: detailsFormValues.constraints,
+    });
+  }
+
+  setCodingQuestionBasicDetailsToMainForm() {
+    const basicFormValues = this.codingQuestionBasicDetailsForm.value;
+
+    // Update codingQuestionDetailsForm with these values
+    this.codingQuestionDetailsForm.patchValue({
+      content: basicFormValues.content,
+      description: basicFormValues.description,
+      difficultyLevel: basicFormValues.difficultyLevel,
+      constraints: basicFormValues.constraints,
+    });
+  }
+
+  updateArgumentPositions() {
+    this.methodArguments.controls.forEach((argument, index) => {
+      argument.get('argumentPosition')?.setValue(index + 1);
+    });
+  }
+
+  onTestCasesStepEnter() {
+    const methodArguments = this.methodArguments.controls.map(
+      (control) => control.get('argumentName')?.value
+    );
+
+    // Loop through each test case
+    this.testCases.controls.forEach((testCase) => {
+      const inputArgumentsArray = testCase.get('inputArguments') as FormArray;
+      const existingInputArguments = inputArgumentsArray.controls.map(
+        (control) => control.get('methodArgumentName')?.value
+      );
+
+      // Check if all method arguments are present in the inputArguments array
+      methodArguments.forEach((argumentName) => {
+        if (!existingInputArguments.includes(argumentName)) {
+          // Add missing method argument to the inputArguments array of the test case
+          inputArgumentsArray.push(
+            this.createInputArgumentFormGroup(argumentName)
+          );
+        }
+      });
+    });
+  }
+
+  getCommonDataTypeById(id: number): string | undefined {
+    if (id === null || id === undefined) {
+      return 'Unknown'; // Fallback for null or undefined
+    }
+    const dataType = this.dataTypesFromJava?.find((dt) => dt.id == id);
+    return dataType ? dataType.commonDataType : 'Empty';
   }
 }
